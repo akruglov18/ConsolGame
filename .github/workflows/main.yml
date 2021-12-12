@@ -30,3 +30,22 @@ jobs:
       run: |
         cd build/bin
         ./Tests
+  windows-msvc-build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.3
+    - name: Build
+      run: |
+        mkdir build_dir
+        cd build_dir
+        cmake CMAKE_BUILD_TYPE=RELEASE .. -DBUILD_GMOCK=OFF
+        cd .. 
+        cmake --build build_dir
+    - name: Run tests
+      run: |
+        cd build_dir/bin
+        ./Tests.exe
