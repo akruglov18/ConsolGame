@@ -12,4 +12,7 @@ include_directories("${CMAKE_SOURCE_DIR}/3rdparty/gtest/googletest/include")
 
 add_subdirectory(items)
 add_subdirectory(weapons)
+add_subdirectory(creature)
+add_subdirectory(player)
+add_subdirectory(game)
 add_subdirectory(tests)
