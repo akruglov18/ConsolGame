@@ -1,5 +1,9 @@
 #include "weapon.h"
 
+Weapon::Weapon() {
+    _type = ItemType::WEAPON;
+}
+
 double Weapon::get_damage() const {
 std::random_device device;
     std::mt19937 gen(device());

@@ -10,5 +10,6 @@ project(Consol_Game)
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/gtest")
 include_directories("${CMAKE_SOURCE_DIR}/3rdparty/gtest/googletest/include")
 
+add_subdirectory(items)
 add_subdirectory(weapons)
 add_subdirectory(tests)

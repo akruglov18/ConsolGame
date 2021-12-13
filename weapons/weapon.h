@@ -1,9 +1,11 @@
 #include <random>
+#include <items.h>
 
-class Weapon {
+class Weapon : public Items {
 public:
-    virtual double get_damage() const;
+    Weapon();
 
+    virtual double get_damage() const;
     double damage() const { return _damage; }
     int critical_chance() const { return _critical_chance; }
 
