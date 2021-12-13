@@ -1,5 +1,5 @@
-#ifndef ITEMS_H
-#define ITEMS_H
+#pragma once
+
 #include <string>
 
 enum class ItemType {
@@ -16,5 +16,3 @@ public:
 protected:
     ItemType _type = ItemType::NONE;
 };
-
-#endif // ITEMS_H
