@@ -14,5 +14,5 @@ public:
     std::string get_type_str() const;
     
 protected:
-    ItemType _type = ItemType::NONE;
+    ItemType _item_type = ItemType::NONE;
 };
