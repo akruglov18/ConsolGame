@@ -16,7 +16,7 @@ enum class TilesType
 
 class Tile
 {
-private:
+protected:
 	int _passability;
 	bool _visibility;
 	char _value;
