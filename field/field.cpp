@@ -16,16 +16,13 @@ void Field::generate_field()
 			field[i][j].set_type(chance);
 		}
 	}
-	
 }
 
 void Field::show_field()
 {
 	for (int i = 0; i < field.size(); ++i) {
 		for (int j = 0; j < field.size(); ++j) {
-			SetConsoleTextAttribute(hConsole, (WORD)((3 << 4) | field[i][j].get_color()));
 			std::cout << field[i][j].get_value();
-			SetConsoleTextAttribute(hConsole, (WORD)((3 << 4) | 0));
 		}
 	}
 }
