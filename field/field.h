@@ -10,10 +10,9 @@ private:
 	std::vector<std::vector<Tile*>> field;
 	
 public:
-	Field(std::size_t size);
+	Field(std::size_t height, std::size_t width);
 	~Field() {};
 
 	void generate_field();
 	void show_field();
-	friend std::ostream& operator<< (std::ostream& out, const Field& field);
 };

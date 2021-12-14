@@ -8,6 +8,11 @@
 //     t.set_type(1);
 //     ASSERT_EQ(t.get_value(), '~');
 // }
+// TEST(check_tile, 2) {
+//     Tile t;
+//     t.set_type(2);
+//     ASSERT_EQ(t.get_value(), ' ');
+// }
 
 // TEST(check_tile, 2) {
 //     Tile t;

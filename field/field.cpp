@@ -9,7 +9,7 @@ Field::Field(std::size_t _size)
 void Field::generate_field()
 {
 	for (int i = 0; i < field.size(); ++i) {
-		for (int j = 0; j < field.size(); ++j) {
+		for (int j = 0; j < field[i].size(); ++j) {
 			std::random_device device;
 			std::mt19937 gen(device());
 			int chance = gen() % 6 + 1;
@@ -21,13 +21,10 @@ void Field::generate_field()
 void Field::show_field()
 {
 	for (int i = 0; i < field.size(); ++i) {
-		for (int j = 0; j < field.size(); ++j) {
-			std::cout << field[i][j]->get_value();
+		for (int j = 0; j < field[i].size(); ++j) {
+			field[i][j]->print_colored_tile();
 		}
+		std::cout << '\n';
 	}
-}
-
-std::ostream& operator<< (std::ostream& out, const Field& field)
-{
-	throw 0;
+	std::cout << SET_WHITE;
 }
