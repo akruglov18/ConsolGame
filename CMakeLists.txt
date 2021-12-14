@@ -13,4 +13,7 @@ include_directories("${CMAKE_SOURCE_DIR}/3rdparty/gtest/googletest/include")
 add_subdirectory(items)
 add_subdirectory(armor_set)
 add_subdirectory(weapons)
+add_subdirectory(tiles)
+add_subdirectory(field)
 add_subdirectory(tests)
+
