@@ -1,4 +1,10 @@
 #include "tiles.h"
+#include "FloorTile/FloorTile.h"
+#include "GrassTile/GrassTile.h"
+#include "RiverTile/RiverTile.h"
+#include "RoadTile/RoadTile.h"
+#include "TreeTile/TreeTile.h"
+#include "WallTile/WallTile.h"
 
 Tile::Tile()
 {
@@ -8,39 +14,16 @@ Tile::Tile()
 	_color = 0;
 }
 
-void Tile::set_type(int type)
-{
-	_type = TilesType(type);
-	if (_type == TilesType::RIVER) {
-		_passability = 2;
-		_value = '~';
-		_color = 2;
-	}
-	else if (_type == TilesType::GRASS) {
-		_passability = 1;
-		_value = '`';
-		_color = 2;
-	}
-	else if (_type == TilesType::TREE) {
-		_passability = 0;
-		_value = '%';
-		_color = 2;
-	}
-	else if (_type == TilesType::ROAD) {
-		_passability = 1;
-		_value = 'X';
-		_color = 2;
-	}
-	else if (_type == TilesType::WALL) {
-		_passability = 0;
-		_value = '#';
-		_color = 2;
-	}
-	else if (_type == TilesType::FLOOR) {
-		_passability = 1;
-		_value = '"';
-		_color = 2;
-	}
+Tile* Tile::make_tile(TilesType type) {
+    switch(type) {
+        case TilesType::FLOOR : return new FloorTile();
+        case TilesType::GRASS : return new GrassTile();
+        case TilesType::RIVER : return new RiverTile();
+        case TilesType::ROAD  : return new RoadTile();
+        case TilesType::TREE  : return new TreeTile();
+        case TilesType::WALL  : return new WallTile();
+        default               : return nullptr;
+    }
 }
 
 std::ostream& operator<<(std::ostream& out, const Tile& tile)

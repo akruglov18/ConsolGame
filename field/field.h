@@ -7,7 +7,7 @@
 class Field
 {
 private:
-	std::vector<std::vector<Tile>> field;
+	std::vector<std::vector<Tile*>> field;
 	
 public:
 	Field(std::size_t size);
