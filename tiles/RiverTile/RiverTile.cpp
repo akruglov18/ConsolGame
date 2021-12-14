@@ -3,6 +3,6 @@
 RiverTile::RiverTile() {
     _type = TilesType::RIVER;
     _passability = 2;
-	_value = '~';
-	_color = 2;
+    _value = '~';
+    _color = 2;
 }

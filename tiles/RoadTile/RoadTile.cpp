@@ -3,6 +3,6 @@
 RoadTile::RoadTile() {
     _type = TilesType::ROAD;
     _passability = 1;
-	_value = 'X';
-	_color = 2;
+    _value = 'X';
+    _color = 2;
 }
