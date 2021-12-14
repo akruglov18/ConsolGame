@@ -11,9 +11,9 @@ class ArmorSet : public Items {
 public:
     ArmorSet();
 private:
-    Helmet _helmet;
-    BodyArmor _body_armor;
-    Gauntlets _gauntlets;
-    Pants _pants;
-    Boots _boots; 
+    Helmet* _helmet = nullptr;
+    BodyArmor* _body_armor = nullptr;
+    Gauntlets* _gauntlets = nullptr;
+    Pants* _pants = nullptr;
+    Boots* _boots = nullptr; 
 };
