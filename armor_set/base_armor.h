@@ -1,5 +1,7 @@
 #pragma once
 
+#include <items.h>
+
 enum class ArmorType{
     HELMET,
     BODY_ARMOR,
@@ -8,7 +10,9 @@ enum class ArmorType{
     BOOTS
 };
 
-class BaseArmor {
+class BaseArmor : public Items {
+public:
+    BaseArmor();
 protected:
     int _armor = 0;
     ArmorType _armor_type;

@@ -3,6 +3,6 @@
 #include <items.h>
 #include "../base_armor.h"
 
-class Pants : public Items, BaseArmor {
+class Pants : public BaseArmor {
     Pants();
 };

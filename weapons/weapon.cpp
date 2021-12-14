@@ -1,7 +1,7 @@
 #include "weapon.h"
 
 Weapon::Weapon() {
-    _type = ItemType::WEAPON;
+    _item_type = ItemType::WEAPON;
 }
 
 double Weapon::get_damage() const {
