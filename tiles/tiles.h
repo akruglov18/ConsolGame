@@ -1,10 +1,7 @@
 #pragma once
 #include <iostream>
-#include <string>
-#include <vector>
 
-enum class TilesType
-{
+enum class TilesType {
 	NONE,
 	RIVER,
 	GRASS,
@@ -14,8 +11,7 @@ enum class TilesType
 	FLOOR
 };
 
-class Tile
-{
+class Tile {
 protected:
 	int _passability;
 	bool _visibility;
@@ -33,5 +29,5 @@ public:
 	friend std::ostream& operator<< (std::ostream& out, const Tile& tile);
 	char get_value() const { return _value; }
 	int get_color() const { return _color; }
-	void set_type(int type);
+	static Tile* make_tile(TilesType type);
 };
