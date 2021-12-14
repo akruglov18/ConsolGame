@@ -2,7 +2,7 @@
 
 int main()
 {
-	Field game_field(25, 25);
+	Field game_field(25);
 
 	game_field.generate_field();
 	game_field.show_field();

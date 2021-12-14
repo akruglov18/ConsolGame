@@ -3,6 +3,6 @@
 GrassTile::GrassTile() {
     _type = TilesType::GRASS;
     _passability = 1;
-    _value = '`';
-    _color = 2;
+    _value = ' ';
+    _color = SET_GRASS;
 }

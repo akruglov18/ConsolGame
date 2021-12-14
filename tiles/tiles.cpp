@@ -10,9 +10,8 @@ Tile::Tile()
 {
 	_passability = 0;
 	_visibility = 0;
-	_value1 = ' ';
-	_value2 = ' ';
-	_color = 0;
+	_value = '0';
+	_color = SET_WHITE;
 }
 
 Tile* Tile::make_tile(TilesType type) {
@@ -27,19 +26,8 @@ Tile* Tile::make_tile(TilesType type) {
     }
 }
 
-void Tile::print_colored_tile()
+void Tile::print_colored_tile() const
 {
-	if (_color == 1)
-		std::cout << SET_DARKBLUE << _value1 << _value2;
-	else if (_color == 2)
-		std::cout << SET_1GREEN << _value1 << _value2;
-	else if (_color == 3)
-		std::cout << SET_2GREEN << _value1 << _value2;
-	else if (_color == 4)
-		std::cout << SET_1YELLOW << _value1 << _value2;
-	else if (_color == 5)
-		std::cout << SET_BLACK << _value1 << _value2;
-	else if (_color == 6)
-		std::cout << SET_2YELLOW << _value1 << _value2;
+	std::cout << _color << _value << _value;
 }
 

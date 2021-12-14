@@ -10,8 +10,8 @@ private:
 	std::vector<std::vector<Tile*>> field;
 	
 public:
-	Field(std::size_t height, std::size_t width);
-	~Field() {};
+	Field(std::size_t);
+	~Field();
 
 	void generate_field();
 	void show_field();

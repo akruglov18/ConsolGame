@@ -5,6 +5,16 @@ Field::Field(std::size_t _size)
 	field.assign(_size, std::vector<Tile*>(_size, nullptr));
 }
 
+Field::~Field()
+{
+	for (int i = 0; i < field.size(); ++i) {
+		for (int j = 0; j < field[i].size(); ++j) {
+			delete field[i][j];
+			field[i][j] = nullptr;
+		}
+	}
+}
+
 // It's supposed to be really big and sophisticated function of generation of game field, but now it's absolutely random.
 void Field::generate_field()
 {
