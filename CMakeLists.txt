@@ -16,5 +16,8 @@ add_subdirectory(armor_set)
 add_subdirectory(weapons)
 add_subdirectory(tiles)
 add_subdirectory(field)
+add_subdirectory(creature)
+add_subdirectory(player)
+add_subdirectory(moves)
 add_subdirectory(tests)
 
