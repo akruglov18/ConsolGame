@@ -2,8 +2,10 @@
 
 int main()
 {
-	Field game_field(10);
+	Field game_field(25);
 
-	std::cout << "Hello, world!\n";
+	game_field.generate_field();
+	game_field.show_field();
+
 	return 0;
 }

@@ -10,8 +10,8 @@ Tile::Tile()
 {
 	_passability = 0;
 	_visibility = 0;
-	_value = ' ';
-	_color = 0;
+	_value = '0';
+	_color = SET_WHITE;
 }
 
 Tile* Tile::make_tile(TilesType type) {
@@ -26,8 +26,8 @@ Tile* Tile::make_tile(TilesType type) {
     }
 }
 
-std::ostream& operator<<(std::ostream& out, const Tile& tile)
+void Tile::print_colored_tile() const
 {
-	out << tile._value;
-	return out;
+	std::cout << _color << _value << _value;
 }
+
