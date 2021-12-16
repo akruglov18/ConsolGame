@@ -28,11 +28,14 @@ Tile* Tile::make_tile(TilesType type) {
     }
 }
 
-void Tile::print_colored_tile() const
-{
+void Tile::print_colored_tile() const {
     std::string color = _color;
     if (_player_there)
         color = SET_PLAYER;
 	std::cout << color << _value << _value;
+}
+
+void Tile::print_tile() const {
+    std::cout << _value << _value;
 }
 

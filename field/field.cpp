@@ -72,6 +72,8 @@ void Field::generate_field()
 	}
 
 	generate_river();
+
+	field[0][0]->set_player();
 }
 
 void Field::show_field()
@@ -111,8 +113,6 @@ void Field::show_field()
 		right_border = y + _visible_region;
 	}
 
-	// If two tiles are the same, DON'T PAINT IT AGAIN!!!
-
 	// Cout with string
 
 	for (int i = top_border; i < btm_border; ++i) {
@@ -126,12 +126,24 @@ void Field::show_field()
 
 void Field::action()
 {
-	char c = getch();
-	switch (c) {
-	case KEY_UP:	Moves::up(_player.get_x(), _player.get_y(), field);		break;
-	case KEY_DOWN:	Moves::down(_player.get_x(), _player.get_y(), field);	break;
-	case KEY_LEFT:	Moves::left(_player.get_x(), _player.get_y(), field);	break;
-	case KEY_RIGHT:	Moves::right(_player.get_x(), _player.get_y(), field);	break;
-	default:																break;
+
+    #ifndef UNIX
+	switch (getch()) {
+	    case 72:	Moves::up(_player.get_x(), _player.get_y(), field);		break;
+	    case 80:	Moves::down(_player.get_x(), _player.get_y(), field);	break;
+	    case 75:	Moves::left(_player.get_x(), _player.get_y(), field);	break;
+	    case 77:	Moves::right(_player.get_x(), _player.get_y(), field);	break;
+	    default:															break;
 	}
+    #endif
+
+    #ifdef UNIX
+    switch (getch()) {
+	    case KEY_UP:	Moves::up(_player.get_x(), _player.get_y(), field);		break;
+	    case KEY_DOWN:	Moves::down(_player.get_x(), _player.get_y(), field);	break;
+	    case KEY_LEFT:	Moves::left(_player.get_x(), _player.get_y(), field);	break;
+	    case KEY_RIGHT:	Moves::right(_player.get_x(), _player.get_y(), field);	break;
+	    default:															    break;
+	}
+    #endif
 }

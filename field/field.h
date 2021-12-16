@@ -1,13 +1,15 @@
 #pragma once
+#include <iostream>
+#ifdef UNIX
+#include <ncurses.h>
+#endif
+#ifndef UNIX
+#include <conio.h>
+#endif
+
 #include "tiles.h"
 #include "player.h"
-#include <conio.h>
 #include "moves.h"
-
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
 
 class Field
 {

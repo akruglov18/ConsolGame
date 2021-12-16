@@ -45,6 +45,7 @@ public:
 
 	std::string get_color() const { return _color; }
 	void print_colored_tile() const;
+	void print_tile() const;
 
 	char get_value() const { return _value; }
 
