@@ -3,33 +3,6 @@ name: Build application
 on: [push, pull_request]
 
 jobs:
-  ubuntu-clang-build:
-    runs-on: ubuntu-latest
-    env:
-        CC: clang-9
-        CXX: clang++-9
-    steps:
-    - uses: actions/checkout@v1
-    - name: Setup environment
-      run: |
-        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-        sudo apt-get update
-        sudo apt-get install clang-9
-        sudo apt-get install python3-pip
-        sudo python3 -m pip install --upgrade pip
-    - name: Update submodules
-      run: git submodule update --init --recursive
-    - name: Build
-      run: |
-        mkdir build
-        cd build
-        cmake CMAKE_BUILD_TYPE=RELEASE .. -DBUILD_GMOCK=OFF
-        make -j4
-        cd ..
-    - name: Run tests
-      run: |
-        cd build/bin
-        ./Tests
   windows-msvc-build:
     runs-on: windows-latest
     steps:
