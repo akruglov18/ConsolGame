@@ -15,7 +15,7 @@ jobs:
       run: |
         mkdir build_dir
         cd build_dir
-        cmake -G "Visual Studio 16 2019" -Tv141 -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_SYSTEM_VERSION=10.0.19041.0 -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=TRUE -DBUILD_GMOCK=OFF ..
+        cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=TRUE -DBUILD_GMOCK=OFF ..
         cd .. 
         cmake --build build_dir --config Release --target install
     - name: Run tests
