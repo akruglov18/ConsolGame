@@ -2,7 +2,7 @@
 
 
 # How to install on VS2019
-## Pre-install
+## Pre-build
       Instal Windows SDK Version 10.0.19041.0
       Install tools v141 for VS
 ## Build
