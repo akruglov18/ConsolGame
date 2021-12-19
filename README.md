@@ -9,3 +9,4 @@
       mkdir build
       cd build
       cmake -G "Visual Studio 16 2019" -Tv141 -DCMAKE_SYSTEM_VERSION=10.0.19041.0 -DBUILD_SHARED_LIBS=TRUE ..
+      cmake --build .
