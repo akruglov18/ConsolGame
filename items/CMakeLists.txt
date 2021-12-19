@@ -1,4 +1,4 @@
-set(ProjectId Items)
+set(ProjectId items)
 project(${ProjectId})
 
 file(GLOB ALL_SOURCE_FILES *.cpp *.h *.hpp)

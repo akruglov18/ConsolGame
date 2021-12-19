@@ -28,6 +28,6 @@ Tile* Tile::make_tile(TilesType type) {
 
 void Tile::print_colored_tile() const
 {
-	std::cout << _color << _value << _value;
+	//std::cout << _color << _value << _value;
 }
 
