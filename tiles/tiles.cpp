@@ -26,8 +26,18 @@ Tile* Tile::make_tile(TilesType type) {
     }
 }
 
-void Tile::print_colored_tile() const
-{
-	//std::cout << _color << _value << _value;
+bool Tile::operator==(const Tile& tile) const {
+    return _passability == tile._passability &&
+           _visibility  == tile._visibility &&
+           _value       == tile._value &&
+           _color       == tile._color &&
+           _type        == tile._type;
 }
 
+bool Tile::operator!=(const Tile& tile) const {
+    return !(*this == tile);
+}
+
+void Tile::print_colored_tile() const {
+	//std::cout << _color << _value << _value;
+}

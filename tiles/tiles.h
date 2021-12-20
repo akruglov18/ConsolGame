@@ -39,6 +39,9 @@ public:
 
 	static Tile* make_tile(TilesType type);
 
+	bool operator==(const Tile& tile) const;
+	bool operator!=(const Tile& tile) const;
+
 	std::string get_color() const { return _color; }
 	void print_colored_tile() const;
 
