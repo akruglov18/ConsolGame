@@ -1,33 +1,30 @@
 #include <gtest/gtest.h>
 #include "field.h"
+#include "ResourceHolder.h"
 
-TEST(Tile, factory_check_types) {
-	std::vector<std::string> arr1 = { SET_RIVER, SET_GRASS, SET_TREE, SET_ROAD, SET_WALL, SET_FLOOR };
-	std::vector<std::string> arr2;
-	for (int i = 0; i < 6; ++i) {
-		Tile t = *Tile::make_tile(static_cast<TilesType>(i + 1));
-		arr2.push_back(t.get_color());
-	}
-	ASSERT_EQ(arr1, arr2);
+void test1() {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    for (int i = 0; i < 3; ++i) {
+        Tile grass = *Tile::make_tile(static_cast<TilesType>(i + 1), HOLDER().loadFromFile("../../images/grass.png", "grass"));
+        Tile river = *Tile::make_tile(static_cast<TilesType>(i + 1), HOLDER().loadFromFile("../../images/river.png", "river"));
+        Tile road = *Tile::make_tile(static_cast<TilesType>(i + 1), HOLDER().loadFromFile("../../images/road.png", "road"));
+    }
 }
 
 TEST(Tile, factory_check_values) {
-	std::vector<char> arr1 = { '~', ' ', '%', 'X', '#', '"' };
-	std::vector<char> arr2;
-	for (int i = 0; i < 6; ++i) {
-		Tile t = *Tile::make_tile(static_cast<TilesType>(i + 1));
-		arr2.push_back(t.get_value());
-	}
-	ASSERT_EQ(arr1, arr2);
+    ASSERT_NO_THROW(test1());
 }
 
-TEST(Tile, equal_tiles) {
-	std::vector<Tile> arr1;
-	std::vector<Tile> arr2;
-	for (int i = 0; i < 6; ++i) {
-		Tile t = *Tile::make_tile(static_cast<TilesType>(i + 1));
-		arr1.push_back(t);
-		arr2.push_back(t);
-	}
-	ASSERT_EQ(arr1, arr2);
+TEST(Tile, equality) {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    Tile grass = *Tile::make_tile(TilesType::GRASS, HOLDER().loadFromFile("../../images/grass.png", "grass"));
+    Tile grass2 = *Tile::make_tile(TilesType::GRASS, HOLDER().loadFromFile("../../images/grass.png", "grass"));
+    ASSERT_EQ(grass, grass2);
+}
+
+TEST(Tile, no_equality) {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    Tile grass = *Tile::make_tile(TilesType::GRASS, HOLDER().loadFromFile("../../images/grass.png", "grass"));
+    Tile river = *Tile::make_tile(TilesType::RIVER, HOLDER().loadFromFile("../../images/river.png", "river"));
+    ASSERT_NE(grass, river);
 }

@@ -3,5 +3,5 @@
 
 class RiverTile : public Tile {
 public:
-    RiverTile();
+	RiverTile(const sf::Texture* texture);
 };
