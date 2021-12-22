@@ -3,5 +3,5 @@
 
 class RoadTile : public Tile {
 public:
-    RoadTile();
+	RoadTile(const sf::Texture* texture);
 };

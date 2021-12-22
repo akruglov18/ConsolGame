@@ -3,5 +3,5 @@
 
 class GrassTile : public Tile {
 public:
-    GrassTile();
+	GrassTile(const sf::Texture* texture);
 };

@@ -1,25 +1,31 @@
 #pragma once
-#include <iostream>
-#include <vector>
-#include <random>
 #include "tiles.h"
+#include <iomanip>
+#include <numeric>
+#include <chrono>
 
 class Field
 {
 private:
-	std::vector<std::vector<Tile*>> _field;
-	
+    int _width;
+    int _height;
+    std::vector <std::vector<Tile*>> _field;
+    
 public:
-    Field(std::size_t size = 10);
-    
+    // constructors~destructor
+    Field();
+    Field(int w, int h);
     Field(Field&&);
-    Field& operator=(Field&&);
     Field(const Field&) = delete;
-    Field& operator=(const Field&) = delete;
-    
-    Tile operator()(int i, int j);
-
     ~Field();
-	void generate_field();
-	void show_field();
+    
+    // operators
+    Field& operator=(Field&&);
+    Tile operator()(int i, int j) const;
+    Field& operator=(const Field&) = delete;    
+
+    // methods
+    void set_size(int widht, int height);
+    void generate_field();
+    void show_field(sf::RenderWindow&);
 };

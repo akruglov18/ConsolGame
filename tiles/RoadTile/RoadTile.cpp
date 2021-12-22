@@ -1,8 +1,7 @@
 #include "RoadTile.h"
 
-RoadTile::RoadTile() {
-    _type = TilesType::ROAD;
-    _passability = 1;
-    _value = 'X';
-    _color = SET_ROAD;
+RoadTile::RoadTile(const sf::Texture* texture) {
+	_type = TilesType::ROAD;
+	_texture = texture;
+	scale();
 }

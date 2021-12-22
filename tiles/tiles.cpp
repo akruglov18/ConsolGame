@@ -1,36 +1,30 @@
 #include "tiles.h"
-#include "FloorTile/FloorTile.h"
 #include "GrassTile/GrassTile.h"
 #include "RiverTile/RiverTile.h"
 #include "RoadTile/RoadTile.h"
-#include "TreeTile/TreeTile.h"
-#include "WallTile/WallTile.h"
 
 Tile::Tile()
 {
-	_passability = 0;
-	_visibility = 0;
-	_value = '0';
-	_color = SET_WHITE;
+    _passability = 0;
+    _texture = nullptr;
 }
 
-Tile* Tile::make_tile(TilesType type) {
-    switch(type) {
-        case TilesType::FLOOR : return new FloorTile();
-        case TilesType::GRASS : return new GrassTile();
-        case TilesType::RIVER : return new RiverTile();
-        case TilesType::ROAD  : return new RoadTile();
-        case TilesType::TREE  : return new TreeTile();
-        case TilesType::WALL  : return new WallTile();
-        default               : return nullptr;
+Tile::~Tile() {
+    _texture = nullptr;
+}
+
+Tile* Tile::make_tile(TilesType type, const sf::Texture* txt) {
+    switch (type) {
+    case TilesType::GRASS: return new GrassTile(txt);
+    case TilesType::RIVER: return new RiverTile(txt);
+    case TilesType::ROAD: return new RoadTile(txt);
+    default: return nullptr;
     }
 }
 
 bool Tile::operator==(const Tile& tile) const {
     return _passability == tile._passability &&
-           _visibility  == tile._visibility &&
-           _value       == tile._value &&
-           _color       == tile._color &&
+           _texture     == tile._texture &&
            _type        == tile._type;
 }
 
@@ -38,6 +32,8 @@ bool Tile::operator!=(const Tile& tile) const {
     return !(*this == tile);
 }
 
-void Tile::print_colored_tile() const {
-	//std::cout << _color << _value << _value;
+void Tile::scale() {
+    _sprite.setTexture(*_texture);
+    _sprite.setTextureRect(sf::IntRect(0, 0, 320, 320));
+    _sprite.setScale(sf::Vector2f(0.1, 0.1));
 }
