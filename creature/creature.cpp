@@ -16,10 +16,10 @@ Creature::~Creature() {
 
 Creature* Creature::spawn_creature(CreatureType type, const sf::Texture* txt) {
     switch (type) {
-        case CreatureType::PLAYER:	return new Player(txt);
+        case CreatureType::PLAYER:  return new Player(txt);
         case CreatureType::BEETLE:  return new enemyBeetle(txt);
-        case CreatureType::TAUR:	return new enemyTaur(txt);
-        case CreatureType::WOLF:	return new enemyWolf(txt);
+        case CreatureType::TAUR:    return new enemyTaur(txt);
+        case CreatureType::WOLF:    return new enemyWolf(txt);
     default: return nullptr;
     }
 }
