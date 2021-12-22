@@ -1,7 +1,14 @@
 #include <gtest/gtest.h>
 #include "field.h"
 
+void load_textures() {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    HOLDER().loadFromFile("../../images/grass.png", "grass");
+    HOLDER().loadFromFile("../../images/river.png", "river");
+}
+
 TEST(Field, move_constructor) {
+    load_textures();
     int size = 4;
     Field field(size, size);
     field.generate_field();

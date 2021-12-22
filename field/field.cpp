@@ -68,9 +68,9 @@ void Field::generate_field() {
     for (int i = 0; i < _height; ++i) {
         for (int j = 0; j < _width; ++j) {
             if (j % 2)
-                _field[i][j] = Tile::make_tile(TilesType::GRASS, HOLDER().loadFromFile("../../images/grass.png", "grass"));
+                _field[i][j] = Tile::make_tile(TilesType::GRASS, HOLDER().getResource("grass"));
             else
-                _field[i][j] = Tile::make_tile(TilesType::RIVER, HOLDER().loadFromFile("../../images/river.png", "river"));
+                _field[i][j] = Tile::make_tile(TilesType::RIVER, HOLDER().getResource("river"));
             _field[i][j]->get_sprite().move(sf::Vector2f(j * 32, i * 32));
         }
     }
