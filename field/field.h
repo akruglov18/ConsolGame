@@ -27,5 +27,5 @@ public:
     // methods
     void set_size(int widht, int height);
     void generate_field();
-    void show_field(sf::RenderWindow&);
+    void show_field(sf::RenderWindow&, const sf::Vector2f&);
 };
