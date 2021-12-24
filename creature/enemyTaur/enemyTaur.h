@@ -3,5 +3,5 @@
 
 class enemyTaur : public Creature {
 public:
-    enemyTaur(const sf::Texture* texture);
+    enemyTaur(const sf::Texture* texture, CreatureManager& manager);
 };

@@ -1,6 +1,5 @@
 #include "enemyWolf.h"
 
-enemyWolf::enemyWolf(const sf::Texture* texture) {
+enemyWolf::enemyWolf(const sf::Texture* texture, CreatureManager& manager) : Creature(texture, manager) {
     _type = CreatureType::WOLF;
-    _texture = texture;
 }

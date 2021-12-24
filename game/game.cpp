@@ -9,8 +9,9 @@ Game::Game() {
     _view.reset(sf::FloatRect(0, 0, 1280, 720));
 
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _player = Creature::spawn_creature(CreatureType::PLAYER, HOLDER().getResource("player"));
+    _player = std::make_shared<Creature>(*Creature::spawn_creature(CreatureType::PLAYER, HOLDER().getResource("player"), _manager));
     _player->set_pos(64, 64); // pixels
+    _manager.setPlayer(_player);
 }
 
 void Game::game_loop() {    
