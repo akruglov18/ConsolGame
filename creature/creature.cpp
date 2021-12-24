@@ -7,6 +7,7 @@
 Creature::Creature() {
     _current_frame = 0;
     _health = 100;
+    _pos.x = _pos.y = 32; // Initial position
     _texture = nullptr;
 }
 
@@ -24,10 +25,16 @@ Creature* Creature::spawn_creature(CreatureType type, const sf::Texture* txt) {
     }
 }
 
-void Creature::update(sf::Keyboard::Key key, float time) {
-    Action::action(key, get_sprite(), time, get_frame());
+void Creature::update(sf::Keyboard::Key key, float time, int right_border, int btm_border) {
+    Action::action(key, get_sprite(), time, get_frame(), get_pos(), right_border, btm_border);
 }
 
 void Creature::stay(sf::Keyboard::Key key) {
+    _sprite.setPosition(_pos);
     Action::stop(key, get_sprite());
+}
+
+void Creature::set_pos(float x, float y) {
+    _pos.x = x;
+    _pos.y = y;
 }

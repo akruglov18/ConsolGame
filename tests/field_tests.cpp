@@ -65,3 +65,20 @@ TEST(Field, equal_after_move_assignement) {
     }
     ASSERT_TRUE(res);
 }
+
+void test_show_field() {
+    for (int i = 64; i <= 1024; i *= 2) {
+        sf::RenderWindow _window{ sf::VideoMode(1280, 720), "TEST" };
+        Field field(i, i);
+        field.generate_field();
+        for (int j = 4; j <= i - 4; j++) {
+            sf::Vector2f pos(j, j);
+            field.show_field(_window, pos);
+        }
+        _window.close();
+    }
+}
+
+TEST(Field, show_field) {
+    ASSERT_NO_THROW(test_show_field());
+}
