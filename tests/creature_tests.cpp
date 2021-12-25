@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "creature.h"
 #include "Player/player.h"
+#include "ResourceHolder.h"
 
 TEST(CreatureManager, can_create) {
     ASSERT_NO_THROW(CreatureManager());
