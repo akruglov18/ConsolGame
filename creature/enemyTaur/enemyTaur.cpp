@@ -1,6 +1,5 @@
 #include "enemyTaur.h"
 
-enemyTaur::enemyTaur(const sf::Texture* texture) {
+enemyTaur::enemyTaur(const sf::Texture* texture, CreatureManager& manager) : Creature(texture, manager) {
     _type = CreatureType::TAUR;
-    _texture = texture;
 }

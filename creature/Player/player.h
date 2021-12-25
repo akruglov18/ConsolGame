@@ -1,8 +1,7 @@
 #pragma once
 #include "creature.h"
 
-class Player : public Creature
-{
+class Player : public Creature {
 private:
 
     // Personal characteristics which will be available in another class of CHARACTER
@@ -27,6 +26,6 @@ private:
     sf::Sprite _sprite_hands;*/
 
 public:
-    Player(const sf::Texture*);
+    Player(const sf::Texture* texture, CreatureManager& manager);
 };
 

@@ -15,8 +15,9 @@ enum class CreatureType {
     WOLF
 };
 
-class Creature
-{
+class CreatureManager;
+
+class Creature {
 protected:
     // general
     int _health;
@@ -24,16 +25,19 @@ protected:
     sf::Vector2f _pos;
     const sf::Texture* _texture;
     sf::Sprite _sprite;
-    
+    CreatureManager& _manager;
+
     CreatureType _type = CreatureType::NONE;
 
 public:
     // Constructor ~ Destructor
-    Creature();
+    Creature(const sf::Texture* texture, CreatureManager& manager);
+    Creature(const Creature&);
     virtual ~Creature();
 
     // Methods
-    static Creature* spawn_creature(CreatureType, const sf::Texture*);
+    CreatureType get_type() const { return _type; }
+    static Creature* spawn_creature(CreatureType, const sf::Texture*, CreatureManager&);
     void update(sf::Keyboard::Key, float, int, int);
     void stay(sf::Keyboard::Key);
 
@@ -48,3 +52,12 @@ public:
     void die();
 };
 
+class CreatureManager {
+public:
+    CreatureManager() {};
+    void setPlayer(std::shared_ptr<Creature>& player);
+    void creatureDied(Creature* creature);
+    ~CreatureManager() {};
+private:
+    std::weak_ptr<Creature> _player;
+};
