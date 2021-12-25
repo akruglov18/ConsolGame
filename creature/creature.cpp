@@ -9,6 +9,7 @@ Creature::Creature(const sf::Texture* texture, CreatureManager& manager, int hea
     _texture = texture;
     _sprite.setTexture(*texture);
     _sprite.setPosition(pos);
+    _direction = 4;
 }
 
 Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other._pos) {
@@ -17,6 +18,7 @@ Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other
     _texture = other._texture;
     _sprite = other._sprite;
     _type = other._type;
+    _direction = other._direction;
 }
 
 Creature::~Creature() {

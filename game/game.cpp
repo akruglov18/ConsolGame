@@ -36,6 +36,9 @@ void Game::game_loop() {
             _player->action(key, time, _game_region_width, _game_region_height);
             get_player_pos_for_view(_player->get_pos()); 
         }
+        else {
+            _player->stay(_player->get_dir());
+        }
 
         for(auto& x : _enemies) {
              x->action(_player, time, _game_region_width, _game_region_height);

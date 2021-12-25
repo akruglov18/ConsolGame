@@ -33,6 +33,7 @@ public:
     sf::Sprite& get_sprite() { return _sprite; }
     sf::Vector2f& get_pos() { return _pos; }
     float& get_frame() { return _current_frame; }
+    int& get_dir() { return _direction; }
     void set_pos(float x, float y);
 
     void set_health(int health);
@@ -42,6 +43,7 @@ protected:
     int _health;
     int _experience;
     float _current_frame;
+    int _direction;
     sf::Vector2f _pos;
     const sf::Texture* _texture;
     sf::Sprite _sprite;
