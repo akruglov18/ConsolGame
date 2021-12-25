@@ -53,8 +53,8 @@ protected:
 class CreatureManager {
 public:
     CreatureManager() {};
-    void setPlayer(std::shared_ptr<Player>& player);
-    void creatureDied(Creature* creature);
+    void setPlayer(const std::shared_ptr<Player>& player);
+    void creatureDied(const Creature* creature);
     ~CreatureManager() {};
 private:
     std::weak_ptr<Player> _player;
