@@ -1,38 +1,39 @@
 #include "Action.h"
 
-void Action::action(sf::Keyboard::Key key, sf::Sprite& hero_sprite, float time, float& cur, sf::Vector2f& pos, int right_border, int btm_border) {
+void Action::move(sf::Keyboard::Key key, sf::Sprite& hero_sprite, float time, 
+                  float& current_frame, sf::Vector2f& pos, int right_border, int btm_border) {
     switch (key) {
         case(sf::Keyboard::Left):
-            cur += 0.15 * time;
+            current_frame += 0.15f * time;
             if (pos.x > 16)
                 pos.x -= time;
             hero_sprite.setPosition(pos);
-            if (cur > 8) cur = 0;
-            hero_sprite.setTextureRect(sf::IntRect(((int)cur + 1) * 64, 64, 64, 64));
+            if (current_frame > 8) current_frame = 0;
+            hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
             break;
         case(sf::Keyboard::Right):
-            cur += 0.15 * time;
+            current_frame += 0.15f * time;
             if (pos.x < right_border - 80)
                 pos.x += time;
             hero_sprite.setPosition(pos);
-            if (cur > 8) cur = 0;
-            hero_sprite.setTextureRect(sf::IntRect(((int)cur + 1) * 64, 192, 64, 64));
+            if (current_frame > 8) current_frame = 0;
+            hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
             break;
         case(sf::Keyboard::Up):
-            cur += 0.15 * time;
+            current_frame += 0.15f * time;
             if (pos.y > 16)
                 pos.y -= time;
             hero_sprite.setPosition(pos);
-            if (cur > 8) cur = 0;
-            hero_sprite.setTextureRect(sf::IntRect(((int)cur + 1) * 64, 0, 64, 64));
+            if (current_frame > 8) current_frame = 0;
+            hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
             break;
         case(sf::Keyboard::Down):
-            cur += 0.15 * time;
+            current_frame += 0.15f * time;
             if (pos.y < btm_border - 96)
                 pos.y += time;
             hero_sprite.setPosition(pos);
-            if (cur > 8) cur = 0;
-            hero_sprite.setTextureRect(sf::IntRect(((int)cur + 1) * 64, 128, 64, 64));
+            if (current_frame > 8) current_frame = 0;
+            hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
             break;
     }
     //std::cout << pos.x << ' ' << pos.y << '\n';

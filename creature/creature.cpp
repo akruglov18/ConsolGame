@@ -1,18 +1,17 @@
 #include "creature.h"
 #include "Player/player.h"
-#include "enemyBeetle/enemyBeetle.h"
-#include "enemyTaur/enemyTaur.h"
-#include "enemyWolf/enemyWolf.h"
+#include "ResourceHolder.h"
 
-Creature::Creature(const sf::Texture* texture, CreatureManager& manager) : _manager(manager) {
+Creature::Creature(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos) : 
+                   _manager(manager), _pos(pos) {
     _current_frame = 0;
-    _health = 100;
-    _pos.x = _pos.y = 32; // Initial position
+    _health = health;
     _texture = texture;
     _sprite.setTexture(*texture);
+    _sprite.setPosition(pos);
 }
 
-Creature::Creature(const Creature& other) : _manager(other._manager) {
+Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other._pos) {
     _current_frame = other._current_frame;
     _health = other._health;
     _texture = other._texture;
@@ -24,30 +23,22 @@ Creature::~Creature() {
     _texture = nullptr;
 }
 
-Creature* Creature::spawn_creature(CreatureType type, const sf::Texture* txt, CreatureManager& manager) {
-    switch (type) {
-        case CreatureType::PLAYER:  return new Player(txt, manager);
-        case CreatureType::BEETLE:  return new enemyBeetle(txt, manager);
-        case CreatureType::TAUR:    return new enemyTaur(txt, manager);
-        case CreatureType::WOLF:    return new enemyWolf(txt, manager);
-    default: return nullptr;
-    }
-}
-
-void Creature::update(sf::Keyboard::Key key, float time, int right_border, int btm_border) {
-    Action::action(key, get_sprite(), time, get_frame(), get_pos(), right_border, btm_border);
-}
-
-void Creature::stay(sf::Keyboard::Key key) {
-    _sprite.setPosition(_pos);
-    Action::stop(key, get_sprite());
-}
-
 void Creature::set_pos(float x, float y) {
     _pos.x = x;
     _pos.y = y;
 }
-void CreatureManager::setPlayer(std::shared_ptr<Creature>& player){
+
+void Creature::reduce_health(int value) {
+    _health -= value;
+    if(_health < 0)
+        _manager.creatureDied(this);
+}
+
+void Creature::add_experience(int exp) {
+    _experience += exp;
+}
+
+void CreatureManager::setPlayer(std::shared_ptr<Player>& player){
     _player = player;
 }
 
@@ -57,10 +48,8 @@ void CreatureManager::creatureDied(Creature* creature) {
 
     if(creature->get_type() == CreatureType::PLAYER) {
         // end game
+        return;
     }
-
-    // another types is enemies
-    /*
-        code for enemies
-    */
+    auto player = _player.lock();
+    player->add_experience(10);
 }
