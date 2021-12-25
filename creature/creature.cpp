@@ -38,11 +38,11 @@ void Creature::add_experience(int exp) {
     _experience += exp;
 }
 
-void CreatureManager::setPlayer(std::shared_ptr<Player>& player){
+void CreatureManager::setPlayer(const std::shared_ptr<Player>& player){
     _player = player;
 }
 
-void CreatureManager::creatureDied(Creature* creature) {
+void CreatureManager::creatureDied(const Creature* creature) {
     if(creature->get_type() == CreatureType::NONE)
         throw std::logic_error("Creature died, Creture type: NONE");
 

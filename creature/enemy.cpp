@@ -23,6 +23,6 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
     }
 }
 
-void Enemy::action(std::shared_ptr<Player>& player, float time, int right_border, int btm_border) {
+void Enemy::action(const std::shared_ptr<Player>& player, float time, int right_border, int btm_border) {
     Action::move(sf::Keyboard::Right, get_sprite(), time, get_frame(), get_pos(), right_border, btm_border);
 }
