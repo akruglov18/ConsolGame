@@ -2,9 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <algorithm>
-#include "Action.h"
-#include "ResourceHolder.h"
+#include "sfml/Graphics.hpp"
 
 enum class CreatureType {
     NONE,
@@ -12,34 +10,24 @@ enum class CreatureType {
     TRADER,
     BEETLE,
     TAUR,
-    WOLF
+    WOLF,
+    SKELETON
 };
 
 class CreatureManager;
+class Player;
 
 class Creature {
-protected:
-    // general
-    int _health;
-    float _current_frame;
-    sf::Vector2f _pos;
-    const sf::Texture* _texture;
-    sf::Sprite _sprite;
-    CreatureManager& _manager;
-
-    CreatureType _type = CreatureType::NONE;
-
 public:
     // Constructor ~ Destructor
-    Creature(const sf::Texture* texture, CreatureManager& manager);
+    Creature(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos);
     Creature(const Creature&);
     virtual ~Creature();
 
     // Methods
     CreatureType get_type() const { return _type; }
-    static Creature* spawn_creature(CreatureType, const sf::Texture*, CreatureManager&);
-    void update(sf::Keyboard::Key, float, int, int);
-    void stay(sf::Keyboard::Key);
+    void reduce_health(int value);
+    void add_experience(int exp);
 
     //getters & setters
     sf::Sprite& get_sprite() { return _sprite; }
@@ -47,17 +35,27 @@ public:
     float& get_frame() { return _current_frame; }
     void set_pos(float x, float y);
 
-    // for enemies
     void set_health(int health);
-    void die();
+
+protected:
+    // general
+    int _health;
+    int _experience;
+    float _current_frame;
+    sf::Vector2f _pos;
+    const sf::Texture* _texture;
+    sf::Sprite _sprite;
+    CreatureManager& _manager;
+
+    CreatureType _type = CreatureType::NONE;
 };
 
 class CreatureManager {
 public:
     CreatureManager() {};
-    void setPlayer(std::shared_ptr<Creature>& player);
+    void setPlayer(std::shared_ptr<Player>& player);
     void creatureDied(Creature* creature);
     ~CreatureManager() {};
 private:
-    std::weak_ptr<Creature> _player;
+    std::weak_ptr<Player> _player;
 };

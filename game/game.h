@@ -1,6 +1,8 @@
 #pragma once
 #include "field.h"
 #include "creature.h"
+#include "player/player.h"
+#include "enemy.h"
 
 class Game {
 private:
@@ -9,8 +11,8 @@ private:
 	Field _game_field{_size, _size};
 	int _game_region_width = _size * 32; // size in pixels
 	int _game_region_height = _size * 32;
-	std::shared_ptr<Creature> _player;
-	std::vector<Creature*> enemies;
+	std::shared_ptr<Player> _player;
+	std::vector<std::shared_ptr<Enemy>> _enemies;
     CreatureManager _manager;
 	sf::View _view;
 

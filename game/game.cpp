@@ -9,22 +9,21 @@ Game::Game() {
     _view.reset(sf::FloatRect(0, 0, 1280, 720));
 
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _player = std::make_shared<Creature>(*Creature::spawn_creature(CreatureType::PLAYER, HOLDER().getResource("player"), _manager));
-    _player->set_pos(64, 64); // pixels
+    _player = std::make_shared<Player>(Player(HOLDER().getResource("player"), _manager, 100, {32.f, 32.f}));
+    get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
+
+    _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, {400.f, 50.f}));
 }
 
 void Game::game_loop() {    
-
     sf::Clock clock;
-
     sf::Keyboard::Key key = sf::Keyboard::Down;
+    render();
     while (_window.isOpen()) {
-
         // The regulator of game speed
-        float time = clock.getElapsedTime().asMicroseconds();
+        auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
-        time /= 15000;
 
         sf::Event event;
         while (_window.pollEvent(event)) {
@@ -34,12 +33,12 @@ void Game::game_loop() {
 
         if (event.type == sf::Event::KeyPressed) {
             key = event.key.code;
-            _player->update(key, time, _game_region_width, _game_region_height);
+            _player->action(key, time, _game_region_width, _game_region_height);
             get_player_pos_for_view(_player->get_pos()); 
         }
-        else {
-            _player->stay(key);
-            get_player_pos_for_view(_player->get_pos());
+
+        for(auto& x : _enemies) {
+             x->action(_player, time, _game_region_width, _game_region_height);
         }
 
         //creatures_movements();
@@ -55,13 +54,16 @@ void Game::render() {
     _game_field.show_field(_window, _player->get_pos());
     //show_enemies();
     _window.draw(_player->get_sprite());
+    for(auto& x : _enemies) {
+            _window.draw(x->get_sprite());
+    }
     _window.display();
 }
 
 sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
     // sets camera center as player's coordinates
-    float temp_x = pos.x;
-    float temp_y = pos.y;
+    auto temp_x = pos.x;
+    auto temp_y = pos.y;
     if (pos.x < _window.getSize().x / 2)
         temp_x = _window.getSize().x / 2;
     if (pos.y < _window.getSize().y / 2)
@@ -82,6 +84,7 @@ sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
 void Game::load_textures() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     HOLDER().loadFromFile("../../images/player/walkcycle/BODY_male.png", "player");
+    HOLDER().loadFromFile("../../images/player/walkcycle/BODY_skeleton.png", "skeleton");
     HOLDER().loadFromFile("../../images/grass.png", "grass");
     HOLDER().loadFromFile("../../images/river.png", "river");
 }
