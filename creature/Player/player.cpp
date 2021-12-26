@@ -8,15 +8,19 @@ Player::Player(const sf::Texture* texture, CreatureManager& manager, int health,
 }
 
 void Player::action(sf::Keyboard::Key key, float time, int right_border, int btm_border) {
-    if(key == sf::Keyboard::Right || key == sf::Keyboard::Up || 
-       key == sf::Keyboard::Left || key == sf::Keyboard::Down) {
-        Action::move(key, _sprite, time, _current_frame, _pos, right_border, btm_border);
-        return;
+    // all possible actions in switch
+    switch (key) {
+        case(sf::Keyboard::Left):   Action::move_left(get_dir(), _sprite, time, _current_frame, _pos);                 break;
+        case(sf::Keyboard::Right):  Action::move_right(get_dir(), _sprite, time, _current_frame, _pos, right_border);  break;
+        case(sf::Keyboard::Up):     Action::move_up(get_dir(), _sprite, time, _current_frame, _pos);                   break;
+        case(sf::Keyboard::Down):   Action::move_down(get_dir(), _sprite, time, _current_frame, _pos, btm_border);     break;
+        //case(cut)
+        //case(hit)
+        //case(use)
+        //...
     }
-    stay(key);
 }
 
-void Player::stay(sf::Keyboard::Key key) {
-    _sprite.setPosition(_pos);
-    Action::stop(key, get_sprite());
+void Player::stay(int direction) {
+    Action::stop(direction, _sprite);
 }
