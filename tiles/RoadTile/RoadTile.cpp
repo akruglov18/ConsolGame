@@ -3,5 +3,4 @@
 RoadTile::RoadTile(const sf::Texture* texture) {
 	_type = TilesType::ROAD;
 	_texture = texture;
-	scale();
 }

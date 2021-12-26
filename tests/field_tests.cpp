@@ -1,22 +1,25 @@
 #include <gtest/gtest.h>
 #include "field.h"
 
-void load_textures() {
+void load_textures_f() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    HOLDER().loadFromFile("../../images/grass.png", "grass");
-    HOLDER().loadFromFile("../../images/river.png", "river");
+    HOLDER().loadFromFile("../../images/terrain/128px/sand1.png", "sand1");
+    HOLDER().loadFromFile("../../images/terrain/128px/borders_sand1.png", "borders_sand1");
+    HOLDER().loadFromFile("../../images/terrain/128px/grass1.png", "grass1");
+    HOLDER().loadFromFile("../../images/terrain/128px/water1.png", "water1");
+    HOLDER().loadFromFile("../../images/terrain/features/oasis1.png", "oasis1");
 }
 
 TEST(Field, move_constructor) {
-    load_textures();
-    int size = 4;
+    load_textures_f();
+    int size = 128;
     Field field(size, size);
     field.generate_field();
     ASSERT_NO_THROW(Field field2 = std::move(field));
 }
 
 TEST(Field, move_assignement) {
-    int size = 8;
+    int size = 128;
     Field field(size, size);
     field.generate_field();
     Field field2;
@@ -24,7 +27,7 @@ TEST(Field, move_assignement) {
 }
 
 TEST(Field, equal_after_move_constructor) {
-    int size = 16;
+    int size = 128;
     Field field(size, size);
     field.generate_field();
     std::vector<std::vector<Tile>> tiles(size, std::vector<Tile>(size));
@@ -45,7 +48,7 @@ TEST(Field, equal_after_move_constructor) {
 }
 
 TEST(Field, equal_after_move_assignement) {
-    int size = 32;
+    int size = 128;
     Field field(size, size);
     field.generate_field();
     std::vector<std::vector<Tile>> tiles(size, std::vector<Tile>(size));
@@ -67,7 +70,7 @@ TEST(Field, equal_after_move_assignement) {
 }
 
 void test_show_field() {
-    for (int i = 64; i <= 1024; i *= 2) {
+    for (int i = 64; i <= 512; i *= 2) {
         sf::RenderWindow _window{ sf::VideoMode(1280, 720), "TEST" };
         Field field(i, i);
         field.generate_field();

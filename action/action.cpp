@@ -9,7 +9,7 @@
 
 void Action::move_left(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos) {
     current_frame += 0.15f * time;
-    if (pos.x > 16)
+    if (pos.x > 96)
         pos.x -= time;
     hero_sprite.setPosition(pos);
     if (current_frame > 8) current_frame = 0;
@@ -19,7 +19,7 @@ void Action::move_left(int& dir, sf::Sprite& hero_sprite, float time, float& cur
 
 void Action::move_right(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, int right_border) {
     current_frame += 0.15f * time;
-    if (pos.x < right_border - 80)
+    if (pos.x < right_border - 160)
         pos.x += time;
     hero_sprite.setPosition(pos);
     if (current_frame > 8) current_frame = 0;
@@ -29,7 +29,7 @@ void Action::move_right(int& dir, sf::Sprite& hero_sprite, float time, float& cu
 
 void Action::move_up(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos) {
     current_frame += 0.15f * time;
-    if (pos.y > 16)
+    if (pos.y > 64)
         pos.y -= time;
     hero_sprite.setPosition(pos);
     if (current_frame > 8) current_frame = 0;
@@ -39,7 +39,7 @@ void Action::move_up(int& dir, sf::Sprite& hero_sprite, float time, float& curre
 
 void Action::move_down(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, int btm_border) {
     current_frame += 0.15f * time;
-    if (pos.y < btm_border - 96)
+    if (pos.y < btm_border - 176)
         pos.y += time;
     hero_sprite.setPosition(pos);
     if (current_frame > 8) current_frame = 0;

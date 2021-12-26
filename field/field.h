@@ -24,8 +24,28 @@ public:
     Tile operator()(int i, int j) const;
     Field& operator=(const Field&) = delete;    
 
-    // methods
+    // getters & setters
     void set_size(int widht, int height);
+
+    // map generation & render//
+
+    // Every biome is 128x128 tiles region
+    void generate_desert();
+    void generate_savanna();
+    void generate_grassland();
+    void generate_snowland();
+
+    void generate_rivers();
+    void generate_lakes();
+    
+    void generate_trees();    
+    void generate_roads();
+    void generate_buildings();
+
+    void generate_treasures();
+    void generate_trade_stores();
+
     void generate_field();
+
     void show_field(sf::RenderWindow&, const sf::Vector2f&);
 };
