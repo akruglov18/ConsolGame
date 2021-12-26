@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "sfml/Graphics.hpp"
+#include "field.h"
 
 enum class CreatureType {
     NONE,

@@ -25,9 +25,11 @@ enum class TilesType {
 
 class Tile {
 protected:
-    int _passability;
+    bool _passability;
     const sf::Texture* _texture;
     sf::Sprite _sprite;
+    const sf::Texture* _feature_texture;
+    sf::Sprite _feature_sprite;
 
     TilesType _type = TilesType::NONE;
 
@@ -43,9 +45,14 @@ public:
     //methods
     static Tile* make_tile(TilesType type, const sf::Texture*);
     sf::Sprite print_tile() const { return _sprite; }
+    sf::Sprite print_feature() const { return _feature_sprite; }
     void scale(int i, int j);
     void scale_borders(int i, int j, int r_b, int btm_b);
 
-    // getters
+    // getters & setters
+    bool get_passability() { return _passability; }
+    void set_passability(bool f) { _passability = f; }
+    void set_desert_feature(const sf::Texture*, int);
     sf::Sprite& get_sprite() { return _sprite; }
+    sf::Sprite& get_feature() { return _feature_sprite; }
 };

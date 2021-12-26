@@ -68,14 +68,27 @@ void Field::generate_desert() {
     // Borders
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < _width; ++j) {
-            temp[i][j] = 'B';
-            temp[i + _height - 4][j] = 'B';
+            temp[i][j] = temp[i + _height - 4][j] = temp[j][i] = temp[j][i + _width - 4] = 'B';
         }
     }
-    for (int i = 0; i < _height; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            temp[i][j] = 'B';
-            temp[i][j + _width - 4] = 'B';
+
+    // Desert cracks and dry earth
+    for (int i = 16; i < _height - 16; i += 48) {
+        for (int j = 16; j < _width - 16; j += 48) {
+            int height = gen() % 6 + 12;
+            int start_x = gen() % 13 - 6 + j;
+            int start_y = gen() % 13 - 6 + i;
+            int dir = -1 + 2 * gen() % 2;
+            while (height--) {
+                int width = gen() % 5 + 6 - height / 4;
+                if (height < 5)
+                    width -= gen() % 3 + 3;
+                for (int k = start_x; k < start_x + width; ++k) {
+                    temp[start_y][k] = 'c';
+                }
+                start_y++;
+                start_x += dir * gen() % 3;
+            }
         }
     }
     
@@ -95,22 +108,40 @@ void Field::generate_desert() {
         }
     }
 
-    // TEXTURING
+    // TERRAIN TEXTURING
     for (int i = 0; i < _height; ++i) {
         for (int j = 0; j < _width; ++j) {
             switch (temp[i][j]) {
                 case('s'):
                     _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("sand1")); break;
                 case('O'):
-                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("oasis1")); break;
+                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("oasis1"));
+                    _field[i][j]->set_passability(false);
+                    break;
                 case('B'):
-                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("borders_sand1")); break;
+                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("borders_sand1"));
+                    _field[i][j]->set_passability(false);
+                    break;
+                case('c'):
+                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("dry1")); break;                    
             }
             if (temp[i][j] == 'B')
                 _field[i][j]->scale_borders(i, j, _width, _height);
             else
                 _field[i][j]->scale(i, j);
             _field[i][j]->get_sprite().move(sf::Vector2f(j * 32, i * 32));
+        }
+    }
+
+    // Generating and rendering features
+    for (int i = 8; i < _height - 8; ++i) {
+        for (int j = 8; j < _width - 8; ++j) {
+            if (temp[i][j] == 's') {
+                if (gen() % 32 == 0) {
+                    _field[i][j]->set_desert_feature(HOLDER().getResource("desert_features"), gen() % 6);
+                    _field[i][j]->get_feature().move(sf::Vector2f(j * 32, i * 32));
+                }                
+            }
         }
     }
 }
@@ -157,9 +188,18 @@ void Field::show_field(sf::RenderWindow& window, const sf::Vector2f& pos) {
         top_border = std::max(0, static_cast<int>(((pos.y - window_height / 2) / tile_size)));
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // rendering terrain
     for (int i = top_border; i < btm_border; ++i) {
         for (int j = left_border; j < right_border; ++j) {
             window.draw(_field[i][j]->print_tile());
         }
     }
+
+    // rendering features
+    for (int i = top_border; i < btm_border; ++i) {
+        for (int j = left_border; j < right_border; ++j) {
+            window.draw(_field[i][j]->print_feature());
+        }
+    }
+    
 }

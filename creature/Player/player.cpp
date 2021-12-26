@@ -7,13 +7,13 @@ Player::Player(const sf::Texture* texture, CreatureManager& manager, int health,
     _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
 }
 
-void Player::action(sf::Keyboard::Key key, float time, int right_border, int btm_border) {
+void Player::action(sf::Keyboard::Key key, float time, const Field& game_field) {
     // all possible actions in switch
     switch (key) {
-        case(sf::Keyboard::Left):   Action::move_left(get_dir(), _sprite, time, _current_frame, _pos);                 break;
-        case(sf::Keyboard::Right):  Action::move_right(get_dir(), _sprite, time, _current_frame, _pos, right_border);  break;
-        case(sf::Keyboard::Up):     Action::move_up(get_dir(), _sprite, time, _current_frame, _pos);                   break;
-        case(sf::Keyboard::Down):   Action::move_down(get_dir(), _sprite, time, _current_frame, _pos, btm_border);     break;
+        case(sf::Keyboard::Left):   Action::move_left(get_dir(), _sprite, time, _current_frame, _pos, game_field);  break;
+        case(sf::Keyboard::Right):  Action::move_right(get_dir(), _sprite, time, _current_frame, _pos, game_field); break;
+        case(sf::Keyboard::Up):     Action::move_up(get_dir(), _sprite, time, _current_frame, _pos, game_field);    break;
+        case(sf::Keyboard::Down):   Action::move_down(get_dir(), _sprite, time, _current_frame, _pos, game_field);  break;
         //case(cut)
         //case(hit)
         //case(use)

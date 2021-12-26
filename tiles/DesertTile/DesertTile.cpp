@@ -3,4 +3,5 @@
 DesertTile::DesertTile(const sf::Texture* texture) {
 	_type = TilesType::DESERT;
 	_texture = texture;
+	_sprite.setTexture(*_texture);
 }

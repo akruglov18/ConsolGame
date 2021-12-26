@@ -9,7 +9,7 @@ Game::Game() {
     _view.reset(sf::FloatRect(0, 0, 1280, 720));
 
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _player = std::make_shared<Player>(Player(HOLDER().getResource("player"), _manager, 100, {356.f, 356.f}));
+    _player = std::make_shared<Player>(Player(HOLDER().getResource("player"), _manager, 100, {366.f, 366.f}));
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
 
@@ -32,7 +32,7 @@ void Game::game_loop() {
 
         if (event.type == sf::Event::KeyPressed) {
             key = event.key.code;
-            _player->action(key, time, _game_region_width, _game_region_height);
+            _player->action(key, time, _game_field);
             get_player_pos_for_view(_player->get_pos()); 
         }
         else {
@@ -40,7 +40,7 @@ void Game::game_loop() {
         }
 
         for(auto& x : _enemies) {
-             x->action(_player, time, _game_region_width, _game_region_height);
+             x->action(_player, time, _game_field);
         }
 
         ////////////RENDER///////////
@@ -97,5 +97,8 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/terrain/128px/desert1.png", "desert1");
     HOLDER().loadFromFile("../../images/terrain/128px/dry1.png", "dry1");
     HOLDER().loadFromFile("../../images/terrain/128px/borders_sand1.png", "borders_sand1");
+
+    // Terrain Features
     HOLDER().loadFromFile("../../images/terrain/features/oasis1.png", "oasis1");
+    HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
 }

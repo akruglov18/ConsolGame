@@ -7,44 +7,44 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////////////////
 
-void Action::move_left(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos) {
+void Action::move_left(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
     current_frame += 0.15f * time;
-    if (pos.x > 96)
+    if (game_field(pos.y / 32 + 1, (pos.x - time) / 32 + 1).get_passability())
         pos.x -= time;
-    hero_sprite.setPosition(pos);
+    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
     hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
-    dir = 1;
+    dir = Left;
 }
 
-void Action::move_right(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, int right_border) {
+void Action::move_right(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
     current_frame += 0.15f * time;
-    if (pos.x < right_border - 160)
+    if ((game_field(pos.y / 32 + 1, (pos.x + time) / 32 + 1).get_passability()))
         pos.x += time;
-    hero_sprite.setPosition(pos);
+    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
     hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
-    dir = 2;
+    dir = Right;
 }
 
-void Action::move_up(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos) {
+void Action::move_up(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
     current_frame += 0.15f * time;
-    if (pos.y > 64)
+    if ((game_field((pos.y - time) / 32 + 1, pos.x / 32 + 1).get_passability()))
         pos.y -= time;
-    hero_sprite.setPosition(pos);
+    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
     hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
-    dir = 3;
+    dir = Up;
 }
 
-void Action::move_down(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, int btm_border) {
+void Action::move_down(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
     current_frame += 0.15f * time;
-    if (pos.y < btm_border - 176)
+    if ((game_field((pos.y + time) / 32 + 1, pos.x / 32 + 1).get_passability()))
         pos.y += time;
-    hero_sprite.setPosition(pos);
+    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
     hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
-    dir = 4;
+    dir = Down;
 }
 
 void Action::stop(int dir, sf::Sprite& hero_sprite) {

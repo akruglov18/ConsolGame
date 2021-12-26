@@ -8,7 +8,7 @@ Creature::Creature(const sf::Texture* texture, CreatureManager& manager, int hea
     _health = health;
     _texture = texture;
     _sprite.setTexture(*texture);
-    _sprite.setPosition(pos);
+    _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     _direction = 4;
 }
 

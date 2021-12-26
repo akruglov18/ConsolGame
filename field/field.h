@@ -25,6 +25,8 @@ public:
     Field& operator=(const Field&) = delete;    
 
     // getters & setters
+    int get_width() const { return _width; }
+    int get_height() const { return _height; }
     void set_size(int widht, int height);
 
     // map generation & render//

@@ -6,7 +6,7 @@
 
 Tile::Tile()
 {
-    _passability = 0;
+    _passability = true;
     _texture = nullptr;
 }
 
@@ -35,12 +35,10 @@ bool Tile::operator!=(const Tile& tile) const {
 }
 
 void Tile::scale(int i, int j) {
-    _sprite.setTexture(*_texture);
     _sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32, 32, 32));
 }
 
 void Tile::scale_borders(int i, int j, int r_b, int btm_b) {
-    _sprite.setTexture(*_texture);
     if (j < 4) {
         if (i < 4)
             _sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32, 32, 32));
@@ -63,4 +61,10 @@ void Tile::scale_borders(int i, int j, int r_b, int btm_b) {
         else if (i >= btm_b - 4)
             _sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 128, (i % 4) * 32 + 256, 32, 32));
     }
+}
+
+void Tile::set_desert_feature(const sf::Texture* txt, int chance) {
+    _feature_texture = txt;
+    _feature_sprite.setTexture(*_feature_texture);
+    _feature_sprite.setTextureRect(sf::IntRect(chance * 32, 0, 32, 32));
 }
