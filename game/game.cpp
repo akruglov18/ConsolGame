@@ -13,7 +13,7 @@ Game::Game() {
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
     _player->get_armor().set_body(new BodyArmor(HOLDER().getResource("body_armor1"), _player->get_pos()));
-
+    _player->get_armor().set_helmet(new Helmet(HOLDER().getResource("head_armor1"), _player->get_pos()));
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, {400.f, 256.f}));
 }
 
@@ -57,6 +57,8 @@ void Game::render() {
     _window.draw(_player->get_sprite());
     if(_player->get_armor().get_body() != nullptr)
         _window.draw(_player->get_armor().get_body()->get_sprite());
+    if(_player->get_armor().get_helmet() != nullptr)
+        _window.draw(_player->get_armor().get_helmet()->get_sprite());
     for(auto& x : _enemies) {
             _window.draw(x->get_sprite());
     }
@@ -107,4 +109,5 @@ void Game::load_textures() {
 
     // armors
     HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_chain_armor_torso.png", "body_armor1");
+    HOLDER().loadFromFile("../../images/player/walkcycle/HEAD_chain_armor_hood.png", "head_armor1");
 }
