@@ -17,8 +17,9 @@
 
 enum class TilesType {
     NONE,
-    RIVER,
+    WATER,
     GRASS,
+    DESERT,
     ROAD
 };
 
@@ -42,7 +43,8 @@ public:
     //methods
     static Tile* make_tile(TilesType type, const sf::Texture*);
     sf::Sprite print_tile() const { return _sprite; }
-    void scale();
+    void scale(int i, int j);
+    void scale_borders(int i, int j, int r_b, int btm_b);
 
     // getters
     sf::Sprite& get_sprite() { return _sprite; }

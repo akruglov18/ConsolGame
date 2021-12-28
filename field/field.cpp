@@ -1,4 +1,5 @@
 #include "field.h"
+#include <random>
 
 // constructors~destructor /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -56,6 +57,64 @@ void Field::set_size(int width, int height) {
     }
 }
 
+void Field::generate_desert() {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    
+    // GENERATION OF LANDSCAPE
+    std::mt19937 gen;
+    gen.seed(time(0));
+    std::vector<std::vector<char>> temp(_height, std::vector<char>(_width, 's'));
+
+    // Borders
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < _width; ++j) {
+            temp[i][j] = 'B';
+            temp[i + _height - 4][j] = 'B';
+        }
+    }
+    for (int i = 0; i < _height; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            temp[i][j] = 'B';
+            temp[i][j + _width - 4] = 'B';
+        }
+    }
+    
+    // Oases
+    for (int i = 8; i < _height - 8; i += 16) {
+        for (int j = 8; j < _width - 8; j += 16) {
+            int oasis_chance = gen() % 2;
+            if (oasis_chance) {
+                int x_chance = gen() % 4;
+                int y_chance = gen() % 4;
+                for (int p = i + y_chance * 4; p < i + y_chance * 4 + 4; ++p) {
+                    for (int q = j + x_chance * 4; q < j + x_chance * 4 + 4; ++q) {
+                        temp[p][q] = 'O';
+                    }
+                }
+            }
+        }
+    }
+
+    // TEXTURING
+    for (int i = 0; i < _height; ++i) {
+        for (int j = 0; j < _width; ++j) {
+            switch (temp[i][j]) {
+                case('s'):
+                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("sand1")); break;
+                case('O'):
+                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("oasis1")); break;
+                case('B'):
+                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("borders_sand1")); break;
+            }
+            if (temp[i][j] == 'B')
+                _field[i][j]->scale_borders(i, j, _width, _height);
+            else
+                _field[i][j]->scale(i, j);
+            _field[i][j]->get_sprite().move(sf::Vector2f(j * 32, i * 32));
+        }
+    }
+}
+
 // It seems to be big and sophisticated method of generation of the game field.
 void Field::generate_field() {
 
@@ -64,16 +123,7 @@ void Field::generate_field() {
     auto start = std::chrono::high_resolution_clock::now();
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    for (int i = 0; i < _height; ++i) {
-        for (int j = 0; j < _width; ++j) {
-            if (j % 2)
-                _field[i][j] = Tile::make_tile(TilesType::GRASS, HOLDER().getResource("grass"));
-            else
-                _field[i][j] = Tile::make_tile(TilesType::RIVER, HOLDER().getResource("river"));
-            _field[i][j]->get_sprite().move(sf::Vector2f(j * 32, i * 32));
-        }
-    }
+    generate_desert();
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     auto end = std::chrono::high_resolution_clock::now();
