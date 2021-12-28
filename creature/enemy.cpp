@@ -24,5 +24,5 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
 }
 
 void Enemy::action(const std::shared_ptr<Player>& player, float time, const Field& game_field) {
-    Action::move_right(_direction, get_sprite(), time, get_frame(), get_pos(), game_field);
+    Action::move_right(this, time, game_field);
 }

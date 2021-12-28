@@ -4,6 +4,7 @@
 #include <string>
 #include "sfml/Graphics.hpp"
 #include "field.h"
+#include "armor_set.h"
 
 enum class CreatureType {
     NONE,
@@ -31,6 +32,7 @@ public:
     void add_experience(int exp);
 
     //getters & setters
+    ArmorSet& get_armor() { return _armor_set; }
     sf::Sprite& get_sprite() { return _sprite; }
     sf::Vector2f& get_pos() { return _pos; }
     float& get_frame() { return _current_frame; }
@@ -41,6 +43,7 @@ public:
 
 protected:
     // general
+    ArmorSet _armor_set;
     int _health;
     int _experience;
     float _current_frame;

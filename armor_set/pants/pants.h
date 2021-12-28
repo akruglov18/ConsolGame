@@ -4,5 +4,5 @@
 #include "../base_armor.h"
 
 class Pants : public BaseArmor {
-    Pants();
+    Pants(const sf::Texture* texture, const sf::Vector2f& pos);
 };

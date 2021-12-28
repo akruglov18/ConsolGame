@@ -4,5 +4,5 @@
 #include "../base_armor.h"
 
 class Gauntlets : public BaseArmor {
-    Gauntlets();
+    Gauntlets(const sf::Texture* texture, const sf::Vector2f& pos);
 };

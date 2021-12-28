@@ -10,10 +10,12 @@
 class ArmorSet : public Items {
 public:
     ArmorSet();
+    void set_body(BodyArmor* armor);
+    BodyArmor* get_body();
 private:
     Helmet* _helmet = nullptr;
     BodyArmor* _body_armor = nullptr;
     Gauntlets* _gauntlets = nullptr;
     Pants* _pants = nullptr;
-    Boots* _boots = nullptr; 
+    Boots* _boots = nullptr;
 };

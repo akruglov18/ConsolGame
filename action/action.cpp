@@ -7,60 +7,99 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////////////////
 
-void Action::move_left(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
+void Action::move_left(Creature* creature, float time, const Field& game_field) {
+    auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
+    auto& pos = creature->get_pos();
     if (game_field(pos.y / 32 + 1, (pos.x - time) / 32 + 1).get_passability())
         pos.x -= time;
-    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
-    hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
-    dir = Left;
+    creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
+    auto body = creature->get_armor().get_body();
+    if(body != nullptr) {
+        body->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+        body->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
+    }
+    creature->get_dir() = Left;
 }
 
-void Action::move_right(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
+void Action::move_right(Creature* creature, float time, const Field& game_field) {
+    auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
+    auto& pos = creature->get_pos();
     if ((game_field(pos.y / 32 + 1, (pos.x + time) / 32 + 1).get_passability()))
         pos.x += time;
-    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
-    hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
-    dir = Right;
+    creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
+    auto body = creature->get_armor().get_body();
+    if (body != nullptr) {
+        body->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+        body->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
+    }
+    creature->get_dir() = Right;
 }
 
-void Action::move_up(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
+void Action::move_up(Creature* creature, float time, const Field& game_field) {
+    auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
+    auto& pos = creature->get_pos();
     if ((game_field((pos.y - time) / 32 + 1, pos.x / 32 + 1).get_passability()))
         pos.y -= time;
-    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
-    hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
-    dir = Up;
+    creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
+    auto body = creature->get_armor().get_body();
+    if(body != nullptr) {
+        body->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+        body->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
+    }
+    creature->get_dir() = Up;
 }
 
-void Action::move_down(int& dir, sf::Sprite& hero_sprite, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field) {
+void Action::move_down(Creature* creature, float time, const Field& game_field) {
+    auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
+    current_frame += 0.15f * time;
+    auto& pos = creature->get_pos();
     if ((game_field((pos.y + time) / 32 + 1, pos.x / 32 + 1).get_passability()))
         pos.y += time;
-    hero_sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     if (current_frame > 8) current_frame = 0;
-    hero_sprite.setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
-    dir = Down;
+    creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
+    auto body = creature->get_armor().get_body();
+    if(body != nullptr) {
+        body->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+        body->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
+    }
+    creature->get_dir() = Down;
 }
 
-void Action::stop(int dir, sf::Sprite& hero_sprite) {
+void Action::stop(Creature* creature) {
     // It's possible to add some micro left-right movements to imitate breath while staying, but I don't want to
+    auto dir = creature->get_dir();
+    auto body = creature->get_armor().get_body();
     switch (dir) {
     case(Left):
-        hero_sprite.setTextureRect(sf::IntRect(0, 64, 64, 64));
+        creature->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
+        if(body != nullptr)
+            body->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
         break;
     case(Right):
-        hero_sprite.setTextureRect(sf::IntRect(0, 192, 64, 64));
+        creature->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
+        if(body != nullptr)
+            body->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
         break;
     case(Up):
-        hero_sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+        creature->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
+        if(body != nullptr)
+            body->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
         break;
     case(Down):
-        hero_sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
+        creature->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
+        if(body != nullptr)
+            body->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
         break;
     }
 }
