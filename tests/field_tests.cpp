@@ -7,7 +7,9 @@ void load_textures_f() {
     HOLDER().loadFromFile("../../images/terrain/128px/borders_sand1.png", "borders_sand1");
     HOLDER().loadFromFile("../../images/terrain/128px/grass1.png", "grass1");
     HOLDER().loadFromFile("../../images/terrain/128px/water1.png", "water1");
+    HOLDER().loadFromFile("../../images/terrain/128px/dry1.png", "dry1");
     HOLDER().loadFromFile("../../images/terrain/features/oasis1.png", "oasis1");
+    HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
 }
 
 TEST(Field, move_constructor) {

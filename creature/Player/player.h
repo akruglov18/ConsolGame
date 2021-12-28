@@ -4,7 +4,7 @@
 class Player : public Creature {
 public:
     Player(const sf::Texture* texture, CreatureManager& manager, int health = 100, const sf::Vector2f& pos = {64, 64});
-    void action(sf::Keyboard::Key, float, int, int);
+    void action(sf::Keyboard::Key, float, const Field& game_field);
     void stay(int dir);
 private:
 
