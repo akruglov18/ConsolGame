@@ -4,5 +4,6 @@
 #include "../base_armor.h"
 
 class Helmet : public BaseArmor {
-    Helmet();
+public:
+    Helmet(const sf::Texture* texture, const sf::Vector2f& pos);
 };

@@ -1,6 +1,8 @@
 #include "player.h"
 #include "action.h"
 
+class Action;
+
 Player::Player(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos) : 
                Creature(texture, manager, health, pos) {
     _type = CreatureType::PLAYER;
@@ -10,10 +12,10 @@ Player::Player(const sf::Texture* texture, CreatureManager& manager, int health,
 void Player::action(sf::Keyboard::Key key, float time, const Field& game_field) {
     // all possible actions in switch
     switch (key) {
-        case(sf::Keyboard::Left):   Action::move_left(get_dir(), _sprite, time, _current_frame, _pos, game_field);  break;
-        case(sf::Keyboard::Right):  Action::move_right(get_dir(), _sprite, time, _current_frame, _pos, game_field); break;
-        case(sf::Keyboard::Up):     Action::move_up(get_dir(), _sprite, time, _current_frame, _pos, game_field);    break;
-        case(sf::Keyboard::Down):   Action::move_down(get_dir(), _sprite, time, _current_frame, _pos, game_field);  break;
+        case(sf::Keyboard::Left):   Action::move_left(this, time, game_field); break;
+        case(sf::Keyboard::Right):  Action::move_right(this, time, game_field); break;
+        case(sf::Keyboard::Up):     Action::move_up(this, time, game_field);    break;
+        case(sf::Keyboard::Down):   Action::move_down(this, time, game_field);  break;
         //case(cut)
         //case(hit)
         //case(use)
@@ -21,6 +23,6 @@ void Player::action(sf::Keyboard::Key key, float time, const Field& game_field) 
     }
 }
 
-void Player::stay(int direction) {
-    Action::stop(direction, _sprite);
+void Player::stay() {
+    Action::stop(this);
 }

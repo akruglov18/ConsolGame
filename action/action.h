@@ -2,18 +2,18 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "field.h"
+#include "creature.h"
 
 class Action
 {
 public:
     // movements
-    //                     sprite         global       local animation     coordinates       borders
-    static void move_left(int& dir, sf::Sprite&, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field);
-    static void move_right(int& dir, sf::Sprite&, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field);
-    static void move_up(int& dir, sf::Sprite&, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field);
-    static void move_down(int& dir, sf::Sprite&, float time, float& current_frame, sf::Vector2f& pos, const Field& game_field);
+    static void move_left(Creature* creature, float time, const Field& game_field);
+    static void move_right(Creature* creature, float time, const Field& game_field);
+    static void move_up(Creature* creature, float time, const Field& game_field);
+    static void move_down(Creature* creature, float time, const Field& game_field);
 
-    static void stop(int dir, sf::Sprite&);
+    static void stop(Creature* creature);
 
     // another actions such as take, cut, hit, trade, use magic and so on
 };
