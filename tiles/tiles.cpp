@@ -6,7 +6,7 @@
 
 Tile::Tile()
 {
-    _passability = true;
+    _passability = 2;
     _texture = nullptr;
 }
 
@@ -14,12 +14,16 @@ Tile::~Tile() {
     _texture = nullptr;
 }
 
-Tile* Tile::make_tile(TilesType type, const sf::Texture* txt) {
+std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int b_b) {
     switch (type) {
-    case TilesType::GRASS: return new GrassTile(txt);
-    case TilesType::WATER: return new WaterTile(txt);
-    case TilesType::DESERT: return new DesertTile(txt);
-    case TilesType::ROAD: return new RoadTile(txt);
+    case TilesType::DESERT1_SAND: return std::make_shared<Tile>(*(new Desert1_sand(i, j)));
+    case TilesType::DESERT1_BORDERS: return std::make_shared<Tile>(*(new Desert1_borders(i, j, r_b, b_b)));
+    case TilesType::DESERT1_OASIS: return std::make_shared<Tile>(*(new Desert1_oasis(i, j)));
+    case TilesType::DESERT1_CRACKS: return std::make_shared<Tile>(*(new Desert1_cracks(i, j)));
+
+    /*case TilesType::GRASS: return std::make_shared<Tile>(*(new GrassTile));
+    case TilesType::WATER: return std::make_shared<Tile>(*(new WaterTile));
+    case TilesType::ROAD: return std::make_shared<Tile>(*(new RoadTile));*/
     default: return nullptr;
     }
 }

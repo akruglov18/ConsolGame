@@ -9,7 +9,7 @@ class Field
 private:
     int _width;
     int _height;
-    std::vector <std::vector<Tile*>> _field;
+    std::vector <std::vector<std::shared_ptr<Tile>>> _field;
     
 public:
     // constructors~destructor
@@ -17,7 +17,7 @@ public:
     Field(int w, int h);
     Field(Field&&);
     Field(const Field&) = delete;
-    ~Field();
+    ~Field(){}
     
     // operators
     Field& operator=(Field&&);

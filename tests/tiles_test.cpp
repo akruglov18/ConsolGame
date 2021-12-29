@@ -15,11 +15,10 @@ void test1() {
     load_textures_t();
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     for (int i = 0; i < 3; ++i) {
-        Tile desert1 = *Tile::make_tile(TilesType::DESERT, HOLDER().getResource("sand1"));
-        Tile desert2 = *Tile::make_tile(TilesType::DESERT, HOLDER().getResource("borders_sand1"));
-        Tile desert3 = *Tile::make_tile(TilesType::DESERT, HOLDER().getResource("oasis1"));
-        Tile grass = *Tile::make_tile(TilesType::GRASS, HOLDER().getResource("grass1"));
-        Tile water = *Tile::make_tile(TilesType::WATER, HOLDER().getResource("water1"));
+        Tile desert1 = *Tile::make_tile(TilesType::DESERT1_SAND, i, i);
+        Tile desert2 = *Tile::make_tile(TilesType::DESERT1_BORDERS, i, i);
+        Tile desert3 = *Tile::make_tile(TilesType::DESERT1_OASIS, i, i);
+        Tile grass = *Tile::make_tile(TilesType::DESERT1_CRACKS, i, i);
     }
 }
 
@@ -29,14 +28,14 @@ TEST(Tile, factory_check_values) {
 
 TEST(Tile, equality) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    Tile desert1 = *Tile::make_tile(TilesType::DESERT, HOLDER().getResource("sand1"));
-    Tile desert2 = *Tile::make_tile(TilesType::DESERT, HOLDER().getResource("sand1"));
+    Tile desert1 = *Tile::make_tile(TilesType::DESERT1_SAND, 0, 0);
+    Tile desert2 = *Tile::make_tile(TilesType::DESERT1_SAND, 0, 0);
     ASSERT_EQ(desert1, desert2);
 }
 
 TEST(Tile, no_equality) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    Tile grass = *Tile::make_tile(TilesType::GRASS, HOLDER().getResource("grass1"));
-    Tile river = *Tile::make_tile(TilesType::WATER, HOLDER().getResource("water1"));
+    Tile grass = *Tile::make_tile(TilesType::DESERT1_BORDERS, 0, 0);
+    Tile river = *Tile::make_tile(TilesType::DESERT1_CRACKS, 0, 0);
     ASSERT_NE(grass, river);
 }

@@ -6,13 +6,13 @@
 Field::Field() {
     _width = 16;
     _height = 16;
-    _field.assign(_height, std::vector<Tile*>(_width, nullptr));
+    _field.assign(_height, std::vector<std::shared_ptr<Tile>>(_width, nullptr));
 }
 
 Field::Field(int width, int height) {
     _width = width;
     _height = height;
-    _field.assign(_height, std::vector<Tile*>(_width, nullptr));
+    _field.assign(_height, std::vector<std::shared_ptr<Tile>>(_width, nullptr));
 }
 
 Field::Field(Field&& field) : _field(std::move(field._field)) {
@@ -20,15 +20,6 @@ Field::Field(Field&& field) : _field(std::move(field._field)) {
     _height = field._height;
     field._width = 0;
     field._height = 0;
-}
-
-Field::~Field() {
-    for (int i = 0; i < _height; ++i) {
-        for (int j = 0; j < _width; ++j) {
-            delete _field[i][j];
-            _field[i][j] = nullptr;
-        }
-    }
 }
 
 // operators //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,12 +54,14 @@ void Field::generate_desert() {
     // GENERATION OF LANDSCAPE
     std::mt19937 gen;
     gen.seed(time(0));
-    std::vector<std::vector<char>> temp(_height, std::vector<char>(_width, 's'));
 
     // Borders
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < _width; ++j) {
-            temp[i][j] = temp[i + _height - 4][j] = temp[j][i] = temp[j][i + _width - 4] = 'B';
+            _field[i][j] = Tile::make_tile(TilesType::DESERT1_BORDERS, i, j, _width, _height);
+            _field[i + _height - 4][j] = Tile::make_tile(TilesType::DESERT1_BORDERS, i + _height - 4, j, _width, _height);
+            _field[j][i] = Tile::make_tile(TilesType::DESERT1_BORDERS, j, i, _width, _height);
+            _field[j][i + _width - 4] = Tile::make_tile(TilesType::DESERT1_BORDERS, j, i + _width - 4, _width, _height);
         }
     }
 
@@ -84,7 +77,7 @@ void Field::generate_desert() {
                 if (height < 5)
                     width -= gen() % 3 + 3;
                 for (int k = start_x; k < start_x + width; ++k) {
-                    temp[start_y][k] = 'c';
+                    _field[start_y][k] = Tile::make_tile(TilesType::DESERT1_CRACKS, start_y, k);
                 }
                 start_y++;
                 start_x += dir * gen() % 3;
@@ -101,46 +94,22 @@ void Field::generate_desert() {
                 int y_chance = gen() % 4;
                 for (int p = i + y_chance * 4; p < i + y_chance * 4 + 4; ++p) {
                     for (int q = j + x_chance * 4; q < j + x_chance * 4 + 4; ++q) {
-                        temp[p][q] = 'O';
+                        _field[p][q] = Tile::make_tile(TilesType::DESERT1_OASIS, p, q);
                     }
                 }
             }
         }
     }
 
-    // TERRAIN TEXTURING
-    for (int i = 0; i < _height; ++i) {
-        for (int j = 0; j < _width; ++j) {
-            switch (temp[i][j]) {
-                case('s'):
-                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("sand1")); break;
-                case('O'):
-                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("oasis1"));
-                    _field[i][j]->set_passability(false);
-                    break;
-                case('B'):
-                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("borders_sand1"));
-                    _field[i][j]->set_passability(false);
-                    break;
-                case('c'):
-                    _field[i][j] = Tile::make_tile(TilesType::DESERT, HOLDER().getResource("dry1")); break;                    
-            }
-            if (temp[i][j] == 'B')
-                _field[i][j]->scale_borders(i, j, _width, _height);
-            else
-                _field[i][j]->scale(i, j);
-            _field[i][j]->get_sprite().move(sf::Vector2f(j * 32, i * 32));
-        }
-    }
-
-    // Generating and rendering features
-    for (int i = 8; i < _height - 8; ++i) {
-        for (int j = 8; j < _width - 8; ++j) {
-            if (temp[i][j] == 's') {
+    // Sand & features
+    for (int i = 4; i < _height - 4; ++i) {
+        for (int j = 4; j < _width - 4; ++j) {
+            if (_field[i][j] == nullptr) {
+                _field[i][j] = Tile::make_tile(TilesType::DESERT1_SAND, i, j);
                 if (gen() % 32 == 0) {
                     _field[i][j]->set_desert_feature(HOLDER().getResource("desert_features"), gen() % 6);
                     _field[i][j]->get_feature().move(sf::Vector2f(j * 32, i * 32));
-                }                
+                }
             }
         }
     }
