@@ -11,8 +11,7 @@ void Action::move_left(Creature* creature, float time, const Field& game_field) 
     auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
     auto& pos = creature->get_pos();
-    if (game_field(pos.y / 32 + 1, (pos.x - time) / 32 + 1).get_passability())
-        pos.x -= time;
+    pos.x -= time * game_field(pos.y / 32 + 1, (pos.x - time) / 32 + 1).get_passability() / 2.0;
     if (current_frame > 8) current_frame = 0;
     creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
     creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
@@ -33,8 +32,7 @@ void Action::move_right(Creature* creature, float time, const Field& game_field)
     auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
     auto& pos = creature->get_pos();
-    if ((game_field(pos.y / 32 + 1, (pos.x + time) / 32 + 1).get_passability()))
-        pos.x += time;
+    pos.x += time * game_field(pos.y / 32 + 1, (pos.x + time) / 32 + 1).get_passability() / 2.0;
     if (current_frame > 8) current_frame = 0;
     creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
     creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
@@ -55,8 +53,7 @@ void Action::move_up(Creature* creature, float time, const Field& game_field) {
     auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
     auto& pos = creature->get_pos();
-    if ((game_field((pos.y - time) / 32 + 1, pos.x / 32 + 1).get_passability()))
-        pos.y -= time;
+    pos.y -= time * game_field((pos.y - time) / 32 + 1, pos.x / 32 + 1).get_passability() / 2.0;
     if (current_frame > 8) current_frame = 0;
     creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
     creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
@@ -76,10 +73,8 @@ void Action::move_up(Creature* creature, float time, const Field& game_field) {
 void Action::move_down(Creature* creature, float time, const Field& game_field) {
     auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
-    current_frame += 0.15f * time;
     auto& pos = creature->get_pos();
-    if ((game_field((pos.y + time) / 32 + 1, pos.x / 32 + 1).get_passability()))
-        pos.y += time;
+    pos.y += time * game_field((pos.y + time) / 32 + 1, pos.x / 32 + 1).get_passability() / 2.0;
     if (current_frame > 8) current_frame = 0;
     creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
     creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));

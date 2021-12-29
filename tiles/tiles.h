@@ -17,15 +17,24 @@
 
 enum class TilesType {
     NONE,
-    WATER,
+
+    // grassland tiles
     GRASS,
-    DESERT,
+
+    // desert tiles
+    DESERT1_SAND,
+    DESERT1_OASIS,
+    DESERT1_BORDERS,
+    DESERT1_CRACKS,
+
+    // univerasl tiles
+    WATER,
     ROAD
 };
 
 class Tile {
 protected:
-    bool _passability;
+    int _passability;
     const sf::Texture* _texture;
     sf::Sprite _sprite;
     const sf::Texture* _feature_texture;
@@ -43,15 +52,14 @@ public:
     bool operator!=(const Tile& tile) const;
 
     //methods
-    static Tile* make_tile(TilesType type, const sf::Texture*);
+    static std::shared_ptr<Tile> make_tile(TilesType type, int i, int j, int r_b = 128, int b_b = 128);
     sf::Sprite print_tile() const { return _sprite; }
     sf::Sprite print_feature() const { return _feature_sprite; }
     void scale(int i, int j);
     void scale_borders(int i, int j, int r_b, int btm_b);
 
     // getters & setters
-    bool get_passability() { return _passability; }
-    void set_passability(bool f) { _passability = f; }
+    int get_passability() { return _passability; }
     void set_desert_feature(const sf::Texture*, int);
     sf::Sprite& get_sprite() { return _sprite; }
     sf::Sprite& get_feature() { return _feature_sprite; }
