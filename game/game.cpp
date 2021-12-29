@@ -31,14 +31,8 @@ void Game::game_loop() {
                 _window.close();
         }
 
-        if (event.type == sf::Event::KeyPressed) {
-            key = event.key.code;
-            _player->action(key, time, _game_field);
-            get_player_pos_for_view(_player->get_pos()); 
-        }
-        else {
-            _player->stay();
-        }
+        _player->action(event, time, _game_field);
+        get_player_pos_for_view(_player->get_pos());
 
         for(auto& x : _enemies) {
              x->action(_player, time, _game_field);
