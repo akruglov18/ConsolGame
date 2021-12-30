@@ -49,5 +49,5 @@ public:
 
     void generate_field();
 
-    void show_field(sf::RenderWindow&, const sf::Vector2f&);
+    void show_field(sf::RenderWindow& window, const sf::Vector2f& pos);
 };

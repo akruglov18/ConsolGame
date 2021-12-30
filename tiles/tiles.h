@@ -39,6 +39,7 @@ protected:
     sf::Sprite _sprite;
     const sf::Texture* _feature_texture;
     sf::Sprite _feature_sprite;
+    
 
     TilesType _type = TilesType::NONE;
 
@@ -60,7 +61,9 @@ public:
 
     // getters & setters
     int get_passability() { return _passability; }
-    void set_desert_feature(const sf::Texture*, int);
+    void set_desert_feature(int chance);
+    void set_desert_tree(int chance, int i, int j);
     sf::Sprite& get_sprite() { return _sprite; }
     sf::Sprite& get_feature() { return _feature_sprite; }
+    bool no_feature() const { return _feature_texture == nullptr; }
 };

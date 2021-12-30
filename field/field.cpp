@@ -65,7 +65,7 @@ void Field::generate_desert() {
         }
     }
 
-    // Desert cracks and dry earth
+    // Desert cracks and palms
     for (int i = 16; i < _height - 16; i += 48) {
         for (int j = 16; j < _width - 16; j += 48) {
             int height = gen() % 6 + 12;
@@ -78,6 +78,18 @@ void Field::generate_desert() {
                     width -= gen() % 3 + 3;
                 for (int k = start_x; k < start_x + width; ++k) {
                     _field[start_y][k] = Tile::make_tile(TilesType::DESERT1_CRACKS, start_y, k);
+                    if (_field[start_y - 1][k] != nullptr) {
+                        if (_field[start_y - 1][k].get()->no_feature()) {
+                            if (gen() % 8 == 0) {
+                                _field[start_y][k].get()->set_desert_tree(gen() % 6, k, start_y);
+                            }
+                        }                        
+                    }
+                    else {
+                        if (gen() % 8 == 0) {
+                            _field[start_y][k].get()->set_desert_tree(gen() % 6, k, start_y);
+                        }
+                    }
                 }
                 start_y++;
                 start_x += dir * gen() % 3;
@@ -86,7 +98,7 @@ void Field::generate_desert() {
     }
     
     // Oases
-    for (int i = 8; i < _height - 8; i += 16) {
+    /*for (int i = 8; i < _height - 8; i += 16) {
         for (int j = 8; j < _width - 8; j += 16) {
             int oasis_chance = gen() % 2;
             if (oasis_chance) {
@@ -99,15 +111,15 @@ void Field::generate_desert() {
                 }
             }
         }
-    }
+    }*/
 
-    // Sand & features
+    // Sand & little features
     for (int i = 4; i < _height - 4; ++i) {
         for (int j = 4; j < _width - 4; ++j) {
             if (_field[i][j] == nullptr) {
                 _field[i][j] = Tile::make_tile(TilesType::DESERT1_SAND, i, j);
                 if (gen() % 32 == 0) {
-                    _field[i][j]->set_desert_feature(HOLDER().getResource("desert_features"), gen() % 6);
+                    _field[i][j]->set_desert_feature(gen() % 6);
                     _field[i][j]->get_feature().move(sf::Vector2f(j * 32, i * 32));
                 }
             }
@@ -164,11 +176,14 @@ void Field::show_field(sf::RenderWindow& window, const sf::Vector2f& pos) {
         }
     }
 
-    // rendering features
-    for (int i = top_border; i < btm_border; ++i) {
-        for (int j = left_border; j < right_border; ++j) {
+    int obj_btm_border = std::min(btm_border + 4, static_cast<int>(_field.size())); // for tall & wide objects which have root in invisible tiles
+    int obj_left_border = std::max(left_border - 1, 0);
+    int obj_right_border = std::min(right_border + 1, static_cast<int>(_field[0].size()));
+
+    // rendering objects
+    for (int i = top_border; i < obj_btm_border; ++i) {
+        for (int j = obj_left_border; j < obj_right_border; ++j) {
             window.draw(_field[i][j]->print_feature());
         }
     }
-    
 }

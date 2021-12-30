@@ -50,17 +50,9 @@ void Game::render() {
     _window.setView(_view);
     _window.clear(sf::Color(0, 0, 0));
     _game_field.show_field(_window, _player->get_pos());
-    _window.draw(_player->get_sprite());
-    if(_player->get_armor().get_body() != nullptr)
-        _window.draw(_player->get_armor().get_body()->get_sprite());
-    if(_player->get_armor().get_helmet() != nullptr)
-        _window.draw(_player->get_armor().get_helmet()->get_sprite());
-    for(auto& enemy : _enemies) {
-        _window.draw(enemy->get_sprite());
-        if(enemy->get_armor().get_body() != nullptr)
-            _window.draw(enemy->get_armor().get_body()->get_sprite());
-        if(enemy->get_armor().get_helmet() != nullptr)
-            _window.draw(enemy->get_armor().get_helmet()->get_sprite());
+    _player->show_player(_window);
+    for (auto& x : _enemies) {
+        _window.draw(x->get_sprite());
     }
     _window.display();
 }
@@ -104,8 +96,8 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/terrain/128px/borders_sand1.png", "borders_sand1");
 
     // Terrain Features
-    HOLDER().loadFromFile("../../images/terrain/features/oasis1.png", "oasis1");
     HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
+    HOLDER().loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
 
     // armors
     HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_chain_armor_torso.png", "body_armor1");

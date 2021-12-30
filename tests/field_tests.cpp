@@ -10,6 +10,7 @@ void load_textures_f() {
     HOLDER().loadFromFile("../../images/terrain/128px/dry1.png", "dry1");
     HOLDER().loadFromFile("../../images/terrain/features/oasis1.png", "oasis1");
     HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
+    HOLDER().loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
 }
 
 TEST(Field, move_constructor) {
