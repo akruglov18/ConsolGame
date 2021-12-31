@@ -21,7 +21,7 @@ public:
     
     // operators
     Field& operator=(Field&&);
-    Tile operator()(int i, int j) const;
+    std::shared_ptr<Tile> operator()(int i, int j) const;
     Field& operator=(const Field&) = delete;    
 
     // getters & setters
@@ -48,6 +48,4 @@ public:
     void generate_trade_stores();
 
     void generate_field();
-
-    void show_field(sf::RenderWindow& window, const sf::Vector2f& pos);
 };

@@ -39,7 +39,6 @@ protected:
     sf::Sprite _sprite;
     const sf::Texture* _feature_texture;
     sf::Sprite _feature_sprite;
-    
 
     TilesType _type = TilesType::NONE;
 

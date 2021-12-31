@@ -33,8 +33,8 @@ Field& Field::operator=(Field&& field) {
     return *this;
 }
 
-Tile Field::operator()(int i, int j) const {
-    return *_field[i][j];
+std::shared_ptr<Tile> Field::operator()(int i, int j) const {
+    return _field[i][j];
 }
 
 // methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,48 +142,4 @@ void Field::generate_field() {
     std::chrono::duration<double> diff = end - start;
     std::cout << "Generate field: " << std::setw(9) << diff.count() << " s\n";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-
-void Field::show_field(sf::RenderWindow& window, const sf::Vector2f& pos) {
-    int left_border, right_border, top_border, btm_border;
-    int window_height = window.getSize().y;
-    int window_width = window.getSize().x;
-    int tile_size = 32; // immutable parameter
-
-    // borders of rendering ///////////////////////////////////////////////////////////////////////////////////
-    if (pos.x < window_width / 2)
-        right_border = window_width / tile_size + 2;
-    else
-        right_border = std::min(static_cast<int>(_field[0].size()), static_cast<int>(((pos.x + window_width / 2) / tile_size) + 1));
-    if (pos.x > _field[0].size() * tile_size - window_width / 2)
-        left_border = _field[0].size() - window_width / tile_size - 2;
-    else
-        left_border = std::max(0, static_cast<int>(((pos.x - window_width / 2) / tile_size)));
-    if (pos.y < window_height / 2)
-        btm_border = window_height / tile_size + 2;
-    else
-        btm_border = std::min(static_cast<int>(_field.size()), static_cast<int>(((pos.y + window_height / 2) / tile_size) + 1));
-    if (pos.y > _field.size() * tile_size - window_height / 2)
-        top_border = _field.size() - window_height / tile_size - 2;
-    else
-        top_border = std::max(0, static_cast<int>(((pos.y - window_height / 2) / tile_size)));
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // rendering terrain
-    for (int i = top_border; i < btm_border; ++i) {
-        for (int j = left_border; j < right_border; ++j) {
-            window.draw(_field[i][j]->print_tile());
-        }
-    }
-
-    int obj_btm_border = std::min(btm_border + 4, static_cast<int>(_field.size())); // for tall & wide objects which have root in invisible tiles
-    int obj_left_border = std::max(left_border - 1, 0);
-    int obj_right_border = std::min(right_border + 1, static_cast<int>(_field[0].size()));
-
-    // rendering objects
-    for (int i = top_border; i < obj_btm_border; ++i) {
-        for (int j = obj_left_border; j < obj_right_border; ++j) {
-            window.draw(_field[i][j]->print_feature());
-        }
-    }
 }

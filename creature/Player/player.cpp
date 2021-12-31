@@ -43,11 +43,3 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             Action::stop(this);
     }
 }
-
-void Player::show_player(sf::RenderWindow& window) {
-    window.draw(_sprite);
-    if (get_armor().get_body() != nullptr)
-        window.draw(get_armor().get_body()->get_sprite());
-    if (get_armor().get_helmet() != nullptr)
-        window.draw(get_armor().get_helmet()->get_sprite());
-}

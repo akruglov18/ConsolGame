@@ -30,6 +30,7 @@ public:
     CreatureType get_type() const { return _type; }
     void reduce_health(int value);
     void add_experience(int exp);
+    void show_creature(sf::RenderWindow& window);
 
     //getters & setters
     ArmorSet& get_armor() { return _armor_set; }

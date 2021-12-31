@@ -9,7 +9,7 @@ Game::Game() {
     _view.reset(sf::FloatRect(0, 0, 1280, 720));
 
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _player = std::make_shared<Player>(Player(HOLDER().getResource("player"), _manager, 100, {366.f, 366.f}));
+    _player = std::make_shared<Player>(Player(HOLDER().getResource("player"), _manager, 100, {366.f, 560.f}));
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
     _player->get_armor().set_body(new BodyArmor(HOLDER().getResource("body_armor1"), _player->get_pos()));
@@ -40,8 +40,17 @@ void Game::game_loop() {
              x->action(_player, time, _game_field);
         }
 
+
         ////////////RENDER///////////
+        /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
+        auto start = std::chrono::high_resolution_clock::now();
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         render();
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+        std::cout << "fps: " << std::setw(9) << 1 / diff.count() << "\r";
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////
     }
 }
@@ -49,11 +58,7 @@ void Game::game_loop() {
 void Game::render() {
     _window.setView(_view);
     _window.clear(sf::Color(0, 0, 0));
-    _game_field.show_field(_window, _player->get_pos());
-    _player->show_player(_window);
-    for (auto& x : _enemies) {
-        _window.draw(x->get_sprite());
-    }
+    Drawer::show_everything(_window, _game_field, _player, _enemies);
     _window.display();
 }
 
