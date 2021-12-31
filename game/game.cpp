@@ -15,6 +15,8 @@ Game::Game() {
     _player->get_armor().set_body(new BodyArmor(HOLDER().getResource("body_armor1"), _player->get_pos()));
     _player->get_armor().set_helmet(new Helmet(HOLDER().getResource("head_armor1"), _player->get_pos()));
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, {400.f, 256.f}));
+    _enemies[0]->get_armor().set_body(new BodyArmor(HOLDER().getResource("body_armor1"), _enemies[0]->get_pos()));
+    _enemies[0]->get_armor().set_helmet(new Helmet(HOLDER().getResource("head_armor1"), _enemies[0]->get_pos()));
 }
 
 void Game::game_loop() {    
@@ -53,8 +55,12 @@ void Game::render() {
         _window.draw(_player->get_armor().get_body()->get_sprite());
     if(_player->get_armor().get_helmet() != nullptr)
         _window.draw(_player->get_armor().get_helmet()->get_sprite());
-    for(auto& x : _enemies) {
-            _window.draw(x->get_sprite());
+    for(auto& enemy : _enemies) {
+        _window.draw(enemy->get_sprite());
+        if(enemy->get_armor().get_body() != nullptr)
+            _window.draw(enemy->get_armor().get_body()->get_sprite());
+        if(enemy->get_armor().get_helmet() != nullptr)
+            _window.draw(enemy->get_armor().get_helmet()->get_sprite());
     }
     _window.display();
 }
