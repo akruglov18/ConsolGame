@@ -26,3 +26,11 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
 void Enemy::action(const std::shared_ptr<Player>& player, float time, const Field& game_field) {
     Action::move_right(this, time, game_field);
 }
+
+void Enemy::show_enemy(sf::RenderWindow& window) {
+    window.draw(_sprite);
+    if (get_armor().get_body() != nullptr)
+        window.draw(get_armor().get_body()->get_sprite());
+    if (get_armor().get_helmet() != nullptr)
+        window.draw(get_armor().get_helmet()->get_sprite());
+}
