@@ -16,5 +16,6 @@ public:
     static void stop(Creature* creature);
 
     // another actions such as take, cut, hit, trade, use magic and so on
+    static void hit(Creature* creature, float time, const Field& game_field);
 };
 

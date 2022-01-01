@@ -12,12 +12,12 @@ Player::Player(const sf::Texture* texture, CreatureManager& manager, int health,
 void Player::action(sf::Event& event, float time, const Field& game_field) {
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
-            case(sf::Keyboard::Left):   Action::move_left(this, time, game_field);  break;
-            case(sf::Keyboard::Right):  Action::move_right(this, time, game_field); break;
-            case(sf::Keyboard::Up):     Action::move_up(this, time, game_field);    break;
-            case(sf::Keyboard::Down):   Action::move_down(this, time, game_field);  break;
+            case(sf::Keyboard::Left):   Action::move_left(this, time, game_field);      break;
+            case(sf::Keyboard::Right):  Action::move_right(this, time, game_field);     break;
+            case(sf::Keyboard::Up):     Action::move_up(this, time, game_field);        break;
+            case(sf::Keyboard::Down):   Action::move_down(this, time, game_field);      break;
+            case(sf::Keyboard::Space):  Action::hit(this, time, game_field);            break;
             //case(cut)
-            //case(hit)
             //case(use)
             //...
         }

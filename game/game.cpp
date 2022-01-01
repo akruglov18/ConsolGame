@@ -14,6 +14,10 @@ Game::Game() {
     _manager.setPlayer(_player);
     _player->get_armor().set_body(new BodyArmor(HOLDER().getResource("body_armor1"), _player->get_pos()));
     _player->get_armor().set_helmet(new Helmet(HOLDER().getResource("head_armor1"), _player->get_pos()));
+    _player->get_armor().set_pants(new Pants(HOLDER().getResource("pants_armor1"), _player->get_pos()));
+    _player->get_armor().set_boots(new Boots(HOLDER().getResource("boots_armor1"), _player->get_pos()));
+    _player->get_armor().set_gauntlets(new Gauntlets(HOLDER().getResource("gauntlets_armor1"), _player->get_pos()));
+
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, {400.f, 256.f}));
     _enemies[0]->get_armor().set_body(new BodyArmor(HOLDER().getResource("body_armor1"), _enemies[0]->get_pos()));
     _enemies[0]->get_armor().set_helmet(new Helmet(HOLDER().getResource("head_armor1"), _enemies[0]->get_pos()));
@@ -107,4 +111,7 @@ void Game::load_textures() {
     // armors
     HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_chain_armor_torso.png", "body_armor1");
     HOLDER().loadFromFile("../../images/player/walkcycle/HEAD_chain_armor_hood.png", "head_armor1");
+    HOLDER().loadFromFile("../../images/player/walkcycle/LEGS_plate_armor_pants.png", "pants_armor1");
+    HOLDER().loadFromFile("../../images/player/walkcycle/FEET_plate_armor_shoes.png", "boots_armor1");
+    HOLDER().loadFromFile("../../images/player/walkcycle/HANDS_plate_armor_gloves.png", "gauntlets_armor1");
 }
