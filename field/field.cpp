@@ -25,6 +25,8 @@ Field::Field(Field&& field) : _field(std::move(field._field)) {
 // operators //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Field& Field::operator=(Field&& field) {
+    if(this == &field)
+        return *this;
     _field = std::move(field._field);
     _width = field._width;
     _height = field._height;
