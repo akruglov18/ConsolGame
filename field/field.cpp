@@ -33,8 +33,8 @@ Field& Field::operator=(Field&& field) {
     return *this;
 }
 
-Tile Field::operator()(int i, int j) const {
-    return *_field[i][j];
+std::shared_ptr<Tile> Field::operator()(int i, int j) const {
+    return _field[i][j];
 }
 
 // methods /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ void Field::generate_desert() {
         }
     }
 
-    // Desert cracks and dry earth
+    // Desert cracks and palms
     for (int i = 16; i < _height - 16; i += 48) {
         for (int j = 16; j < _width - 16; j += 48) {
             int height = gen() % 6 + 12;
@@ -78,6 +78,18 @@ void Field::generate_desert() {
                     width -= gen() % 3 + 3;
                 for (int k = start_x; k < start_x + width; ++k) {
                     _field[start_y][k] = Tile::make_tile(TilesType::DESERT1_CRACKS, start_y, k);
+                    if (_field[start_y - 1][k] != nullptr) {
+                        if (_field[start_y - 1][k].get()->no_feature()) {
+                            if (gen() % 8 == 0) {
+                                _field[start_y][k].get()->set_desert_tree(gen() % 6, k, start_y);
+                            }
+                        }                        
+                    }
+                    else {
+                        if (gen() % 8 == 0) {
+                            _field[start_y][k].get()->set_desert_tree(gen() % 6, k, start_y);
+                        }
+                    }
                 }
                 start_y++;
                 start_x += dir * gen() % 3;
@@ -86,7 +98,7 @@ void Field::generate_desert() {
     }
     
     // Oases
-    for (int i = 8; i < _height - 8; i += 16) {
+    /*for (int i = 8; i < _height - 8; i += 16) {
         for (int j = 8; j < _width - 8; j += 16) {
             int oasis_chance = gen() % 2;
             if (oasis_chance) {
@@ -99,15 +111,15 @@ void Field::generate_desert() {
                 }
             }
         }
-    }
+    }*/
 
-    // Sand & features
+    // Sand & little features
     for (int i = 4; i < _height - 4; ++i) {
         for (int j = 4; j < _width - 4; ++j) {
             if (_field[i][j] == nullptr) {
                 _field[i][j] = Tile::make_tile(TilesType::DESERT1_SAND, i, j);
                 if (gen() % 32 == 0) {
-                    _field[i][j]->set_desert_feature(HOLDER().getResource("desert_features"), gen() % 6);
+                    _field[i][j]->set_desert_feature(gen() % 6);
                     _field[i][j]->get_feature().move(sf::Vector2f(j * 32, i * 32));
                 }
             }
@@ -130,45 +142,4 @@ void Field::generate_field() {
     std::chrono::duration<double> diff = end - start;
     std::cout << "Generate field: " << std::setw(9) << diff.count() << " s\n";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-
-void Field::show_field(sf::RenderWindow& window, const sf::Vector2f& pos) {
-    int left_border, right_border, top_border, btm_border;
-    int window_height = window.getSize().y;
-    int window_width = window.getSize().x;
-    int tile_size = 32; // immutable parameter
-
-    // borders of rendering ///////////////////////////////////////////////////////////////////////////////////
-    if (pos.x < window_width / 2)
-        right_border = window_width / tile_size + 2;
-    else
-        right_border = std::min(static_cast<int>(_field[0].size()), static_cast<int>(((pos.x + window_width / 2) / tile_size) + 1));
-    if (pos.x > _field[0].size() * tile_size - window_width / 2)
-        left_border = _field[0].size() - window_width / tile_size - 2;
-    else
-        left_border = std::max(0, static_cast<int>(((pos.x - window_width / 2) / tile_size)));
-    if (pos.y < window_height / 2)
-        btm_border = window_height / tile_size + 2;
-    else
-        btm_border = std::min(static_cast<int>(_field.size()), static_cast<int>(((pos.y + window_height / 2) / tile_size) + 1));
-    if (pos.y > _field.size() * tile_size - window_height / 2)
-        top_border = _field.size() - window_height / tile_size - 2;
-    else
-        top_border = std::max(0, static_cast<int>(((pos.y - window_height / 2) / tile_size)));
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // rendering terrain
-    for (int i = top_border; i < btm_border; ++i) {
-        for (int j = left_border; j < right_border; ++j) {
-            window.draw(_field[i][j]->print_tile());
-        }
-    }
-
-    // rendering features
-    for (int i = top_border; i < btm_border; ++i) {
-        for (int j = left_border; j < right_border; ++j) {
-            window.draw(_field[i][j]->print_feature());
-        }
-    }
-    
 }

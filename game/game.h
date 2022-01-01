@@ -3,6 +3,7 @@
 #include "creature.h"
 #include "player/player.h"
 #include "enemy.h"
+#include "drawer.h"
 
 class Game {
 private:

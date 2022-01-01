@@ -1,8 +1,11 @@
 #include <gtest/gtest.h>
 #include "field.h"
+#include "drawer.h"
 
 void load_textures_f() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    HOLDER().loadFromFile("../../images/player/walkcycle/BODY_male.png", "player");
+    HOLDER().loadFromFile("../../images/player/walkcycle/BODY_skeleton.png", "skeleton");
     HOLDER().loadFromFile("../../images/terrain/128px/sand1.png", "sand1");
     HOLDER().loadFromFile("../../images/terrain/128px/borders_sand1.png", "borders_sand1");
     HOLDER().loadFromFile("../../images/terrain/128px/grass1.png", "grass1");
@@ -10,6 +13,7 @@ void load_textures_f() {
     HOLDER().loadFromFile("../../images/terrain/128px/dry1.png", "dry1");
     HOLDER().loadFromFile("../../images/terrain/features/oasis1.png", "oasis1");
     HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
+    HOLDER().loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
 }
 
 TEST(Field, move_constructor) {
@@ -35,14 +39,14 @@ TEST(Field, equal_after_move_constructor) {
     std::vector<std::vector<Tile>> tiles(size, std::vector<Tile>(size));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            tiles[i][j] = field(i, j);
+            tiles[i][j] = *field(i, j);
         }
     }
     Field field2 = std::move(field);
     bool res = true;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (tiles[i][j] != field2(i, j))
+            if (tiles[i][j] != *field2(i, j))
                 res = false;
         }
     }
@@ -56,7 +60,7 @@ TEST(Field, equal_after_move_assignement) {
     std::vector<std::vector<Tile>> tiles(size, std::vector<Tile>(size));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            tiles[i][j] = field(i, j);
+            tiles[i][j] = *field(i, j);
         }
     }
     Field field2(size, size); 
@@ -64,7 +68,7 @@ TEST(Field, equal_after_move_assignement) {
     bool res = true;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (tiles[i][j] != field2(i, j))
+            if (tiles[i][j] != *field2(i, j))
                 res = false;
         }
     }
@@ -72,13 +76,18 @@ TEST(Field, equal_after_move_assignement) {
 }
 
 void test_show_field() {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     for (int i = 64; i <= 512; i *= 2) {
         sf::RenderWindow _window{ sf::VideoMode(1280, 720), "TEST" };
         Field field(i, i);
         field.generate_field();
+        std::shared_ptr<Player> _player;
+        CreatureManager _manager;
+        _player = std::make_shared<Player>(Player(HOLDER().getResource("player"), _manager, 100, { 366.f, 366.f }));
+        std::vector<std::shared_ptr<Enemy>> _enemies;
+        _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, { 400.f, 656.f }));
         for (int j = 4; j <= i - 4; j++) {
-            sf::Vector2f pos(j, j);
-            field.show_field(_window, pos);
+            Drawer::show_everything(_window, field, _player, _enemies);
         }
         _window.close();
     }

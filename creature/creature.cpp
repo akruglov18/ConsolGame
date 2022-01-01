@@ -55,3 +55,11 @@ void CreatureManager::creatureDied(const Creature* creature) {
     auto player = _player.lock();
     player->add_experience(10);
 }
+
+void Creature::show_creature(sf::RenderWindow& window) {
+    window.draw(_sprite);
+    if (get_armor().get_body() != nullptr)
+        window.draw(get_armor().get_body()->get_sprite());
+    if (get_armor().get_helmet() != nullptr)
+        window.draw(get_armor().get_helmet()->get_sprite());
+}
