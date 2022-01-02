@@ -23,7 +23,7 @@ class Player;
 class Creature {
 public:
     // Constructor ~ Destructor
-    Creature(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos);
+    Creature(CreatureManager& manager, int health, const sf::Vector2f& pos);
     Creature(const Creature&);
     virtual ~Creature();
 
@@ -32,7 +32,13 @@ public:
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
+
+    void walk();
     void thrust();
+    void spellcast();
+    void slash();
+    void hurt();
+    void bow();
 
     //getters & setters
     ArmorSet& get_armor() { return _armor_set; }
@@ -41,7 +47,6 @@ public:
     float& get_frame() { return _current_frame; }
     int& get_dir() { return _direction; }
     void set_pos(float x, float y);
-    void set_texture(sf::Texture* txt);
 
     void set_health(int health);
 
@@ -53,7 +58,7 @@ protected:
     float _current_frame;
     int _direction;
     sf::Vector2f _pos;
-    std::map<std::string, sf::Texture*> _textures;
+    std::map<std::string, sf::Texture*> _body_textures;
     sf::Sprite _sprite;
     CreatureManager& _manager;
 

@@ -20,7 +20,15 @@ public:
     Helmet* get_helmet();
     Pants* get_pants();
     Boots* get_boots();
-    Gauntlets* get_gauntlets();
+    Gauntlets* get_gauntlets(); 
+
+    void walk();
+    void thrust();
+    void spellcast();
+    void slash();
+    void hurt();
+    void bow();
+
 private:
     Helmet* _helmet = nullptr;
     BodyArmor* _body_armor = nullptr;

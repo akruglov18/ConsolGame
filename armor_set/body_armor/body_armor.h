@@ -8,14 +8,14 @@ public:
     BodyArmor(const sf::Vector2f& pos);
 };
 
-class BodyArmor_plate : public BodyArmor {
-public:
-    BodyArmor_plate(const sf::Vector2f& pos);
-};
-
 class BodyArmor_chain : public BodyArmor {
 public:
     BodyArmor_chain(const sf::Vector2f& pos);
+};
+
+class BodyArmor_plate : public BodyArmor {
+public:
+    BodyArmor_plate(const sf::Vector2f& pos);
 };
 
 class BodyArmor_chain_purple : public BodyArmor {

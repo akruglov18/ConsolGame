@@ -18,6 +18,14 @@ public:
     BaseArmor(const sf::Vector2f& pos);
 
     sf::Sprite& get_sprite() { return _sprite; }
+
+    void walk();
+    void thrust();
+    void spellcast();
+    void slash();
+    void hurt();
+    void bow();
+
 protected:
     int _armor = 0;
     ArmorType _armor_type;
