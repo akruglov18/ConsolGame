@@ -16,7 +16,7 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             case(sf::Keyboard::Right):  Action::move_right(this, time, game_field);     break;
             case(sf::Keyboard::Up):     Action::move_up(this, time, game_field);        break;
             case(sf::Keyboard::Down):   Action::move_down(this, time, game_field);      break;
-            case(sf::Keyboard::Space):  Action::hit(this, time, game_field);            break;
+            case(sf::Keyboard::LShift): Action::hit(this, time, game_field);            break;
             //case(cut)
             //case(use)
             //...

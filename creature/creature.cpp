@@ -6,7 +6,7 @@ Creature::Creature(const sf::Texture* texture, CreatureManager& manager, int hea
                    _manager(manager), _pos(pos) {
     _current_frame = 0;
     _health = health;
-    _texture = texture;
+    //_texture = texture;
     _sprite.setTexture(*texture);
     _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
     _direction = 4;
@@ -15,19 +15,24 @@ Creature::Creature(const sf::Texture* texture, CreatureManager& manager, int hea
 Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other._pos) {
     _current_frame = other._current_frame;
     _health = other._health;
-    _texture = other._texture;
+    //_texture = other._texture;
     _sprite = other._sprite;
     _type = other._type;
     _direction = other._direction;
 }
 
 Creature::~Creature() {
-    _texture = nullptr;
+    //_texture = nullptr;
 }
 
 void Creature::set_pos(float x, float y) {
     _pos.x = x;
     _pos.y = y;
+}
+
+void Creature::set_texture(sf::Texture* txt) {
+    //_texture = txt;
+    //_sprite.setTexture(*_texture);
 }
 
 void Creature::reduce_health(int value) {
@@ -58,8 +63,18 @@ void CreatureManager::creatureDied(const Creature* creature) {
 
 void Creature::show_creature(sf::RenderWindow& window) {
     window.draw(_sprite);
+    if (get_armor().get_pants() != nullptr)
+        window.draw(get_armor().get_pants()->get_sprite());
     if (get_armor().get_body() != nullptr)
         window.draw(get_armor().get_body()->get_sprite());
     if (get_armor().get_helmet() != nullptr)
         window.draw(get_armor().get_helmet()->get_sprite());
+    if (get_armor().get_boots() != nullptr)
+        window.draw(get_armor().get_boots()->get_sprite());
+    if (get_armor().get_gauntlets() != nullptr)
+        window.draw(get_armor().get_gauntlets()->get_sprite());
+}
+
+void Creature::thrust() {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 }

@@ -2,6 +2,8 @@
 
 #include <items.h>
 #include "sfml/Graphics.hpp"
+#include <map>
+#include "ResourceHolder.h"
 
 enum class ArmorType{
     HELMET,
@@ -13,13 +15,13 @@ enum class ArmorType{
 
 class BaseArmor : public Items {
 public:
-    BaseArmor(const sf::Texture* texture, const sf::Vector2f& pos);
+    BaseArmor(const sf::Vector2f& pos);
 
-    sf::Sprite& get_sprite() { return _sprite; }    
+    sf::Sprite& get_sprite() { return _sprite; }
 protected:
     int _armor = 0;
     ArmorType _armor_type;
-    const sf::Texture* _texture;
+    std::map<std::string, sf::Texture*> _textures;
     sf::Sprite _sprite;
     /*
     int _added_health;

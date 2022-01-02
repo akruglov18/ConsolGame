@@ -152,7 +152,6 @@ void Action::move_down(Creature* creature, float time, const Field& game_field) 
 }
 
 void Action::stop(Creature* creature) {
-    // It's possible to add some micro left-right movements to imitate breath while staying, but I don't want to
     auto dir = creature->get_dir();
     auto body = creature->get_armor().get_body();
     auto helmet = creature->get_armor().get_helmet();
@@ -219,6 +218,69 @@ void Action::stop(Creature* creature) {
 ////////////////////////////////////////////////////////////////////////////////ANOTHER ACTIONS/////////////////////////////////////////////////////////////
 
 void Action::hit(Creature* creature, float time, const Field& game_field) {
-
+    creature->thrust();
+    auto& current_frame = creature->get_frame();
+    current_frame += 0.15f * time;
+    if (current_frame > 8) current_frame = 0;
+    auto dir = creature->get_dir();
+    auto body = creature->get_armor().get_body();
+    auto helmet = creature->get_armor().get_helmet();
+    auto pants = creature->get_armor().get_pants();
+    auto boots = creature->get_armor().get_boots();
+    auto gauntlets = creature->get_armor().get_gauntlets();
+    switch (creature->get_dir()) {
+        case(Left):
+            creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
+            if (body != nullptr)
+                body->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
+            if (helmet != nullptr)
+                helmet->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
+            if (pants != nullptr)
+                pants->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
+            if (boots != nullptr)
+                boots->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
+            if (gauntlets != nullptr)
+                gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
+            break;
+        case(Right):
+            creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
+            if (body != nullptr)
+                body->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
+            if (helmet != nullptr)
+                helmet->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
+            if (pants != nullptr)
+                pants->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
+            if (boots != nullptr)
+                boots->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
+            if (gauntlets != nullptr)
+                gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
+            break;
+        case(Up):
+            creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
+            if (body != nullptr)
+                body->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
+            if (helmet != nullptr)
+                helmet->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
+            if (pants != nullptr)
+                pants->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
+            if (boots != nullptr)
+                boots->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
+            if (gauntlets != nullptr)
+                gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
+            break;
+        case(Down):
+            creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
+            if (body != nullptr)
+                body->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
+            if (helmet != nullptr)
+                helmet->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
+            if (pants != nullptr)
+                pants->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
+            if (boots != nullptr)
+                boots->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
+            if (gauntlets != nullptr)
+                gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
+            break;
+    }
 }
 

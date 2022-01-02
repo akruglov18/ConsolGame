@@ -15,6 +15,7 @@ public:
     void set_pants(Pants* pants);
     void set_boots(Boots* boots);
     void set_gauntlets(Gauntlets* gauntlets);
+
     BodyArmor* get_body();
     Helmet* get_helmet();
     Pants* get_pants();
