@@ -6,6 +6,7 @@
 #include "sfml/Graphics.hpp"
 #include "field.h"
 #include "armor_set.h"
+#include "weapon.h"
 
 enum class CreatureType {
     NONE,
@@ -15,6 +16,15 @@ enum class CreatureType {
     TAUR,
     WOLF,
     SKELETON
+};
+
+enum class Modes {
+    WALK,
+    THRUST,
+    SPELLCAST,
+    SLASH,
+    HURT,
+    BOW
 };
 
 class CreatureManager;
@@ -46,13 +56,17 @@ public:
     sf::Vector2f& get_pos() { return _pos; }
     float& get_frame() { return _current_frame; }
     int& get_dir() { return _direction; }
+    std::shared_ptr<Weapon> get_weapon() const { return _weapon; };
     void set_pos(float x, float y);
 
     void set_health(int health);
 
+    Modes _mode;
+
 protected:
     // general
     ArmorSet _armor_set;
+    std::shared_ptr<Weapon> _weapon;
     int _health;
     int _experience;
     float _current_frame;

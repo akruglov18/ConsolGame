@@ -217,11 +217,23 @@ void Action::stop(Creature* creature) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////ANOTHER ACTIONS/////////////////////////////////////////////////////////////
 
+void Action::choose_weapon(Creature* creature) {
+    switch (creature->get_weapon()->get_weapon_type()) {
+        case (WeaponType::SPEAR):
+            if (creature->_mode != Modes::THRUST) {
+                creature->thrust();
+                creature->_mode = Modes::THRUST;
+            }
+            break;
+    }
+}
+
 void Action::hit(Creature* creature, float time, const Field& game_field) {
-    creature->thrust();
+    choose_weapon(creature);
+    
     auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
-    if (current_frame > 8) current_frame = 0;
+    if (current_frame > 9.f) current_frame = 0.f;
     auto dir = creature->get_dir();
     auto body = creature->get_armor().get_body();
     auto helmet = creature->get_armor().get_helmet();
