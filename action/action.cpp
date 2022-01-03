@@ -220,6 +220,12 @@ void Action::choose_weapon(Creature* creature) {
                 creature->_mode = Modes::THRUST;
             }
             break;
+        case (WeaponType::SWORD):
+            if (creature->_mode != Modes::SLASH) {
+                creature->slash();
+                creature->_mode = Modes::SLASH;
+            }
+            break;
     }
 }
 

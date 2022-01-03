@@ -12,14 +12,11 @@ Game::Game() {
     _player = std::make_shared<Player>(Player(HOLDER().getResource("player_walk"), _manager, 100, {366.f, 560.f}));
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
-    _player->get_armor().set_body(new BodyArmor_chain(_player->get_pos()));
-    _player->get_armor().set_helmet(new Helmet(_player->get_pos()));
-    _player->get_armor().set_pants(new Pants(_player->get_pos()));
-    _player->get_armor().set_boots(new Boots(_player->get_pos()));
+    _player->init_dress();
 
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, {400.f, 256.f}));
     _enemies[0]->get_armor().set_body(new BodyArmor_chain(_enemies[0]->get_pos()));
-    _enemies[0]->get_armor().set_helmet(new Helmet(_enemies[0]->get_pos()));
+    _enemies[0]->get_armor().set_helmet(new Helmet_chain_hood(_enemies[0]->get_pos()));
 }
 
 void Game::game_loop() {    

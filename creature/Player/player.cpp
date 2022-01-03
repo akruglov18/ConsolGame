@@ -4,7 +4,7 @@
 class Action;
 
 Player::Player(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos) : 
-               Creature(texture, manager, health, pos) {
+               Creature(manager, health, pos) {
     _type = CreatureType::PLAYER;
     _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
 }
@@ -42,4 +42,11 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
         else
             Action::stop(this);
     }
+}
+
+void Player::init_dress() {
+    get_armor().set_body(new BodyArmor_chain(get_pos()));
+    get_armor().set_helmet(new Helmet_chain_hood(get_pos()));
+    get_armor().set_pants(new Pants_green(get_pos()));
+    get_armor().set_boots(new Boots_brown(get_pos()));
 }

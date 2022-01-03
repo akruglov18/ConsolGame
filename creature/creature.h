@@ -42,7 +42,7 @@ public:
     // Constructor ~ Destructor
     Creature(CreatureManager& manager, int health, const sf::Vector2f& pos);
     Creature(const Creature&);
-    virtual ~Creature();
+    virtual ~Creature(){}
 
     // Methods
     CreatureType get_type() const { return _type; }
@@ -78,7 +78,7 @@ protected:
     int _experience;
     float _current_frame;
     sf::Vector2f _pos;
-    std::map<std::string, sf::Texture*> _body_textures;
+    std::vector<std::shared_ptr<sf::Texture>> _body_textures;
     sf::Sprite _sprite;
     CreatureManager& _manager;
 

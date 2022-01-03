@@ -7,6 +7,7 @@ Creature::Creature(CreatureManager& manager, int health, const sf::Vector2f& pos
     _current_frame = 0;
     _health = health;
     _direction = Dirs::DOWN;
+    _body_textures.resize(T_SIZE);
 }
 
 Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other._pos) {
@@ -16,12 +17,6 @@ Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other
     _sprite = other._sprite;
     _type = other._type;
     _direction = other._direction;
-}
-
-Creature::~Creature() {
-    for (auto el : _body_textures) {
-        el.second = nullptr;
-    }
 }
 
 void Creature::set_pos(float x, float y) {
@@ -71,36 +66,36 @@ void Creature::show_creature(sf::RenderWindow& window) {
 
 void Creature::walk() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _sprite.setTexture(*_body_textures["walk"]);
+    _sprite.setTexture(*_body_textures[T_WALK]);
     _armor_set.walk();
 }
 
 void Creature::thrust() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _sprite.setTexture(*_body_textures["thrust"]);
+    _sprite.setTexture(*_body_textures[T_THRUST]);
     _armor_set.thrust();
 }
 
 void Creature::spellcast() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _sprite.setTexture(*_body_textures["spellcast"]);
+    _sprite.setTexture(*_body_textures[T_SPELLCAST]);
     _armor_set.spellcast();
 }
 
 void Creature::slash() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _sprite.setTexture(*_body_textures["slash"]);
+    _sprite.setTexture(*_body_textures[T_SLASH]);
     _armor_set.slash();
 }
 
 void Creature::hurt() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _sprite.setTexture(*_body_textures["hurt"]);
+    _sprite.setTexture(*_body_textures[T_HURT]);
     _armor_set.hurt();
 }
 
 void Creature::bow() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _sprite.setTexture(*_body_textures["bow"]);
+    _sprite.setTexture(*_body_textures[T_BOW]);
     _armor_set.bow();
 }

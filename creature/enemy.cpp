@@ -7,7 +7,7 @@
 #include "action.h"
 
 Enemy::Enemy(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos) : 
-             Creature(texture, manager, health, pos) {}
+             Creature(manager, health, pos) {}
 
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health, const sf::Vector2f& pos) {
