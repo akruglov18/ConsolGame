@@ -7,6 +7,8 @@
 #include "field.h"
 #include "armor_set.h"
 #include "weapon.h"
+#include "sword.h"
+#include "spear.h"
 
 enum class CreatureType {
     NONE,
@@ -59,10 +61,11 @@ public:
 
     //getters & setters
     ArmorSet& get_armor() { return _armor_set; }
+    std::shared_ptr<Weapon> get_weapon() const { return _weapon; };
+    void set_weapon(std::shared_ptr<Weapon> weapon, const sf::Vector2f& pos);
     sf::Sprite& get_sprite() { return _sprite; }
     sf::Vector2f& get_pos() { return _pos; }
     float& get_frame() { return _current_frame; }
-    std::shared_ptr<Weapon> get_weapon() const { return _weapon; };
     void set_pos(float x, float y);
 
     void set_health(int health);
@@ -74,6 +77,7 @@ protected:
     // general
     ArmorSet _armor_set;
     std::shared_ptr<Weapon> _weapon;
+
     int _health;
     int _experience;
     float _current_frame;

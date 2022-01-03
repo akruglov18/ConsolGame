@@ -13,6 +13,7 @@ Game::Game() {
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
     _player->init_dress();
+    _player->set_weapon(std::make_shared<Weapon>(new Spear), _player->get_pos());
 
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, {400.f, 256.f}));
     _enemies[0]->get_armor().set_body(new BodyArmor_chain(_enemies[0]->get_pos()));
@@ -227,6 +228,7 @@ void Game::load_textures() {
 
     // weapons ////////////////////////////////////////////////////////////////////////////////////
     HOLDER().loadFromFile("../../images/player/thrust/WEAPON_spear.png", "thrust_spear");
+    HOLDER().loadFromFile("../../images/player/thrust/player_weapons/192x192/new/left_hand_spear_male.png", "universal_spear");
     HOLDER().loadFromFile("../../images/player/thrust/WEAPON_staff.png", "thrust_staff");
     HOLDER().loadFromFile("../../images/player/thrust/WEAPON_shield_cutout_body.png", "thrust_shield");
     HOLDER().loadFromFile("../../images/player/thrust/WEAPON_shield_cutout_chain_armor_helmet.png", "thrust_shield2");

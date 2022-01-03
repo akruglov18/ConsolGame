@@ -24,6 +24,11 @@ void Creature::set_pos(float x, float y) {
     _pos.y = y;
 }
 
+void Creature::set_weapon(std::shared_ptr<Weapon> weapon, const sf::Vector2f& pos) {
+    _weapon = weapon;
+    _weapon->get_sprite().setPosition(pos);
+}
+
 void Creature::reduce_health(int value) {
     _health -= value;
     if(_health < 0)

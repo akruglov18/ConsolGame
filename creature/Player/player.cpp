@@ -49,4 +49,6 @@ void Player::init_dress() {
     get_armor().set_helmet(new Helmet_chain_hood(get_pos()));
     get_armor().set_pants(new Pants_green(get_pos()));
     get_armor().set_boots(new Boots_brown(get_pos()));
+
+    set_weapon(new Spear());
 }

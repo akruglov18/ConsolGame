@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include "sfml/Graphics.hpp"
+#include "ResourceHolder.h"
 
 enum class ItemType {
     NONE,
