@@ -27,6 +27,13 @@ enum class Modes {
     BOW
 };
 
+enum class Dirs {
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN
+};
+
 class CreatureManager;
 class Player;
 
@@ -55,13 +62,13 @@ public:
     sf::Sprite& get_sprite() { return _sprite; }
     sf::Vector2f& get_pos() { return _pos; }
     float& get_frame() { return _current_frame; }
-    int& get_dir() { return _direction; }
     std::shared_ptr<Weapon> get_weapon() const { return _weapon; };
     void set_pos(float x, float y);
 
     void set_health(int health);
 
     Modes _mode;
+    Dirs _direction;
 
 protected:
     // general
@@ -70,7 +77,6 @@ protected:
     int _health;
     int _experience;
     float _current_frame;
-    int _direction;
     sf::Vector2f _pos;
     std::map<std::string, sf::Texture*> _body_textures;
     sf::Sprite _sprite;

@@ -1,7 +1,15 @@
 #include "gauntlets.h"
 
-Gauntlets::Gauntlets(const sf::Texture* texture, const sf::Vector2f& pos) : BaseArmor(texture, pos) {
+static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+
+Gauntlets::Gauntlets(const sf::Vector2f& pos) : BaseArmor(pos) {
     _armor_type = ArmorType::GAUNTLETS;
-    _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
-    _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
+}
+
+Gauntlets_plate::Gauntlets_plate(const sf::Vector2f& pos) : Gauntlets(pos) {
+    for (int i = 0; i < T_SIZE; ++i) {
+        _textures[i] = std::make_shared<sf::Texture>(HOLDER().getResource("gauntlets_plate" + _suffixes[i]));
+    }
+    init_scale(pos);
+    _armor = 30;
 }

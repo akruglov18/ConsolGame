@@ -1,8 +1,4 @@
 #include "Action.h"
-#define Left 1
-#define Right 2
-#define Up 3
-#define Down 4
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////////////////
@@ -40,7 +36,7 @@ void Action::move_left(Creature* creature, float time, const Field& game_field) 
         gauntlets->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
         gauntlets->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
     }
-    creature->get_dir() = Left;
+    creature->_direction = Dirs::LEFT;
 }
 
 void Action::move_right(Creature* creature, float time, const Field& game_field) {
@@ -76,7 +72,7 @@ void Action::move_right(Creature* creature, float time, const Field& game_field)
         gauntlets->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
         gauntlets->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
     }
-    creature->get_dir() = Right;
+    creature->_direction = Dirs::RIGHT;
 }
 
 void Action::move_up(Creature* creature, float time, const Field& game_field) {
@@ -112,7 +108,7 @@ void Action::move_up(Creature* creature, float time, const Field& game_field) {
         gauntlets->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
         gauntlets->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
     }
-    creature->get_dir() = Up;
+    creature->_direction = Dirs::UP;
 }
 
 void Action::move_down(Creature* creature, float time, const Field& game_field) {
@@ -148,18 +144,17 @@ void Action::move_down(Creature* creature, float time, const Field& game_field) 
         gauntlets->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
         gauntlets->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
     }
-    creature->get_dir() = Down;
+    creature->_direction = Dirs::DOWN;
 }
 
 void Action::stop(Creature* creature) {
-    auto dir = creature->get_dir();
     auto body = creature->get_armor().get_body();
     auto helmet = creature->get_armor().get_helmet();
     auto pants = creature->get_armor().get_pants();
     auto boots = creature->get_armor().get_boots();
     auto gauntlets = creature->get_armor().get_gauntlets();
-    switch (dir) {
-    case(Left):
+    switch (creature->_direction) {
+    case(Dirs::LEFT):
         creature->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
         if (body != nullptr)
             body->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
@@ -172,7 +167,7 @@ void Action::stop(Creature* creature) {
         if (gauntlets != nullptr)
             gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
         break;
-    case(Right):
+    case(Dirs::RIGHT):
         creature->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
         if (body != nullptr)
             body->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
@@ -185,7 +180,7 @@ void Action::stop(Creature* creature) {
         if (gauntlets != nullptr)
             gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
         break;
-    case(Up):
+    case(Dirs::UP):
         creature->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
         if (body != nullptr)
             body->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
@@ -198,7 +193,7 @@ void Action::stop(Creature* creature) {
         if (gauntlets != nullptr)
             gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
         break;
-    case(Down):
+    case(Dirs::DOWN):
         creature->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
         if (body != nullptr)
             body->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));
@@ -234,14 +229,14 @@ void Action::hit(Creature* creature, float time, const Field& game_field) {
     auto& current_frame = creature->get_frame();
     current_frame += 0.15f * time;
     if (current_frame > 9.f) current_frame = 0.f;
-    auto dir = creature->get_dir();
+    auto dir = creature->_direction;
     auto body = creature->get_armor().get_body();
     auto helmet = creature->get_armor().get_helmet();
     auto pants = creature->get_armor().get_pants();
     auto boots = creature->get_armor().get_boots();
     auto gauntlets = creature->get_armor().get_gauntlets();
-    switch (creature->get_dir()) {
-        case(Left):
+    switch (creature->_direction) {
+    case(Dirs::LEFT):
             creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 64, 64, 64));
             if (body != nullptr)
                 body->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
@@ -254,7 +249,7 @@ void Action::hit(Creature* creature, float time, const Field& game_field) {
             if (gauntlets != nullptr)
                 gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 64, 64, 64));
             break;
-        case(Right):
+    case(Dirs::RIGHT):
             creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 192, 64, 64));
             if (body != nullptr)
                 body->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
@@ -267,7 +262,7 @@ void Action::hit(Creature* creature, float time, const Field& game_field) {
             if (gauntlets != nullptr)
                 gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 192, 64, 64));
             break;
-        case(Up):
+    case(Dirs::UP):
             creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 0, 64, 64));
             if (body != nullptr)
                 body->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
@@ -280,7 +275,7 @@ void Action::hit(Creature* creature, float time, const Field& game_field) {
             if (gauntlets != nullptr)
                 gauntlets->get_sprite().setTextureRect(sf::IntRect(0, 0, 64, 64));
             break;
-        case(Down):
+    case(Dirs::DOWN):
             creature->get_sprite().setTextureRect(sf::IntRect(((int)current_frame + 1) * 64, 128, 64, 64));
             if (body != nullptr)
                 body->get_sprite().setTextureRect(sf::IntRect(0, 128, 64, 64));

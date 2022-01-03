@@ -1,7 +1,31 @@
 #include "pants.h"
 
-Pants::Pants(const sf::Texture* texture, const sf::Vector2f& pos) : BaseArmor(texture, pos) {
+static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+
+Pants::Pants(const sf::Vector2f& pos) : BaseArmor(pos) {
     _armor_type = ArmorType::PANTS;
-    _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
-    _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
+}
+
+Pants_green::Pants_green(const sf::Vector2f& pos) : Pants(pos) {
+    for (int i = 0; i < T_SIZE; ++i) {
+        _textures[i] = std::make_shared<sf::Texture>(HOLDER().getResource("pants_green" + _suffixes[i]));
+    }
+    init_scale(pos);
+    _armor = 20;
+}
+
+Pants_plate::Pants_plate(const sf::Vector2f& pos) : Pants(pos) {
+    for (int i = 0; i < T_SIZE; ++i) {
+        _textures[i] = std::make_shared<sf::Texture>(HOLDER().getResource("pants_plate" + _suffixes[i]));
+    }
+    init_scale(pos);
+    _armor = 60;
+}
+
+Pants_robe_skirt::Pants_robe_skirt(const sf::Vector2f& pos) : Pants(pos) {
+    for (int i = 0; i < T_SIZE; ++i) {
+        _textures[i] = std::make_shared<sf::Texture>(HOLDER().getResource("pants_robe_skirt" + _suffixes[i]));
+    }
+    init_scale(pos);
+    _armor = 10;
 }

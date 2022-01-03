@@ -1,7 +1,23 @@
 #include "boots.h"
 
-Boots::Boots(const sf::Texture* texture, const sf::Vector2f& pos) : BaseArmor(texture, pos){
+static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+
+Boots::Boots(const sf::Vector2f& pos) : BaseArmor(pos){
     _armor_type = ArmorType::BOOTS;
-    _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
-    _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
+}
+
+Boots_plate::Boots_plate(const sf::Vector2f& pos) : Boots(pos){
+    for (int i = 0; i < T_SIZE; ++i) {
+        _textures[i] = std::make_shared<sf::Texture>(HOLDER().getResource("boots_plate" + _suffixes[i]));
+    }
+    init_scale(pos);
+    _armor = 40;
+}
+
+Boots_brown::Boots_brown(const sf::Vector2f& pos) : Boots(pos) {
+    for (int i = 0; i < T_SIZE; ++i) {
+        _textures[i] = std::make_shared<sf::Texture>(HOLDER().getResource("boots_brown" + _suffixes[i]));
+    }
+    init_scale(pos);
+    _armor = 10;
 }

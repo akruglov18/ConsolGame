@@ -6,7 +6,7 @@ Creature::Creature(CreatureManager& manager, int health, const sf::Vector2f& pos
                    _manager(manager), _pos(pos) {
     _current_frame = 0;
     _health = health;
-    _direction = 4;
+    _direction = Dirs::DOWN;
 }
 
 Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other._pos) {

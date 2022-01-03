@@ -13,13 +13,13 @@ Game::Game() {
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
     _player->get_armor().set_body(new BodyArmor_chain(_player->get_pos()));
-    _player->get_armor().set_helmet(new Helmet(HOLDER().getResource("head_chain_hood_walk"), _player->get_pos()));
-    _player->get_armor().set_pants(new Pants(HOLDER().getResource("pants_green_walk"), _player->get_pos()));
-    _player->get_armor().set_boots(new Boots(HOLDER().getResource("boots_brown_walk"), _player->get_pos()));
+    _player->get_armor().set_helmet(new Helmet(_player->get_pos()));
+    _player->get_armor().set_pants(new Pants(_player->get_pos()));
+    _player->get_armor().set_boots(new Boots(_player->get_pos()));
 
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, {400.f, 256.f}));
     _enemies[0]->get_armor().set_body(new BodyArmor_chain(_enemies[0]->get_pos()));
-    _enemies[0]->get_armor().set_helmet(new Helmet(HOLDER().getResource("head_chain_hood_walk"), _enemies[0]->get_pos()));
+    _enemies[0]->get_armor().set_helmet(new Helmet(_enemies[0]->get_pos()));
 }
 
 void Game::game_loop() {    
