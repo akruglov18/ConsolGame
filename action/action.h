@@ -19,6 +19,6 @@ public:
     static void hit(Creature* creature, float time, const Field& game_field);
 
     //
-    static void choose_weapon(Creature* creature);
+    static void choose_weapon(Creature* creature, int& duration);
 };
 
