@@ -9,7 +9,7 @@ Game::Game() {
     _view.reset(sf::FloatRect(0, 0, 1280, 720));
 
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _player = std::make_shared<Player>(Player(HOLDER().getResource("player_walk"), _manager, 100, {366.f, 560.f}));
+    _player = std::make_shared<Player>(Player(HOLDER().getResource("man_walk"), _manager, 100, {366.f, 560.f}));
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
     _player->init_dress();
@@ -86,160 +86,249 @@ sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
 void Game::load_textures() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-// MAIN THEME PLAYER (MAIN PACK) //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MAIN THEME PLAYER (MAIN PACK) + ADDITIONAL //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     // bodies//////////////////////////////////////////////////////////////////////////////////////
-    HOLDER().loadFromFile("../../images/player/walkcycle/BODY_male.png", "man_walk");
-    HOLDER().loadFromFile("../../images/player/thrust/BODY_animation.png", "man_thrust");
-    HOLDER().loadFromFile("../../images/player/spellcast/BODY_male.png", "man_spellcast");
-    HOLDER().loadFromFile("../../images/player/slash/BODY_human.png", "man_slash");
-    HOLDER().loadFromFile("../../images/player/hurt/BODY_male.png", "man_hurt");
-    HOLDER().loadFromFile("../../images/player/bow/BODY_animation.png", "man_bow");
+    HOLDER().loadFromFile("../../images/creature/man_body/BODY_BOW.png", "man_bow");
+    HOLDER().loadFromFile("../../images/creature/man_body/BODY_HURT.png", "man_hurt");
+    HOLDER().loadFromFile("../../images/creature/man_body/BODY_SLASH.png", "man_slash");
+    HOLDER().loadFromFile("../../images/creature/man_body/BODY_SPELLCAST.png", "man_spellcast");
+    HOLDER().loadFromFile("../../images/creature/man_body/BODY_THURST.png", "man_thurst");
+    HOLDER().loadFromFile("../../images/creature/man_body/BODY_WALK.png", "man_walk");
 
-    HOLDER().loadFromFile("../../images/player/walkcycle/BODY_skeleton.png", "skeleton_walk");
+    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/BODY_skeleton_bow.png", "skeleton_bow");
+    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/BODY_skeleton_hurt.png", "skeleton_hurt");
+    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/BODY_skeleton_slash.png", "skeleton_slash");
+    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/BODY_skeleton_spellcast.png", "skeleton_spellcast");
+    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/BODY_skeleton_walk.png", "skeleton_walk");
+    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/HEAD_skeleton_eye_glow_spellcast.png", "skeleton_eye_spellcast");
 
-    // armors /////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                                 // WALKCYCLE
-    HOLDER().loadFromFile("../../images/player/walkcycle/FEET_plate_armor_shoes.png", "boots_plate_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/FEET_shoes_brown.png", "boots_brown_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/HANDS_plate_armor_gloves.png", "gauntlets_plate_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/HEAD_chain_armor_helmet.png", "head_chain_helmet_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/HEAD_chain_armor_hood.png", "head_chain_hood_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/HEAD_leather_armor_hat.png", "head_leather_hat_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/HEAD_plate_armor_helmet.png", "head_plate_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/HEAD_robe_hood.png", "head_robe_hood_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/LEGS_pants_greenish.png", "pants_green_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/LEGS_plate_armor_pants.png", "pants_plate_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/LEGS_robe_skirt.png", "pants_robe_skirt_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_chain_armor_jacket_purple.png", "body_chain_purple_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_chain_armor_torso.png", "body_chain_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_leather_armor_bracers.png", "body_leather_bracers_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_leather_armor_shirt_white.png", "body_leather_shirt_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_leather_armor_shoulders.png", "body_leather_shoulders_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_leather_armor_torso.png", "body_leather_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_plate_armor_arms_shoulders.png", "body_plate_shoulders_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_plate_armor_torso.png", "body_plate_walk");
-    HOLDER().loadFromFile("../../images/player/walkcycle/TORSO_robe_shirt_brown.png", "body_robe_walk");
-                                                                                                                                 // THRUST
-    HOLDER().loadFromFile("../../images/player/thrust/FEET_plate_armor_shoes.png", "boots_plate_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/FEET_shoes_brown.png", "boots_brown_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/HANDS_plate_armor_gloves.png", "gauntlets_plate_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/HEAD_chain_armor_helmet.png", "head_chain_helmet_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/HEAD_chain_armor_hood.png", "head_chain_hood_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/HEAD_leather_armor_hat.png", "head_leather_hat_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/HEAD_plate_armor_helmet.png", "head_plate_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/HEAD_robe_hood.png", "head_robe_hood_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/LEGS_pants_greenish.png", "pants_green_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/LEGS_plate_armor_pants.png", "pants_plate_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/LEGS_robe_skirt.png", "pants_robe_skirt_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_chain_armor_jacket_purple.png", "body_chain_purple_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_chain_armor_torso.png", "body_chain_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_leather_armor_bracers.png", "body_leather_bracers_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_leather_armor_shirt_white.png", "body_leather_shirt_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_leather_armor_shoulders.png", "body_leather_shoulders_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_leather_armor_torso.png", "body_leather_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_plate_armor_arms_shoulders.png", "body_plate_shoulders_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_plate_armor_torso.png", "body_plate_thrust");
-    HOLDER().loadFromFile("../../images/player/thrust/TORSO_robe_shirt_brown.png", "body_robe_thrust");
-                                                                                                                                 // SPELLCAST
-    HOLDER().loadFromFile("../../images/player/spellcast/FEET_plate_armor_shoes.png", "boots_plate_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/FEET_shoes_brown.png", "boots_brown_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/HANDS_plate_armor_gloves.png", "gauntlets_plate_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/HEAD_chain_armor_helmet.png", "head_chain_helmet_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/HEAD_chain_armor_hood.png", "head_chain_hood_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/HEAD_leather_armor_hat.png", "head_leather_hat_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/HEAD_plate_armor_helmet.png", "head_plate_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/HEAD_robe_hood.png", "head_robe_hood_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/LEGS_pants_greenish.png", "pants_green_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/LEGS_plate_armor_pants.png", "pants_plate_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/LEGS_robe_skirt.png", "pants_robe_skirt_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_chain_armor_jacket_purple.png", "body_chain_purple_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_chain_armor_torso.png", "body_chain_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_leather_armor_bracers.png", "body_leather_bracers_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_leather_armor_shirt_white.png", "body_leather_shirt_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_leather_armor_shoulders.png", "body_leather_shoulders_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_leather_armor_torso.png", "body_leather_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_plate_armor_arms_shoulders.png", "body_plate_shoulders_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_plate_armor_torso.png", "body_plate_spellcast");
-    HOLDER().loadFromFile("../../images/player/spellcast/TORSO_robe_shirt_brown.png", "body_robe_spellcast");
-                                                                                                                                 // SLASH
-    HOLDER().loadFromFile("../../images/player/slash/FEET_plate_armor_shoes.png", "boots_plate_slash");
-    HOLDER().loadFromFile("../../images/player/slash/FEET_shoes_brown.png", "boots_brown_slash");
-    HOLDER().loadFromFile("../../images/player/slash/HANDS_plate_armor_gloves.png", "gauntlets_plate_slash");
-    HOLDER().loadFromFile("../../images/player/slash/HEAD_chain_armor_helmet.png", "head_chain_helmet_slash");
-    HOLDER().loadFromFile("../../images/player/slash/HEAD_chain_armor_hood.png", "head_chain_hood_slash");
-    HOLDER().loadFromFile("../../images/player/slash/HEAD_leather_armor_hat.png", "head_leather_hat_slash");
-    HOLDER().loadFromFile("../../images/player/slash/HEAD_plate_armor_helmet.png", "head_plate_slash");
-    HOLDER().loadFromFile("../../images/player/slash/HEAD_robe_hood.png", "head_robe_hood_slash");
-    HOLDER().loadFromFile("../../images/player/slash/LEGS_pants_greenish.png", "pants_green_slash");
-    HOLDER().loadFromFile("../../images/player/slash/LEGS_plate_armor_pants.png", "pants_plate_slash");
-    HOLDER().loadFromFile("../../images/player/slash/LEGS_robe_skirt.png", "pants_robe_skirt_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_chain_armor_jacket_purple.png", "body_chain_purple_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_chain_armor_torso.png", "body_chain_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_leather_armor_bracers.png", "body_leather_bracers_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_leather_armor_shirt_white.png", "body_leather_shirt_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_leather_armor_shoulders.png", "body_leather_shoulders_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_leather_armor_torso.png", "body_leather_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_plate_armor_arms_shoulders.png", "body_plate_shoulders_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_plate_armor_torso.png", "body_plate_slash");
-    HOLDER().loadFromFile("../../images/player/slash/TORSO_robe_shirt_brown.png", "body_robe_slash");
-                                                                                                                                 // HURT
-    HOLDER().loadFromFile("../../images/player/hurt/FEET_plate_armor_shoes.png", "boots_plate_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/FEET_shoes_brown.png", "boots_brown_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/HANDS_plate_armor_gloves.png", "gauntlets_plate_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/HEAD_chain_armor_helmet.png", "head_chain_helmet_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/HEAD_chain_armor_hood.png", "head_chain_hood_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/HEAD_leather_armor_hat.png", "head_leather_hat_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/HEAD_plate_armor_helmet.png", "head_plate_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/HEAD_robe_hood.png", "head_robe_hood_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/LEGS_pants_greenish.png", "pants_green_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/LEGS_plate_armor_pants.png", "pants_plate_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/LEGS_robe_skirt.png", "pants_robe_skirt_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_chain_armor_jacket_purple.png", "body_chain_purple_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_chain_armor_torso.png", "body_chain_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_leather_armor_bracers.png", "body_leather_bracers_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_leather_armor_shirt_white.png", "body_leather_shirt_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_leather_armor_shoulders.png", "body_leather_shoulders_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_leather_armor_torso.png", "body_leather_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_plate_armor_arms_shoulders.png", "body_plate_shoulders_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_plate_armor_torso.png", "body_plate_hurt");
-    HOLDER().loadFromFile("../../images/player/hurt/TORSO_robe_shirt_brown.png", "body_robe_hurt");
-                                                                                                                                 // BOW
-    HOLDER().loadFromFile("../../images/player/bow/FEET_plate_armor_shoes.png", "boots_plate_bow");
-    HOLDER().loadFromFile("../../images/player/bow/FEET_shoes_brown.png", "boots_brown_bow");
-    HOLDER().loadFromFile("../../images/player/bow/HANDS_plate_armor_gloves.png", "gauntlets_plate_bow");
-    HOLDER().loadFromFile("../../images/player/bow/HEAD_chain_armor_helmet.png", "head_chain_helmet_bow");
-    HOLDER().loadFromFile("../../images/player/bow/HEAD_chain_armor_hood.png", "head_chain_hood_bow");
-    HOLDER().loadFromFile("../../images/player/bow/HEAD_leather_armor_hat.png", "head_leather_hat_bow");
-    HOLDER().loadFromFile("../../images/player/bow/HEAD_plate_armor_helmet.png", "head_plate_bow");
-    HOLDER().loadFromFile("../../images/player/bow/HEAD_robe_hood.png", "head_robe_hood_bow");
-    HOLDER().loadFromFile("../../images/player/bow/LEGS_pants_greenish.png", "pants_green_bow");
-    HOLDER().loadFromFile("../../images/player/bow/LEGS_plate_armor_pants.png", "pants_plate_bow");
-    HOLDER().loadFromFile("../../images/player/bow/LEGS_robe_skirt.png", "pants_robe_skirt_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_chain_armor_jacket_purple.png", "body_chain_purple_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_chain_armor_torso.png", "body_chain_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_leather_armor_bracers.png", "body_leather_bracers_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_leather_armor_shirt_white.png", "body_leather_shirt_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_leather_armor_shoulders.png", "body_leather_shoulders_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_leather_armor_torso.png", "body_leather_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_plate_armor_arms_shoulders.png", "body_plate_shoulders_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_plate_armor_torso.png", "body_plate_bow");
-    HOLDER().loadFromFile("../../images/player/bow/TORSO_robe_shirt_brown.png", "body_robe_bow");
+    // armors /////////////////////////////////////////////////////////////////////////////////////                                             // BELTS
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_bow.png", "BELT_leather_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_hurt.png", "BELT_leather_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_slash.png", "BELT_leather_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_spellcast.png", "BELT_leather_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_thurst.png", "BELT_leather_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_walk.png", "BELT_leather_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/rope_belt/BELT_rope_bow.png", "BELT_rope_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/rope_belt/BELT_rope_hurt.png", "BELT_rope_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/rope_belt/BELT_rope_slash.png", "BELT_rope_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/rope_belt/BELT_rope_spellcast.png", "BELT_rope_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/rope_belt/BELT_rope_thurst.png", "BELT_rope_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/belt/rope_belt/BELT_rope_walk.png", "BELT_rope_walk");
+                                                                                                                                                // BODY
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain/TORSO_chain_armor_bow.png", "TORSO_chain_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain/TORSO_chain_armor_hurt.png", "TORSO_chain_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain/TORSO_chain_armor_slash.png", "TORSO_chain_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain/TORSO_chain_armor_spellcast.png", "TORSO_chain_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain/TORSO_chain_armor_thurst.png", "TORSO_chain_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain/TORSO_chain_armor_walk.png", "TORSO_chain_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain_purple/TORSO_chain_armor_jacket_purple_bow.png", "TORSO_chain_purple_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain_purple/TORSO_chain_armor_jacket_purple_hurt.png", "TORSO_chain_purple_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain_purple/TORSO_chain_armor_jacket_purple_slash.png", "TORSO_chain_purple_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain_purple/TORSO_chain_armor_jacket_purple_spellcast.png", "TORSO_chain_purple_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain_purple/TORSO_chain_armor_jacket_purple_thurst.png", "TORSO_chain_purple_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/chain_purple/TORSO_chain_armor_jacket_purple_walk.png", "TORSO_chain_purple_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/bracers/TORSO_leather_armor_bracers_bow.png", "TORSO_leather_bracers_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/bracers/TORSO_leather_armor_bracers_hurt.png", "TORSO_leather_bracers_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/bracers/TORSO_leather_armor_bracers_slash.png", "TORSO_leather_bracers_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/bracers/TORSO_leather_armor_bracers_spellcast.png", "TORSO_leather_bracers_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/bracers/TORSO_leather_armor_bracers_thurst.png", "TORSO_leather_bracers_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/bracers/TORSO_leather_armor_bracers_walk.png", "TORSO_leather_bracers_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shirt/TORSO_leather_armor_shirt_white_bow.png", "TORSO_leather_shirt_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shirt/TORSO_leather_armor_shirt_white_hurt.png", "TORSO_leather_shirt_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shirt/TORSO_leather_armor_shirt_white_slash.png", "TORSO_leather_shirt_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shirt/TORSO_leather_armor_shirt_white_spellcast.png", "TORSO_leather_shirt_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shirt/TORSO_leather_armor_shirt_white_thurst.png", "TORSO_leather_shirte_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shirt/TORSO_leather_armor_shirt_white_walk.png", "TORSO_leather_shirt_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shoulders/TORSO_leather_armor_shoulders_bow.png", "TORSO_leather_shoulders_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shoulders/TORSO_leather_armor_shoulders_hurt.png", "TORSO_leather_shoulders_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shoulders/TORSO_leather_armor_shoulders_slash.png", "TORSO_leather_shoulders_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shoulders/TORSO_leather_armor_shoulders_spellcast.png", "TORSO_leather_shoulders_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shoulders/TORSO_leather_armor_shoulders_thurst.png", "TORSO_leather_shoulders_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/shoulders/TORSO_leather_armor_shoulders_walk.png", "TORSO_leather_shoulders_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/torso/TORSO_leather_armor_torso_bow.png", "TORSO_leather_torso_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/torso/TORSO_leather_armor_torso_hurt.png", "TORSO_leather_torso_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/torso/TORSO_leather_armor_torso_slash.png", "TORSO_leather_torso_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/torso/TORSO_leather_armor_torso_spellcast.png", "TORSO_leather_torso_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/torso/TORSO_leather_armor_torso_thurst.png", "TORSO_leather_torso_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/leather/torso/TORSO_leather_armor_torso_walk.png", "TORSO_leather_torso_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/shoulders/TORSO_plate_armor_arms_shoulders_bow.png", "TORSO_plate_shoulders_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/shoulders/TORSO_plate_armor_arms_shoulders_hurt.png", "TORSO_plate_shoulders_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/shoulders/TORSO_plate_armor_arms_shoulders_slash.png", "TORSO_plate_shoulders_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/shoulders/TORSO_plate_armor_arms_shoulders_spellcast.png", "TORSO_plate_shoulders_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/shoulders/TORSO_plate_armor_arms_shoulders_thurst.png", "TORSO_plate_shoulders_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/shoulders/TORSO_plate_armor_arms_shoulders_walk.png", "TORSO_plate_shoulders_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/torso/TORSO_plate_armor_torso_bow.png", "TORSO_plate_torso_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/torso/TORSO_plate_armor_torso_hurt.png", "TORSO_plate_torso_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/torso/TORSO_plate_armor_torso_slash.png", "TORSO_plate_torso_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/torso/TORSO_plate_armor_torso_spellcast.png", "TORSO_plate_torso_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/torso/TORSO_plate_armor_torso_thurst.png", "TORSO_plate_torso_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/plate/torso/TORSO_plate_armor_torso_walk.png", "TORSO_plate_torso_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_bow.png", "TORSO_robe_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_hurt.png", "TORSO_robe_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_slash.png", "TORSO_robe_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_spellcast.png", "TORSO_robe_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_thurst.png", "TORSO_robe_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_walk.png", "TORSO_robe_walk");
+                               // universal
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_black.png", "TORSO_cape_black");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_blue.png", "TORSO_cape_blue");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_brown.png", "TORSO_cape_brown");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_gray.png", "TORSO_cape_gray");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_green.png", "TORSO_cape_green");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_lavender.png", "TORSO_cape_lavender");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_maroon.png", "TORSO_cape_maroon");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_pink.png", "TORSO_cape_pink");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_red.png", "TORSO_cape_red");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_white.png", "TORSO_cape_white");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_yellow.png", "TORSO_cape_yellow");
+                               // universal
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_heavyplate_bronze.png", "TORSO_heavyplate_bronze");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_legionplate_bronze.png", "TORSO_legionplate_bronze");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_legionplate_gold.png", "TORSO_legionplate_gold");
+    HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_legionplate_steel.png", "TORSO_legionplate_steel");
+                                                                                                                                                // BOOTS
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_bow.png", "FEET_brown_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_hurt.png", "FEET_brown_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_slash.png", "FEET_brown_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_spellcast.png", "FEET_brown_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_thurst.png", "FEET_brown_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_walk.png", "FEET_brown_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_bow.png", "FEET_plate_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_hurt.png", "FEET_plate_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_slash.png", "FEET_plate_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_spellcast.png", "FEET_plate_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_thurst.png", "FEET_plate_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_walk.png", "FEET_plate_walk");
+                               // universal
+    HOLDER().loadFromFile("../../images/items/armor_set/boots/legioner_sandals_1U/Male_sandals.png", "FEET_legion_sandals");
+                                                                                                                                                // GAUNTLETS
+    HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_bow.png", "HANDS_plate_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_hurt.png", "HANDS_plate_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_slash.png", "HANDS_plate_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_spellcast.png", "HANDS_plate_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_thurst.png", "HANDS_plate_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_walk.png", "HANDS_plate_walk");
+                                                                                                                                                // HELMETS
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/helmet/HEAD_chain_armor_helmet_bow.png", "HEAD_chain_helmet_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/helmet/HEAD_chain_armor_helmet_hurt.png", "HEAD_chain_helmet_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/helmet/HEAD_chain_armor_helmet_slash.png", "HEAD_chain_helmet_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/helmet/HEAD_chain_armor_helmet_spellcast.png", "HEAD_chain_helmet_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/helmet/HEAD_chain_armor_helmet_thurst.png", "HEAD_chain_helmet_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/helmet/HEAD_chain_armor_helmet_walk.png", "HEAD_chain_helmet_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/hood/HEAD_chain_armor_hood_bow.png", "HEAD_chain_hood_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/hood/HEAD_chain_armor_hood_hurt.png", "HEAD_chain_hood_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/hood/HEAD_chain_armor_hood_slash.png", "HEAD_chain_hood_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/hood/HEAD_chain_armor_hood_spellcast.png", "HEAD_chain_hood_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/hood/HEAD_chain_armor_hood_thurst.png", "HEAD_chain_hood_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/chain/hood/HEAD_chain_armor_hood_walk.png", "HEAD_chain_hood_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/hair_blond/HEAD_hair_blonde_bow.png", "HEAD_hair_blonde_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/hair_blond/HEAD_hair_blonde_hurt.png", "HEAD_hair_blonde_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/hair_blond/HEAD_hair_blonde_slash.png", "HEAD_hair_blonde_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/hair_blond/HEAD_hair_blonde_spellcast.png", "HEAD_hair_blonde_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/hair_blond/HEAD_hair_blonde_thurst.png", "HEAD_hair_blonde_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/hair_blond/HEAD_hair_blonde_walk.png", "HEAD_hair_blonde_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/leather/HEAD_leather_armor_hat_bow.png", "HEAD_leather_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/leather/HEAD_leather_armor_hat_hurt.png", "HEAD_leather_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/leather/HEAD_leather_armor_hat_slash.png", "HEAD_leather_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/leather/HEAD_leather_armor_hat_spellcast.png", "HEAD_leather_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/leather/HEAD_leather_armor_hat_thurst.png", "HEAD_leather_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/leather/HEAD_leather_armor_hat_walk.png", "HEAD_leather_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/plate/HEAD_plate_armor_helmet_bow.png", "HEAD_plate_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/plate/HEAD_plate_armor_helmet_hurt.png", "HEAD_plate_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/plate/HEAD_plate_armor_helmet_slash.png", "HEAD_plate_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/plate/HEAD_plate_armor_helmet_spellcast.png", "HEAD_plate_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/plate/HEAD_plate_armor_helmet_thurst.png", "HEAD_plate_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/plate/HEAD_plate_armor_helmet_walk.png", "HEAD_plate_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_bow.png", "HEAD_robe_hood_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_hurt.png", "HEAD_robe_hood_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_slash.png", "HEAD_robe_hood_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_spellcast.png", "HEAD_robe_hood_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_thurst.png", "HEAD_robe_hood_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_walk.png", "HEAD_robe_hood_walk");
+                               // universal
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/barbarian_1U/barbarian-male.png", "HEAD_barbarian");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/barbuta_1U/barbuta-male.png", "HEAD_barbuta");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/maximus_1U/maximus-male.png", "HEAD_maximus");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_1st_3U/Male_legion1helmet_bronze.png", "HEAD_legion1helmet_bronze");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_1st_3U/Male_legion1helmet_gold.png", "HEAD_legion1helmet_gold");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_1st_3U/Male_legion1helmet_steel.png", "HEAD_legion1helmet_steel");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_2nd_3U/Male_legion2helmet_bronze.png", "HEAD_legion2helmet_bronze");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_2nd_3U/Male_legion2helmet_gold.png", "HEAD_legion2helmet_gold");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_2nd_3U/Male_legion2helmet_steel.png", "HEAD_legion2helmet_steel");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_3rd_3U/Male_legion3helmet_bronze.png", "HEAD_legion3helmet_bronze");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_3rd_3U/Male_legion3helmet_gold.png", "HEAD_legion3helmet_gold");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_3rd_3U/Male_legion3helmet_steel.png", "HEAD_legion3helmet_steel");
+    HOLDER().loadFromFile("../../images/items/armor_set/helmet/wizard_hat_1U/wizard_hat_male.png", "HEAD_wizard_hat");
+                               // universal                                                                                                     // BAULDRON
+    HOLDER().loadFromFile("../../images/items/armor_set/legion_bauldon/Male_legionbauldron_bronze.png", "BAULDRON_bronze");
+    HOLDER().loadFromFile("../../images/items/armor_set/legion_bauldon/Male_legionbauldron_gold.png", "BAULDRON_gold");
+    HOLDER().loadFromFile("../../images/items/armor_set/legion_bauldon/Male_legionbauldron_steel.png", "BAULDRON_steel");
+                                                                                                                                                // PANTS
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_bow.png", "LEGS_greenish_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_hurt.png", "LEGS_greenish_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_slash.png", "LEGS_greenish_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_spellcast.png", "LEGS_greenish_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_thurst.png", "LEGS_greenish_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_walk.png", "LEGS_greenish_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/plate/LEGS_plate_armor_pants_bow.png", "LEGS_plate_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/plate/LEGS_plate_armor_pants_hurt.png", "LEGS_plate_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/plate/LEGS_plate_armor_pants_slash.png", "LEGS_plate_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/plate/LEGS_plate_armor_pants_spellcast.png", "LEGS_plate_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/plate/LEGS_plate_armor_pants_thurst.png", "LEGS_plate_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/plate/LEGS_plate_armor_pants_walk.png", "LEGS_plate_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_bow.png", "LEGS_robe_skirt_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_hurt.png", "LEGS_robe_skirt_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_slash.png", "LEGS_robe_skirt_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_spellcast.png", "LEGS_robe_skirt_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_thurst.png", "LEGS_robe_skirt_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_walk.png", "LEGS_robe_skirt_walk");
+                               // universal
+    HOLDER().loadFromFile("../../images/items/armor_set/pants/legion_skirt_1U/Male_legionSkirt.png", "LEGS_legion_skirt");
+                                                                                                                                                // QUIVER
+    HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_bow.png", "BEHIND_quiver_bow");
+    HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_hurt.png", "BEHIND_quiver_hurt");
+    HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_slash.png", "BEHIND_quiver_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_spellcast.png", "BEHIND_quiver_spellcast");
+    HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_thurst.png", "BEHIND_quiver_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_walk.png", "BEHIND_quiver_walk");
+                                                                                                                                                // SHIELD
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_body_slash.png", "SHIELD_cutout_body_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_body_thurst.png", "SHIELD_cutout_body_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_body_walk.png", "SHIELD_cutout_body_walk");
+
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_chain_armor_helmet_slash.png", "SHIELD_cutout_chain_armor_helmet_slash");
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_chain_armor_helmet_thurst.png", "SHIELD_cutout_chain_armor_helmet_thurst");
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_chain_armor_helmet_walk.png", "SHIELD_cutout_chain_armor_helmet_walk");
+                               // universal
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/crusaider_1U/crusader_male.png", "SHIELD_crusader");
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/kite_1U/kite_shield.png", "SHIELD_kite");
+    HOLDER().loadFromFile("../../images/items/armor_set/shield/spartan_1U/spartan_male.png", "SHIELD_spartan");    
 
     // weapons ////////////////////////////////////////////////////////////////////////////////////
-    HOLDER().loadFromFile("../../images/player/thrust/WEAPON_spear.png", "thrust_spear");
-    HOLDER().loadFromFile("../../images/player/thrust/player_weapons/192x192/new/left_hand_spear_male.png", "universal_spear");
-    HOLDER().loadFromFile("../../images/player/thrust/WEAPON_staff.png", "thrust_staff");
-    HOLDER().loadFromFile("../../images/player/thrust/WEAPON_shield_cutout_body.png", "thrust_shield");
-    HOLDER().loadFromFile("../../images/player/thrust/WEAPON_shield_cutout_chain_armor_helmet.png", "thrust_shield2");
-    HOLDER().loadFromFile("../../images/player/walkcycle/WEAPON_shield_cutout_body.png", "walk_shield");
-    HOLDER().loadFromFile("../../images/player/walkcycle/WEAPON_shield_cutout_chain_armor_helmet.png", "walk_shield2");
-
-    // additional for creatures ///////////////////////////////////////////////////////////////////
-    HOLDER().loadFromFile("../../images/player/thrust/BELT_leather.png", "thrust_belt_leather");
-    HOLDER().loadFromFile("../../images/player/thrust/BELT_rope.png", "thrust_belt_rope");
-    HOLDER().loadFromFile("../../images/player/thrust/BEHIND_quiver.png", "thrust_quiver");
-    HOLDER().loadFromFile("../../images/player/thrust/HEAD_hair_blonde.png", "trhust_hair_blonde");
+    HOLDER().loadFromFile("../../images/items/weapons/Spears/left_hand_spear_male.png", "SPEAR_wood");
+    HOLDER().loadFromFile("../../images/items/weapons/Spears/lpc_all-metal_spear_rework.png", "SPEAR_metal");
+    HOLDER().loadFromFile("../../images/items/weapons/Spears/lpc_black_spear.png", "SPEAR_black");
+    HOLDER().loadFromFile("../../images/items/weapons/Spears/lpc_dark_purple_spear_rework.png", "SPEAR_purple");
+    HOLDER().loadFromFile("../../images/items/weapons/Spears/lpc_green_spear_rework.png", "SPEAR_green");
 
 // TERRAIN AND FEATURES ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

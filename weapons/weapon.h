@@ -12,7 +12,7 @@ enum class WeaponType {
 
 class Weapon : public Items {
 public:
-    Weapon();
+    Weapon(const sf::Vector2f& pos);
 
     virtual double get_damage() const;
     double damage() const { return _damage; }
@@ -23,7 +23,7 @@ public:
 
     virtual ~Weapon(){}
 protected:
-    sf::Texture* _texture;
+    std::shared_ptr<sf::Texture> _texture;
     sf::Sprite _sprite;
     double _damage = 0;
     int _critical_chance = 0;

@@ -1,6 +1,6 @@
 #include "weapon.h"
 
-Weapon::Weapon() {
+Weapon::Weapon(const sf::Vector2f& pos) {
     _item_type = ItemType::WEAPON;
 }
 

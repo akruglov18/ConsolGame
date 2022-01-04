@@ -50,5 +50,5 @@ void Player::init_dress() {
     get_armor().set_pants(new Pants_green(get_pos()));
     get_armor().set_boots(new Boots_brown(get_pos()));
 
-    set_weapon(new Spear());
+    set_weapon(std::make_shared<Spear>(new Spear), _pos);
 }
