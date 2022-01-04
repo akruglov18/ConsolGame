@@ -1,9 +1,18 @@
 #include "Game.h"
 #include <thread>
 
+//#define universal
+
 Game::Game() {
     // Loading of all essential textures
+    /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
+    auto start = std::chrono::high_resolution_clock::now();
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     load_textures();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Textures loading: " << std::setw(9) << diff.count() << " s\n";
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     _game_field.generate_field();
     _view.reset(sf::FloatRect(0, 0, 1280, 720));
@@ -13,7 +22,6 @@ Game::Game() {
     get_player_pos_for_view(_player->get_pos());
     _manager.setPlayer(_player);
     _player->init_dress();
-    _player->set_weapon(std::make_shared<Weapon>(*(new Spear_wood(_player->get_pos()))));
 
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, { 400.f, 256.f }));
     _enemies[0]->get_armor()._body_armor = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_enemies[0]->get_pos())));
@@ -40,7 +48,6 @@ void Game::game_loop() {
         for(auto& x : _enemies) {
              x->action(_player, time, _game_field);
         }
-
 
         ////////////RENDER///////////
         /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
@@ -180,7 +187,8 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_spellcast.png", "TORSO_robe_spellcast");
     HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_thrust.png", "TORSO_robe_thrust");
     HOLDER().loadFromFile("../../images/items/armor_set/body/robe/TORSO_robe_shirt_brown_walk.png", "TORSO_robe_walk");
-                               // universal
+
+#ifdef universal
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_black.png", "TORSO_cape_black");
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_blue.png", "TORSO_cape_blue");
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_brown.png", "TORSO_cape_brown");
@@ -192,11 +200,12 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_red.png", "TORSO_cape_red");
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_white.png", "TORSO_cape_white");
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_capes_11U/Male_cape_yellow.png", "TORSO_cape_yellow");
-                               // universal
+
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_heavyplate_bronze.png", "TORSO_heavyplate_bronze");
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_legionplate_bronze.png", "TORSO_legionplate_bronze");
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_legionplate_gold.png", "TORSO_legionplate_gold");
     HOLDER().loadFromFile("../../images/items/armor_set/body/legioner_plates_4U/Male_legionplate_steel.png", "TORSO_legionplate_steel");
+#endif 
                                                                                                                                            // BOOTS
     HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_bow.png", "FEET_brown_bow");
     HOLDER().loadFromFile("../../images/items/armor_set/boots/brown/FEET_shoes_brown_hurt.png", "FEET_brown_hurt");
@@ -211,8 +220,10 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_spellcast.png", "FEET_plate_spellcast");
     HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_thrust.png", "FEET_plate_thrust");
     HOLDER().loadFromFile("../../images/items/armor_set/boots/plate/FEET_plate_armor_shoes_walk.png", "FEET_plate_walk");
-                               // universal
+
+#ifdef universal
     HOLDER().loadFromFile("../../images/items/armor_set/boots/legioner_sandals_1U/Male_sandals.png", "FEET_legion_sandals");
+#endif
                                                                                                                                            // GAUNTLETS
     HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_bow.png", "HANDS_plate_bow");
     HOLDER().loadFromFile("../../images/items/armor_set/gauntlets/plate/HANDS_plate_armor_gloves_hurt.png", "HANDS_plate_hurt");
@@ -262,7 +273,8 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_spellcast.png", "HEAD_robe_hood_spellcast");
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_thrust.png", "HEAD_robe_hood_thrust");
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/robe/HEAD_robe_hood_walk.png", "HEAD_robe_hood_walk");
-                               // universal
+
+#ifdef universal
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/barbarian_1U/barbarian-male.png", "HEAD_barbarian");
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/barbuta_1U/barbuta-male.png", "HEAD_barbuta");
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/maximus_1U/maximus-male.png", "HEAD_maximus");
@@ -276,10 +288,11 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_3rd_3U/Male_legion3helmet_gold.png", "HEAD_legion3helmet_gold");
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/legion_3rd_3U/Male_legion3helmet_steel.png", "HEAD_legion3helmet_steel");
     HOLDER().loadFromFile("../../images/items/armor_set/helmet/wizard_hat_1U/wizard_hat_male.png", "HEAD_wizard_hat");
-                               // universal                                                                                                // BAULDRON
+                                                                                                                                           // BAULDRON
     HOLDER().loadFromFile("../../images/items/armor_set/legion_bauldon/Male_legionbauldron_bronze.png", "BAULDRON_bronze");
     HOLDER().loadFromFile("../../images/items/armor_set/legion_bauldon/Male_legionbauldron_gold.png", "BAULDRON_gold");
     HOLDER().loadFromFile("../../images/items/armor_set/legion_bauldon/Male_legionbauldron_steel.png", "BAULDRON_steel");
+#endif
                                                                                                                                            // PANTS
     HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_bow.png", "LEGS_greenish_bow");
     HOLDER().loadFromFile("../../images/items/armor_set/pants/greenish/LEGS_pants_greenish_hurt.png", "LEGS_greenish_hurt");
@@ -301,8 +314,10 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_spellcast.png", "LEGS_robe_skirt_spellcast");
     HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_thrust.png", "LEGS_robe_skirt_thrust");
     HOLDER().loadFromFile("../../images/items/armor_set/pants/robe_skirt/LEGS_robe_skirt_walk.png", "LEGS_robe_skirt_walk");
-                               // universal
+
+#ifdef universal
     HOLDER().loadFromFile("../../images/items/armor_set/pants/legion_skirt_1U/Male_legionSkirt.png", "LEGS_legion_skirt");
+#endif
                                                                                                                                            // QUIVER
     HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_bow.png", "BEHIND_quiver_bow");
     HOLDER().loadFromFile("../../images/items/armor_set/quiver/BEHIND_quiver_hurt.png", "BEHIND_quiver_hurt");
@@ -318,10 +333,12 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_chain_armor_helmet_slash.png", "SHIELD_cutout_chain_armor_helmet_slash");
     HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_chain_armor_helmet_thrust.png", "SHIELD_cutout_chain_armor_helmet_thrust");
     HOLDER().loadFromFile("../../images/items/armor_set/shield/brown/WEAPON_shield_cutout_chain_armor_helmet_walk.png", "SHIELD_cutout_chain_armor_helmet_walk");
-                               // universal
+
+#ifdef universal
     HOLDER().loadFromFile("../../images/items/armor_set/shield/crusaider_1U/crusader_male.png", "SHIELD_crusader");
     HOLDER().loadFromFile("../../images/items/armor_set/shield/kite_1U/kite_shield.png", "SHIELD_kite");
     HOLDER().loadFromFile("../../images/items/armor_set/shield/spartan_1U/spartan_male.png", "SHIELD_spartan");    
+#endif
 
     // weapons ////////////////////////////////////////////////////////////////////////////////////
     HOLDER().loadFromFile("../../images/items/weapons/Spears/left_hand_spear_male.png", "SPEAR_wood");
@@ -329,6 +346,10 @@ void Game::load_textures() {
     HOLDER().loadFromFile("../../images/items/weapons/Spears/lpc_black_spear.png", "SPEAR_black");
     HOLDER().loadFromFile("../../images/items/weapons/Spears/lpc_dark_purple_spear_rework.png", "SPEAR_purple");
     HOLDER().loadFromFile("../../images/items/weapons/Spears/lpc_green_spear_rework.png", "SPEAR_green");
+
+    HOLDER().loadFromFile("../../images/items/weapons/War_Axe/Walk.png", "AXE_basic_walk");
+    HOLDER().loadFromFile("../../images/items/weapons/War_Axe/Slash.png", "AXE_basic_slash");
+    HOLDER().loadFromFile("../../images/items/weapons/War_Axe/Hurt.png", "AXE_basic_hurt");
 
 // TERRAIN AND FEATURES ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     

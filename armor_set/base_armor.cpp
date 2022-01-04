@@ -1,7 +1,5 @@
 #include "base_armor.h"
 
-const std::vector<std::string> BaseArmor::_suffixes = { "_walk", "_thrust", "_spellcast", "_slash", "_hurt", "_bow" };
-
 BaseArmor::BaseArmor() {
     _item_type = ItemType::ARMOR;
     _textures.resize(T_SIZE);
@@ -14,25 +12,32 @@ void BaseArmor::init_scale(const sf::Vector2f& pos) {
 }
 
 void BaseArmor::walk() {
-    _sprite.setTexture(*_textures[T_WALK]);
+    if (this != nullptr && _textures[T_WALK] != nullptr)
+        _sprite.setTexture(*_textures[T_WALK]);
 }
 
 void BaseArmor::thrust() {
-    _sprite.setTexture(*_textures[T_THRUST]);
+    if (this != nullptr && _textures[T_THRUST] != nullptr)
+        _sprite.setTexture(*_textures[T_THRUST]);
 }
 
 void BaseArmor::spellcast() {
-    _sprite.setTexture(*_textures[T_SPELLCAST]);
+    if (this != nullptr && _textures[T_SPELLCAST] != nullptr)
+        _sprite.setTexture(*_textures[T_SPELLCAST]);
 }
 
 void BaseArmor::slash() {
-    _sprite.setTexture(*_textures[T_SLASH]);
+    if (this != nullptr && _textures[T_SLASH] != nullptr) {
+        _sprite.setTexture(*_textures[T_SLASH]);
+    }
 }
 
 void BaseArmor::hurt() {
-    _sprite.setTexture(*_textures[T_HURT]);
+    if (this != nullptr && _textures[T_HURT] != nullptr)
+        _sprite.setTexture(*_textures[T_HURT]);
 }
 
 void BaseArmor::bow() {
-    _sprite.setTexture(*_textures[T_BOW]);
+    if (this != nullptr && _textures[T_BOW] != nullptr)
+        _sprite.setTexture(*_textures[T_BOW]);
 }

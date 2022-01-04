@@ -59,5 +59,5 @@ void Player::init_dress() {
     get_armor()._pants = std::make_shared<Pants>(*(new Pants_green(_pos)));
     get_armor()._boots = std::make_shared<Boots>(*(new Boots_brown(_pos)));
 
-    set_weapon(std::make_shared<Spear>(*(new Spear_wood(_pos))));
+    set_weapon(std::make_shared<Axe>(*(new Axe_basic(_pos))));
 }

@@ -9,6 +9,7 @@
 #include "weapon.h"
 #include "sword.h"
 #include "spear.h"
+#include "axe.h"
 
 enum class CreatureType {
     NONE,

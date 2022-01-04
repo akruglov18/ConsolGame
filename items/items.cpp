@@ -1,6 +1,8 @@
 #include "items.h"
 #include <string>
 
+const std::vector<std::string> Items::_suffixes = { "_walk", "_thrust", "_spellcast", "_slash", "_hurt", "_bow" };
+
 ItemType Items::get_type() const {
     return _item_type;
 }

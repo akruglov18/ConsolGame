@@ -26,7 +26,6 @@ void Creature::set_pos(float x, float y) {
 
 void Creature::set_weapon(std::shared_ptr<Weapon> weapon) {
     _weapon = weapon;
-    _weapon->get_sprite().setPosition(_pos);
 }
 
 void Creature::reduce_health(int value) {
@@ -67,40 +66,42 @@ void Creature::show_creature(sf::RenderWindow& window) {
         window.draw(get_armor()._boots->get_sprite());
     if (get_armor()._gauntlets != nullptr)
         window.draw(get_armor()._gauntlets->get_sprite());
+    if (get_weapon() != nullptr)
+        window.draw(get_weapon()->get_sprite());
 }
 
 void Creature::walk() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _sprite.setTexture(*_body_textures[T_WALK]);
     _armor_set.walk();
+    _weapon->walk();
 }
 
 void Creature::thrust() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _sprite.setTexture(*_body_textures[T_THRUST]);
     _armor_set.thrust();
+    _weapon->thrust();
 }
 
 void Creature::spellcast() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _sprite.setTexture(*_body_textures[T_SPELLCAST]);
     _armor_set.spellcast();
+    _weapon->spellcast();
 }
 
 void Creature::slash() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _sprite.setTexture(*_body_textures[T_SLASH]);
     _armor_set.slash();
+    _weapon->slash();
 }
 
 void Creature::hurt() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _sprite.setTexture(*_body_textures[T_HURT]);
     _armor_set.hurt();
+    _weapon->hurt();
 }
 
 void Creature::bow() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _sprite.setTexture(*_body_textures[T_BOW]);
     _armor_set.bow();
+    _weapon->bow();
 }

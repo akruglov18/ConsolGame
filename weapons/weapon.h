@@ -7,7 +7,8 @@ enum class WeaponType {
     SWORD,
     LONG_SWORD,
     SPEAR,
-    KNIFE
+    KNIFE,
+    AXE
 };
 
 class Weapon : public Items {
@@ -22,9 +23,16 @@ public:
 
     sf::Sprite& get_sprite() { return _sprite; }
 
+    void walk();
+    void thrust();
+    void spellcast();
+    void slash();
+    void hurt();
+    void bow();
+
     virtual ~Weapon(){}
 protected:
-    std::shared_ptr<sf::Texture> _texture;
+    std::vector<std::shared_ptr<sf::Texture>> _textures;
     sf::Sprite _sprite;
     double _damage = 0;
     int _critical_chance = 0;
