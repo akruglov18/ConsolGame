@@ -19,6 +19,12 @@ Player::Player(CreatureManager& manager, int health, const sf::Vector2f& pos) :
 }
 
 void Player::action(sf::Event& event, float time, const Field& game_field) {
+
+    if (_mode == Modes::SLASH || _mode == Modes::THRUST) {
+        Action::hit(this, time, game_field);
+        return;
+    }
+
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
             case(sf::Keyboard::Left):   Action::move_left(this, time, game_field);      break;
@@ -26,8 +32,8 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             case(sf::Keyboard::Up):     Action::move_up(this, time, game_field);        break;
             case(sf::Keyboard::Down):   Action::move_down(this, time, game_field);      break;
             case(sf::Keyboard::LShift): 
-                if (_mode != Modes::SLASH)
-                    Action::hit(this, time, game_field);            
+                _current_frame = 0;
+                Action::hit(this, time, game_field);            
                 break;
         }
     }
@@ -50,10 +56,6 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
         }
         else
             Action::stop(this);
-    }
-
-    if (_mode == Modes::SLASH || _mode == Modes::THRUST) {
-        Action::hit(this, time, game_field);
     }
 }
 
