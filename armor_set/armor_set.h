@@ -10,17 +10,7 @@
 class ArmorSet : public Items {
 public:
     ArmorSet();
-    void set_body(BodyArmor* armor);
-    void set_helmet(Helmet* helmet);
-    void set_pants(Pants* pants);
-    void set_boots(Boots* boots);
-    void set_gauntlets(Gauntlets* gauntlets);
-
-    BodyArmor* get_body();
-    Helmet* get_helmet();
-    Pants* get_pants();
-    Boots* get_boots();
-    Gauntlets* get_gauntlets(); 
+    ArmorSet(const ArmorSet& other);
 
     void walk();
     void thrust();
@@ -29,10 +19,9 @@ public:
     void hurt();
     void bow();
 
-private:
-    Helmet* _helmet = nullptr;
-    BodyArmor* _body_armor = nullptr;
-    Gauntlets* _gauntlets = nullptr;
-    Pants* _pants = nullptr;
-    Boots* _boots = nullptr;
+    std::shared_ptr<Helmet> _helmet;
+    std::shared_ptr<BodyArmor> _body_armor;
+    std::shared_ptr<Gauntlets> _gauntlets;
+    std::shared_ptr<Pants> _pants;
+    std::shared_ptr<Boots> _boots;
 };

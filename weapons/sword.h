@@ -4,5 +4,5 @@
 
 class Sword : public Weapon {
 public:
-    Sword();
+    Sword(const sf::Vector2f& pos);
 };

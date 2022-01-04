@@ -62,7 +62,7 @@ public:
     //getters & setters
     ArmorSet& get_armor() { return _armor_set; }
     std::shared_ptr<Weapon> get_weapon() const { return _weapon; };
-    void set_weapon(std::shared_ptr<Weapon> weapon, const sf::Vector2f& pos);
+    void set_weapon(std::shared_ptr<Weapon> weapon);
     sf::Sprite& get_sprite() { return _sprite; }
     sf::Vector2f& get_pos() { return _pos; }
     float& get_frame() { return _current_frame; }

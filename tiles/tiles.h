@@ -35,9 +35,9 @@ enum class TilesType {
 class Tile {
 protected:
     int _passability;
-    const sf::Texture* _texture;
+    std::shared_ptr<sf::Texture> _texture;
     sf::Sprite _sprite;
-    const sf::Texture* _feature_texture;
+    std::shared_ptr<sf::Texture> _feature_texture;
     sf::Sprite _feature_sprite;
 
     TilesType _type = TilesType::NONE;
@@ -45,7 +45,6 @@ protected:
 public:
     // constructors~destructor
     Tile();
-    ~Tile();
 
     // operators
     bool operator==(const Tile& tile) const;

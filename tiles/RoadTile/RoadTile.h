@@ -3,5 +3,5 @@
 
 class RoadTile : public Tile {
 public:
-	RoadTile(const sf::Texture* texture);
+	RoadTile(std::shared_ptr<sf::Texture> texture);
 };

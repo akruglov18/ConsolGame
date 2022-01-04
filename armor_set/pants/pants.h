@@ -5,7 +5,7 @@
 
 class Pants : public BaseArmor {
 public:
-    Pants(const sf::Vector2f& pos);
+    Pants();
 };
 
 class Pants_green : public Pants {

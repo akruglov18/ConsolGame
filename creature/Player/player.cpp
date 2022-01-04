@@ -2,11 +2,20 @@
 #include "action.h"
 
 class Action;
+static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-Player::Player(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos) : 
+Player::Player(CreatureManager& manager, int health, const sf::Vector2f& pos) : 
                Creature(manager, health, pos) {
     _type = CreatureType::PLAYER;
+    _body_textures[T_WALK] = HOLDER().getResource("man_walk");
+    _body_textures[T_THRUST] = HOLDER().getResource("man_thrust");
+    _body_textures[T_SPELLCAST] = HOLDER().getResource("man_spellcast");
+    _body_textures[T_SLASH] = HOLDER().getResource("man_slash");
+    _body_textures[T_HURT] = HOLDER().getResource("man_hurt");
+    _body_textures[T_BOW] = HOLDER().getResource("man_bow");
+    _sprite.setTexture(*_body_textures[T_WALK]);
     _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
+    _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
 }
 
 void Player::action(sf::Event& event, float time, const Field& game_field) {
@@ -45,10 +54,10 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
 }
 
 void Player::init_dress() {
-    get_armor().set_body(new BodyArmor_chain(get_pos()));
-    get_armor().set_helmet(new Helmet_chain_hood(get_pos()));
-    get_armor().set_pants(new Pants_green(get_pos()));
-    get_armor().set_boots(new Boots_brown(get_pos()));
+    get_armor()._body_armor = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_pos)));
+    get_armor()._helmet = std::make_shared<Helmet>(*(new Helmet_chain_hood(_pos)));
+    get_armor()._pants = std::make_shared<Pants>(*(new Pants_green(_pos)));
+    get_armor()._boots = std::make_shared<Boots>(*(new Boots_brown(_pos)));
 
-    set_weapon(std::make_shared<Spear>(new Spear), _pos);
+    set_weapon(std::make_shared<Spear>(*(new Spear_wood(_pos))));
 }

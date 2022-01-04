@@ -5,7 +5,7 @@
 
 class BodyArmor : public BaseArmor {
 public:
-    BodyArmor(const sf::Vector2f& pos);
+    BodyArmor();
 };
 
 class BodyArmor_chain : public BodyArmor {

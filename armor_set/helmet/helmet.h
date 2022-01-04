@@ -5,7 +5,7 @@
 
 class Helmet : public BaseArmor {
 public:
-    Helmet(const sf::Vector2f& pos);
+    Helmet();
 };
 
 class Helmet_chain_helmet : public Helmet {

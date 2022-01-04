@@ -12,7 +12,8 @@ enum class WeaponType {
 
 class Weapon : public Items {
 public:
-    Weapon(const sf::Vector2f& pos);
+    Weapon();
+    //Weapon(const Weapon& other);
 
     virtual double get_damage() const;
     double damage() const { return _damage; }

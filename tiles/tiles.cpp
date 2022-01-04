@@ -11,11 +11,6 @@ Tile::Tile()
     _feature_texture = nullptr;
 }
 
-Tile::~Tile() {
-    _texture = nullptr;
-    _feature_texture = nullptr;
-}
-
 std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int b_b) {
     switch (type) {
         case TilesType::DESERT1_SAND:       return std::make_shared<Tile>(*(new Desert1_sand(i, j)));

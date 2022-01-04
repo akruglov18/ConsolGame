@@ -23,10 +23,9 @@ enum class ArmorType{
 
 class BaseArmor : public Items {
 public:
-    BaseArmor(const sf::Vector2f& pos);
+    BaseArmor();
 
     sf::Sprite& get_sprite() { return _sprite; }
-    void init_scale(const sf::Vector2f& pos);
 
     void walk();
     void thrust();
@@ -35,9 +34,10 @@ public:
     void hurt();
     void bow();
 
-    std::vector<std::string> _suffixes;
+    static const std::vector<std::string> _suffixes;
 
 protected:
+    void init_scale(const sf::Vector2f& pos);
     int _armor = 0;
     ArmorType _armor_type;
     std::vector<std::shared_ptr<sf::Texture>> _textures;

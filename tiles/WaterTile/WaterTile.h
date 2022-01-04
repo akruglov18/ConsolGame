@@ -3,5 +3,5 @@
 
 class WaterTile : public Tile {
 public:
-	WaterTile(const sf::Texture* texture);
+	WaterTile(std::shared_ptr<sf::Texture> texture);
 };

@@ -1,14 +1,10 @@
 #include "base_armor.h"
 
-BaseArmor::BaseArmor(const sf::Vector2f& pos) {
+const std::vector<std::string> BaseArmor::_suffixes = { "_walk", "_thrust", "_spellcast", "_slash", "_hurt", "_bow" };
+
+BaseArmor::BaseArmor() {
     _item_type = ItemType::ARMOR;
     _textures.resize(T_SIZE);
-    _suffixes[T_WALK] = "_walk";
-    _suffixes[T_THRUST] = "_thrust";
-    _suffixes[T_SPELLCAST] = "_spellcast";
-    _suffixes[T_SLASH] = "_slash";
-    _suffixes[T_HURT] = "_hurt";
-    _suffixes[T_BOW] = "_bow";
 }
 
 void BaseArmor::init_scale(const sf::Vector2f& pos) {

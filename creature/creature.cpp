@@ -24,9 +24,9 @@ void Creature::set_pos(float x, float y) {
     _pos.y = y;
 }
 
-void Creature::set_weapon(std::shared_ptr<Weapon> weapon, const sf::Vector2f& pos) {
+void Creature::set_weapon(std::shared_ptr<Weapon> weapon) {
     _weapon = weapon;
-    _weapon->get_sprite().setPosition(pos);
+    _weapon->get_sprite().setPosition(_pos);
 }
 
 void Creature::reduce_health(int value) {
@@ -57,16 +57,16 @@ void CreatureManager::creatureDied(const Creature* creature) {
 
 void Creature::show_creature(sf::RenderWindow& window) {
     window.draw(_sprite);
-    if (get_armor().get_pants() != nullptr)
-        window.draw(get_armor().get_pants()->get_sprite());
-    if (get_armor().get_body() != nullptr)
-        window.draw(get_armor().get_body()->get_sprite());
-    if (get_armor().get_helmet() != nullptr)
-        window.draw(get_armor().get_helmet()->get_sprite());
-    if (get_armor().get_boots() != nullptr)
-        window.draw(get_armor().get_boots()->get_sprite());
-    if (get_armor().get_gauntlets() != nullptr)
-        window.draw(get_armor().get_gauntlets()->get_sprite());
+    if (get_armor()._pants != nullptr)
+        window.draw(get_armor()._pants->get_sprite());
+    if (get_armor()._body_armor != nullptr)
+        window.draw(get_armor()._body_armor->get_sprite());
+    if (get_armor()._helmet != nullptr)
+        window.draw(get_armor()._helmet->get_sprite());
+    if (get_armor()._boots != nullptr)
+        window.draw(get_armor()._boots->get_sprite());
+    if (get_armor()._gauntlets != nullptr)
+        window.draw(get_armor()._gauntlets->get_sprite());
 }
 
 void Creature::walk() {
