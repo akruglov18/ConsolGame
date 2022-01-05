@@ -5,7 +5,7 @@
 
 class Gauntlets : public BaseArmor {
 public:
-    Gauntlets();
+    Gauntlets(const std::string& name, const sf::Vector2f& pos);
 };
 
 class Gauntlets_plate : public Gauntlets {

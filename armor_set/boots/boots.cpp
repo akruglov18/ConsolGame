@@ -1,23 +1,15 @@
 #include "boots.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
-Boots::Boots() {
+Boots::Boots(const std::string& name, const sf::Vector2f& pos) : BaseArmor(name, pos) {
     _armor_type = ArmorType::BOOTS;
 }
 
-Boots_plate::Boots_plate(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("FEET_plate" + _suffixes[i]);
-    }
-    init_scale(pos);
+//////////////////////////////////////////////////////////////////////INHERITORS///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Boots_plate::Boots_plate(const sf::Vector2f& pos) : Boots("FEET_plate", pos) {
     _armor = 40;
 }
 
-Boots_brown::Boots_brown(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("FEET_brown" + _suffixes[i]);
-    }
-    init_scale(pos);
+Boots_brown::Boots_brown(const sf::Vector2f& pos) : Boots("FEET_brown", pos) {
     _armor = 10;
 }

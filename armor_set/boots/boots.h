@@ -5,7 +5,7 @@
 
 class Boots : public BaseArmor {
 public:
-    Boots();
+    Boots(const std::string& name, const sf::Vector2f& pos);
 };
 
 class Boots_plate : public Boots {

@@ -1,48 +1,28 @@
 #include "helmet.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
-Helmet::Helmet() {
+Helmet::Helmet(const std::string& name, const sf::Vector2f& pos) : BaseArmor(name, pos) {
     _armor_type = ArmorType::HELMET;
 }
 
-Helmet_chain_helmet::Helmet_chain_helmet(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("HEAD_chain_helmet" + _suffixes[i]);
-    }
-    init_scale(pos);
+//////////////////////////////////////////////////////////////////////INHERITORS///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Helmet_chain_helmet::Helmet_chain_helmet(const sf::Vector2f& pos) : Helmet("HEAD_chain_helmet", pos) {
     _armor = 40;
 }
 
-Helmet_chain_hood::Helmet_chain_hood(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("HEAD_chain_hood" + _suffixes[i]);
-    }
-    init_scale(pos);
+Helmet_chain_hood::Helmet_chain_hood(const sf::Vector2f& pos) : Helmet("HEAD_chain_hood", pos) {
     _armor = 60;
 }
 
-Helmet_leather_hat::Helmet_leather_hat(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("HEAD_leather" + _suffixes[i]);
-    }
-    init_scale(pos);
+Helmet_leather_hat::Helmet_leather_hat(const sf::Vector2f& pos) : Helmet("HEAD_leather", pos) {
     _armor = 30;
 }
 
-Helmet_plate::Helmet_plate(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("HEAD_plate" + _suffixes[i]);
-    }
-    init_scale(pos);
+Helmet_plate::Helmet_plate(const sf::Vector2f& pos) : Helmet("HEAD_plate", pos) {
     _armor = 80;
 }
 
-Helmet_robe::Helmet_robe(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("HEAD_robe_hood" + _suffixes[i]);
-    }
-    init_scale(pos);
+Helmet_robe::Helmet_robe(const sf::Vector2f& pos) : Helmet("HEAD_robe_hood", pos) {
     _armor = 10;
 }
 

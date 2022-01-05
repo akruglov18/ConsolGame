@@ -5,7 +5,7 @@
 
 class Pants : public BaseArmor {
 public:
-    Pants();
+    Pants(const std::string& name, const sf::Vector2f& pos);
 };
 
 class Pants_green : public Pants {

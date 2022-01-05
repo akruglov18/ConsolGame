@@ -15,7 +15,7 @@ enum class ArmorType{
 
 class BaseArmor : public Items {
 public:
-    BaseArmor();
+    BaseArmor(const std::string& name, const sf::Vector2f& pos);
 
     sf::Sprite& get_sprite() { return _sprite; }
     std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return _textures; }

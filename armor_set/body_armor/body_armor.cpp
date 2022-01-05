@@ -1,48 +1,27 @@
 #include "body_armor.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
-BodyArmor::BodyArmor() {
+BodyArmor::BodyArmor(const std::string& name, const sf::Vector2f& pos) : BaseArmor(name, pos) {
     _armor_type = ArmorType::BODY_ARMOR;
 }
 
-BodyArmor_chain::BodyArmor_chain(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("TORSO_chain" + _suffixes[i]);
-    }
-    init_scale(pos);
+//////////////////////////////////////////////////////////////////////INHERITORS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+BodyArmor_chain::BodyArmor_chain(const sf::Vector2f& pos) : BodyArmor("TORSO_chain", pos) {
     _armor = 60;
 }
 
-BodyArmor_plate::BodyArmor_plate(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("TORSO_plate_torso" + _suffixes[i]);
-    }
-    init_scale(pos);
+BodyArmor_plate::BodyArmor_plate(const sf::Vector2f& pos) : BodyArmor("TORSO_plate_torso", pos) {
     _armor = 100;
 }
 
-
-BodyArmor_chain_purple::BodyArmor_chain_purple(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("TORSO_chain_purple" + _suffixes[i]);
-    }
-    init_scale(pos);
+BodyArmor_chain_purple::BodyArmor_chain_purple(const sf::Vector2f& pos) : BodyArmor("TORSO_chain_purple", pos) {
     _armor = 130;
 }
 
-BodyArmor_leather::BodyArmor_leather(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("TORSO_leather_torso" + _suffixes[i]);
-    }
-    init_scale(pos);
+BodyArmor_leather::BodyArmor_leather(const sf::Vector2f& pos) : BodyArmor("TORSO_leather_torso", pos) {
     _armor = 30;
 }
 
-BodyArmor_robe::BodyArmor_robe(const sf::Vector2f& pos) {
-    for (int i = 0; i < T_SIZE; ++i) {
-        _textures[i] = HOLDER().getResource("TORSO_robe" + _suffixes[i]);
-    }
-    init_scale(pos);
+BodyArmor_robe::BodyArmor_robe(const sf::Vector2f& pos) : BodyArmor("TORSO_robe", pos) {
     _armor = 10;
 }
