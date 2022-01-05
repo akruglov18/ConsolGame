@@ -4,5 +4,9 @@
 
 class Sword : public Weapon {
 public:
-    Sword(const sf::Vector2f& pos);
+    Sword(const std::string& name, const sf::Vector2f& pos);
+};
+
+class Long_sword_basic : public Sword {
+    Long_sword_basic(const sf::Vector2f& pos);
 };

@@ -34,5 +34,8 @@ public:
     static const std::vector<std::string> _suffixes;
     
 protected:
+    std::vector<std::shared_ptr<sf::Texture>> _textures;
+    sf::Sprite _sprite;
+    void init_scale(const sf::Vector2f& pos);
     ItemType _item_type = ItemType::NONE;
 };

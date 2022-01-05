@@ -4,7 +4,7 @@
 
 class Spear : public Weapon {
 public:
-    Spear();
+    Spear(const std::string& name, const sf::Vector2f& pos);
 };
 
 class Spear_wood : public Spear {

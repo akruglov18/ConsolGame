@@ -23,11 +23,8 @@ public:
     static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
 
 protected:
-    void init_scale(const sf::Vector2f& pos);
     int _armor = 0;
     ArmorType _armor_type;
-    std::vector<std::shared_ptr<sf::Texture>> _textures;
-    sf::Sprite _sprite;
     /*
     int _added_health;
     ...

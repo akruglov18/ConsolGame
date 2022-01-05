@@ -4,7 +4,7 @@
 
 class Axe : public Weapon {
 public:
-    Axe();
+    Axe(const std::string& name, const sf::Vector2f& pos);
 };
 
 class Axe_basic : public Axe {
