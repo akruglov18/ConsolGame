@@ -52,6 +52,8 @@ public:
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
+    void move_creature(Dirs dir);
+    void stop_creature();
 
     void walk();
     void thrust();
@@ -78,6 +80,8 @@ protected:
     // general
     ArmorSet _armor_set;
     std::shared_ptr<Weapon> _weapon;
+
+    void switch_y_txt(Dirs dir, int& y_texture);
 
     int _health;
     int _experience;

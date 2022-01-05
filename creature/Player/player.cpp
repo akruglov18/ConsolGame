@@ -55,7 +55,7 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             event.key.code = sf::Keyboard::Down;
         }
         else
-            Action::stop(this);
+            this->stop_creature();
     }
 }
 

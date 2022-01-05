@@ -68,6 +68,55 @@ void Creature::show_creature(sf::RenderWindow& window) {
         window.draw(get_weapon()->get_sprite());
 }
 
+void Creature::switch_y_txt(Dirs dir, int& y_texture) {
+    switch (dir) {
+        case (Dirs::LEFT):  y_texture = 64;     break;
+        case (Dirs::RIGHT): y_texture = 192;    break;
+        case (Dirs::UP):    y_texture = 0;      break;
+        case (Dirs::DOWN):  y_texture = 128;    break;
+    }
+}
+
+void Creature::move_creature(Dirs dir) {
+
+    int y_texture;
+    switch_y_txt(dir, y_texture);    
+
+    get_sprite().setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
+    get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
+
+    for (int i = 0; i < get_armor().size(); ++i) {
+        if (get_armor()[i] != nullptr) {
+            get_armor()[i]->get_sprite().setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
+            get_armor()[i]->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
+        }
+    }
+
+    if (_weapon != nullptr) {
+        _weapon->get_sprite().setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
+        _weapon->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
+    }
+
+    _direction = dir;
+}
+
+void Creature::stop_creature() {
+
+    int y_texture;
+    switch_y_txt(_direction, y_texture);
+
+    get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+
+    for (int i = 0; i < get_armor().size(); ++i) {
+        if (get_armor()[i] != nullptr) {
+            get_armor()[i]->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+        }
+    }
+
+    if (_weapon != nullptr)
+        _weapon->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+}
+
 void Creature::walk() {
     _sprite.setTexture(*_body_textures[T_WALK]);
     _armor_set.walk();
