@@ -2,62 +2,59 @@
 
 ArmorSet::ArmorSet() {
     _item_type = ItemType::ARMOR;
+    _INNERarmor_set.assign(SET_SIZE, nullptr);
 }
 
 ArmorSet::ArmorSet(const ArmorSet& other) {
-    _helmet = other._helmet;
-    _pants = other._pants;
-    _gauntlets = other._gauntlets;
-    _body_armor = other._body_armor;
-    _boots = other._boots;
+    _INNERarmor_set = other._INNERarmor_set;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
+    return _INNERarmor_set[index];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ArmorSet::walk() {
-    _body_armor->walk();
-    _helmet->walk();
-    _pants->walk();
-    _boots->walk();
-    _gauntlets->walk();
+    for (auto& el : _INNERarmor_set) {
+        if (el != nullptr)
+            el->walk();
+    }
 }
 
 void ArmorSet::thrust() {
-    _body_armor->thrust();
-    _helmet->thrust();
-    _pants->thrust();
-    _boots->thrust();
-    _gauntlets->thrust();
+    for (auto& el : _INNERarmor_set) {
+        if (el != nullptr)
+            el->thrust();
+    }
 }
 
 void ArmorSet::spellcast() {
-    _body_armor->spellcast();
-    _helmet->spellcast();
-    _pants->spellcast();
-    _boots->spellcast();
-    _gauntlets->spellcast();
+    for (auto& el : _INNERarmor_set) {
+        if (el != nullptr)
+            el->spellcast();
+    }
 }
 
 void ArmorSet::slash() {
-    _body_armor->slash();
-    _helmet->slash();
-    _pants->slash();
-    _boots->slash();
-    _gauntlets->slash();
+    for (auto& el : _INNERarmor_set) {
+        if (el != nullptr)
+            el->slash();
+    }
 }
 
 void ArmorSet::hurt() {
-    _body_armor->hurt();
-    _helmet->hurt();
-    _pants->hurt();
-    _boots->hurt();
-    _gauntlets->hurt();
+    for (auto& el : _INNERarmor_set) {
+        if (el != nullptr)
+            el->hurt();
+    }
 }
 
 void ArmorSet::bow() {
-    _body_armor->bow();
-    _helmet->bow();
-    _pants->bow();
-    _boots->bow();
-    _gauntlets->bow();
+    for (auto& el : _INNERarmor_set) {
+        if (el != nullptr)
+            el->bow();
+    }
 }

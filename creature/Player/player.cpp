@@ -60,10 +60,11 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
 }
 
 void Player::init_dress() {
-    get_armor()._body_armor = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_pos)));
-    get_armor()._helmet = std::make_shared<Helmet>(*(new Helmet_chain_hood(_pos)));
-    get_armor()._pants = std::make_shared<Pants>(*(new Pants_green(_pos)));
-    get_armor()._boots = std::make_shared<Boots>(*(new Boots_brown(_pos)));
+
+    get_armor()[BODY]   =  std::make_shared<BodyArmor>(*(new BodyArmor_leather(_pos)));
+    get_armor()[HELMET] =  std::make_shared<Helmet>(*(new Helmet_chain_helmet(_pos)));
+    get_armor()[PANTS]  =  std::make_shared<Pants>(*(new Pants_green(_pos)));
+    get_armor()[BOOTS]  =  std::make_shared<Boots>(*(new Boots_brown(_pos)));
 
     set_weapon(std::make_shared<Axe>(*(new Axe_basic(_pos))));
 }

@@ -58,16 +58,12 @@ void Creature::show_creature(sf::RenderWindow& window) {
     window.draw(_sprite);
     if (_direction == Dirs::UP)
         window.draw(get_weapon()->get_sprite());
-    if (get_armor()._pants != nullptr)
-        window.draw(get_armor()._pants->get_sprite());
-    if (get_armor()._body_armor != nullptr)
-        window.draw(get_armor()._body_armor->get_sprite());
-    if (get_armor()._helmet != nullptr)
-        window.draw(get_armor()._helmet->get_sprite());
-    if (get_armor()._boots != nullptr)
-        window.draw(get_armor()._boots->get_sprite());
-    if (get_armor()._gauntlets != nullptr)
-        window.draw(get_armor()._gauntlets->get_sprite());
+
+    for (auto& el : get_armor()._INNERarmor_set) {
+        if (el != nullptr)
+            window.draw(el->get_sprite());
+    }
+
     if (get_weapon() != nullptr && _direction != Dirs::UP)
         window.draw(get_weapon()->get_sprite());
 }

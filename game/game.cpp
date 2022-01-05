@@ -24,8 +24,8 @@ Game::Game() {
     _player->init_dress();
 
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, { 400.f, 256.f }));
-    _enemies[0]->get_armor()._body_armor = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_enemies[0]->get_pos())));
-    _enemies[0]->get_armor()._helmet = std::make_shared<Helmet>(*(new Helmet_chain_hood(_enemies[0]->get_pos())));
+    _enemies[0]->get_armor()[BODY] = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_enemies[0]->get_pos())));
+    _enemies[0]->get_armor()[HELMET] = std::make_shared<Helmet>(*(new Helmet_chain_hood(_enemies[0]->get_pos())));
 }
 
 void Game::game_loop() {    
