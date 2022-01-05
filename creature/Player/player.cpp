@@ -54,6 +54,10 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             event.type = sf::Event::KeyPressed;
             event.key.code = sf::Keyboard::Down;
         }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+            event.type = sf::Event::KeyPressed;
+            event.key.code = sf::Keyboard::LShift;
+        }
         else
             this->stop_creature();
     }

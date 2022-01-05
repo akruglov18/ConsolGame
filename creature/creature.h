@@ -54,6 +54,7 @@ public:
     void show_creature(sf::RenderWindow& window);
     void move_creature(Dirs dir);
     void stop_creature();
+    void hit_creature();
 
     void walk();
     void thrust();
@@ -75,6 +76,7 @@ public:
 
     Modes _mode;
     Dirs _direction;
+    int _hit_animation_duration;
 
 protected:
     // general

@@ -82,13 +82,13 @@ void Creature::move_creature(Dirs dir) {
     int y_texture;
     switch_y_txt(dir, y_texture);    
 
-    get_sprite().setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
-    get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
+    _sprite.setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
+    _sprite.setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
 
-    for (int i = 0; i < get_armor().size(); ++i) {
-        if (get_armor()[i] != nullptr) {
-            get_armor()[i]->get_sprite().setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
-            get_armor()[i]->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
+    for (int i = 0; i < _armor_set.size(); ++i) {
+        if (_armor_set[i] != nullptr) {
+            _armor_set[i]->get_sprite().setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
+            _armor_set[i]->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
         }
     }
 
@@ -105,16 +105,35 @@ void Creature::stop_creature() {
     int y_texture;
     switch_y_txt(_direction, y_texture);
 
-    get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+    _sprite.setTextureRect(sf::IntRect(0, y_texture, 64, 64));
 
-    for (int i = 0; i < get_armor().size(); ++i) {
-        if (get_armor()[i] != nullptr) {
-            get_armor()[i]->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+    for (int i = 0; i < _armor_set.size(); ++i) {
+        if (_armor_set[i] != nullptr) {
+            _armor_set[i]->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
         }
     }
 
     if (_weapon != nullptr)
         _weapon->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+}
+
+void Creature::hit_creature() {
+
+    int y_texture;
+    switch_y_txt(_direction, y_texture);
+
+    _sprite.setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
+
+    for (int i = 0; i < get_armor().size(); ++i) {
+        if (_armor_set[i] != nullptr) {
+            _armor_set[i]->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 64, y_texture, 64, 64));
+        }
+    }
+
+    if (_weapon != nullptr) {
+        _weapon->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(_current_frame) + 1) * 192, y_texture * 3, 192, 192));
+        _weapon->get_sprite().setPosition(sf::Vector2f(_pos.x - 64, _pos.y - 96));
+    }
 }
 
 void Creature::walk() {

@@ -16,7 +16,8 @@ public:
     // another actions such as take, cut, hit, trade, use magic and so on
     static void hit(Creature* creature, float time, const Field& game_field);
 
-    //
-    static void choose_weapon(Creature* creature, int& duration);
+private:
+    // inner, additional functions
+    static int choose_mode_according_to_weapon(Creature* creature);
 };
 
