@@ -6,28 +6,28 @@
 void Action::move_left(Creature* creature, float time, const Field& game_field) {
     creature->update_frame(time);
     auto& pos = creature->get_pos();
-    pos.x -= time * static_cast<float>(game_field(pos.y / 32 + 1, (pos.x - time) / 32 + 1)->get_passability() / 2.0);
+    pos.x -= time * static_cast<float>(game_field(pos.y / 32.0 + 1, (pos.x - time) / 32.0 + 1)->get_passability() / 2.0);
     creature->move_creature(Dirs::LEFT);
 }
 
 void Action::move_right(Creature* creature, float time, const Field& game_field) {
     creature->update_frame(time);
     auto& pos = creature->get_pos();
-    pos.x += time * static_cast<float>(game_field(pos.y / 32 + 1, (pos.x + time) / 32 + 1)->get_passability() / 2.0);
+    pos.x += time * static_cast<float>(game_field(pos.y / 32.0 + 1, (pos.x + time) / 32.0 + 1)->get_passability() / 2.0);
     creature->move_creature(Dirs::RIGHT);
 }
 
 void Action::move_up(Creature* creature, float time, const Field& game_field) {
     creature->update_frame(time);
     auto& pos = creature->get_pos();
-    pos.y -= time * static_cast<float>(game_field((pos.y - time) / 32 + 1, pos.x / 32 + 1)->get_passability() / 2.0);
+    pos.y -= time * static_cast<float>(game_field((pos.y - time) / 32.0 + 1, pos.x / 32.0 + 1)->get_passability() / 2.0);
     creature->move_creature(Dirs::UP);
 }
 
 void Action::move_down(Creature* creature, float time, const Field& game_field) {
     creature->update_frame(time);
     auto& pos = creature->get_pos();
-    pos.y += time * static_cast<float>(game_field((pos.y + time) / 32 + 1, pos.x / 32 + 1)->get_passability() / 2.0);
+    pos.y += time * static_cast<float>(game_field((pos.y + time) / 32.0 + 1, pos.x / 32.0 + 1)->get_passability() / 2.0);
     creature->move_creature(Dirs::DOWN);
 }
 
