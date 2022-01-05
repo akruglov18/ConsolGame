@@ -43,6 +43,7 @@ public:
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
+    void update_frame(float time);
     void move_creature(Dirs dir);
     void stop_creature();
     void hit_creature();
@@ -61,7 +62,7 @@ public:
 
     Modes _mode;
     Dirs _direction;
-    int _hit_animation_duration;
+    int _action_animation_duration;
 
 protected:
     // general

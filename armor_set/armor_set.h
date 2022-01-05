@@ -20,7 +20,7 @@ public:
     ArmorSet(const ArmorSet& other);
 
     std::shared_ptr<BaseArmor>& operator[](const int index);
-    int size() { return _INNERarmor_set.size(); }
+    std::size_t size() { return _INNERarmor_set.size(); }
 
     void change_mode(Modes mode);
 

@@ -4,10 +4,12 @@
 
 Creature::Creature(CreatureManager& manager, int health, const sf::Vector2f& pos) : 
                    _manager(manager), _pos(pos) {
-    _current_frame = 0;
+    _current_frame = 0.f;
     _health = health;
     _direction = Dirs::DOWN;
+    _mode = Modes::WALK;
     _body_textures.resize(T_SIZE);
+    _action_animation_duration = 8;
 }
 
 Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other._pos) {
@@ -17,6 +19,8 @@ Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other
     _sprite = other._sprite;
     _type = other._type;
     _direction = other._direction;
+    _action_animation_duration = other._action_animation_duration;
+    _mode = other._mode;
 }
 
 void Creature::set_pos(float x, float y) {
@@ -66,6 +70,12 @@ void Creature::show_creature(sf::RenderWindow& window) {
 
     if (get_weapon() != nullptr && _direction != Dirs::UP)
         window.draw(get_weapon()->get_sprite());
+}
+
+void Creature::update_frame(float time) {
+    _current_frame += 0.15f * time;
+    if (_current_frame > _action_animation_duration)
+        _current_frame = 0;
 }
 
 void Creature::switch_y_txt(Dirs dir, int& y_texture) {

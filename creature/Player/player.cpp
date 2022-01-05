@@ -31,10 +31,7 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             case(sf::Keyboard::Right):  Action::move_right(this, time, game_field);     break;
             case(sf::Keyboard::Up):     Action::move_up(this, time, game_field);        break;
             case(sf::Keyboard::Down):   Action::move_down(this, time, game_field);      break;
-            case(sf::Keyboard::LShift): 
-                _current_frame = 0;
-                Action::hit(this, time, game_field);            
-                break;
+            case(sf::Keyboard::LShift): Action::hit(this, time, game_field);            break;
         }
     }
     else if (event.type == sf::Event::KeyReleased) {
@@ -59,7 +56,7 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             event.key.code = sf::Keyboard::LShift;
         }
         else
-            this->stop_creature();
+            stop_creature();
     }
 }
 

@@ -24,7 +24,6 @@ public:
 	void game_loop();
 
 	// Game methods
-	void load_textures();
 	void render();
 	sf::View get_player_pos_for_view(const sf::Vector2f&);
 };
