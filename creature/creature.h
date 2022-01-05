@@ -21,15 +21,6 @@ enum class CreatureType {
     SKELETON
 };
 
-enum class Modes {
-    WALK,
-    THRUST,
-    SPELLCAST,
-    SLASH,
-    HURT,
-    BOW
-};
-
 enum class Dirs {
     LEFT,
     RIGHT,
@@ -55,13 +46,7 @@ public:
     void move_creature(Dirs dir);
     void stop_creature();
     void hit_creature();
-
-    void walk();
-    void thrust();
-    void spellcast();
-    void slash();
-    void hurt();
-    void bow();
+    void change_mode(Modes mode);
 
     //getters & setters
     ArmorSet& get_armor() { return _armor_set; }

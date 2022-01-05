@@ -17,44 +17,9 @@ std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ArmorSet::walk() {
+void ArmorSet::change_mode(Modes mode) {
     for (auto& el : _INNERarmor_set) {
         if (el != nullptr)
-            el->walk();
-    }
-}
-
-void ArmorSet::thrust() {
-    for (auto& el : _INNERarmor_set) {
-        if (el != nullptr)
-            el->thrust();
-    }
-}
-
-void ArmorSet::spellcast() {
-    for (auto& el : _INNERarmor_set) {
-        if (el != nullptr)
-            el->spellcast();
-    }
-}
-
-void ArmorSet::slash() {
-    for (auto& el : _INNERarmor_set) {
-        if (el != nullptr)
-            el->slash();
-    }
-}
-
-void ArmorSet::hurt() {
-    for (auto& el : _INNERarmor_set) {
-        if (el != nullptr)
-            el->hurt();
-    }
-}
-
-void ArmorSet::bow() {
-    for (auto& el : _INNERarmor_set) {
-        if (el != nullptr)
-            el->bow();
+            BaseArmor::change_mode(mode, el);
     }
 }

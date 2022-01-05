@@ -46,15 +46,13 @@ int Action::choose_mode_according_to_weapon(Creature* creature) {
     WeaponType type = creature->get_weapon()->get_weapon_type();
     if (type == WeaponType::SPEAR) {
         if (creature->_mode != Modes::THRUST) {
-            creature->thrust();
-            creature->_mode = Modes::THRUST;
+            creature->change_mode(Modes::THRUST);
             return 7;
         }
     }
     else if (type == WeaponType::AXE || type == WeaponType::SWORD || type == WeaponType::LONG_SWORD || type == WeaponType::KNIFE) {
         if (creature->_mode != Modes::SLASH) {
-            creature->slash();
-            creature->_mode = Modes::SLASH;
+            creature->change_mode(Modes::SLASH);
             return 5;
         }
     }
@@ -70,8 +68,7 @@ void Action::hit(Creature* creature, float time, const Field& game_field) {
     current_frame += 0.15f * time;
 
     if (current_frame > creature->_hit_animation_duration) {
-        creature->walk();
-        creature->_mode = Modes::WALK;
+        creature->change_mode(Modes::WALK);
         current_frame = 0.f;
         weapon->get_sprite().setPosition(sf::Vector2f(creature->get_pos().x, creature->get_pos().y - 32));
         return;

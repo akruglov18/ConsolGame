@@ -12,6 +12,15 @@
 #define T_BOW 5
 #define T_SIZE 6
 
+enum class Modes {
+    WALK,
+    THRUST,
+    SPELLCAST,
+    SLASH,
+    HURT,
+    BOW
+};
+
 enum class ItemType {
     NONE,
     WEAPON,

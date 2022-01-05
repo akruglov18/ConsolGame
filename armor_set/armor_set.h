@@ -22,12 +22,7 @@ public:
     std::shared_ptr<BaseArmor>& operator[](const int index);
     int size() { return _INNERarmor_set.size(); }
 
-    void walk();
-    void thrust();
-    void spellcast();
-    void slash();
-    void hurt();
-    void bow();
+    void change_mode(Modes mode);
 
     std::vector<std::shared_ptr<BaseArmor>> _INNERarmor_set;
 };

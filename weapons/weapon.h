@@ -14,7 +14,7 @@ enum class WeaponType {
 class Weapon : public Items {
 public:
     Weapon();
-    //Weapon(const Weapon& other);
+    Weapon(const Weapon& other);
 
     virtual double get_damage() const;
     double damage() const { return _damage; }
@@ -22,13 +22,7 @@ public:
     WeaponType get_weapon_type() const { return _weapon_type; }
 
     sf::Sprite& get_sprite() { return _sprite; }
-
-    void walk();
-    void thrust();
-    void spellcast();
-    void slash();
-    void hurt();
-    void bow();
+    void change_mode(Modes mode);
 
     virtual ~Weapon(){}
 protected:

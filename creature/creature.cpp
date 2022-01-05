@@ -136,38 +136,9 @@ void Creature::hit_creature() {
     }
 }
 
-void Creature::walk() {
-    _sprite.setTexture(*_body_textures[T_WALK]);
-    _armor_set.walk();
-    _weapon->walk();
-}
-
-void Creature::thrust() {
-    _sprite.setTexture(*_body_textures[T_THRUST]);
-    _armor_set.thrust();
-    _weapon->thrust();
-}
-
-void Creature::spellcast() {
-    _sprite.setTexture(*_body_textures[T_SPELLCAST]);
-    _armor_set.spellcast();
-    _weapon->spellcast();
-}
-
-void Creature::slash() {
-    _sprite.setTexture(*_body_textures[T_SLASH]);
-    _armor_set.slash();
-    _weapon->slash();
-}
-
-void Creature::hurt() {
-    _sprite.setTexture(*_body_textures[T_HURT]);
-    _armor_set.hurt();
-    _weapon->hurt();
-}
-
-void Creature::bow() {
-    _sprite.setTexture(*_body_textures[T_BOW]);
-    _armor_set.bow();
-    _weapon->bow();
+void Creature::change_mode(Modes mode) {
+    _sprite.setTexture(*_body_textures[static_cast<int>(mode)]);
+    _armor_set.change_mode(mode);
+    _weapon->change_mode(mode);
+    _mode = mode;
 }

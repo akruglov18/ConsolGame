@@ -18,13 +18,9 @@ public:
     BaseArmor();
 
     sf::Sprite& get_sprite() { return _sprite; }
+    std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return _textures; }
 
-    void walk();
-    void thrust();
-    void spellcast();
-    void slash();
-    void hurt();
-    void bow();
+    static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
 
 protected:
     void init_scale(const sf::Vector2f& pos);
