@@ -3,23 +3,26 @@
 
 class Action;
 
-Player::Player(const sf::Texture* texture, CreatureManager& manager, int health, const sf::Vector2f& pos) : 
-               Creature(texture, manager, health, pos) {
+Player::Player(CreatureManager& manager, int health, const sf::Vector2f& pos) : 
+               Creature("man", manager, health, pos) {
+
     _type = CreatureType::PLAYER;
-    _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
 }
 
 void Player::action(sf::Event& event, float time, const Field& game_field) {
+
+    if (_mode == Modes::SLASH || _mode == Modes::THRUST) {
+        Action::hit(this, time, game_field);
+        return;
+    }
+
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
-            case(sf::Keyboard::Left):   Action::move_left(this, time, game_field);  break;
-            case(sf::Keyboard::Right):  Action::move_right(this, time, game_field); break;
-            case(sf::Keyboard::Up):     Action::move_up(this, time, game_field);    break;
-            case(sf::Keyboard::Down):   Action::move_down(this, time, game_field);  break;
-            //case(cut)
-            //case(hit)
-            //case(use)
-            //...
+            case(sf::Keyboard::Left):   Action::move_left   (this, time, game_field);   break;
+            case(sf::Keyboard::Right):  Action::move_right  (this, time, game_field);   break;
+            case(sf::Keyboard::Up):     Action::move_up     (this, time, game_field);   break;
+            case(sf::Keyboard::Down):   Action::move_down   (this, time, game_field);   break;
+            case(sf::Keyboard::LShift): Action::hit         (this, time, game_field);   break;
         }
     }
     else if (event.type == sf::Event::KeyReleased) {
@@ -39,7 +42,21 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             event.type = sf::Event::KeyPressed;
             event.key.code = sf::Keyboard::Down;
         }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+            event.type = sf::Event::KeyPressed;
+            event.key.code = sf::Keyboard::LShift;
+        }
         else
-            Action::stop(this);
+            Action::stop_animation(this);
     }
+}
+
+void Player::init_dress() {
+
+    get_armor()[ArmorType::TORSO]  =  std::make_shared<BodyArmor>(*(new BodyArmor_leather(_pos)));
+    get_armor()[ArmorType::HELMET] =  std::make_shared<Helmet>(*(new Helmet_chain_helmet(_pos)));
+    get_armor()[ArmorType::PANTS]  =  std::make_shared<Pants>(*(new Pants_green(_pos)));
+    get_armor()[ArmorType::BOOTS]  =  std::make_shared<Boots>(*(new Boots_brown(_pos)));
+
+    set_weapon(std::make_shared<Axe>(*(new Axe_basic(_pos))));
 }

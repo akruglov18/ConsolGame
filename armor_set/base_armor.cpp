@@ -1,7 +1,16 @@
 #include "base_armor.h"
 
-BaseArmor::BaseArmor(const sf::Texture* texture, const sf::Vector2f& pos) {
+static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+
+BaseArmor::BaseArmor(const std::string& name, const sf::Vector2f& pos) {
     _item_type = ItemType::ARMOR;
-    _texture = texture;
-    _sprite.setTexture(*texture);
+    _textures.resize(static_cast<int>(Modes::MODES_SIZE));
+    for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
+        _textures[i] = HOLDER().getResource(name + _suffixes[i]);
+    }
+    init_scale(pos);
+}
+
+void BaseArmor::change_mode(Modes mode, std::shared_ptr<BaseArmor> elem) {
+    elem->get_sprite().setTexture(*elem->get_textures()[static_cast<int>(mode)]);
 }

@@ -10,14 +10,13 @@
 class ArmorSet : public Items {
 public:
     ArmorSet();
-    void set_body(BodyArmor* armor);
-    void set_helmet(Helmet* helmet);
-    BodyArmor* get_body();
-    Helmet* get_helmet();
-private:
-    Helmet* _helmet = nullptr;
-    BodyArmor* _body_armor = nullptr;
-    Gauntlets* _gauntlets = nullptr;
-    Pants* _pants = nullptr;
-    Boots* _boots = nullptr;
+    ArmorSet(const ArmorSet& other);
+
+    std::shared_ptr<BaseArmor>& operator[](ArmorType index);
+    std::shared_ptr<BaseArmor>& operator[](const int index);
+    std::size_t size() { return _INNERarmor_set.size(); }
+
+    void change_mode(Modes mode);
+
+    std::vector<std::shared_ptr<BaseArmor>> _INNERarmor_set;
 };

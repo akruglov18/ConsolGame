@@ -1,6 +1,6 @@
 #include "GrassTile.h"
 
-GrassTile::GrassTile(const sf::Texture* texture) {
+GrassTile::GrassTile(std::shared_ptr<sf::Texture> texture) {
 	_type = TilesType::GRASS;
 	_texture = texture;
 	_sprite.setTexture(*_texture);

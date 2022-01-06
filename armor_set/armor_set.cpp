@@ -2,20 +2,29 @@
 
 ArmorSet::ArmorSet() {
     _item_type = ItemType::ARMOR;
+    _INNERarmor_set.assign(static_cast<int>(ArmorType::SET_SIZE), nullptr);
 }
 
-void ArmorSet::set_body(BodyArmor* armor) {
-    _body_armor = armor;
+ArmorSet::ArmorSet(const ArmorSet& other) {
+    _INNERarmor_set = other._INNERarmor_set;
 }
 
-void ArmorSet::set_helmet(Helmet* helmet) {
-    _helmet = helmet;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+std::shared_ptr<BaseArmor>& ArmorSet::operator[](ArmorType index) {
+    return _INNERarmor_set[static_cast<int>(index)];
 }
 
-BodyArmor* ArmorSet::get_body() {
-    return _body_armor;
+std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index)
+{
+    return _INNERarmor_set[index];
 }
 
-Helmet* ArmorSet::get_helmet() {
-    return _helmet;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ArmorSet::change_mode(Modes mode) {
+    for (auto el : _INNERarmor_set) {
+        if (el != nullptr)
+            BaseArmor::change_mode(mode, el);
+    }
 }

@@ -26,7 +26,8 @@ void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const
     else
         top_border = std::max(0, static_cast<int>(((player->get_pos().y - window_height / 2) / tile_size)));
 
-    int obj_btm_border = std::min(btm_border + 4, static_cast<int>(field.get_height())); // for tall & wide objects which have root in invisible tiles
+    int obj_top_border = std::max(top_border - 1, 0);
+    int obj_btm_border = std::min(btm_border + 4, static_cast<int>(field.get_height())); 
     int obj_left_border = std::max(left_border - 2, 0);
     int obj_right_border = std::min(right_border + 2, static_cast<int>(field.get_width()));
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +44,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const
     std::size_t counter = 0;
 
     for (const auto& x : enemies) {
-        if (x->get_pos().y > top_border * 32 && x->get_pos().y < obj_btm_border * 32
+        if (x->get_pos().y > obj_top_border * 32 && x->get_pos().y < obj_btm_border * 32
             && x->get_pos().x > obj_left_border * 32 + 32 && x->get_pos().x < obj_right_border * 32 - 32)
             tmp_enemies.push_back(x);
     }
@@ -51,7 +52,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const
     sort_enemies(tmp_enemies);
 
     // rendering objects
-    for (int i = top_border; i < obj_btm_border; ++i) {
+    for (int i = obj_top_border; i < obj_btm_border; ++i) {
         for (int j = obj_left_border; j < obj_right_border; ++j) {
             window.draw(field(i, j)->print_feature());
             

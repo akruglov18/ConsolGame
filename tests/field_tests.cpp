@@ -4,8 +4,8 @@
 
 void load_textures_f() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    HOLDER().loadFromFile("../../images/player/walkcycle/BODY_male.png", "player");
-    HOLDER().loadFromFile("../../images/player/walkcycle/BODY_skeleton.png", "skeleton");
+    HOLDER().loadFromFile("../../images/creature/man_body/BODY_WALK.png", "man_walk");
+    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/BODY_skeleton_walk.png", "skeleton_walk");
     HOLDER().loadFromFile("../../images/terrain/128px/sand1.png", "sand1");
     HOLDER().loadFromFile("../../images/terrain/128px/borders_sand1.png", "borders_sand1");
     HOLDER().loadFromFile("../../images/terrain/128px/grass1.png", "grass1");
@@ -83,7 +83,7 @@ void test_show_field() {
         field.generate_field();
         std::shared_ptr<Player> _player;
         CreatureManager _manager;
-        _player = std::make_shared<Player>(Player(HOLDER().getResource("player"), _manager, 100, { 366.f, 366.f }));
+        _player = std::make_shared<Player>(Player(_manager, 100, { 366.f, 366.f }));
         std::vector<std::shared_ptr<Enemy>> _enemies;
         _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, { 400.f, 656.f }));
         for (int j = 4; j <= i - 4; j++) {

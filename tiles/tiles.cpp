@@ -11,11 +11,6 @@ Tile::Tile()
     _feature_texture = nullptr;
 }
 
-Tile::~Tile() {
-    _texture = nullptr;
-    _feature_texture = nullptr;
-}
-
 std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int b_b) {
     switch (type) {
         case TilesType::DESERT1_SAND:       return std::make_shared<Tile>(*(new Desert1_sand(i, j)));
@@ -82,5 +77,5 @@ void Tile::set_desert_tree(int chance, int i, int j) {
     _feature_sprite.setTexture(*_feature_texture);
     _feature_sprite.setTextureRect(sf::IntRect(chance * 128, 0, 136, 160));
     _passability = 0;
-    _feature_sprite.move(sf::Vector2f((i - 2) * 32, (j - 4) * 32));
+    _feature_sprite.move(sf::Vector2f((i - 2) * 32.f, (j - 4) * 32.f));
 }

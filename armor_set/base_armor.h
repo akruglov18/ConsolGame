@@ -2,25 +2,33 @@
 
 #include <items.h>
 #include "sfml/Graphics.hpp"
+#include <vector>
+#include "ResourceHolder.h"
 
-enum class ArmorType{
-    HELMET,
-    BODY_ARMOR,
-    GAUNTLETS,
-    PANTS,
-    BOOTS
+enum class ArmorType {
+    TORSO,      //  0
+    HELMET,     //  1
+    PANTS,      //  2
+    BOOTS,      //  3
+    GAUNTLETS,  //  4
+    SHIRT,      //  5
+    SHOULDERS,  //  6
+    BRACERS,    //  7
+    BELT,       //  8
+    QUIVER,     //  9
+    SHIELD,     //  10
+    SET_SIZE    //  11
 };
 
 class BaseArmor : public Items {
 public:
-    BaseArmor(const sf::Texture* texture, const sf::Vector2f& pos);
+    BaseArmor(const std::string& name, const sf::Vector2f& pos);
 
-    sf::Sprite& get_sprite() { return _sprite; }    
+    static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
+
 protected:
     int _armor = 0;
     ArmorType _armor_type;
-    const sf::Texture* _texture;
-    sf::Sprite _sprite;
     /*
     int _added_health;
     ...
