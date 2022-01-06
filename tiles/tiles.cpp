@@ -77,5 +77,5 @@ void Tile::set_desert_tree(int chance, int i, int j) {
     _feature_sprite.setTexture(*_feature_texture);
     _feature_sprite.setTextureRect(sf::IntRect(chance * 128, 0, 136, 160));
     _passability = 0;
-    _feature_sprite.move(sf::Vector2f((i - 2) * 32.0, (j - 4) * 32.0));
+    _feature_sprite.move(sf::Vector2f((i - 2) * 32.f, (j - 4) * 32.f));
 }

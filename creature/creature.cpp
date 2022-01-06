@@ -11,11 +11,11 @@ Creature::Creature(const std::string& name, CreatureManager& manager, int health
     _direction = Dirs::DOWN;
     _mode = Modes::WALK;
     _action_animation_duration = 8;
-    _body_textures.resize(T_SIZE);
-    for (int i = 0; i < T_SIZE; ++i) {
+    _body_textures.resize(static_cast<int>(Modes::MODES_SIZE));
+    for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
         _body_textures[i] = HOLDER().getResource(name + Items::_suffixes[i]);
     }
-    _sprite.setTexture(*_body_textures[T_WALK]);
+    _sprite.setTexture(*_body_textures[static_cast<int>(Modes::WALK)]);
     _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
     _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
 }

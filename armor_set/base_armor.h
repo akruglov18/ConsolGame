@@ -17,6 +17,7 @@ enum class ArmorType {
     BELT,       //  8
     QUIVER,     //  9
     SHIELD,     //  10
+    SET_SIZE    //  11
 };
 
 class BaseArmor : public Items {

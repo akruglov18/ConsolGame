@@ -18,9 +18,9 @@ public:
 
     static void switch_y_txt(Dirs dir, int& y_texture);
     static void update_frame(Creature* creature, float time);
-    static void move_creature(Creature* creature, Dirs dir);
-    static void stop_creature(Creature* creature);
-    static void hit_creature(Creature* creature);
+    static void move_animation(Creature* creature, Dirs dir);
+    static void stop_animation(Creature* creature);
+    static void hit_animation(Creature* creature);
 
 
 private:

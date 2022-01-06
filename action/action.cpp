@@ -15,7 +15,7 @@ void Action::switch_y_txt(Dirs dir, int& y_texture) {
     }
 }
 
-void Action::move_creature(Creature* creature, Dirs dir) {
+void Action::move_animation(Creature* creature, Dirs dir) {
 
     int y_texture;
     switch_y_txt(dir, y_texture);
@@ -42,7 +42,7 @@ void Action::move_creature(Creature* creature, Dirs dir) {
     creature->_direction = dir;
 }
 
-void Action::stop_creature(Creature* creature) {
+void Action::stop_animation(Creature* creature) {
 
     int y_texture;
     switch_y_txt(creature->_direction, y_texture);
@@ -62,7 +62,7 @@ void Action::stop_creature(Creature* creature) {
         weapon->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
 }
 
-void Action::hit_creature(Creature* creature) {
+void Action::hit_animation(Creature* creature) {
 
     int y_texture;
     switch_y_txt(creature->_direction, y_texture);
@@ -93,28 +93,28 @@ void Action::move_left(Creature* creature, float time, const Field& game_field) 
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     pos.x -= time * static_cast<float>(game_field(pos.y / 32.f + 1, (pos.x - time) / 32.f + 1)->get_passability() / 2.f);
-    move_creature(creature, Dirs::LEFT);
+    move_animation(creature, Dirs::LEFT);
 }
 
 void Action::move_right(Creature* creature, float time, const Field& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     pos.x += time * static_cast<float>(game_field(pos.y / 32.f + 1, (pos.x + time) / 32.f + 1)->get_passability() / 2.f);
-    move_creature(creature, Dirs::RIGHT);
+    move_animation(creature, Dirs::RIGHT);
 }
 
 void Action::move_up(Creature* creature, float time, const Field& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     pos.y -= time * static_cast<float>(game_field((pos.y - time) / 32.f + 1, pos.x / 32.f + 1)->get_passability() / 2.f);
-    move_creature(creature, Dirs::UP);
+    move_animation(creature, Dirs::UP);
 }
 
 void Action::move_down(Creature* creature, float time, const Field& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     pos.y += time * static_cast<float>(game_field((pos.y + time) / 32.f + 1, pos.x / 32.f + 1)->get_passability() / 2.f);
-    move_creature(creature, Dirs::DOWN);
+    move_animation(creature, Dirs::DOWN);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,5 +156,5 @@ void Action::hit(Creature* creature, float time, const Field& game_field) {
         return;
     }
 
-    hit_creature(creature);
+    hit_animation(creature);
 }

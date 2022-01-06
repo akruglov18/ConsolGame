@@ -122,7 +122,7 @@ void Field::generate_desert() {
                 _field[i][j] = Tile::make_tile(TilesType::DESERT1_SAND, i, j);
                 if (gen() % 32 == 0) {
                     _field[i][j]->set_desert_feature(gen() % 6);
-                    _field[i][j]->get_feature().move(sf::Vector2f(j * 32.0, i * 32.0));
+                    _field[i][j]->get_feature().move(sf::Vector2f(j * 32.f, i * 32.f));
                 }
             }
         }

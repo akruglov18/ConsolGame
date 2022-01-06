@@ -47,16 +47,16 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             event.key.code = sf::Keyboard::LShift;
         }
         else
-            Action::stop_creature(this);
+            Action::stop_animation(this);
     }
 }
 
 void Player::init_dress() {
 
-    get_armor()[static_cast<int>(ArmorType::TORSO)]  =  std::make_shared<BodyArmor>(*(new BodyArmor_leather(_pos)));
-    get_armor()[static_cast<int>(ArmorType::HELMET)] =  std::make_shared<Helmet>(*(new Helmet_chain_helmet(_pos)));
-    get_armor()[static_cast<int>(ArmorType::PANTS)]  =  std::make_shared<Pants>(*(new Pants_green(_pos)));
-    get_armor()[static_cast<int>(ArmorType::BOOTS)]  =  std::make_shared<Boots>(*(new Boots_brown(_pos)));
+    get_armor()[ArmorType::TORSO]  =  std::make_shared<BodyArmor>(*(new BodyArmor_leather(_pos)));
+    get_armor()[ArmorType::HELMET] =  std::make_shared<Helmet>(*(new Helmet_chain_helmet(_pos)));
+    get_armor()[ArmorType::PANTS]  =  std::make_shared<Pants>(*(new Pants_green(_pos)));
+    get_armor()[ArmorType::BOOTS]  =  std::make_shared<Boots>(*(new Boots_brown(_pos)));
 
     set_weapon(std::make_shared<Axe>(*(new Axe_basic(_pos))));
 }

@@ -24,8 +24,8 @@ Game::Game() {
     _player->init_dress();
 
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, { 400.f, 256.f }));
-    _enemies[0]->get_armor()[static_cast<int>(ArmorType::TORSO)] = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_enemies[0]->get_pos())));
-    _enemies[0]->get_armor()[static_cast<int>(ArmorType::HELMET)] = std::make_shared<Helmet>(*(new Helmet_chain_hood(_enemies[0]->get_pos())));
+    _enemies[0]->get_armor()[ArmorType::TORSO] = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_enemies[0]->get_pos())));
+    _enemies[0]->get_armor()[ArmorType::HELMET] = std::make_shared<Helmet>(*(new Helmet_chain_hood(_enemies[0]->get_pos())));
 }
 
 void Game::game_loop() {    
@@ -70,14 +70,14 @@ sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
     // sets camera center as player's coordinates
     auto temp_x = pos.x;
     auto temp_y = pos.y;
-    if (pos.x < _window.getSize().x / 2.0)
-        temp_x = static_cast<float>(_window.getSize().x / 2.0);
-    if (pos.y < _window.getSize().y / 2.0)
-        temp_y = static_cast<float>(_window.getSize().y / 2.0);
-    if (pos.x > _game_region_width - _window.getSize().x / 2.0)
-        temp_x = static_cast<float>(_game_region_width - _window.getSize().x / 2.0);
-    if (pos.y > _game_region_height - _window.getSize().y / 2.0)
-        temp_y = static_cast<float>(_game_region_height - _window.getSize().y / 2.0);
+    if (pos.x < _window.getSize().x / 2.f)
+        temp_x = static_cast<float>(_window.getSize().x / 2.f);
+    if (pos.y < _window.getSize().y / 2.f)
+        temp_y = static_cast<float>(_window.getSize().y / 2.f);
+    if (pos.x > _game_region_width - _window.getSize().x / 2.f)
+        temp_x = static_cast<float>(_game_region_width - _window.getSize().x / 2.f);
+    if (pos.y > _game_region_height - _window.getSize().y / 2.f)
+        temp_y = static_cast<float>(_game_region_height - _window.getSize().y / 2.f);
 
     _view.setCenter(sf::Vector2f(temp_x, temp_y));
     return _view;

@@ -1,10 +1,8 @@
 #include "armor_set.h"
 
-#define ARMOR_SET_SIZE 11
-
 ArmorSet::ArmorSet() {
     _item_type = ItemType::ARMOR;
-    _INNERarmor_set.assign(ARMOR_SET_SIZE, nullptr);
+    _INNERarmor_set.assign(static_cast<int>(ArmorType::SET_SIZE), nullptr);
 }
 
 ArmorSet::ArmorSet(const ArmorSet& other) {
@@ -13,7 +11,12 @@ ArmorSet::ArmorSet(const ArmorSet& other) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
+std::shared_ptr<BaseArmor>& ArmorSet::operator[](ArmorType index) {
+    return _INNERarmor_set[static_cast<int>(index)];
+}
+
+std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index)
+{
     return _INNERarmor_set[index];
 }
 
