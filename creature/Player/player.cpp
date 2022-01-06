@@ -2,18 +2,11 @@
 #include "action.h"
 
 class Action;
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
 Player::Player(CreatureManager& manager, int health, const sf::Vector2f& pos) : 
-               Creature(manager, health, pos) {
+               Creature("man", manager, health, pos) {
 
-    for (int i = 0; i < T_SIZE; ++i) {
-        _body_textures[i] = HOLDER().getResource("man" + Items::_suffixes[i]);
-    }
     _type = CreatureType::PLAYER;
-    _sprite.setTexture(*_body_textures[T_WALK]);
-    _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
-    _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
 }
 
 void Player::action(sf::Event& event, float time, const Field& game_field) {
@@ -54,16 +47,16 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
             event.key.code = sf::Keyboard::LShift;
         }
         else
-            stop_creature();
+            Action::stop_creature(this);
     }
 }
 
 void Player::init_dress() {
 
-    get_armor()[BODY]   =  std::make_shared<BodyArmor>(*(new BodyArmor_leather(_pos)));
-    get_armor()[HELMET] =  std::make_shared<Helmet>(*(new Helmet_chain_helmet(_pos)));
-    get_armor()[PANTS]  =  std::make_shared<Pants>(*(new Pants_green(_pos)));
-    get_armor()[BOOTS]  =  std::make_shared<Boots>(*(new Boots_brown(_pos)));
+    get_armor()[static_cast<int>(ArmorType::TORSO)]  =  std::make_shared<BodyArmor>(*(new BodyArmor_leather(_pos)));
+    get_armor()[static_cast<int>(ArmorType::HELMET)] =  std::make_shared<Helmet>(*(new Helmet_chain_helmet(_pos)));
+    get_armor()[static_cast<int>(ArmorType::PANTS)]  =  std::make_shared<Pants>(*(new Pants_green(_pos)));
+    get_armor()[static_cast<int>(ArmorType::BOOTS)]  =  std::make_shared<Boots>(*(new Boots_brown(_pos)));
 
     set_weapon(std::make_shared<Axe>(*(new Axe_basic(_pos))));
 }

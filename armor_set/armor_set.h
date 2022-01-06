@@ -7,13 +7,6 @@
 #include "pants/pants.h"
 #include "boots/boots.h"
 
-#define BODY 0
-#define HELMET 1
-#define PANTS 2
-#define BOOTS 3
-#define GAUNTLETS 4
-#define SET_SIZE 5
-
 class ArmorSet : public Items {
 public:
     ArmorSet();

@@ -5,20 +5,23 @@
 #include <vector>
 #include "ResourceHolder.h"
 
-enum class ArmorType{
-    HELMET,
-    BODY_ARMOR,
-    GAUNTLETS,
-    PANTS,
-    BOOTS
+enum class ArmorType {
+    TORSO,      //  0
+    HELMET,     //  1
+    PANTS,      //  2
+    BOOTS,      //  3
+    GAUNTLETS,  //  4
+    SHIRT,      //  5
+    SHOULDERS,  //  6
+    BRACERS,    //  7
+    BELT,       //  8
+    QUIVER,     //  9
+    SHIELD,     //  10
 };
 
 class BaseArmor : public Items {
 public:
     BaseArmor(const std::string& name, const sf::Vector2f& pos);
-
-    sf::Sprite& get_sprite() { return _sprite; }
-    std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return _textures; }
 
     static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
 

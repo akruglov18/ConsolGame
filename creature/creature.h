@@ -34,7 +34,7 @@ class Player;
 class Creature {
 public:
     // Constructor ~ Destructor
-    Creature(CreatureManager& manager, int health, const sf::Vector2f& pos);
+    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos);
     Creature(const Creature&);
     virtual ~Creature(){}
 
@@ -43,10 +43,8 @@ public:
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
-    void update_frame(float time);
-    void move_creature(Dirs dir);
-    void stop_creature();
-    void hit_creature();
+    
+    
     void change_mode(Modes mode);
 
     //getters & setters
@@ -68,8 +66,6 @@ protected:
     // general
     ArmorSet _armor_set;
     std::shared_ptr<Weapon> _weapon;
-
-    void switch_y_txt(Dirs dir, int& y_texture);
 
     int _health;
     int _experience;

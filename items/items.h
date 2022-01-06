@@ -32,6 +32,8 @@ public:
     ItemType get_type() const;
     std::string get_type_str() const;
     static const std::vector<std::string> _suffixes;
+    sf::Sprite& get_sprite() { return _sprite; }
+    std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return _textures; }
     
 protected:
     std::vector<std::shared_ptr<sf::Texture>> _textures;
