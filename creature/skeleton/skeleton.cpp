@@ -2,8 +2,8 @@
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-Skeleton::Skeleton(CreatureManager& manager, int health, const sf::Vector2f& pos) : 
-                   Enemy("skeleton", manager, health, pos){
+Skeleton::Skeleton(CreatureManager& _manager, int _health, const sf::Vector2f& _pos) : 
+                   Enemy("skeleton", _manager, _health, _pos){
 
-    _creature_type = CreatureType::SKELETON;
+    creature_type = CreatureType::SKELETON;
 }

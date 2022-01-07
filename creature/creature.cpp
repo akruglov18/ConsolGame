@@ -4,54 +4,100 @@
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-Creature::Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos) :
-                   _manager(manager), _pos(pos) {
-    _current_frame = 0.f;
-    _health = health;
-    _direction = Dirs::DOWN;
-    _mode = Modes::WALK;
-    _action_animation_duration = 8;
-    _body_textures.resize(static_cast<int>(Modes::MODES_SIZE));
+Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos) :
+                   manager(_manager), pos(_pos) {
+    current_frame = 0.f;
+    health = _health;
+    direction = Dirs::DOWN;
+    mode = Modes::WALK;
+    action_animation_duration = 8;
+    body_textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
-        _body_textures[i] = HOLDER().getResource(name + Items::_suffixes[i]);
+        body_textures[i] = HOLDER().getResource(_name + Items::suffixes[i]);
     }
-    _sprite.setTexture(*_body_textures[static_cast<int>(Modes::WALK)]);
-    _sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
-    _sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    sprite.setTexture(*body_textures[static_cast<int>(Modes::WALK)]);
+    sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
+    sprite.setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
 }
 
-Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other._pos) {
-    _current_frame = other._current_frame;
-    _health = other._health;
-    _body_textures = other._body_textures;
-    _sprite = other._sprite;
-    _creature_type = other._creature_type;
-    _direction = other._direction;
-    _action_animation_duration = other._action_animation_duration;
-    _mode = other._mode;
+Creature::Creature(const Creature& other) : manager(other.manager), pos(other.pos) {
+    current_frame = other.current_frame;
+    health = other.health;
+    body_textures = other.body_textures;
+    sprite = other.sprite;
+    creature_type = other.creature_type;
+    direction = other.direction;
+    action_animation_duration = other.action_animation_duration;
+    mode = other.mode;
 }
 
 void Creature::set_pos(float x, float y) {
-    _pos.x = x;
-    _pos.y = y;
+    pos.x = x;
+    pos.y = y;
 }
 
-void Creature::set_weapon(std::shared_ptr<Weapon> weapon) {
-    _weapon = weapon;
+void Creature::set_weapon(std::shared_ptr<Weapon> _weapon) {
+    weapon = _weapon;
 }
 
 void Creature::reduce_health(int value) {
-    _health -= value;
-    if(_health < 0)
-        _manager.creatureDied(this);
+    health -= value;
+    if(health < 0)
+        manager.creatureDied(this);
 }
 
 void Creature::add_experience(int exp) {
-    _experience += exp;
+    experience += exp;
 }
 
-void CreatureManager::setPlayer(const std::shared_ptr<Player>& player){
-    _player = player;
+void Creature::show_creature(sf::RenderWindow& window) {
+    window.draw(sprite);
+    if (direction == Dirs::UP)
+        window.draw(get_weapon()->get_sprite());
+
+    for (auto el : get_armor().INNERarmor_set) {
+        if (el != nullptr)
+            window.draw(el->get_sprite());
+    }
+
+    if (get_weapon() != nullptr && direction != Dirs::UP)
+        window.draw(get_weapon()->get_sprite());
+}
+
+std::string Creature::creature_type_str() const {
+    switch(creature_type) {
+        case CreatureType::PLAYER:      return "Player";
+        case CreatureType::BEETLE:      return "Beetle";
+        case CreatureType::WOLF:        return "Pants";
+        case CreatureType::TRADER:      return "Boots";
+        case CreatureType::TAUR:        return "Gauntlets";
+        case CreatureType::SKELETON:    return "Shirt";
+        case CreatureType::NONE:        return "NONE";
+        default:                        throw std::logic_error("Invalid armor type");
+    }
+}
+
+json Creature::to_json() const {
+    json res;
+    auto name = creature_type_str();
+    res[name]["health"] = health;
+    res[name]["experience"] = experience;
+    res[name]["pos"]["x"] = pos.x;
+    res[name]["pos"]["y"] = pos.y;
+    res[name].push_back(armor_set.to_json());
+    res[name].push_back(weapon->to_json());
+    return res;
+}
+
+void Creature::change_mode(Modes _mode) {
+    sprite.setTexture(*body_textures[static_cast<int>(_mode)]);
+    armor_set.change_mode(_mode);
+    weapon->change_mode(_mode);
+    mode = _mode;
+}
+
+void CreatureManager::setPlayer(const std::shared_ptr<Player>& _player) {
+    player = _player;
 }
 
 void CreatureManager::creatureDied(const Creature* creature) {
@@ -62,52 +108,6 @@ void CreatureManager::creatureDied(const Creature* creature) {
         // end game
         return;
     }
-    auto player = _player.lock();
-    player->add_experience(10);
-}
-
-void Creature::show_creature(sf::RenderWindow& window) {
-    window.draw(_sprite);
-    if (_direction == Dirs::UP)
-        window.draw(get_weapon()->get_sprite());
-
-    for (auto el : get_armor()._INNERarmor_set) {
-        if (el != nullptr)
-            window.draw(el->get_sprite());
-    }
-
-    if (get_weapon() != nullptr && _direction != Dirs::UP)
-        window.draw(get_weapon()->get_sprite());
-}
-
-std::string Creature::creature_type_str() const {
-    switch(_creature_type) {
-        case CreatureType::PLAYER:      return "Player";
-        case CreatureType::BEETLE:      return "Beetle";
-        case CreatureType::WOLF:        return "Pants";
-        case CreatureType::TRADER:      return "Boots";
-        case CreatureType::TAUR:        return "Gauntlets";
-        case CreatureType::SKELETON:    return "Shirt";
-        case CreatureType::NONE:        return "NONE";
-        default:                        std::logic_error("Invalid armor type");
-    }
-}
-
-json Creature::to_json() const {
-    json res;
-    auto name = creature_type_str();
-    res[name]["health"] = _health;
-    res[name]["experience"] = _experience;
-    res[name]["pos"]["x"] = _pos.x;
-    res[name]["pos"]["y"] = _pos.y;
-    res[name].push_back(_armor_set.to_json());
-    res[name].push_back(_weapon->to_json());
-    return res;
-}
-
-void Creature::change_mode(Modes mode) {
-    _sprite.setTexture(*_body_textures[static_cast<int>(mode)]);
-    _armor_set.change_mode(mode);
-    _weapon->change_mode(mode);
-    _mode = mode;
+    auto player_ptr = player.lock();
+    player_ptr->add_experience(10);
 }

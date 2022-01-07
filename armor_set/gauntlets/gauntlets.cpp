@@ -1,11 +1,11 @@
 #include "gauntlets.h"
 
-Gauntlets::Gauntlets(const std::string& name, const sf::Vector2f& pos) : BaseArmor(name, pos) {
-    _armor_type = ArmorType::GAUNTLETS;
+Gauntlets::Gauntlets(const std::string& _name, const sf::Vector2f& _pos) : BaseArmor(_name, _pos) {
+    armor_type = ArmorType::GAUNTLETS;
 }
 
 //////////////////////////////////////////////////////////////////////INHERITORS///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Gauntlets_plate::Gauntlets_plate(const sf::Vector2f& pos) : Gauntlets("HANDS_plate", pos) {
-    _armor = 30;
+Gauntlets_plate::Gauntlets_plate(const sf::Vector2f& _pos) : Gauntlets("HANDS_plate", _pos) {
+    armor = 30;
 }

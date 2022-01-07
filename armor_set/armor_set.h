@@ -14,11 +14,11 @@ public:
 
     std::shared_ptr<BaseArmor>& operator[](ArmorType index);
     std::shared_ptr<BaseArmor>& operator[](const int index);
-    std::size_t size() { return _INNERarmor_set.size(); }
+    std::size_t size() { return INNERarmor_set.size(); }
     virtual std::string string_type() const override { return "ArmorSet"; }
     json to_json() const override;
 
     void change_mode(Modes mode);
 
-    std::vector<std::shared_ptr<BaseArmor>> _INNERarmor_set;
+    std::vector<std::shared_ptr<BaseArmor>> INNERarmor_set;
 };

@@ -7,15 +7,15 @@
 
 class Game {
 private:
-	sf::RenderWindow _window{ sf::VideoMode(1280, 720), "Consol game"};
-	int _size = 128;
-	Field _game_field{_size, _size};
-	int _game_region_width = _size * 32; // size in pixels
-	int _game_region_height = _size * 32;
-	std::shared_ptr<Player> _player;
-	std::vector<std::shared_ptr<Enemy>> _enemies;
-    CreatureManager _manager;
-	sf::View _view;
+	sf::RenderWindow window{ sf::VideoMode(1280, 720), "Consol game"};
+	int size = 128;
+	Field game_field{size, size};
+	int game_region_width = size * 32; // size in pixels
+	int game_region_height = size * 32;
+	std::shared_ptr<Player> player;
+	std::vector<std::shared_ptr<Enemy>> enemies;
+    CreatureManager manager;
+	sf::View view;
 
 public:
 	Game();

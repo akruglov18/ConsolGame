@@ -5,9 +5,9 @@
 #include "DesertTile/DesertTile.h"
 
 Tile::Tile() {
-    _passability = 2;
-    _texture = nullptr;
-    _feature_texture = nullptr;
+    passability = 2;
+    texture = nullptr;
+    feature_texture = nullptr;
 }
 
 std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int b_b) {
@@ -21,9 +21,9 @@ std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int
 }
 
 bool Tile::operator==(const Tile& tile) const {
-    return _passability == tile._passability &&
-           _texture     == tile._texture &&
-           _type        == tile._type;
+    return passability == tile.passability &&
+           texture     == tile.texture &&
+           tile_type   == tile.tile_type;
 }
 
 bool Tile::operator!=(const Tile& tile) const {
@@ -31,46 +31,46 @@ bool Tile::operator!=(const Tile& tile) const {
 }
 
 void Tile::scale(int i, int j) {
-    _sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32, 32, 32));
+    sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32, 32, 32));
 }
 
 void Tile::scale_borders(int i, int j, int r_b, int btm_b) {
     if (j < 4) {
         if (i < 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32, 32, 32));
         else if (i >= btm_b - 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32 + 256, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32 + 256, 32, 32));
         else if (i >= 4 && i < btm_b - 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32 + 128, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32 + 128, 32, 32));
     }
     else if (j >= r_b - 4) {
         if (i < 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32, 32, 32));
         else if (i >= btm_b - 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32 + 256, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32 + 256, 32, 32));
         else if (i >= 4 && i < btm_b - 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32 + 128, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32 + 128, 32, 32));
     }
     else if (j >= 4 && j < r_b - 4) {
         if (i < 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 128, (i % 4) * 32, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 128, (i % 4) * 32, 32, 32));
         else if (i >= btm_b - 4)
-            _sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 128, (i % 4) * 32 + 256, 32, 32));
+            sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 128, (i % 4) * 32 + 256, 32, 32));
     }
 }
 
 void Tile::set_desert_feature(int chance) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _feature_texture = HOLDER().getResource("desert_features");
-    _feature_sprite.setTexture(*_feature_texture);
-    _feature_sprite.setTextureRect(sf::IntRect(chance * 32, 0, 32, 32));
+    feature_texture = HOLDER().getResource("desert_features");
+    feature_sprite.setTexture(*feature_texture);
+    feature_sprite.setTextureRect(sf::IntRect(chance * 32, 0, 32, 32));
 }
 
 void Tile::set_desert_tree(int chance, int i, int j) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    _feature_texture = HOLDER().getResource("desert_trees");
-    _feature_sprite.setTexture(*_feature_texture);
-    _feature_sprite.setTextureRect(sf::IntRect(chance * 128, 0, 136, 160));
-    _passability = 0;
-    _feature_sprite.move(sf::Vector2f((i - 2) * 32.f, (j - 4) * 32.f));
+    feature_texture = HOLDER().getResource("desert_trees");
+    feature_sprite.setTexture(*feature_texture);
+    feature_sprite.setTextureRect(sf::IntRect(chance * 128, 0, 136, 160));
+    passability = 0;
+    feature_sprite.move(sf::Vector2f((i - 2) * 32.f, (j - 4) * 32.f));
 }

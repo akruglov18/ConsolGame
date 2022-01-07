@@ -1,6 +1,6 @@
 #include "beetle.h"
 
-Beetle::Beetle(CreatureManager& manager, int health, const sf::Vector2f& pos) : 
-             Enemy("NONE", manager, health, pos) {
-    _creature_type = CreatureType::BEETLE;
+Beetle::Beetle(CreatureManager& _manager, int _health, const sf::Vector2f& _pos) : 
+             Enemy("NONE", _manager, _health, _pos) {
+    creature_type = CreatureType::BEETLE;
 }
