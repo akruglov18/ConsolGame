@@ -10,6 +10,8 @@ include_directories("${CMAKE_SOURCE_DIR}/3rdparty/gtest/googletest/include")
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/sfml")
 include_directories("${CMAKE_SOURCE_DIR}/3rdparty/sfml/include")
 
+include_directories("${CMAKE_SOURCE_DIR}/3rdparty/")
+
 add_subdirectory(resource_holder)
 add_subdirectory(skills_graph)
 add_subdirectory(items)

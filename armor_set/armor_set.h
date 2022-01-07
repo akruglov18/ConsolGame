@@ -15,6 +15,7 @@ public:
     std::shared_ptr<BaseArmor>& operator[](ArmorType index);
     std::shared_ptr<BaseArmor>& operator[](const int index);
     std::size_t size() { return _INNERarmor_set.size(); }
+    virtual std::string to_string() const override { return "ArmorSet"; }
 
     void change_mode(Modes mode);
 

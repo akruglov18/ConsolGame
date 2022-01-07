@@ -6,18 +6,18 @@
 #include "ResourceHolder.h"
 
 enum class ArmorType {
-    TORSO,      //  0
-    HELMET,     //  1
-    PANTS,      //  2
-    BOOTS,      //  3
-    GAUNTLETS,  //  4
-    SHIRT,      //  5
-    SHOULDERS,  //  6
-    BRACERS,    //  7
-    BELT,       //  8
-    QUIVER,     //  9
-    SHIELD,     //  10
-    SET_SIZE    //  11
+    TORSO = 0,
+    HELMET,
+    PANTS,
+    BOOTS,
+    GAUNTLETS,
+    SHIRT,
+    SHOULDERS,
+    BRACERS,
+    BELT,
+    QUIVER,
+    SHIELD,
+    SET_SIZE
 };
 
 class BaseArmor : public Items {

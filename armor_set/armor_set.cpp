@@ -5,18 +5,13 @@ ArmorSet::ArmorSet() {
     _INNERarmor_set.assign(static_cast<int>(ArmorType::SET_SIZE), nullptr);
 }
 
-ArmorSet::ArmorSet(const ArmorSet& other) {
-    _INNERarmor_set = other._INNERarmor_set;
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 std::shared_ptr<BaseArmor>& ArmorSet::operator[](ArmorType index) {
     return _INNERarmor_set[static_cast<int>(index)];
 }
 
-std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index)
-{
+std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
     return _INNERarmor_set[index];
 }
 

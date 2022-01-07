@@ -10,4 +10,5 @@ public:
 
 class Gauntlets_plate : public Gauntlets {
     Gauntlets_plate(const sf::Vector2f& pos);
+    std::string to_string() const override { return "Gauntlets_plate"; }
 };

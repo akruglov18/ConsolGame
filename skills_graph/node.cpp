@@ -22,6 +22,7 @@ Node& Node::operator=(Node&& other) {
     other._barrier = 0;
     _cost = other._cost;
     other._cost = 0;
+    return *this;
 }
 
 void Node::add_child(std::shared_ptr<Node> child) {

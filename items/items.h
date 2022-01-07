@@ -27,6 +27,7 @@ public:
     static const std::vector<std::string> _suffixes;
     sf::Sprite& get_sprite() { return _sprite; }
     std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return _textures; }
+    virtual std::string to_string() const = 0;
     
 protected:
     std::vector<std::shared_ptr<sf::Texture>> _textures;
