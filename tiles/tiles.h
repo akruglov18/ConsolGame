@@ -34,13 +34,13 @@ enum class TilesType {
 
 class Tile {
 protected:
-    int _passability;
-    std::shared_ptr<sf::Texture> _texture;
-    sf::Sprite _sprite;
-    std::shared_ptr<sf::Texture> _feature_texture;
-    sf::Sprite _feature_sprite;
+    int passability;
+    std::shared_ptr<sf::Texture> texture;
+    sf::Sprite sprite;
+    std::shared_ptr<sf::Texture> feature_texture;
+    sf::Sprite feature_sprite;
 
-    TilesType _type = TilesType::NONE;
+    TilesType tile_type = TilesType::NONE;
 
 public:
     // constructors~destructor
@@ -52,16 +52,16 @@ public:
 
     //methods
     static std::shared_ptr<Tile> make_tile(TilesType type, int i, int j, int r_b = 128, int b_b = 128);
-    sf::Sprite print_tile() const { return _sprite; }
-    sf::Sprite print_feature() const { return _feature_sprite; }
+    sf::Sprite print_tile() const { return sprite; }
+    sf::Sprite print_feature() const { return feature_sprite; }
     void scale(int i, int j);
     void scale_borders(int i, int j, int r_b, int btm_b);
 
     // getters & setters
-    int get_passability() { return _passability; }
+    int get_passability() { return passability; }
     void set_desert_feature(int chance);
     void set_desert_tree(int chance, int i, int j);
-    sf::Sprite& get_sprite() { return _sprite; }
-    sf::Sprite& get_feature() { return _feature_sprite; }
-    bool no_feature() const { return _feature_texture == nullptr; }
+    sf::Sprite& get_sprite() { return sprite; }
+    sf::Sprite& get_feature() { return feature_sprite; }
+    bool no_feature() const { return feature_texture == nullptr; }
 };
