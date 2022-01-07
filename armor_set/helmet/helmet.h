@@ -11,29 +11,29 @@ public:
 class Helmet_chain_helmet : public Helmet {
 public:
     Helmet_chain_helmet(const sf::Vector2f& pos);
-    std::string to_string() const override { return "Helmet_chain_helmet"; }
+    std::string string_type() const override { return "Helmet_chain_helmet"; }
 };
 
 class Helmet_chain_hood : public Helmet {
 public:
     Helmet_chain_hood(const sf::Vector2f& pos);
-    std::string to_string() const override { return "Helmet_chain_hood"; }
+    std::string string_type() const override { return "Helmet_chain_hood"; }
 };
 
 class Helmet_leather_hat : public Helmet {
 public:
     Helmet_leather_hat(const sf::Vector2f& pos);
-    std::string to_string() const override { return "Helmet_leather_hat"; }
+    std::string string_type() const override { return "Helmet_leather_hat"; }
 };
 
 class Helmet_plate : public Helmet {
 public:
     Helmet_plate(const sf::Vector2f& pos);
-    std::string to_string() const override { return "Helmet_plate"; }
+    std::string string_type() const override { return "Helmet_plate"; }
 };
 
 class Helmet_robe : public Helmet {
 public:
     Helmet_robe(const sf::Vector2f& pos);
-    std::string to_string() const override { return "Helmet_robe"; }
+    std::string string_type() const override { return "Helmet_robe"; }
 };

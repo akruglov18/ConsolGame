@@ -31,6 +31,16 @@ double Weapon::get_damage() const {
     return result;
 }
 
+json Weapon::to_json() const {
+    json res;
+    auto name = std::string("Weapon");
+    res[name]["class_type"] = string_type();
+    res[name]["damage"] = _damage;
+    res[name]["critical_chance"] = _critical_chance;
+    res[name]["critical_multiplier"] = _critical_multiplier;
+    return res;
+}
+
 void Weapon::change_mode(Modes mode) {
     _sprite.setTexture(*_textures[static_cast<int>(mode)]);
 }

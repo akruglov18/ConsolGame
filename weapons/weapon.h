@@ -20,6 +20,7 @@ public:
     double damage() const { return _damage; }
     int critical_chance() const { return _critical_chance; }
     WeaponType get_weapon_type() const { return _weapon_type; }
+    json to_json() const override;
 
     sf::Sprite& get_sprite() { return _sprite; }
     void change_mode(Modes mode);

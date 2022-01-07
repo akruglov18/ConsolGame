@@ -24,6 +24,9 @@ class BaseArmor : public Items {
 public:
     BaseArmor(const std::string& name, const sf::Vector2f& pos);
 
+    virtual json to_json() const override;
+    ArmorType armor_type() const { return _armor_type; }
+    std::string armor_type_str() const;
     static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
 
 protected:

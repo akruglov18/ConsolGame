@@ -25,7 +25,7 @@ Creature::Creature(const Creature& other) : _manager(other._manager), _pos(other
     _health = other._health;
     _body_textures = other._body_textures;
     _sprite = other._sprite;
-    _type = other._type;
+    _creature_type = other._creature_type;
     _direction = other._direction;
     _action_animation_duration = other._action_animation_duration;
     _mode = other._mode;
@@ -78,6 +78,31 @@ void Creature::show_creature(sf::RenderWindow& window) {
 
     if (get_weapon() != nullptr && _direction != Dirs::UP)
         window.draw(get_weapon()->get_sprite());
+}
+
+std::string Creature::creature_type_str() const {
+    switch(_creature_type) {
+        case CreatureType::PLAYER:      return "Player";
+        case CreatureType::BEETLE:      return "Beetle";
+        case CreatureType::WOLF:        return "Pants";
+        case CreatureType::TRADER:      return "Boots";
+        case CreatureType::TAUR:        return "Gauntlets";
+        case CreatureType::SKELETON:    return "Shirt";
+        case CreatureType::NONE:        return "NONE";
+        default:                        std::logic_error("Invalid armor type");
+    }
+}
+
+json Creature::to_json() const {
+    json res;
+    auto name = creature_type_str();
+    res[name]["health"] = _health;
+    res[name]["experience"] = _experience;
+    res[name]["pos"]["x"] = _pos.x;
+    res[name]["pos"]["y"] = _pos.y;
+    res[name].push_back(_armor_set.to_json());
+    res[name].push_back(_weapon->to_json());
+    return res;
 }
 
 void Creature::change_mode(Modes mode) {

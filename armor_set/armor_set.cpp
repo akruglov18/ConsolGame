@@ -15,6 +15,16 @@ std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
     return _INNERarmor_set[index];
 }
 
+json ArmorSet::to_json() const {
+    json res;
+    auto type = string_type();
+    auto size = static_cast<std::size_t>(ArmorType::SET_SIZE);
+    for(std::size_t i = 0; i < size; i++) {
+        res[type].push_back(_INNERarmor_set[i]->to_json());
+    }
+    return res;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void ArmorSet::change_mode(Modes mode) {
