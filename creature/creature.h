@@ -89,5 +89,5 @@ public:
     void creatureDied(const Creature* creature);
     ~CreatureManager() {};
 private:
-    std::weak_ptr<Player> _player;
+    std::weak_ptr<Player> player;
 };

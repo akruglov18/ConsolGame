@@ -50,22 +50,6 @@ void Creature::add_experience(int exp) {
     experience += exp;
 }
 
-void CreatureManager::setPlayer(const std::shared_ptr<Player>& player){
-    _player = player;
-}
-
-void CreatureManager::creatureDied(const Creature* creature) {
-    if(creature->get_type() == CreatureType::NONE)
-        throw std::logic_error("Creature died, Creture type: NONE");
-
-    if(creature->get_type() == CreatureType::PLAYER) {
-        // end game
-        return;
-    }
-    auto player = _player.lock();
-    player->add_experience(10);
-}
-
 void Creature::show_creature(sf::RenderWindow& window) {
     window.draw(sprite);
     if (direction == Dirs::UP)
@@ -110,4 +94,20 @@ void Creature::change_mode(Modes _mode) {
     armor_set.change_mode(_mode);
     weapon->change_mode(_mode);
     mode = _mode;
+}
+
+void CreatureManager::setPlayer(const std::shared_ptr<Player>& _player) {
+    player = _player;
+}
+
+void CreatureManager::creatureDied(const Creature* creature) {
+    if(creature->get_type() == CreatureType::NONE)
+        throw std::logic_error("Creature died, Creture type: NONE");
+
+    if(creature->get_type() == CreatureType::PLAYER) {
+        // end game
+        return;
+    }
+    auto player_ptr = player.lock();
+    player_ptr->add_experience(10);
 }
