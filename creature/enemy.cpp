@@ -12,7 +12,6 @@ Enemy::Enemy(const std::string name, CreatureManager& manager, int health, const
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health, const sf::Vector2f& pos) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    const sf::Texture* txt = nullptr;
     switch (type) {
         case CreatureType::BEETLE:   return std::make_shared<Enemy>(*(new Beetle(manager)));
         case CreatureType::TAUR:     return std::make_shared<Enemy>(*(new Taur(manager)));

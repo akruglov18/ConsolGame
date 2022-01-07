@@ -24,8 +24,8 @@ Game::Game() {
     _player->init_dress();
 
     _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, { 400.f, 256.f }));
-    _enemies[0]->get_armor()[ArmorType::TORSO] = std::make_shared<BodyArmor>(*(new BodyArmor_chain(_enemies[0]->get_pos())));
-    _enemies[0]->get_armor()[ArmorType::HELMET] = std::make_shared<Helmet>(*(new Helmet_chain_hood(_enemies[0]->get_pos())));
+    _enemies[0]->get_armor()[ArmorType::TORSO] = std::shared_ptr<BodyArmor>(new BodyArmor_chain(_enemies[0]->get_pos()));
+    _enemies[0]->get_armor()[ArmorType::HELMET] = std::shared_ptr<Helmet>(new Helmet_chain_hood(_enemies[0]->get_pos()));
 }
 
 void Game::game_loop() {    
@@ -82,4 +82,3 @@ sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
     _view.setCenter(sf::Vector2f(temp_x, temp_y));
     return _view;
 }
-

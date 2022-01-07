@@ -10,6 +10,9 @@
 #include "sword.h"
 #include "spear.h"
 #include "axe.h"
+#include "nlohmann_json/json.hpp"
+
+using json = nlohmann::json;
 
 enum class CreatureType {
     NONE,
@@ -39,11 +42,11 @@ public:
     virtual ~Creature(){}
 
     // Methods
-    CreatureType get_type() const { return _type; }
+    CreatureType get_type() const { return _creature_type; }
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
-    
+    json to_json() const;
     
     void change_mode(Modes mode);
 
@@ -55,6 +58,7 @@ public:
     sf::Vector2f& get_pos() { return _pos; }
     float& get_frame() { return _current_frame; }
     void set_pos(float x, float y);
+    std::string creature_type_str() const;
 
     void set_health(int health);
 
@@ -75,7 +79,7 @@ protected:
     sf::Sprite _sprite;
     CreatureManager& _manager;
 
-    CreatureType _type = CreatureType::NONE;
+    CreatureType _creature_type = CreatureType::NONE;
 };
 
 class CreatureManager {

@@ -4,8 +4,7 @@
 #include "RoadTile/RoadTile.h"
 #include "DesertTile/DesertTile.h"
 
-Tile::Tile()
-{
+Tile::Tile() {
     _passability = 2;
     _texture = nullptr;
     _feature_texture = nullptr;
@@ -17,11 +16,7 @@ std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int
         case TilesType::DESERT1_BORDERS:    return std::make_shared<Tile>(*(new Desert1_borders(i, j, r_b, b_b)));
         case TilesType::DESERT1_OASIS:      return std::make_shared<Tile>(*(new Desert1_oasis(i, j)));
         case TilesType::DESERT1_CRACKS:     return std::make_shared<Tile>(*(new Desert1_cracks(i, j)));
-
-    /*case TilesType::GRASS: return std::make_shared<Tile>(*(new GrassTile));
-    case TilesType::WATER: return std::make_shared<Tile>(*(new WaterTile));
-    case TilesType::ROAD: return std::make_shared<Tile>(*(new RoadTile));*/
-    default: return nullptr;
+        default:                            return nullptr;
     }
 }
 

@@ -5,12 +5,10 @@ class Action;
 
 Player::Player(CreatureManager& manager, int health, const sf::Vector2f& pos) : 
                Creature("man", manager, health, pos) {
-
-    _type = CreatureType::PLAYER;
+    _creature_type = CreatureType::PLAYER;
 }
 
 void Player::action(sf::Event& event, float time, const Field& game_field) {
-
     if (_mode == Modes::SLASH || _mode == Modes::THRUST) {
         Action::hit(this, time, game_field);
         return;
@@ -52,11 +50,10 @@ void Player::action(sf::Event& event, float time, const Field& game_field) {
 }
 
 void Player::init_dress() {
+    get_armor()[ArmorType::TORSO]  =  std::shared_ptr<BodyArmor>(new BodyArmor_leather(_pos));
+    get_armor()[ArmorType::HELMET] =  std::shared_ptr<Helmet>(new Helmet_chain_helmet(_pos));
+    get_armor()[ArmorType::PANTS]  =  std::shared_ptr<Pants>(new Pants_green(_pos));
+    get_armor()[ArmorType::BOOTS]  =  std::shared_ptr<Boots>(new Boots_brown(_pos));
 
-    get_armor()[ArmorType::TORSO]  =  std::make_shared<BodyArmor>(*(new BodyArmor_leather(_pos)));
-    get_armor()[ArmorType::HELMET] =  std::make_shared<Helmet>(*(new Helmet_chain_helmet(_pos)));
-    get_armor()[ArmorType::PANTS]  =  std::make_shared<Pants>(*(new Pants_green(_pos)));
-    get_armor()[ArmorType::BOOTS]  =  std::make_shared<Boots>(*(new Boots_brown(_pos)));
-
-    set_weapon(std::make_shared<Axe>(*(new Axe_basic(_pos))));
+    set_weapon(std::shared_ptr<Axe> (new Axe_basic(_pos)));
 }
