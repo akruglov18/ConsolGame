@@ -6,8 +6,8 @@
 #include "ResourceHolder.h"
 #include "action.h"
 
-Enemy::Enemy(const std::string name, CreatureManager& manager, int health, const sf::Vector2f& pos) :
-             Creature(name, manager, health, pos) {}
+Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos) :
+             Creature(_name, _manager, _health, _pos) {}
 
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health, const sf::Vector2f& pos) {

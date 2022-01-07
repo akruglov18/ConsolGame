@@ -28,7 +28,7 @@ std::string BaseArmor::armor_type_str() const {
         case ArmorType::BELT:       return "Belt";
         case ArmorType::QUIVER:     return "Quiver";
         case ArmorType::SHIELD:     return "Shield";
-        default:                    std::logic_error("Invalid armor type");
+        default:                    throw std::logic_error("Invalid armor type");
     }
 }
 
