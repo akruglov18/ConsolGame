@@ -3,10 +3,10 @@
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
 BaseArmor::BaseArmor(const std::string& _name, const sf::Vector2f& _pos) {
-    _item_type = ItemType::ARMOR;
-    _textures.resize(static_cast<int>(Modes::MODES_SIZE));
+    item_type = ItemType::ARMOR;
+    textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
-        _textures[i] = HOLDER().getResource(_name + suffixes[i]);
+        textures[i] = HOLDER().getResource(_name + suffixes[i]);
     }
     init_scale(_pos);
 }

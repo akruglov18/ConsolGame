@@ -16,19 +16,18 @@ public:
     Weapon(const std::string& name, const sf::Vector2f& pos);
     Weapon(const Weapon& other);
 
-    virtual double get_damage() const;
-    double damage() const { return _damage; }
-    int critical_chance() const { return _critical_chance; }
-    WeaponType get_weapon_type() const { return _weapon_type; }
+    virtual double get_total_damage() const;
+    double get_damage() const { return damage; }
+    int get_critical_chance() const { return critical_chance; }
+    WeaponType get_weapon_type() const { return weapon_type; }
     json to_json() const override;
 
-    sf::Sprite& get_sprite() { return _sprite; }
     void change_mode(Modes mode);
 
     virtual ~Weapon(){}
 protected:
-    double _damage = 0;
-    int _critical_chance = 0;
-    double _critical_multiplier = 0;
-    WeaponType _weapon_type;
+    double damage = 0;
+    int critical_chance = 0;
+    double critical_multiplier = 0;
+    WeaponType weapon_type;
 };

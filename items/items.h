@@ -28,13 +28,13 @@ public:
     ItemType get_type() const;
     std::string get_type_str() const;
     static const std::vector<std::string> suffixes;
-    sf::Sprite& get_sprite() { return _sprite; }
-    std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return _textures; }
+    sf::Sprite& get_sprite() { return sprite; }
+    std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return textures; }
     virtual std::string string_type() const = 0;
     virtual json to_json() const = 0;
 protected:
-    std::vector<std::shared_ptr<sf::Texture>> _textures;
-    sf::Sprite _sprite;
+    std::vector<std::shared_ptr<sf::Texture>> textures;
+    sf::Sprite sprite;
     void init_scale(const sf::Vector2f& pos);
-    ItemType _item_type = ItemType::NONE;
+    ItemType item_type = ItemType::NONE;
 };

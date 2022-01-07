@@ -71,7 +71,7 @@ void Creature::show_creature(sf::RenderWindow& window) {
     if (direction == Dirs::UP)
         window.draw(get_weapon()->get_sprite());
 
-    for (auto el : get_armor()._INNERarmor_set) {
+    for (auto el : get_armor().INNERarmor_set) {
         if (el != nullptr)
             window.draw(el->get_sprite());
     }
@@ -89,7 +89,7 @@ std::string Creature::creature_type_str() const {
         case CreatureType::TAUR:        return "Gauntlets";
         case CreatureType::SKELETON:    return "Shirt";
         case CreatureType::NONE:        return "NONE";
-        default:                        std::logic_error("Invalid armor type");
+        default:                        throw std::logic_error("Invalid armor type");
     }
 }
 

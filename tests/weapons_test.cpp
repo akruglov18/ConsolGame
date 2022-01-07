@@ -8,7 +8,7 @@ TEST(axe_test, get_damage_1) {
     HOLDER().loadFromFile("../../images/items/weapons/War_Axe/Slash.png", "AXE_basic_slash");
     HOLDER().loadFromFile("../../images/items/weapons/War_Axe/Hurt.png", "AXE_basic_hurt");
     Axe_basic axe(sf::Vector2f(0, 0));
-    ASSERT_EQ(axe.critical_chance(), 40);
+    ASSERT_EQ(axe.get_critical_chance(), 40);
 }
 
 TEST(axe_test, get_type_1) {
