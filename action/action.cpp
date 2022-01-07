@@ -92,28 +92,36 @@ void Action::hit_animation(Creature* creature) {
 void Action::move_left(Creature* creature, float time, const Field& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
-    pos.x -= time * static_cast<float>(game_field(pos.y / 32.f + 1, (pos.x - time) / 32.f + 1)->get_passability() / 2.f);
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
+    pos.x -= time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::LEFT);
 }
 
 void Action::move_right(Creature* creature, float time, const Field& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
-    pos.x += time * static_cast<float>(game_field(pos.y / 32.f + 1, (pos.x + time) / 32.f + 1)->get_passability() / 2.f);
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
+    pos.x += time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::RIGHT);
 }
 
 void Action::move_up(Creature* creature, float time, const Field& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
-    pos.y -= time * static_cast<float>(game_field((pos.y - time) / 32.f + 1, pos.x / 32.f + 1)->get_passability() / 2.f);
+    auto y = static_cast<int>((pos.y - time) / 32.f + 1.f);
+    auto x = static_cast<int>(pos.x / 32.f + 1.f);
+    pos.y -= time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::UP);
 }
 
 void Action::move_down(Creature* creature, float time, const Field& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
-    pos.y += time * static_cast<float>(game_field((pos.y + time) / 32.f + 1, pos.x / 32.f + 1)->get_passability() / 2.f);
+    auto y = static_cast<int>((pos.y + time) / 32.f + 1.f);
+    auto x = static_cast<int>(pos.x / 32.f + 1);
+    pos.y += time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::DOWN);
 }
 
