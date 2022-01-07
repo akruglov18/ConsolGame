@@ -6,7 +6,7 @@ Weapon::Weapon(const std::string& name, const sf::Vector2f& pos) {
     _item_type = ItemType::WEAPON;
     _textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
-        _textures[i] = HOLDER().getResource(name + _suffixes[i]);
+        _textures[i] = HOLDER().getResource(name + suffixes[i]);
     }
     init_scale(pos);
 }

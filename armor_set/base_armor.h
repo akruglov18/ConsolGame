@@ -25,13 +25,13 @@ public:
     BaseArmor(const std::string& name, const sf::Vector2f& pos);
 
     virtual json to_json() const override;
-    ArmorType armor_type() const { return _armor_type; }
-    std::string armor_type_str() const;
+    ArmorType get_armor_type() const { return armor_type; }
+    std::string get_armor_type_str() const;
     static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
 
 protected:
-    int _armor = 0;
-    ArmorType _armor_type;
+    int armor = 0;
+    ArmorType armor_type;
     /*
     int _added_health;
     ...
