@@ -39,17 +39,10 @@ void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const
         }
     }
 
-    std::vector<std::shared_ptr<Enemy>> tmp_enemies;
-    tmp_enemies.reserve(enemies.size());
+    std::vector<std::shared_ptr<Enemy>> tmp_enemies = Utils::find_drawable_enemies(enemies,
+        obj_top_border, obj_btm_border, obj_left_border, obj_right_border);
+    Utils::sort_enemies(tmp_enemies);
     std::size_t counter = 0;
-
-    for (const auto& x : enemies) {
-        if (x->get_pos().y > obj_top_border * 32 && x->get_pos().y < obj_btm_border * 32
-            && x->get_pos().x > obj_left_border * 32 + 32 && x->get_pos().x < obj_right_border * 32 - 32)
-            tmp_enemies.push_back(x);
-    }
-
-    sort_enemies(tmp_enemies);
 
     // rendering objects
     for (int i = obj_top_border; i < obj_btm_border; ++i) {
@@ -70,19 +63,6 @@ void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const
                 if (!field(i, j - 1)->no_feature())
                     window.draw(field(i, j - 1)->print_feature());
             }
-        }
-    }
-}
-
-void Drawer::sort_enemies(std::vector<std::shared_ptr<Enemy>>& enemies) {
-    for (int i = 0; i < enemies.size(); ++i) {
-        for (int j = 0; j < enemies.size() - i - 1; ++j) {
-            if (enemies[j]->get_pos().y == enemies[j + 1]->get_pos().y) {
-                if (enemies[j]->get_pos().x > enemies[j + 1]->get_pos().x)
-                    std::swap(enemies[j], enemies[j + 1]);
-            }
-            else if (enemies[j]->get_pos().y > enemies[j + 1]->get_pos().y)
-                std::swap(enemies[j], enemies[j + 1]);
         }
     }
 }
