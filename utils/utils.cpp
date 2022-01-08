@@ -5,8 +5,6 @@ void Utils::find_drawable_creatures(std::vector<std::shared_ptr<Enemy>>& enemies
     drawable_creatures.resize(0);
     drawable_creatures.reserve(enemies.size());
     for (const auto& x : enemies) {
-        if (x == nullptr)
-            continue;
         if (x->get_pos().y > obj_top_border * 32 && x->get_pos().y < obj_btm_border * 32
             && x->get_pos().x > obj_left_border * 32 + 32 && x->get_pos().x < obj_right_border * 32 - 32)
             drawable_creatures.push_back(x);

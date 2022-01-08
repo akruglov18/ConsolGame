@@ -40,11 +40,21 @@ void Creature::set_weapon(std::shared_ptr<Weapon> _weapon) {
     weapon = _weapon;
 }
 
+void Creature::being_hurt() {
+    sprite.setColor(sf::Color(255, 0, 0, 240));
+}
+
 void Creature::reduce_health(int value) {
     health -= value;
-    std::cout << "health = " << health << '\n';
-    if(health < 0)
-        manager.creatureDied(this);
+    being_hurt();
+    //std::cout << "health = " << health << '\n';
+    if (health < 0) {
+        died = true;
+    }
+}
+
+void Creature::die() {
+    manager.creatureDied(this);
 }
 
 void Creature::add_experience(int exp) {
@@ -105,8 +115,6 @@ void CreatureManager::setPlayer(const std::shared_ptr<Player>& _player) {
 void CreatureManager::creatureDied(Creature* creature) {
     if(creature->get_type() == CreatureType::NONE)
         throw std::logic_error("Creature died, Creture type: NONE");
-
-    creature->died = true;
 
     if(creature->get_type() == CreatureType::PLAYER) {
         // end game

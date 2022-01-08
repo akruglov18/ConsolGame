@@ -43,12 +43,14 @@ public:
 
     // Methods
     CreatureType get_type() const { return creature_type; }
+    void being_hurt();
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
     json to_json() const;
     
     void change_mode(Modes mode);
+    void die();
 
     //getters & setters
     ArmorSet& get_armor() { return armor_set; }
@@ -91,4 +93,5 @@ public:
     ~CreatureManager() {};
 private:
     std::weak_ptr<Player> player;
+    std::weak_ptr<Field> field;
 };

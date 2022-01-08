@@ -107,39 +107,39 @@ void Action::die_animation(Creature* creature) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////////////////
 
-void Action::move_left(Creature* creature, float time, const Field& game_field) {
+void Action::move_left(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
-    pos.x -= time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
+    pos.x -= time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::LEFT);
 }
 
-void Action::move_right(Creature* creature, float time, const Field& game_field) {
+void Action::move_right(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
-    pos.x += time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
+    pos.x += time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::RIGHT);
 }
 
-void Action::move_up(Creature* creature, float time, const Field& game_field) {
+void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>((pos.y - time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1.f);
-    pos.y -= time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
+    pos.y -= time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::UP);
 }
 
-void Action::move_down(Creature* creature, float time, const Field& game_field) {
+void Action::move_down(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>((pos.y + time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1);
-    pos.y += time * static_cast<float>(game_field(y, x)->get_passability() / 2.f);
+    pos.y += time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     move_animation(creature, Dirs::DOWN);
 }
 
@@ -169,7 +169,7 @@ int Action::choose_mode_according_to_weapon(Creature* creature) {
     return 0;
 }
 
-void Action::hit(Creature* creature, float time, const Field& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
 
     auto& current_frame = creature->get_frame();
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
@@ -209,8 +209,10 @@ void Action::hit(Creature* creature, float time, const Field& game_field, std::v
         for (auto& x : drawable_creatures) {
             if (x->get_pos().y > top_hit_border && x->get_pos().y < btm_hit_border
                 && x->get_pos().x > left_hit_border && x->get_pos().x < right_hit_border) {
-                if (std::pow(x->get_pos().x - pos.x, 2) + std::pow(x->get_pos().y - pos.y, 2) <= std::pow(48, 2))
+                if (std::pow(x->get_pos().x - pos.x, 2) + std::pow(x->get_pos().y - pos.y, 2) <= std::pow(48, 2)) {
                     x->reduce_health(creature->get_weapon()->get_damage());
+
+                }
             }            
         }
     }
@@ -242,7 +244,7 @@ void Action::die(Creature* creature, float time) {
     current_frame += 0.15f * time;
 
     if (current_frame > creature->action_animation_duration) {
-        //creature->~Creature();
+        creature->die();
         return;
     }
 

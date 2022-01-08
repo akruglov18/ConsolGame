@@ -15,7 +15,8 @@ Game::Game() {
     std::cout << "Textures loading: " << std::setw(9) << diff.count() << " s\n";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    game_field.generate_field();
+    game_field = std::shared_ptr<Field>(new Field(size, size));
+    game_field->generate_field();
     view.reset(sf::FloatRect(0, 0, 1280, 720));
     
     player = std::shared_ptr<Player>(new Player(manager, 100, { 366.f, 560.f }));
@@ -23,9 +24,11 @@ Game::Game() {
     manager.setPlayer(player);
     player->init_dress();
 
-    enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { 400.f, 256.f }));
-    enemies[0]->get_armor()[ArmorType::TORSO] = std::shared_ptr<BodyArmor>(new BodyArmor_chain(enemies[0]->get_pos()));
-    enemies[0]->get_armor()[ArmorType::HELMET] = std::shared_ptr<Helmet>(new Helmet_chain_hood(enemies[0]->get_pos()));
+    for (int i = 0; i < 20; ++i) {
+        enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { (i % 7) * 200.f, (i / 7 + 1) * 256.f }));
+        enemies[i]->get_armor()[ArmorType::TORSO] = std::shared_ptr<BodyArmor>(new BodyArmor_chain(enemies[i]->get_pos()));
+        enemies[i]->get_armor()[ArmorType::HELMET] = std::shared_ptr<Helmet>(new Helmet_chain_hood(enemies[i]->get_pos()));
+    }    
 }
 
 void Game::game_loop() {    
@@ -47,7 +50,7 @@ void Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
         for(auto& x : enemies) {
-             x->action(player, time, game_field);
+             x->action(player, time);
         }
 
         /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
@@ -55,7 +58,7 @@ void Game::game_loop() {
         render();
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff = end - start;
-        //std::cout << "fps: " << std::setw(9) << 1 / diff.count() << "\r";
+        std::cout << "fps: " << std::setw(9) << 1 / diff.count() << "\r";
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }
