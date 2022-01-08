@@ -3,6 +3,7 @@
 #include <iostream>
 #include "field.h"
 #include "creature.h"
+#include "utils.h"
 
 class Action
 {
@@ -14,13 +15,17 @@ public:
     static void move_down(Creature* creature, float time, const Field& game_field);
 
     // another actions such as take, cut, hit, trade, use magic and so on
-    static void hit(Creature* creature, float time, const Field& game_field);
+    static void hit(Creature* creature, float time, const Field& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures);
+    static void die(Creature* creature, float time);
 
+
+    // animation
     static void switch_y_txt(Dirs dir, int& y_texture);
     static void update_frame(Creature* creature, float time);
     static void move_animation(Creature* creature, Dirs dir);
     static void stop_animation(Creature* creature);
     static void hit_animation(Creature* creature);
+    static void die_animation(Creature* creature);
 
 
 private:

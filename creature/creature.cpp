@@ -42,6 +42,7 @@ void Creature::set_weapon(std::shared_ptr<Weapon> _weapon) {
 
 void Creature::reduce_health(int value) {
     health -= value;
+    std::cout << "health = " << health << '\n';
     if(health < 0)
         manager.creatureDied(this);
 }
@@ -92,7 +93,8 @@ json Creature::to_json() const {
 void Creature::change_mode(Modes _mode) {
     sprite.setTexture(*body_textures[static_cast<int>(_mode)]);
     armor_set.change_mode(_mode);
-    weapon->change_mode(_mode);
+    if (weapon != nullptr)
+        weapon->change_mode(_mode);
     mode = _mode;
 }
 
@@ -100,9 +102,11 @@ void CreatureManager::setPlayer(const std::shared_ptr<Player>& _player) {
     player = _player;
 }
 
-void CreatureManager::creatureDied(const Creature* creature) {
+void CreatureManager::creatureDied(Creature* creature) {
     if(creature->get_type() == CreatureType::NONE)
         throw std::logic_error("Creature died, Creture type: NONE");
+
+    creature->died = true;
 
     if(creature->get_type() == CreatureType::PLAYER) {
         // end game

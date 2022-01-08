@@ -13,7 +13,8 @@ private:
 	int game_region_width = size * 32; // size in pixels
 	int game_region_height = size * 32;
 	std::shared_ptr<Player> player;
-	std::vector<std::shared_ptr<Enemy>> enemies;
+	std::vector<std::shared_ptr<Enemy>> enemies; // maybe this must be <Creature> too
+	std::vector<std::shared_ptr<Creature>> drawable_creatures;
     CreatureManager manager;
 	sf::View view;
 

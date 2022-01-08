@@ -85,9 +85,10 @@ void test_show_field() {
         CreatureManager _manager;
         _player = std::make_shared<Player>(Player(_manager, 100, { 366.f, 366.f }));
         std::vector<std::shared_ptr<Enemy>> _enemies;
+        std::vector<std::shared_ptr<Creature>> _drawable_creatures;
         _enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, _manager, 100, { 400.f, 656.f }));
         for (int j = 4; j <= i - 4; j++) {
-            Drawer::show_everything(_window, field, _player, _enemies);
+            Drawer::show_everything(_window, field, _player, _enemies, _drawable_creatures);
         }
         _window.close();
     }

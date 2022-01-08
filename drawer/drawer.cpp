@@ -2,7 +2,7 @@
 #include <algorithm>
 
 void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const std::shared_ptr<Player>& player,
-    std::vector<std::shared_ptr<Enemy>>& enemies) {
+    std::vector<std::shared_ptr<Enemy>>& enemies, std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     int left_border, right_border, top_border, btm_border;
     int window_height = window.getSize().y;
     int window_width = window.getSize().x;
@@ -39,9 +39,9 @@ void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const
         }
     }
 
-    std::vector<std::shared_ptr<Enemy>> tmp_enemies = Utils::find_drawable_enemies(enemies,
+    Utils::find_drawable_creatures(enemies, drawable_creatures,
         obj_top_border, obj_btm_border, obj_left_border, obj_right_border);
-    Utils::sort_enemies(tmp_enemies);
+    Utils::sort_drawable_creatures(drawable_creatures);
     std::size_t counter = 0;
 
     // rendering objects
@@ -49,10 +49,10 @@ void Drawer::show_everything(sf::RenderWindow& window, const Field& field, const
         for (int j = obj_left_border; j < obj_right_border; ++j) {
             window.draw(field(i, j)->print_feature());
             
-            if (counter < tmp_enemies.size() &&
-                i == (static_cast<int>(tmp_enemies[counter]->get_pos().y)) / 32 + 1 && 
-                j == (static_cast<int>(tmp_enemies[counter]->get_pos().x)) / 32 + 1) {
-                tmp_enemies[counter]->show_creature(window);
+            if (counter < drawable_creatures.size() &&
+                i == (static_cast<int>(drawable_creatures[counter]->get_pos().y)) / 32 + 1 &&
+                j == (static_cast<int>(drawable_creatures[counter]->get_pos().x)) / 32 + 1) {
+                drawable_creatures[counter]->show_creature(window);
                 if (!field(i, j - 1)->no_feature())
                     window.draw(field(i, j - 1)->print_feature());
                 ++counter;                           

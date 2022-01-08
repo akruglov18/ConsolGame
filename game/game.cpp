@@ -43,7 +43,7 @@ void Game::game_loop() {
             }
         }
 
-        player->action(event, time, game_field);
+        player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
         for(auto& x : enemies) {
@@ -55,7 +55,7 @@ void Game::game_loop() {
         render();
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff = end - start;
-        std::cout << "fps: " << std::setw(9) << 1 / diff.count() << "\r";
+        //std::cout << "fps: " << std::setw(9) << 1 / diff.count() << "\r";
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }
@@ -63,7 +63,7 @@ void Game::game_loop() {
 void Game::render() {
     window.setView(view);
     window.clear(sf::Color(0, 0, 0));
-    Drawer::show_everything(window, game_field, player, enemies);
+    Drawer::show_everything(window, game_field, player, enemies, drawable_creatures);
     window.display();
 }
 

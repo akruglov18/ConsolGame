@@ -2,7 +2,7 @@
 
 class Utils {
 public:
-    static void sort_enemies(std::vector<std::shared_ptr<Enemy>>& enemies);
-    static std::vector<std::shared_ptr<Enemy>> find_drawable_enemies(std::vector<std::shared_ptr<Enemy>>& enemies,
+    static void find_drawable_creatures(std::vector<std::shared_ptr<Enemy>>& enemies, std::vector<std::shared_ptr<Creature>>& drawable_creatures,
         int obj_top_border, int obj_btm_border, int obj_left_border, int obj_right_border);
+    static void sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures);
 };
