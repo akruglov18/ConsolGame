@@ -18,10 +18,10 @@ Game::Game() {
     game_field.generate_field();
     view.reset(sf::FloatRect(0, 0, 1280, 720));
     
-    player = std::make_shared<Player>(Player(manager, 100, { 366.f, 560.f }));
-    get_player_pos_for_view(player->get_pos());
-    manager.setPlayer(player);
-    player->init_dress();
+    _player = std::shared_ptr<Player>(new Player(_manager, 100, { 366.f, 560.f }));
+    get_player_pos_for_view(_player->get_pos());
+    _manager.setPlayer(_player);
+    _player->init_dress();
 
     enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { 400.f, 256.f }));
     enemies[0]->get_armor()[ArmorType::TORSO] = std::shared_ptr<BodyArmor>(new BodyArmor_chain(enemies[0]->get_pos()));
