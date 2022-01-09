@@ -231,7 +231,7 @@ void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& g
     hit_animation(creature);
 }
 
-void Action::die(Creature* creature, float time) {
+void Action::dying(Creature* creature, float time) {
 
     auto& current_frame = creature->get_frame();
     auto& weapon = creature->get_weapon();

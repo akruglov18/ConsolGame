@@ -79,12 +79,12 @@ std::string Creature::creature_type_str() const {
     switch(creature_type) {
         case CreatureType::PLAYER:      return "Player";
         case CreatureType::BEETLE:      return "Beetle";
-        case CreatureType::WOLF:        return "Pants";
-        case CreatureType::TRADER:      return "Boots";
-        case CreatureType::TAUR:        return "Gauntlets";
-        case CreatureType::SKELETON:    return "Shirt";
+        case CreatureType::WOLF:        return "Wolf";
+        case CreatureType::TRADER:      return "Trader";
+        case CreatureType::TAUR:        return "Taur";
+        case CreatureType::SKELETON:    return "Skeleton";
         case CreatureType::NONE:        return "NONE";
-        default:                        throw std::logic_error("Invalid armor type");
+        default:                        throw std::logic_error("Invalid creature type");
     }
 }
 
@@ -120,6 +120,9 @@ void CreatureManager::creatureDied(Creature* creature) {
         // end game
         return;
     }
+
+    auto field_ptr = field.lock();
+
     auto player_ptr = player.lock();
     player_ptr->add_experience(10);
 }

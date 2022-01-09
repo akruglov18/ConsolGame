@@ -16,7 +16,7 @@ public:
 
     // another actions such as take, cut, hit, trade, use magic and so on
     static void hit(Creature* creature, float time, const std::shared_ptr<Field>& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures);
-    static void die(Creature* creature, float time);
+    static void dying(Creature* creature, float time);
 
 
     // animation
