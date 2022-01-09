@@ -15,7 +15,7 @@ public:
     static void move_down(Creature* creature, float time, const std::shared_ptr<Field>& game_field);
 
     // another actions such as take, cut, hit, trade, use magic and so on
-    static void hit(Creature* creature, float time, const std::shared_ptr<Field>& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures);
+    static void hit(Creature* creature, float time, const std::shared_ptr<Field>& game_field, const std::vector<std::shared_ptr<Creature>>& drawable_creatures);
     static void dying(Creature* creature, float time);
 
 

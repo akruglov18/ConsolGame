@@ -148,28 +148,30 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
 
 int Action::choose_mode_according_to_weapon(Creature* creature) {
 
+    int animation_duration = 0;
+
     if (creature->died && creature->mode != Modes::HURT) {
         creature->change_mode(Modes::HURT);
-        return 5;
+        animation_duration = 5;
     }
 
     WeaponType type = creature->get_weapon()->get_weapon_type();
     if (type == WeaponType::SPEAR) {
         if (creature->mode != Modes::THRUST) {
             creature->change_mode(Modes::THRUST);
-            return 7;
+            animation_duration = 7;
         }
     }
     else if (type == WeaponType::AXE || type == WeaponType::SWORD || type == WeaponType::LONG_SWORD || type == WeaponType::KNIFE) {
         if (creature->mode != Modes::SLASH) {
             creature->change_mode(Modes::SLASH);
-            return 5;
+            animation_duration = 5;
         }
     }
-    return 0;
+    return animation_duration;
 }
 
-void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& game_field, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
 
     auto& current_frame = creature->get_frame();
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
@@ -210,7 +212,7 @@ void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& g
             if (x->get_pos().y > top_hit_border && x->get_pos().y < btm_hit_border
                 && x->get_pos().x > left_hit_border && x->get_pos().x < right_hit_border) {
                 if (std::pow(x->get_pos().x - pos.x, 2) + std::pow(x->get_pos().y - pos.y, 2) <= std::pow(48, 2)) {
-                    x->reduce_health(creature->get_weapon()->get_damage());
+                    x->reduce_health(creature->get_weapon()->get_total_damage());
 
                 }
             }            

@@ -20,7 +20,7 @@ std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int
     /*case TilesType::GRASS: return std::make_shared<Tile>(*(new GrassTile));
     case TilesType::WATER: return std::make_shared<Tile>(*(new WaterTile));
     case TilesType::ROAD: return std::make_shared<Tile>(*(new RoadTile));*/
-    default: return nullptr;
+        default: return nullptr;
     }
 }
 
