@@ -1,5 +1,6 @@
 #include "field.h"
 #include <random>
+#include "all_tiles.h"
 
 // constructors~destructor /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -60,10 +61,10 @@ void Field::generate_desert() {
     // Borders
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < _width; ++j) {
-            _field[i][j] = Tile::make_tile(TilesType::DESERT1_BORDERS, i, j, _width, _height);
-            _field[i + _height - 4][j] = Tile::make_tile(TilesType::DESERT1_BORDERS, i + _height - 4, j, _width, _height);
-            _field[j][i] = Tile::make_tile(TilesType::DESERT1_BORDERS, j, i, _width, _height);
-            _field[j][i + _width - 4] = Tile::make_tile(TilesType::DESERT1_BORDERS, j, i + _width - 4, _width, _height);
+            _field[i][j] = Tile::make_tile<Desert1_borders>(i, j, _width, _height);
+            _field[i + _height - 4][j] = Tile::make_tile<Desert1_borders>(i + _height - 4, j, _width, _height);
+            _field[j][i] = Tile::make_tile<Desert1_borders>(j, i, _width, _height);
+            _field[j][i + _width - 4] = Tile::make_tile<Desert1_borders>(j, i + _width - 4, _width, _height);
         }
     }
 
@@ -79,7 +80,7 @@ void Field::generate_desert() {
                 if (height < 5)
                     width -= gen() % 3 + 3;
                 for (int k = start_x; k < start_x + width; ++k) {
-                    _field[start_y][k] = Tile::make_tile(TilesType::DESERT1_CRACKS, start_y, k);
+                    _field[start_y][k] = Tile::make_tile<Desert1_cracks>(start_y, k);
                     if (_field[start_y - 1][k] != nullptr) {
                         if (_field[start_y - 1][k].get()->no_feature()) {
                             if (gen() % 8 == 0) {
@@ -119,7 +120,7 @@ void Field::generate_desert() {
     for (int i = 4; i < _height - 4; ++i) {
         for (int j = 4; j < _width - 4; ++j) {
             if (_field[i][j] == nullptr) {
-                _field[i][j] = Tile::make_tile(TilesType::DESERT1_SAND, i, j);
+                _field[i][j] = Tile::make_tile<Desert1_sand>(i, j);
                 if (gen() % 32 == 0) {
                     _field[i][j]->set_desert_feature(gen() % 6);
                     _field[i][j]->get_feature().move(sf::Vector2f(j * 32.f, i * 32.f));
