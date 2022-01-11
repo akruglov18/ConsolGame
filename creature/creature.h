@@ -43,12 +43,14 @@ public:
 
     // Methods
     CreatureType get_type() const { return creature_type; }
+    void being_hurt();
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
     json to_json() const;
     
     void change_mode(Modes mode);
+    void die();
 
     //getters & setters
     ArmorSet& get_armor() { return armor_set; }
@@ -62,6 +64,7 @@ public:
 
     void set_health(int health);
 
+    bool died = false;
     Modes mode;
     Dirs direction;
     int action_animation_duration;
@@ -86,8 +89,9 @@ class CreatureManager {
 public:
     CreatureManager() {};
     void setPlayer(const std::shared_ptr<Player>& player);
-    void creatureDied(const Creature* creature);
+    void creatureDied(Creature* creature);
     ~CreatureManager() {};
 private:
     std::weak_ptr<Player> player;
+    std::weak_ptr<Field> field;
 };

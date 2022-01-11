@@ -9,11 +9,12 @@ class Game {
 private:
 	sf::RenderWindow window{ sf::VideoMode(1280, 720), "Consol game"};
 	int size = 128;
-	Field game_field{size, size};
+	std::shared_ptr<Field> game_field;
 	int game_region_width = size * 32; // size in pixels
 	int game_region_height = size * 32;
 	std::shared_ptr<Player> player;
-	std::vector<std::shared_ptr<Enemy>> enemies;
+	std::vector<std::shared_ptr<Enemy>> enemies; // maybe this must be <Creature> too
+	std::vector<std::shared_ptr<Creature>> drawable_creatures;
     CreatureManager manager;
 	sf::View view;
 

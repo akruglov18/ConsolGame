@@ -12,11 +12,15 @@ Tile::Tile() {
 
 std::shared_ptr<Tile> Tile::make_tile(TilesType type, int i, int j, int r_b, int b_b) {
     switch (type) {
-        case TilesType::DESERT1_SAND:       return std::make_shared<Tile>(*(new Desert1_sand(i, j)));
-        case TilesType::DESERT1_BORDERS:    return std::make_shared<Tile>(*(new Desert1_borders(i, j, r_b, b_b)));
-        case TilesType::DESERT1_OASIS:      return std::make_shared<Tile>(*(new Desert1_oasis(i, j)));
-        case TilesType::DESERT1_CRACKS:     return std::make_shared<Tile>(*(new Desert1_cracks(i, j)));
-        default:                            return nullptr;
+        case TilesType::DESERT1_SAND:       return std::shared_ptr<Tile>(new Desert1_sand(i, j));
+        case TilesType::DESERT1_BORDERS:    return std::shared_ptr<Tile>(new Desert1_borders(i, j, r_b, b_b));
+        case TilesType::DESERT1_OASIS:      return std::shared_ptr<Tile>(new Desert1_oasis(i, j));
+        case TilesType::DESERT1_CRACKS:     return std::shared_ptr<Tile>(new Desert1_cracks(i, j));
+
+    /*case TilesType::GRASS: return std::make_shared<Tile>(*(new GrassTile));
+    case TilesType::WATER: return std::make_shared<Tile>(*(new WaterTile));
+    case TilesType::ROAD: return std::make_shared<Tile>(*(new RoadTile));*/
+        default: return nullptr;
     }
 }
 

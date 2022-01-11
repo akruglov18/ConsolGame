@@ -40,10 +40,21 @@ void Creature::set_weapon(std::shared_ptr<Weapon> _weapon) {
     weapon = _weapon;
 }
 
+void Creature::being_hurt() {
+    sprite.setColor(sf::Color(255, 0, 0, 240));
+}
+
 void Creature::reduce_health(int value) {
     health -= value;
-    if(health < 0)
-        manager.creatureDied(this);
+    being_hurt();
+    //std::cout << "health = " << health << '\n';
+    if (health < 0) {
+        died = true;
+    }
+}
+
+void Creature::die() {
+    manager.creatureDied(this);
 }
 
 void Creature::add_experience(int exp) {
@@ -68,12 +79,12 @@ std::string Creature::creature_type_str() const {
     switch(creature_type) {
         case CreatureType::PLAYER:      return "Player";
         case CreatureType::BEETLE:      return "Beetle";
-        case CreatureType::WOLF:        return "Pants";
-        case CreatureType::TRADER:      return "Boots";
-        case CreatureType::TAUR:        return "Gauntlets";
-        case CreatureType::SKELETON:    return "Shirt";
+        case CreatureType::WOLF:        return "Wolf";
+        case CreatureType::TRADER:      return "Trader";
+        case CreatureType::TAUR:        return "Taur";
+        case CreatureType::SKELETON:    return "Skeleton";
         case CreatureType::NONE:        return "NONE";
-        default:                        throw std::logic_error("Invalid armor type");
+        default:                        throw std::logic_error("Invalid creature type");
     }
 }
 
@@ -92,7 +103,8 @@ json Creature::to_json() const {
 void Creature::change_mode(Modes _mode) {
     sprite.setTexture(*body_textures[static_cast<int>(_mode)]);
     armor_set.change_mode(_mode);
-    weapon->change_mode(_mode);
+    if (weapon != nullptr)
+        weapon->change_mode(_mode);
     mode = _mode;
 }
 
@@ -100,7 +112,7 @@ void CreatureManager::setPlayer(const std::shared_ptr<Player>& _player) {
     player = _player;
 }
 
-void CreatureManager::creatureDied(const Creature* creature) {
+void CreatureManager::creatureDied(Creature* creature) {
     if(creature->get_type() == CreatureType::NONE)
         throw std::logic_error("Creature died, Creture type: NONE");
 
@@ -108,6 +120,9 @@ void CreatureManager::creatureDied(const Creature* creature) {
         // end game
         return;
     }
+
+    auto field_ptr = field.lock();
+
     auto player_ptr = player.lock();
     player_ptr->add_experience(10);
 }

@@ -8,19 +8,19 @@ Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
     creature_type = CreatureType::PLAYER;
 }
 
-void Player::action(sf::Event& event, float time, const Field& game_field) {
+void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     if (mode == Modes::SLASH || mode == Modes::THRUST) {
-        Action::hit(this, time, game_field);
+        Action::hit(this, time, game_field, drawable_creatures);
         return;
     }
 
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
-            case(sf::Keyboard::Left):   Action::move_left   (this, time, game_field);   break;
-            case(sf::Keyboard::Right):  Action::move_right  (this, time, game_field);   break;
-            case(sf::Keyboard::Up):     Action::move_up     (this, time, game_field);   break;
-            case(sf::Keyboard::Down):   Action::move_down   (this, time, game_field);   break;
-            case(sf::Keyboard::LShift): Action::hit         (this, time, game_field);   break;
+            case(sf::Keyboard::Left):   Action::move_left   (this, time, game_field);                       break;
+            case(sf::Keyboard::Right):  Action::move_right  (this, time, game_field);                       break;
+            case(sf::Keyboard::Up):     Action::move_up     (this, time, game_field);                       break;
+            case(sf::Keyboard::Down):   Action::move_down   (this, time, game_field);                       break;
+            case(sf::Keyboard::LShift): Action::hit         (this, time, game_field, drawable_creatures);   break;
         }
     }
     else if (event.type == sf::Event::KeyReleased) {
