@@ -8,7 +8,7 @@ public:
 
 class Desert1_borders : public Tile {
 public:
-	Desert1_borders(int i, int j, int r_borter, int btm_border);
+	Desert1_borders(int i, int j, int r_borter = 128, int btm_border = 128);
 };
 
 class Desert1_oasis : public Tile {
