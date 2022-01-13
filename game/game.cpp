@@ -73,7 +73,12 @@ void Game::game_loop() {
 void Game::render() {
     window.setView(view);
     window.clear(sf::Color(0, 0, 0));
-    Drawer::show_everything(window, game_field, player, enemies, drawable_creatures);
+    auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y,
+                                                game_field->get_width(), game_field->get_height(), player->get_pos());
+    auto object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
+    drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
+    Utils::sort_drawable_creatures(drawable_creatures);
+    Drawer::show_everything(window, game_field, borders, object_borders, player, drawable_creatures);
     window.display();
 }
 
