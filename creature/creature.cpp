@@ -40,16 +40,23 @@ void Creature::set_weapon(std::shared_ptr<Weapon> _weapon) {
     weapon = _weapon;
 }
 
-void Creature::being_hurt() {
-    sprite.setColor(sf::Color(255, 0, 0, 240));
-}
-
 void Creature::reduce_health(int value) {
     health -= value;
-    being_hurt();
     //std::cout << "health = " << health << '\n';
+    stuck = true;
+    stuck_time = 3;
     if (health < 0) {
         died = true;
+    }
+}
+
+void Creature::update_stuck_frame(float time) {
+    if (stuck) {
+        stuck_time -= 0.15 * time;
+        if (stuck_time < 0) {
+            stuck = false;
+            stuck_time = 0.f;
+        }
     }
 }
 

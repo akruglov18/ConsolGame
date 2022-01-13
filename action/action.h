@@ -30,6 +30,9 @@ public:
 
 private:
     // inner, additional functions
-    static int choose_mode_according_to_weapon(Creature* creature);
+    static void make_borders(Creature* creature, float& top_hit_border, float& btm_hit_border, float& left_hit_border, float& right_hit_border);
+    static int choose_animation_duration(Modes mode);
+    static void choose_mode_according_to_weapon(Creature* creature);
+
 };
 

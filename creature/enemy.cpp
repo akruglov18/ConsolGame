@@ -21,7 +21,8 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
     }
 }
 
-void Enemy::action(const std::shared_ptr<Player>& player, float time) {
+void Enemy::action(const std::shared_ptr<Player>& player, float time) {    
+    update_stuck_frame(time);
     if (died)
         Action::dying(this, time);
     else
