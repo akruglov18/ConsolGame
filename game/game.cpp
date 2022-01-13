@@ -34,18 +34,21 @@ Game::Game() {
 void Game::game_loop() {    
     sf::Clock clock;
     sf::Keyboard::Key key = sf::Keyboard::Down;
+    sf::Event last_event;
     while (window.isOpen()) {
         // The regulator of game speed
         auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
 
         sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
+        window.pollEvent(event);
+        if (event.type == sf::Event::Closed) {
+            window.close();
         }
 
+        if(event.type == sf::Event::MouseMoved) {
+            event = std::move(last_event);
+        }
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
@@ -53,6 +56,7 @@ void Game::game_loop() {
              x->action(player, time);
         }
 
+        last_event = std::move(event);
         /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
         auto start = std::chrono::high_resolution_clock::now();
         render();
