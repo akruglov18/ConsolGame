@@ -43,7 +43,6 @@ public:
 
     // Methods
     CreatureType get_type() const { return creature_type; }
-    void being_hurt();
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
@@ -61,10 +60,12 @@ public:
     float& get_frame() { return current_frame; }
     void set_pos(float x, float y);
     std::string creature_type_str() const;
-
+    void update_stuck_frame(float time);
     void set_health(int health);
 
     bool died = false;
+    bool stuck = false;
+    float stuck_time = 3.f;
     Modes mode;
     Dirs direction;
     int action_animation_duration;

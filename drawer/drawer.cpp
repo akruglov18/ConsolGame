@@ -52,6 +52,16 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
             if (counter < drawable_creatures.size() &&
                 i == (static_cast<int>(drawable_creatures[counter]->get_pos().y)) / 32 + 1 &&
                 j == (static_cast<int>(drawable_creatures[counter]->get_pos().x)) / 32 + 1) {
+                
+                // being stuck or not
+                if (drawable_creatures[counter]->stuck) {
+                    if (drawable_creatures[counter]->stuck_time < 2)
+                        drawable_creatures[counter]->get_sprite().setColor(sf::Color(250, 0, 0, 240)); // being red after hit
+                }
+                else {
+                    drawable_creatures[counter]->get_sprite().setColor(sf::Color(255, 255, 255)); // being normal
+                }
+
                 drawable_creatures[counter]->show_creature(window);
                 if (!field->operator()(i, j - 1)->no_feature())
                     window.draw(field->operator()(i, j - 1)->print_feature());
