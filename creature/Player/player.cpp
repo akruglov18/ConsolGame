@@ -8,7 +8,7 @@ Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
     creature_type = CreatureType::PLAYER;
 }
 
-void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& game_field, std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& game_field, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     update_stuck_frame(time);
     if (mode == Modes::SLASH || mode == Modes::THRUST) {
         Action::hit(this, time, game_field, drawable_creatures);
