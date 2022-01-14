@@ -2,6 +2,8 @@
 #include "Player/player.h"
 #include "ResourceHolder.h"
 
+#define STUCK_TIME 3.f
+
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
 Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos) :
@@ -44,7 +46,7 @@ void Creature::reduce_health(int value) {
     health -= value;
     //std::cout << "health = " << health << '\n';
     stuck = true;
-    stuck_time = 3;
+    stuck_time = STUCK_TIME;
     if (health < 0) {
         died = true;
     }

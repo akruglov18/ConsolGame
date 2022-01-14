@@ -150,13 +150,13 @@ void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_
     switch (creature->direction) {
         case(Dirs::LEFT):
             top_hit_border = creature->get_pos().x - 16;
-            btm_hit_border = creature->get_pos().y + 4;
+            btm_hit_border = creature->get_pos().y + 12;
             left_hit_border = creature->get_pos().x - 48;
             right_hit_border = creature->get_pos().x;
             break;
         case(Dirs::RIGHT):
             top_hit_border = creature->get_pos().y - 16;
-            btm_hit_border = creature->get_pos().y + 4;
+            btm_hit_border = creature->get_pos().y + 12;
             left_hit_border = creature->get_pos().x;
             right_hit_border = creature->get_pos().x + 48;
             break;
@@ -223,7 +223,7 @@ void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& g
         for (auto& x : drawable_creatures) {
             if (x->get_pos().y > top_hit_border && x->get_pos().y < btm_hit_border
                 && x->get_pos().x > left_hit_border && x->get_pos().x < right_hit_border) {
-                if (std::pow(x->get_pos().x - pos.x, 2) + std::pow(x->get_pos().y - pos.y, 2) <= std::pow(48, 2)) {
+                if (Utils::square(x->get_pos().x - pos.x) + Utils::square(x->get_pos().y - pos.y) <= Utils::square(48.f)) {
                     x->reduce_health(creature->get_weapon()->get_total_damage());
                 }
             }            
