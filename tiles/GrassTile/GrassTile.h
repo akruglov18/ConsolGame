@@ -3,5 +3,5 @@
 
 class GrassTile : public Tile {
 public:
-	GrassTile(std::shared_ptr<sf::Texture> texture);
+	GrassTile(sf::Sprite& _sprite);
 };

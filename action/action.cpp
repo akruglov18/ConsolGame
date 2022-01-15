@@ -149,7 +149,7 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
 void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_hit_border, float& left_hit_border, float& right_hit_border) {
     switch (creature->direction) {
         case(Dirs::LEFT):
-            top_hit_border = creature->get_pos().x - 16;
+            top_hit_border = creature->get_pos().y - 16;
             btm_hit_border = creature->get_pos().y + 12;
             left_hit_border = creature->get_pos().x - 48;
             right_hit_border = creature->get_pos().x;
@@ -183,6 +183,7 @@ int Action::choose_animation_duration(Modes mode) {
         case(Modes::SPELLCAST): return 7;
         case(Modes::WALK): return 8;
         case(Modes::BOW): return 13;
+        default: return 0;
     }
 }
 

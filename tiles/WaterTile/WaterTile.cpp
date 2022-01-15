@@ -1,6 +1,6 @@
 #include "WaterTile.h"
 
-WaterTile::WaterTile(std::shared_ptr<sf::Texture> texture) {
-	texture = texture;
-	sprite.setTexture(*texture);
+WaterTile::WaterTile(sf::Sprite& _sprite) : Tile(_sprite) {
+	/*texture = texture;
+	sprite.setTexture(*texture);*/
 }

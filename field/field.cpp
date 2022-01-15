@@ -11,9 +11,15 @@ Field::Field() {
 }
 
 Field::Field(int width, int height) {
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _width = width;
     _height = height;
     _field.assign(_height, std::vector<std::shared_ptr<Tile>>(_width, nullptr));
+    sand1_sprite.setTexture(*HOLDER().getResource("sand1"));
+    sand1_borders_sprite.setTexture(*HOLDER().getResource("borders_sand1"));
+    dry1_sprite.setTexture(*HOLDER().getResource("dry1"));
+    desert_feature_sprite.setTexture(*HOLDER().getResource("desert_features"));
+    desert_tree_sprite.setTexture(*HOLDER().getResource("desert_trees"));
 }
 
 Field::Field(Field&& field) : _field(std::move(field._field)) {
@@ -59,12 +65,12 @@ void Field::generate_desert() {
     gen.seed(time(0));
 
     // Borders
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < _width; ++j) {
-            _field[i][j] = Tile::make_tile<Desert1_borders>(i, j, _width, _height);
-            _field[i + _height - 4][j] = Tile::make_tile<Desert1_borders>(i + _height - 4, j, _width, _height);
-            _field[j][i] = Tile::make_tile<Desert1_borders>(j, i, _width, _height);
-            _field[j][i + _width - 4] = Tile::make_tile<Desert1_borders>(j, i + _width - 4, _width, _height);
+    for (std::size_t i = 0; i < 4; ++i) {
+        for (std::size_t j = 0; j < _width; ++j) {
+            _field[i][j] = std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
+            _field[i + _height - 4][j] = std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
+            _field[j][i] = std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
+            _field[j][i + _width - 4] = std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
         }
     }
 
@@ -80,17 +86,11 @@ void Field::generate_desert() {
                 if (height < 5)
                     width -= gen() % 3 + 3;
                 for (int k = start_x; k < start_x + width; ++k) {
-                    _field[start_y][k] = Tile::make_tile<Desert1_cracks>(start_y, k);
-                    if (_field[start_y - 1][k] != nullptr) {
-                        if (_field[start_y - 1][k].get()->no_feature()) {
-                            if (gen() % 8 == 0) {
-                                _field[start_y][k].get()->set_desert_tree(gen() % 6, k, start_y);
-                            }
-                        }                        
-                    }
-                    else {
-                        if (gen() % 8 == 0) {
-                            _field[start_y][k].get()->set_desert_tree(gen() % 6, k, start_y);
+                    _field[start_y][k] = std::shared_ptr<Desert_cracks>(new Desert_cracks(dry1_sprite));
+                    if (_field[start_y - 1][k] != nullptr && _field[start_y][k - 1] != nullptr && gen() % 8 == 0) {
+                        if (!_field[start_y - 1][k]->tree && !_field[start_y][k - 1]->tree) {
+                            _field[start_y][k]->tree = gen() % 6 + 1;
+                            _field[start_y][k]->get_passability() = 0;
                         }
                     }
                 }
@@ -99,31 +99,14 @@ void Field::generate_desert() {
             }
         }
     }
-    
-    // Oases
-    /*for (int i = 8; i < _height - 8; i += 16) {
-        for (int j = 8; j < _width - 8; j += 16) {
-            int oasis_chance = gen() % 2;
-            if (oasis_chance) {
-                int x_chance = gen() % 4;
-                int y_chance = gen() % 4;
-                for (int p = i + y_chance * 4; p < i + y_chance * 4 + 4; ++p) {
-                    for (int q = j + x_chance * 4; q < j + x_chance * 4 + 4; ++q) {
-                        _field[p][q] = Tile::make_tile(TilesType::DESERT1_OASIS, p, q);
-                    }
-                }
-            }
-        }
-    }*/
 
     // Sand & little features
     for (int i = 4; i < _height - 4; ++i) {
         for (int j = 4; j < _width - 4; ++j) {
             if (_field[i][j] == nullptr) {
-                _field[i][j] = Tile::make_tile<Desert1_sand>(i, j);
-                if (gen() % 32 == 0) {
-                    _field[i][j]->set_desert_feature(gen() % 6);
-                    _field[i][j]->get_feature().move(sf::Vector2f(j * 32.f, i * 32.f));
+                _field[i][j] = std::shared_ptr<Desert_sand>(new Desert_sand(sand1_sprite));
+                if (gen() % 16 == 0) {
+                    _field[i][j]->feature = gen() % 6 + 1;
                 }
             }
         }
