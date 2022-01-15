@@ -19,13 +19,13 @@ Game::Game() {
     game_field->generate_field();
     view.reset(sf::FloatRect(0, 0, 1280, 720));
     
-    player = std::shared_ptr<Player>(new Player(manager, 100, { 366.f, 560.f }));
+    player = std::shared_ptr<Player>(new Player(manager, 100, { 366.f, 260.f }));
     get_player_pos_for_view(player->get_pos());
     manager.setPlayer(player);
     player->init_dress();
 
-    for (int i = 0; i < 20; ++i) {
-        enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { (i % 7) * 200.f, (i / 7 + 1) * 256.f }));
+    for (int i = 0; i < 3; ++i) {
+        enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { (i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f }));
         enemies[i]->get_armor()[ArmorType::TORSO] = std::shared_ptr<BodyArmor>(new BodyArmor_chain(enemies[i]->get_pos()));
         enemies[i]->get_armor()[ArmorType::HELMET] = std::shared_ptr<Helmet>(new Helmet_chain_hood(enemies[i]->get_pos()));
     }    
