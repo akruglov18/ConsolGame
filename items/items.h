@@ -30,7 +30,7 @@ public:
     static const std::vector<std::string> suffixes;
     sf::Sprite& get_sprite() { return sprite; }
     std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return textures; }
-    virtual std::string string_type() const = 0;
+    virtual std::string name() const = 0;
     virtual json to_json() const = 0;
 protected:
     std::vector<std::shared_ptr<sf::Texture>> textures;

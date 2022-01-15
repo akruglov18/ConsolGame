@@ -10,5 +10,5 @@ public:
 class Spear_wood : public Spear {
 public:
     Spear_wood(const sf::Vector2f& pos);
-    virtual std::string string_type() const override { return "Spear_wood"; }
+    virtual std::string name() const override { return "Spear_wood"; }
 };

@@ -17,10 +17,10 @@ std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
 
 json ArmorSet::to_json() const {
     json res;
-    auto type = string_type();
     auto size = static_cast<std::size_t>(ArmorType::SET_SIZE);
     for(std::size_t i = 0; i < size; i++) {
-        res[type].push_back(INNERarmor_set[i]->to_json());
+        if(INNERarmor_set[i] != nullptr)
+            res[INNERarmor_set[i]->get_armor_type_str()] = INNERarmor_set[i]->to_json();
     }
     return res;
 }
