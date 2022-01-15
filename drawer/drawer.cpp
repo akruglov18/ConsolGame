@@ -13,11 +13,11 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
         for (int j = left_border; j < right_border; ++j) {
 
             if (field->operator()(i, j)->border)
-                Tile::scale_borders(field->operator()(i, j)->tile_sprite, i, j, field->get_width(), field->get_height());
+                Tile::scale_borders((*field)(i, j)->tile_sprite, i, j, field->get_width(), field->get_height());
             else
-                Tile::scale_tiles(field->operator()(i, j)->tile_sprite, i, j);
+                Tile::scale_tiles((*field)(i, j)->tile_sprite, i, j);
 
-            window.draw(field->operator()(i, j)->tile_sprite);
+            window.draw((*field)(i, j)->tile_sprite);
         }
     }
 
@@ -29,12 +29,12 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
     std::size_t counter = 0;
     for (int i = obj_top_border; i < obj_btm_border; ++i) {
         for (int j = obj_left_border; j < obj_right_border; ++j) {
-            if (field->operator()(i, j)->feature) {
-                Tile::scale_features(field->desert_feature_sprite, field->operator()(i, j)->feature - 1, i, j);
+            if ((*field)(i, j)->feature) {
+                Tile::scale_features(field->desert_feature_sprite, (*field)(i, j)->feature - 1, i, j);
                 window.draw(field->desert_feature_sprite);
             }
-            if (field->operator()(i, j)->tree) {
-                Tile::scale_trees(field->desert_tree_sprite, field->operator()(i, j)->tree - 1, i, j);
+            if ((*field)(i, j)->tree) {
+                Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j)->tree - 1, i, j);
                 window.draw(field->desert_tree_sprite);
             }
             
@@ -52,8 +52,8 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                 }
 
                 drawable_creatures[counter]->show_creature(window);
-                if (field->operator()(i, j - 1)->tree) {
-                    Tile::scale_trees(field->desert_tree_sprite, field->operator()(i, j - 1)->tree - 1, i, j - 1);
+                if ((*field)(i, j - 1)->tree) {
+                    Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
                     window.draw(field->desert_tree_sprite);
                 }
                 ++counter;                           
@@ -62,7 +62,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
             if (i == (static_cast<int>(player->get_pos().y)) / 32 + 1 && j == (static_cast<int>(player->get_pos().x)) / 32 + 1) {
                 player->show_creature(window);
                 if (field->operator()(i, j - 1)->tree) {
-                    Tile::scale_trees(field->desert_tree_sprite, field->operator()(i, j - 1)->tree - 1, i, j - 1);
+                    Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
                     window.draw(field->desert_tree_sprite);
                 }
             }

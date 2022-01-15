@@ -9,7 +9,10 @@ Tile::Tile(sf::Sprite& _sprite) : tile_sprite(_sprite) {
 }
 
 bool Tile::operator==(const Tile& tile) const {
-    return passability == tile.passability;
+    return passability == tile.passability &&
+        feature == tile.feature &&
+        tree == tile.tree &&
+        &tile_sprite == &tile.tile_sprite;
 }
 
 bool Tile::operator!=(const Tile& tile) const {

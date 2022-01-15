@@ -18,7 +18,7 @@ Game::Game() {
     game_field = std::shared_ptr<Field>(new Field(size, size));
     game_field->generate_field();
     view.reset(sf::FloatRect(0, 0, 1280, 720));
-    
+
     player = std::shared_ptr<Player>(new Player(manager, 100, { 366.f, 260.f }));
     get_player_pos_for_view(player->get_pos());
     manager.setPlayer(player);

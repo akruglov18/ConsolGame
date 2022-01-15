@@ -15,11 +15,16 @@ void load_textures_t() {
 void test1() {
     load_textures_t();
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    sf::Sprite sand1_sprite;
+    sand1_sprite.setTexture(*HOLDER().getResource("sand1"));
+    sf::Sprite sand1_borders_sprite;
+    sand1_borders_sprite.setTexture(*HOLDER().getResource("borders_sand1"));
+    sf::Sprite dry1_sprite;
+    dry1_sprite.setTexture(*HOLDER().getResource("dry1"));
     for (int i = 0; i < 3; ++i) {
-        auto desert1 = Tile::make_tile<Desert1_sand>(i, i);
-        auto desert2 = Tile::make_tile<Desert1_borders>(i, i);
-        auto desert3 = Tile::make_tile<Desert1_oasis>(i, i);
-        auto desert4 = Tile::make_tile<Desert1_cracks>(i, i);
+        auto desert1 = std::shared_ptr<Desert_sand>(new Desert_sand(sand1_sprite));
+        auto desert2 = std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
+        auto desert3 = std::shared_ptr<Desert_cracks>(new Desert_cracks(dry1_sprite));
     }
 }
 
@@ -29,14 +34,20 @@ TEST(Tile, factory_check_values) {
 
 TEST(Tile, equality) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    auto desert1 = Tile::make_tile<Desert1_sand>(0, 0);
-    auto desert2 = Tile::make_tile<Desert1_sand>(0, 0);
+    sf::Sprite sand1_sprite;
+    sand1_sprite.setTexture(*HOLDER().getResource("sand1"));
+    auto desert1 = std::shared_ptr<Desert_sand>(new Desert_sand(sand1_sprite));
+    auto desert2 = std::shared_ptr<Desert_sand>(new Desert_sand(sand1_sprite));
     ASSERT_EQ(*desert1, *desert2);
 }
 
 TEST(Tile, no_equality) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    auto grass = Tile::make_tile<Desert1_borders>(0, 0);
-    auto river = Tile::make_tile<Desert1_cracks>(0, 0);
-    ASSERT_NE(*grass, *river);
+    sf::Sprite sand1_sprite;
+    sand1_sprite.setTexture(*HOLDER().getResource("sand1"));
+    sf::Sprite dry1_sprite;
+    dry1_sprite.setTexture(*HOLDER().getResource("dry1"));
+    auto desert1 = std::shared_ptr<Desert_sand>(new Desert_sand(sand1_sprite));
+    auto desert2 = std::shared_ptr<Desert_cracks>(new Desert_cracks(dry1_sprite));
+    ASSERT_NE(*desert1, *desert2);
 }

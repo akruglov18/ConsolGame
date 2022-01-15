@@ -54,7 +54,7 @@ void Creature::reduce_health(int value) {
 
 void Creature::update_stuck_frame(float time) {
     if (stuck) {
-        stuck_time -= 0.15 * time;
+        stuck_time -= 0.15f * time;
         if (stuck_time < 0) {
             stuck = false;
             stuck_time = 0.f;

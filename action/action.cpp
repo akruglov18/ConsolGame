@@ -183,6 +183,7 @@ int Action::choose_animation_duration(Modes mode) {
         case(Modes::SPELLCAST): return 7;
         case(Modes::WALK): return 8;
         case(Modes::BOW): return 13;
+        default: return 0;
     }
 }
 

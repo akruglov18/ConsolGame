@@ -36,17 +36,17 @@ TEST(Field, equal_after_move_constructor) {
     int size = 128;
     Field field(size, size);
     field.generate_field();
-    std::vector<std::vector<Tile>> tiles(size, std::vector<Tile>(size));
+    std::vector<std::vector<std::shared_ptr<Tile>>> tiles(size, std::vector<std::shared_ptr<Tile>>(size));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            tiles[i][j] = *field(i, j);
+            tiles[i][j] = field(i, j);
         }
     }
     Field field2 = std::move(field);
     bool res = true;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (tiles[i][j] != *field2(i, j))
+            if (tiles[i][j] != field2(i, j))
                 res = false;
         }
     }
@@ -57,10 +57,10 @@ TEST(Field, equal_after_move_assignement) {
     int size = 128;
     Field field(size, size);
     field.generate_field();
-    std::vector<std::vector<Tile>> tiles(size, std::vector<Tile>(size));
+    std::vector<std::vector<std::shared_ptr<Tile>>> tiles(size, std::vector<std::shared_ptr<Tile>>(size));
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            tiles[i][j] = *field(i, j);
+            tiles[i][j] = field(i, j);
         }
     }
     Field field2(size, size); 
@@ -68,7 +68,7 @@ TEST(Field, equal_after_move_assignement) {
     bool res = true;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (tiles[i][j] != *field2(i, j))
+            if (tiles[i][j] != field2(i, j))
                 res = false;
         }
     }
