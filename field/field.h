@@ -29,9 +29,14 @@ public:
     int get_height() const { return _height; }
     void set_size(int widht, int height);
 
-    // map generation & render//
+    // sprites
+    sf::Sprite sand1_sprite;
+    sf::Sprite sand1_borders_sprite;
+    sf::Sprite dry1_sprite;
+    sf::Sprite desert_feature_sprite;
+    sf::Sprite desert_tree_sprite;
 
-    // Every biome is 128x128 tiles region
+    // Bioms generation
     void generate_desert();
     void generate_savanna();
     void generate_grassland();

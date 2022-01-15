@@ -1,6 +1,6 @@
 #include "RoadTile.h"
 
-RoadTile::RoadTile(std::shared_ptr<sf::Texture> texture) {
-	texture = texture;
-	sprite.setTexture(*texture);
+RoadTile::RoadTile(sf::Sprite& _sprite) : Tile(_sprite) {
+	/*texture = texture;
+	sprite.setTexture(*texture);*/
 }

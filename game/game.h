@@ -8,7 +8,7 @@
 class Game {
 private:
     sf::RenderWindow window{ sf::VideoMode(1280, 720), "Consol game"};
-    int size = 128;
+    int size = 1024;
     std::shared_ptr<Field> game_field;
     int game_region_width = size * 32; // size in pixels
     int game_region_height = size * 32;
