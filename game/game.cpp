@@ -109,7 +109,7 @@ bool Game::save(const std::string& file_name) const {
     json json_out;
     json_out[player->creature_type_str()] = player->to_json();
     out << json_out.dump(4);
-    std::cout << json_out.dump(4) << "\n";
+    // std::cout << json_out.dump(4) << "\n";
     return true;
 }
 
