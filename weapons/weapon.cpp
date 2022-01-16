@@ -33,11 +33,10 @@ double Weapon::get_total_damage() const {
 
 json Weapon::to_json() const {
     json res;
-    auto name = std::string("Weapon");
-    res[name]["class_type"] = string_type();
-    res[name]["damage"] = damage;
-    res[name]["critical_chance"] = critical_chance;
-    res[name]["critical_multiplier"] = critical_multiplier;
+    res["class_name"] = name();
+    res["damage"] = damage;
+    res["critical_chance"] = critical_chance;
+    res["critical_multiplier"] = critical_multiplier;
     return res;
 }
 

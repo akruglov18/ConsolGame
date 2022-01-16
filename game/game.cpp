@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <thread>
+#include <fstream>
 
 //#define universal
 
@@ -28,7 +29,8 @@ Game::Game() {
         enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { (i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f }));
         enemies[i]->get_armor()[ArmorType::TORSO] = std::shared_ptr<BodyArmor>(new BodyArmor_chain(enemies[i]->get_pos()));
         enemies[i]->get_armor()[ArmorType::HELMET] = std::shared_ptr<Helmet>(new Helmet_chain_hood(enemies[i]->get_pos()));
-    }    
+    }
+    save("save.json");
 }
 
 void Game::game_loop() {    
@@ -97,4 +99,15 @@ sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
 
     view.setCenter(sf::Vector2f(temp_x, temp_y));
     return view;
+}
+
+bool Game::save(const std::string& file_name) const {
+    std::ofstream out(file_name);
+    if(!out.is_open())
+        return false;
+
+    auto json_out = player->to_json();
+    out << json_out.dump(4);
+    std::cout << json_out.dump(4);
+    return true;
 }

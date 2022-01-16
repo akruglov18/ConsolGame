@@ -11,12 +11,12 @@ public:
 class Boots_plate : public Boots {
 public:
     Boots_plate(const sf::Vector2f& pos);
-    std::string string_type() const override { return "Boots_plate"; }
+    std::string name() const override { return "Boots_plate"; }
 };
 
 class Boots_brown : public Boots {
 public:
     Boots_brown(const sf::Vector2f& pos);
-    std::string string_type() const override { return "Boots_brown"; }
+    std::string name() const override { return "Boots_brown"; }
 };
 

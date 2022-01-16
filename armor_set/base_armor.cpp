@@ -34,8 +34,7 @@ std::string BaseArmor::get_armor_type_str() const {
 
 json BaseArmor::to_json() const {
     json res;
-    auto type = get_armor_type_str();
-    res[type]["class_type"] = string_type();
-    res[type]["armor"] = armor;
+    res["class_name"] = name();
+    res["armor"] = armor;
     return res;
 }

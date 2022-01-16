@@ -23,7 +23,7 @@ public:
 
     // Main loop
     void game_loop();
-    void save_game(const std::string& name) const;
+    bool save(const std::string& name) const;
 
     // Game methods
     void render();

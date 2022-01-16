@@ -104,8 +104,9 @@ json Creature::to_json() const {
     res[name]["experience"] = experience;
     res[name]["pos"]["x"] = pos.x;
     res[name]["pos"]["y"] = pos.y;
-    res[name].push_back(armor_set.to_json());
-    res[name].push_back(weapon->to_json());
+    res[name][armor_set.name()] = armor_set.to_json();
+    if(weapon != nullptr)
+        res[name]["Weapon"] = weapon->to_json();
     return res;
 }
 
