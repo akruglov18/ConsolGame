@@ -2,22 +2,9 @@
 #include "field.h"
 #include "drawer.h"
 
-void load_textures_f() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    HOLDER().loadFromFile("../../images/creature/man_body/BODY_WALK.png", "man_walk");
-    HOLDER().loadFromFile("../../images/creature/enemies/Skeleton/BODY_skeleton_walk.png", "skeleton_walk");
-    HOLDER().loadFromFile("../../images/terrain/128px/sand1.png", "sand1");
-    HOLDER().loadFromFile("../../images/terrain/128px/borders_sand1.png", "borders_sand1");
-    HOLDER().loadFromFile("../../images/terrain/128px/grass1.png", "grass1");
-    HOLDER().loadFromFile("../../images/terrain/128px/water1.png", "water1");
-    HOLDER().loadFromFile("../../images/terrain/128px/dry1.png", "dry1");
-    HOLDER().loadFromFile("../../images/terrain/features/oasis1.png", "oasis1");
-    HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
-    HOLDER().loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
-}
-
 TEST(Field, move_constructor) {
-    load_textures_f();
+    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+    HOLDER().load_textures();
     int size = 128;
     Field field(size, size);
     field.generate_field();

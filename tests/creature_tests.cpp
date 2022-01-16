@@ -52,3 +52,18 @@ void test_stuck() {
 TEST(CreatureTests, stuck) {
     ASSERT_NO_THROW(test_stuck());
 }
+
+void test_change_mode() {
+    CreatureManager man;
+    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, { 256.f, 236.f }));
+    player->init_dress();
+    for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
+        player->change_mode(static_cast<Modes>(i));
+        if (player->mode != static_cast<Modes>(i))
+            throw;
+    }
+}
+
+TEST(CreatureTests, change_mode) {
+    ASSERT_NO_THROW(test_change_mode());
+}
