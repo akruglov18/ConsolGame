@@ -35,7 +35,6 @@ Game::Game() {
 
 void Game::game_loop() {    
     sf::Clock clock;
-    sf::Keyboard::Key key = sf::Keyboard::Down;
     sf::Event last_event;
     while (window.isOpen()) {
         // The regulator of game speed
@@ -108,6 +107,6 @@ bool Game::save(const std::string& file_name) const {
 
     auto json_out = player->to_json();
     out << json_out.dump(4);
-    std::cout << json_out.dump(4);
+    //std::cout << json_out.dump(4);
     return true;
 }

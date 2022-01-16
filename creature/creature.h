@@ -61,6 +61,7 @@ public:
     void set_pos(float x, float y);
     std::string creature_type_str() const;
     void update_stuck_frame(float time);
+    int get_health() { return health; }
     void set_health(int health);
 
     bool died = false;
