@@ -1,8 +1,7 @@
 #pragma once
 #include "game.h"
 
-int main()
-{
+int main() {
     Game game;
     game.game_loop();
 

@@ -4,6 +4,7 @@
 #include "player/player.h"
 #include "enemy.h"
 #include "drawer.h"
+#include "menu.h"
 
 class Game {
 private:
@@ -17,6 +18,7 @@ private:
     std::vector<std::shared_ptr<Creature>> drawable_creatures;
     CreatureManager manager;
     sf::View view;
+    Menu game_menu;
 
 public:
     Game();

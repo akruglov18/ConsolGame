@@ -48,7 +48,7 @@ void Game::game_loop() {
             window.close();
         }
 
-        if(event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
+        if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
             event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
             event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
             event = std::move(last_event);
