@@ -70,3 +70,75 @@ void test_change_mode() {
 TEST(CreatureTests, change_mode) {
     ASSERT_NO_THROW(test_change_mode());
 }
+
+void test_hit_mechanics_inner(sf::Clock& clock, std::shared_ptr<Player>& player, std::shared_ptr<Field>& field, 
+    std::vector<std::shared_ptr<Enemy>>& enemies, std::vector<std::shared_ptr<Creature>>& creatures, sf::Event& event) {
+    int prior_health = enemies[0]->get_health();
+    while (true) {
+        float time = clock.getElapsedTime().asMicroseconds();
+        clock.restart();
+        player->action(event, time, field, creatures);
+        enemies[0]->action(player, time);
+        if (!enemies[0]->stuck) {
+            std::cout << enemies[0]->get_health() << "\n";
+            if (enemies[0]->get_health() >= prior_health) {
+                throw;
+            }
+            while (player->get_frame() != 0) {
+                float time = clock.getElapsedTime().asMicroseconds();
+                clock.restart();
+                player->action(event, time, field, creatures);
+            }
+
+            break;
+        }
+    }
+}
+
+void test_hit_mechanics() {
+    std::shared_ptr<Field> field = std::shared_ptr<Field>(new Field(128, 128));
+    field->generate_desert();
+    CreatureManager man;
+    CreatureManager skeleton;
+    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, { 258.f, 254.f }));
+    player->init_dress();
+    std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<std::shared_ptr<Creature>> creatures;
+    enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, skeleton, 1000, { 256.f, 256.f }));
+    creatures.push_back(enemies[0]);
+    sf::Event event;
+    event.type = sf::Event::KeyPressed;
+    event.key.code = sf::Keyboard::LShift;
+    sf::Clock clock;
+
+    
+    player->direction = Dirs::LEFT;
+    for (int i = 0; i < 4; ++i) {
+        test_hit_mechanics_inner(clock, player, field, enemies, creatures, event);
+        player->get_pos().y += i;
+    }
+
+    player->direction = Dirs::RIGHT;
+    player->get_pos().x -= 4;
+    for (int i = 0; i < 4; ++i) {
+        test_hit_mechanics_inner(clock, player, field, enemies, creatures, event);
+        player->get_pos().y -= i;
+    }
+
+    player->direction = Dirs::DOWN;
+    for (int i = 0; i < 4; ++i) {
+        test_hit_mechanics_inner(clock, player, field, enemies, creatures, event);
+        player->get_pos().x += i;
+    }
+
+    player->direction = Dirs::UP;
+    player->get_pos().y += 4;
+    for (int i = 0; i < 4; ++i) {
+        test_hit_mechanics_inner(clock, player, field, enemies, creatures, event);
+        player->get_pos().x -= i;
+    }
+}
+
+TEST(CreatureTests, test_hit_mechanics) {
+    ASSERT_NO_THROW(test_hit_mechanics());
+}
