@@ -7,9 +7,9 @@
 class Field
 {
 private:
+    std::vector <std::vector<std::shared_ptr<Tile>>> _field;
     int _width;
     int _height;
-    std::vector <std::vector<std::shared_ptr<Tile>>> _field;
     
 public:
     // constructors~destructor

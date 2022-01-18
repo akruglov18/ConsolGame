@@ -38,8 +38,18 @@ void Creature::set_pos(float x, float y) {
     pos.y = y;
 }
 
+void Creature::set_armor(std::shared_ptr<BaseArmor> armor) {
+    armor_set[armor->get_armor_type()] = armor;
+}
+
 void Creature::set_weapon(std::shared_ptr<Weapon> _weapon) {
     weapon = _weapon;
+}
+
+int Creature::get_damage() const {
+    if(weapon == nullptr)
+        return 0;
+    return static_cast<int>(weapon->get_total_damage());
 }
 
 void Creature::reduce_health(int value) {
