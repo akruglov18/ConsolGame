@@ -11,6 +11,7 @@ private:
 public:
 
     void load_textures();
+    //void load_fonts();
 
     std::shared_ptr<ResourceType> loadFromFile(const std::string& fileName, const KeyType& key) {
         std::shared_ptr<ResourceType>& resourceRef = mResources[key];
@@ -331,3 +332,10 @@ inline void ResourceHolder<ResourceType, KeyType>::load_textures() {
     HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
     HOLDER().loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
 }
+
+//template<typename ResourceType, typename KeyType>
+//inline void ResourceHolder<ResourceType, KeyType>::load_fonts() {
+//    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+//
+//    HOLDER().loadFromFile("../../fonts/CyrilicOld.TTF", "CyrilicOld");
+//}

@@ -6,7 +6,9 @@
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-Game::Game() {
+Game::Game(sf::RenderWindow* _window) {
+
+    window = _window;
 
     /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
     auto start = std::chrono::high_resolution_clock::now();
@@ -34,23 +36,30 @@ Game::Game() {
     // load("save.json");
 }
 
-void Game::game_loop() {    
+View_mode Game::game_loop() {    
     sf::Clock clock;
     sf::Event last_event;
-    while (window.isOpen()) {
+    while (window->isOpen()) {
         // The regulator of game speed
         auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
 
         sf::Event event;
-        window.pollEvent(event);
-        if (event.type == sf::Event::Closed) {
-            window.close();
+        window->pollEvent(event);
+
+        if (event.type == sf::Event::Closed)
+            return View_mode::EXIT;
+
+        switch (event.key.code) {
+            case(sf::Keyboard::Escape): return View_mode::MAIN_MENU;
+            //case(sf::Keyboard::Tab): return View_mode::SKILLS_MENU;
+            //case(sf::Keyboard::M): return View_mode::WORLD_MAP; and so forth
         }
 
         if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
             event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
             event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
+
             event = std::move(last_event);
         }
 
@@ -73,29 +82,29 @@ void Game::game_loop() {
 }
 
 void Game::render() {
-    window.setView(view);
-    window.clear(sf::Color(0, 0, 0));
-    auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y,
+    window->setView(view);
+    window->clear(sf::Color(0, 0, 0));
+    auto borders = Utils::get_rendering_borders(window->getSize().x, window->getSize().y,
                                                 game_field->get_width(), game_field->get_height(), player->get_pos());
     auto object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
     Utils::sort_drawable_creatures(drawable_creatures);
-    Drawer::show_everything(window, game_field, borders, object_borders, player, drawable_creatures);
-    window.display();
+    Drawer::show_everything(*window, game_field, borders, object_borders, player, drawable_creatures);
+    window->display();
 }
 
 sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
     // sets camera center as player's coordinates
     auto temp_x = pos.x;
     auto temp_y = pos.y;
-    if (pos.x < window.getSize().x / 2.f)
-        temp_x = static_cast<float>(window.getSize().x / 2.f);
-    if (pos.y < window.getSize().y / 2.f)
-        temp_y = static_cast<float>(window.getSize().y / 2.f);
-    if (pos.x > game_region_width - window.getSize().x / 2.f)
-        temp_x = static_cast<float>(game_region_width - window.getSize().x / 2.f);
-    if (pos.y > game_region_height - window.getSize().y / 2.f)
-        temp_y = static_cast<float>(game_region_height - window.getSize().y / 2.f);
+    if (pos.x < window->getSize().x / 2.f)
+        temp_x = static_cast<float>(window->getSize().x / 2.f);
+    if (pos.y < window->getSize().y / 2.f)
+        temp_y = static_cast<float>(window->getSize().y / 2.f);
+    if (pos.x > game_region_width - window->getSize().x / 2.f)
+        temp_x = static_cast<float>(game_region_width - window->getSize().x / 2.f);
+    if (pos.y > game_region_height - window->getSize().y / 2.f)
+        temp_y = static_cast<float>(game_region_height - window->getSize().y / 2.f);
 
     view.setCenter(sf::Vector2f(temp_x, temp_y));
     return view;

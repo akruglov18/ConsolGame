@@ -4,11 +4,10 @@
 #include "player/player.h"
 #include "enemy.h"
 #include "drawer.h"
-#include "menu.h"
 
 class Game {
 private:
-    sf::RenderWindow window{ sf::VideoMode(1280, 720), "Consol game"};
+    sf::RenderWindow* window;
     int size = 1024;
     std::shared_ptr<Field> game_field;
     int game_region_width = size * 32; // size in pixels
@@ -18,13 +17,12 @@ private:
     std::vector<std::shared_ptr<Creature>> drawable_creatures;
     CreatureManager manager;
     sf::View view;
-    Menu game_menu;
 
 public:
-    Game();
+    Game(sf::RenderWindow* _window);
 
     // Main loop
-    void game_loop();
+    View_mode game_loop();
     bool save(const std::string& name) const;
     bool load(const std::string& name);
 

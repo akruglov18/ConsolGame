@@ -1,4 +1,14 @@
+#pragma once
 #include "enemy.h"
+
+enum class View_mode {
+    MAIN_MENU,
+    PAUSE_MENU,
+    SETTINGS_MENU,
+    SKILLS_MENU,
+    GAME,
+    EXIT
+};
 
 class Utils {
 public:
