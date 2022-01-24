@@ -1,10 +1,10 @@
-#include "main_menu.h"
+#include "map_menu.h"
 
-main_menu::main_menu() {
+map_menu::map_menu() {
     _color = sf::Color(255, 0, 0);
 }
 
-View_mode main_menu::Run(sf::RenderWindow& window) {
+View_mode map_menu::Run(sf::RenderWindow& window) {
     sf::Clock clock;
     while (true) {
         auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;

@@ -2,7 +2,8 @@
 #include "enemy.h"
 
 enum class View_mode {
-    EXIT = -1,
+    NONE,
+    EXIT,
     GAME,
     MAIN_MENU,
     PAUSE_MENU,

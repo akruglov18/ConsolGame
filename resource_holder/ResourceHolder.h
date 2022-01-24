@@ -331,6 +331,9 @@ inline void ResourceHolder<ResourceType, KeyType>::load_textures() {
     // Terrain Features
     HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
     HOLDER().loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
+
+// UI ELEMENTS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    HOLDER().loadFromFile("../../images/icons/ui_big_pieces.png", "main_ui");
 }
 
 //template<typename ResourceType, typename KeyType>

@@ -10,19 +10,11 @@ Game::Game(sf::RenderWindow* _window) {
 
     window = _window;
 
-    /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
-    auto start = std::chrono::high_resolution_clock::now();
-    HOLDER().load_textures();
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end - start;
-    std::cout << "Textures loading: " << std::setw(9) << diff.count() << " s\n";
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     game_field = std::shared_ptr<Field>(new Field(size, size));
     game_field->generate_field();
     view.reset(sf::FloatRect(0, 0, 1280, 720));
 
-    player = std::shared_ptr<Player>(new Player(manager, 100, { 366.f, 260.f }));
+    player = std::shared_ptr<Player>(new Player(manager, 100, { 666.f, 260.f }));
     get_player_pos_for_view(player->get_pos());
     manager.setPlayer(player);
     player->init_dress();
@@ -52,8 +44,14 @@ View_mode Game::game_loop() {
 
         if (event.type == sf::Event::KeyPressed) {
             switch (event.key.code) {
-                case(sf::Keyboard::Escape): return View_mode::PAUSE_MENU;
                 case(sf::Keyboard::Tab): return View_mode::SKILLS_MENU;
+                case(sf::Keyboard::Escape):
+                    sf::Texture texture;
+                    texture.create(window->getSize().x, window->getSize().y);
+                    texture.update(*window);
+                    sf::Image screenshot = texture.copyToImage();
+                    screenshot.saveToFile("../../images/tmp.jpg");
+                    return View_mode::PAUSE_MENU;
                 //case(sf::Keyboard::M): return View_mode::MAP_MENU;
             }
         }        

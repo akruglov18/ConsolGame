@@ -1,9 +1,14 @@
 #pragma once
 #include "screen.h"
 
-class main_menu : public screen {
+class settings_menu : public screen {
 public:
-	main_menu();
+	settings_menu();
 	sf::Color _color;
+
+	button b_main_menu;
+
+	std::vector<button*> buttons;
+
 	virtual View_mode Run(sf::RenderWindow& window) override;
 };
