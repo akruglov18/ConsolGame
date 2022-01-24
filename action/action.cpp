@@ -163,7 +163,7 @@ void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_
         case(Dirs::UP):
             top_hit_border = creature->get_pos().y - 48;
             btm_hit_border = creature->get_pos().y;
-            left_hit_border = creature->get_pos().x - 4;
+            left_hit_border = creature->get_pos().x - 24;
             right_hit_border = creature->get_pos().x + 32;
             break;
         case(Dirs::DOWN):

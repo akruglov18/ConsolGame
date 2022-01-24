@@ -50,11 +50,13 @@ View_mode Game::game_loop() {
         if (event.type == sf::Event::Closed)
             return View_mode::EXIT;
 
-        switch (event.key.code) {
-            case(sf::Keyboard::Escape): return View_mode::MAIN_MENU;
-            //case(sf::Keyboard::Tab): return View_mode::SKILLS_MENU;
-            //case(sf::Keyboard::M): return View_mode::WORLD_MAP; and so forth
-        }
+        if (event.type == sf::Event::KeyPressed) {
+            switch (event.key.code) {
+                case(sf::Keyboard::Escape): return View_mode::PAUSE_MENU;
+                case(sf::Keyboard::Tab): return View_mode::SKILLS_MENU;
+                //case(sf::Keyboard::M): return View_mode::MAP_MENU;
+            }
+        }        
 
         if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
             event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
