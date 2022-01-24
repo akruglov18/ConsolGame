@@ -1,7 +1,7 @@
 #include "skills_menu.h"
 
 skills_menu::skills_menu() {
-    _color = sf::Color(0, 255, 0);
+    _color = sf::Color(143, 80, 0);
 }
 
 View_mode skills_menu::Run(sf::RenderWindow& window) {

@@ -21,7 +21,6 @@ View_mode pause_menu::Run(sf::RenderWindow& window) {
     pause_screenIMG.loadFromFile("../../images/tmp.jpg");
     pause_screen.setTexture(pause_screenIMG);
     pause_screen.setColor(sf::Color(255, 255, 255, 180));
-    std::cout << pause_screen.getPosition().x << "\n";
 
     sf::Clock clock;
     View_mode to_return;
@@ -45,6 +44,7 @@ View_mode pause_menu::Run(sf::RenderWindow& window) {
             return View_mode::GAME;
         }
 
+        window.setView(window.getDefaultView());
         window.clear(_color);
         window.draw(pause_screen);
         b_main_menu.print_button(window);
