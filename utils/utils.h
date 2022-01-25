@@ -12,6 +12,11 @@ enum class View_mode {
     MAP_MENU
 };
 
+enum class Function {
+    SOUND,
+    DIFFICULTY
+};
+
 class Utils {
 public:
     static std::vector<std::shared_ptr<Creature>> find_drawable_creatures(const std::vector<std::shared_ptr<Enemy>>& enemies, 

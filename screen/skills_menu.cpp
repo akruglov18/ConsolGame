@@ -7,7 +7,7 @@ skills_menu::skills_menu() {
 View_mode skills_menu::Run(sf::RenderWindow& window) {
     sf::Clock clock;
     while (true) {
-        auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
+        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
         sf::Event event;
         window.pollEvent(event);

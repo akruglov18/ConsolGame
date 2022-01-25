@@ -1,7 +1,7 @@
 #include "pause_menu.h"
 
 pause_menu::pause_menu() {
-    _color = sf::Color(255, 255, 255);
+    color = sf::Color(255, 255, 255);
     font.loadFromFile("../../fonts/CyrilicOld.TTF");
     b_main_menu.init(font, "Main menu", View_mode::MAIN_MENU, 28, sf::Color(96, 76, 66), sf::FloatRect(540.f, 320.f, 240.f, 52.f));
     b_to_game.init(font, "To game", View_mode::GAME, 28, sf::Color(96, 76, 66), sf::FloatRect(540.f, 260.f, 240.f, 52.f));
@@ -9,12 +9,12 @@ pause_menu::pause_menu() {
     buttons.push_back(&b_main_menu);
     buttons.push_back(&b_to_game);
 
-    _pause_text.setFont(font);
-    _pause_text.setString("PAUSE");
-    _pause_text.setCharacterSize(78);
-    _pause_text.setFillColor(sf::Color(100, 30, 30));
-    _pause_text.setStyle(sf::Text::Bold);
-    _pause_text.setPosition(sf::Vector2f(520.f, 120.f));
+    pause_text.setFont(font);
+    pause_text.setString("PAUSE");
+    pause_text.setCharacterSize(78);
+    pause_text.setFillColor(sf::Color(100, 30, 30));
+    pause_text.setStyle(sf::Text::Bold);
+    pause_text.setPosition(sf::Vector2f(520.f, 120.f));
 }
 
 View_mode pause_menu::Run(sf::RenderWindow& window) {
@@ -25,7 +25,7 @@ View_mode pause_menu::Run(sf::RenderWindow& window) {
     sf::Clock clock;
     View_mode to_return;
     while (true) {
-        auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
+        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
         sf::Event event;
         window.pollEvent(event);
@@ -45,11 +45,11 @@ View_mode pause_menu::Run(sf::RenderWindow& window) {
         }
 
         window.setView(window.getDefaultView());
-        window.clear(_color);
+        window.clear(color);
         window.draw(pause_screen);
         b_main_menu.print_button(window);
         b_to_game.print_button(window);
-        window.draw(_pause_text);
+        window.draw(pause_text);
         window.display();
     }
 }

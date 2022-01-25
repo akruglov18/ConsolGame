@@ -1,13 +1,13 @@
 #include "map_menu.h"
 
 map_menu::map_menu() {
-    _color = sf::Color(255, 0, 0);
+    color = sf::Color(255, 0, 0);
 }
 
 View_mode map_menu::Run(sf::RenderWindow& window) {
     sf::Clock clock;
     while (true) {
-        auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
+        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
         sf::Event event;
         window.pollEvent(event);
@@ -17,7 +17,7 @@ View_mode map_menu::Run(sf::RenderWindow& window) {
         if (event.type == sf::Event::MouseButtonPressed)
             return View_mode::GAME;
 
-        window.clear(_color);
+        window.clear(color);
         window.display();
     }
 }

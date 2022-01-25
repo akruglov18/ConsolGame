@@ -4,7 +4,7 @@
 class main_menu : public screen {
 public:
 	main_menu();
-	sf::Color _color;
+	sf::Color color;
 
 	button b_play;
 	button b_settings;

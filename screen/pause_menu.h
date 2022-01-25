@@ -4,8 +4,8 @@
 class pause_menu : public screen {
 public:
 	pause_menu();
-	sf::Color _color;
-	sf::Text _pause_text;
+	sf::Color color;
+	sf::Text pause_text;
 	sf::Texture pause_screenIMG;
 	sf::Sprite pause_screen;
 

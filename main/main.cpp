@@ -9,7 +9,7 @@
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
 int main() {
-	sf::RenderWindow window{ sf::VideoMode(1280, 720), "Application" };
+	std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{ sf::VideoMode(1280, 720), "Application" });
 	std::map<View_mode, screen*> screens;
 	View_mode screen = View_mode::MAIN_MENU;
 
@@ -31,14 +31,14 @@ int main() {
 	screens[View_mode::SETTINGS_MENU] = &st_menu;
 
 	while (screen != View_mode::EXIT) {
-		screen = screens[screen]->Run(window);
+		screen = screens[screen]->Run(*window);
 		if (screen == View_mode::GAME) {
-			Game game(&window);
+			Game game(window.get());
 			while (screen != View_mode::MAIN_MENU && screen != View_mode::EXIT) {
 				screen = game.game_loop();
 				if (screen == View_mode::EXIT)
 					break;
-				screen = screens[screen]->Run(window);
+				screen = screens[screen]->Run(*window);
 			}
 		}
 	}

@@ -335,10 +335,3 @@ inline void ResourceHolder<ResourceType, KeyType>::load_textures() {
 // UI ELEMENTS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     HOLDER().loadFromFile("../../images/icons/ui_big_pieces.png", "main_ui");
 }
-
-//template<typename ResourceType, typename KeyType>
-//inline void ResourceHolder<ResourceType, KeyType>::load_fonts() {
-//    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-//
-//    HOLDER().loadFromFile("../../fonts/CyrilicOld.TTF", "CyrilicOld");
-//}

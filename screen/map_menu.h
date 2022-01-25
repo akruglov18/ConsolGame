@@ -4,6 +4,6 @@
 class map_menu : public screen {
 public:
 	map_menu();
-	sf::Color _color;
+	sf::Color color;
 	virtual View_mode Run(sf::RenderWindow& window) override;
 };
