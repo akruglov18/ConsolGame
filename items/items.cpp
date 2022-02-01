@@ -16,7 +16,7 @@ std::string Items::get_type_str() const {
     }
 }
 
-void Items::init_scale(const sf::Vector2f& pos) {
+void Items::set_scale(const sf::Vector2f& pos) {
     sprite.setTexture(*textures[static_cast<int>(Modes::WALK)]);
     sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
     sprite.setPosition(sf::Vector2f(pos.x, pos.y - 32));

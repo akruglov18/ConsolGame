@@ -1,27 +1,36 @@
 #include "body_armor.h"
 
-BodyArmor::BodyArmor(const std::string& _name, const sf::Vector2f& _pos) : BaseArmor(_name, _pos) {
+BodyArmor::BodyArmor(const std::string& _name) : BaseArmor(_name) {
     armor_type = ArmorType::TORSO;
 }
 
-//////////////////////////////////////////////////////////////////////INHERITORS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-BodyArmor_chain::BodyArmor_chain(const sf::Vector2f& _pos) : BodyArmor("TORSO_chain", _pos) {
-    armor = 60;
-}
-
-BodyArmor_plate::BodyArmor_plate(const sf::Vector2f& _pos) : BodyArmor("TORSO_plate_torso", _pos) {
-    armor = 100;
-}
-
-BodyArmor_chain_purple::BodyArmor_chain_purple(const sf::Vector2f& _pos) : BodyArmor("TORSO_chain_purple", _pos) {
-    armor = 130;
-}
-
-BodyArmor_leather::BodyArmor_leather(const sf::Vector2f& _pos) : BodyArmor("TORSO_leather_torso", _pos) {
-    armor = 30;
-}
-
-BodyArmor_robe::BodyArmor_robe(const sf::Vector2f& _pos) : BodyArmor("TORSO_robe", _pos) {
-    armor = 10;
+std::shared_ptr<BodyArmor> BodyArmor::make_body(BodyArmorTypes type) {
+    switch(type) {
+        case BodyArmorTypes::BodyArmor_chain: {
+            auto res = std::shared_ptr<BodyArmor>(new BodyArmor("TORSO_chain"));
+            res->armor = 60;
+            return res;
+        }
+        case BodyArmorTypes::BodyArmor_plate: {
+            auto res = std::shared_ptr<BodyArmor>(new BodyArmor("TORSO_plate_torso"));
+            res->armor = 100;
+            return res;
+        }
+        case BodyArmorTypes::BodyArmor_chain_purple: {
+            auto res = std::shared_ptr<BodyArmor>(new BodyArmor("TORSO_chain_purple"));
+            res->armor = 130;
+            return res;
+        }
+        case BodyArmorTypes::BodyArmor_leather: {
+            auto res = std::shared_ptr<BodyArmor>(new BodyArmor("TORSO_leather_torso"));
+            res->armor = 30;
+            return res;
+        }
+        case BodyArmorTypes::BodyArmor_robe: {
+            auto res = std::shared_ptr<BodyArmor>(new BodyArmor("TORSO_robe"));
+            res->armor = 10;
+            return res;
+        }
+        default: throw std::logic_error("Undefined BodyArmor");
+    }
 }

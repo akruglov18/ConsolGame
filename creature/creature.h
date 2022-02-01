@@ -54,6 +54,7 @@ public:
     //getters & setters
     ArmorSet& get_armor() { return armor_set; }
     std::shared_ptr<Weapon> get_weapon() const { return weapon; };
+    void set_armor(std::shared_ptr<BaseArmor> armor);
     void set_weapon(std::shared_ptr<Weapon> weapon);
     sf::Sprite& get_sprite() { return sprite; }
     sf::Vector2f& get_pos() { return pos; }
@@ -62,6 +63,8 @@ public:
     std::string creature_type_str() const;
     void update_stuck_frame(float time);
     void set_health(int health);
+    int Creature::get_damage() const;
+    int get_health() const {return health; }
 
     bool died = false;
     bool stuck = false;

@@ -1,11 +1,16 @@
 #include "gauntlets.h"
 
-Gauntlets::Gauntlets(const std::string& _name, const sf::Vector2f& _pos) : BaseArmor(_name, _pos) {
+Gauntlets::Gauntlets(const std::string& _name) : BaseArmor(_name) {
     armor_type = ArmorType::GAUNTLETS;
 }
 
-//////////////////////////////////////////////////////////////////////INHERITORS///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Gauntlets_plate::Gauntlets_plate(const sf::Vector2f& _pos) : Gauntlets("HANDS_plate", _pos) {
-    armor = 30;
+std::shared_ptr<Gauntlets> Gauntlets::make_gauntlets(GauntletsTypes type) {
+    switch(type) {
+        case GauntletsTypes::Gauntlets_plate: {
+            auto res = std::shared_ptr<Gauntlets>(new Gauntlets("HANDS_plate"));
+            res->armor = 30;
+            return res;
+        }
+        default: throw std::logic_error("Undefined gauntlents");
+    }
 }

@@ -2,13 +2,13 @@
 
 #include "weapon.h"
 
-class Spear : public Weapon {
-public:
-    Spear(const std::string& name, const sf::Vector2f& pos);
+enum class SpearTypes {
+    Spear_wood
 };
 
-class Spear_wood : public Spear {
+class Spear : public Weapon {
 public:
-    Spear_wood(const sf::Vector2f& pos);
-    virtual std::string name() const override { return "Spear_wood"; }
+    Spear(const std::string& name);
+    std::string name() const override { return "Spear"; }
+    static std::shared_ptr<Weapon> make_spear(SpearTypes type);
 };
