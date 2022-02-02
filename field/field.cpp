@@ -58,7 +58,6 @@ void Field::set_size(int width, int height) {
 }
 
 void Field::generate_desert() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     
     // GENERATION OF LANDSCAPE
     std::mt19937 gen;

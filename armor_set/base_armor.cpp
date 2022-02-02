@@ -2,13 +2,12 @@
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-BaseArmor::BaseArmor(const std::string& _name, const sf::Vector2f& _pos) {
+BaseArmor::BaseArmor(const std::string& _name) {
     item_type = ItemType::ARMOR;
     textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
         textures[i] = HOLDER().getResource(_name + suffixes[i]);
     }
-    init_scale(_pos);
 }
 
 void BaseArmor::change_mode(Modes mode, std::shared_ptr<BaseArmor> elem) {
@@ -22,12 +21,6 @@ std::string BaseArmor::get_armor_type_str() const {
         case ArmorType::PANTS:      return "Pants";
         case ArmorType::BOOTS:      return "Boots";
         case ArmorType::GAUNTLETS:  return "Gauntlets";
-        case ArmorType::SHIRT:      return "Shirt";
-        case ArmorType::SHOULDERS:  return "Shoulders";
-        case ArmorType::BRACERS:    return "Bracers";
-        case ArmorType::BELT:       return "Belt";
-        case ArmorType::QUIVER:     return "Quiver";
-        case ArmorType::SHIELD:     return "Shield";
         default:                    throw std::logic_error("Invalid armor type");
     }
 }

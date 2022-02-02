@@ -5,15 +5,13 @@
 
 enum class WeaponType {
     SWORD,
-    LONG_SWORD,
     SPEAR,
-    KNIFE,
     AXE
 };
 
 class Weapon : public Items {
 public:
-    Weapon(const std::string& name, const sf::Vector2f& pos);
+    Weapon(const std::string& name);
     Weapon(const Weapon& other);
 
     virtual double get_total_damage() const;
@@ -25,9 +23,9 @@ public:
     void change_mode(Modes mode);
 
     virtual ~Weapon(){}
-protected:
     double damage = 0;
     int critical_chance = 0;
     double critical_multiplier = 0;
+protected:
     WeaponType weapon_type;
 };

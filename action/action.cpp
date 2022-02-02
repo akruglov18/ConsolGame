@@ -201,7 +201,7 @@ void Action::choose_mode_according_to_weapon(Creature* creature) {
         }
         return;
     }
-    else if (type == WeaponType::AXE || type == WeaponType::SWORD || type == WeaponType::LONG_SWORD || type == WeaponType::KNIFE) {
+    else if (type == WeaponType::AXE || type == WeaponType::SWORD || type == WeaponType::SPEAR) {
         if (creature->mode != Modes::SLASH) {
             creature->change_mode(Modes::SLASH);
         }
@@ -209,7 +209,7 @@ void Action::choose_mode_according_to_weapon(Creature* creature) {
     }
 }
 
-void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& game_field, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
 
     auto& current_frame = creature->get_frame();
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
@@ -225,7 +225,7 @@ void Action::hit(Creature* creature, float time, const std::shared_ptr<Field>& g
             if (x->get_pos().y > top_hit_border && x->get_pos().y < btm_hit_border
                 && x->get_pos().x > left_hit_border && x->get_pos().x < right_hit_border) {
                 if (Utils::square(x->get_pos().x - pos.x) + Utils::square(x->get_pos().y - pos.y) <= Utils::square(48.f)) {
-                    x->reduce_health(creature->get_weapon()->get_total_damage());
+                    x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage()));
                 }
             }            
         }

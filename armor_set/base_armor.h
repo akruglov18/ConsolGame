@@ -11,29 +11,19 @@ enum class ArmorType {
     PANTS,
     BOOTS,
     GAUNTLETS,
-    SHIRT,
-    SHOULDERS,
-    BRACERS,
-    BELT,
-    QUIVER,
-    SHIELD,
     SET_SIZE
 };
 
 class BaseArmor : public Items {
 public:
-    BaseArmor(const std::string& name, const sf::Vector2f& pos);
+    BaseArmor(const std::string& name);
 
     virtual json to_json() const override;
     ArmorType get_armor_type() const { return armor_type; }
     std::string get_armor_type_str() const;
     static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
 
-protected:
     int armor = 0;
+protected:
     ArmorType armor_type;
-    /*
-    int _added_health;
-    ...
-    */
 };

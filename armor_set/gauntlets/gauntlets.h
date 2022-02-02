@@ -3,12 +3,13 @@
 #include <items.h>
 #include "../base_armor.h"
 
-class Gauntlets : public BaseArmor {
-public:
-    Gauntlets(const std::string& name, const sf::Vector2f& pos);
+enum class GauntletsTypes {
+    Gauntlets_plate
 };
 
-class Gauntlets_plate : public Gauntlets {
-    Gauntlets_plate(const sf::Vector2f& pos);
-    std::string name() const override { return "Gauntlets_plate"; }
+class Gauntlets : public BaseArmor {
+public:
+    Gauntlets(const std::string& name);
+    std::string name() const override { return "Gauntlets"; }
+    static std::shared_ptr<Gauntlets> make_gauntlets(GauntletsTypes type);
 };

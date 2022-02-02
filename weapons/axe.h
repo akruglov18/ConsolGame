@@ -2,13 +2,13 @@
 
 #include "weapon.h"
 
-class Axe : public Weapon {
-public:
-    Axe(const std::string& name, const sf::Vector2f& pos);
+enum class AxeTypes {
+    Axe_basic
 };
 
-class Axe_basic : public Axe {
+class Axe : public Weapon {
 public:
-    Axe_basic(const sf::Vector2f& pos);
-    virtual std::string name() const override { return "Axe_basic"; }
+    Axe(const std::string& name);
+    std::string name() const override { return "Axe"; }
+    static std::shared_ptr<Weapon> make_axe(AxeTypes type);
 };

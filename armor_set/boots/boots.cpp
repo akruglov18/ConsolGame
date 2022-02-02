@@ -1,15 +1,21 @@
 #include "boots.h"
 
-Boots::Boots(const std::string& _name, const sf::Vector2f& _pos) : BaseArmor(_name, _pos) {
+Boots::Boots(const std::string& _name) : BaseArmor(_name) {
     armor_type = ArmorType::BOOTS;
 }
 
-//////////////////////////////////////////////////////////////////////INHERITORS///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Boots_plate::Boots_plate(const sf::Vector2f& _pos) : Boots("FEET_plate", _pos) {
-    armor = 40;
-}
-
-Boots_brown::Boots_brown(const sf::Vector2f& _pos) : Boots("FEET_brown", _pos) {
-    armor = 10;
+std::shared_ptr<Boots> Boots::make_boots(BootsTypes type) {
+    switch(type) {
+        case BootsTypes::Boots_plate: {
+            auto res = std::shared_ptr<Boots>(new Boots("FEET_plate"));
+            res->armor = 40;
+            return res;
+        }
+        case BootsTypes::Boots_brown: {
+            auto res = std::shared_ptr<Boots>(new Boots("FEET_brown"));
+            res->armor = 10;
+            return res;
+        }
+        default: throw std::logic_error("Undefined boots");
+    }
 }

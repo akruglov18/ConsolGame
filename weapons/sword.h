@@ -2,12 +2,13 @@
 
 #include "weapon.h"
 
-class Sword : public Weapon {
-public:
-    Sword(const std::string& name, const sf::Vector2f& pos);
+enum class SwordTypes {
+    Long_sword_basic
 };
 
-class Long_sword_basic : public Sword {
-    Long_sword_basic(const sf::Vector2f& pos);
-    virtual std::string name() const override { return "Long_sword_basic"; }
+class Sword : public Weapon {
+public:
+    Sword(const std::string& name);
+    std::string name() const override { return "Spear"; }
+    static std::shared_ptr<Weapon> make_sword(SwordTypes type);
 };

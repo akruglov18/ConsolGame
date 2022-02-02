@@ -30,11 +30,11 @@ public:
     static const std::vector<std::string> suffixes;
     sf::Sprite& get_sprite() { return sprite; }
     std::vector<std::shared_ptr<sf::Texture>>& get_textures() { return textures; }
+    void set_scale(const sf::Vector2f& pos);
     virtual std::string name() const = 0;
     virtual json to_json() const = 0;
 protected:
     std::vector<std::shared_ptr<sf::Texture>> textures;
     sf::Sprite sprite;
-    void init_scale(const sf::Vector2f& pos);
     ItemType item_type = ItemType::NONE;
 };

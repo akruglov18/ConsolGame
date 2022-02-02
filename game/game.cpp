@@ -27,8 +27,8 @@ Game::Game() {
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { (i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f }));
-        enemies[i]->get_armor()[ArmorType::TORSO] = std::shared_ptr<BodyArmor>(new BodyArmor_chain(enemies[i]->get_pos()));
-        enemies[i]->get_armor()[ArmorType::HELMET] = std::shared_ptr<Helmet>(new Helmet_chain_hood(enemies[i]->get_pos()));
+        enemies[i]->set_armor(BodyArmor::make_body(BodyArmorTypes::BodyArmor_chain));
+        enemies[i]->set_armor(Helmet::make_helmet(HelmetTypes::Helmet_chain_hood));
     }
     save("save.json");
 }
