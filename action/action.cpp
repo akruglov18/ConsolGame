@@ -248,7 +248,6 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
 void Action::dying(Creature* creature, float time) {
 
     auto& current_frame = creature->get_frame();
-    auto& weapon = creature->get_weapon();
 
     if (creature->mode != Modes::HURT) {
         choose_mode_according_to_weapon(creature);

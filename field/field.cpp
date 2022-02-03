@@ -58,10 +58,10 @@ void Field::set_size(int width, int height) {
 }
 
 void Field::generate_desert() {
-    
+
     // GENERATION OF LANDSCAPE
     std::mt19937 gen;
-    gen.seed(time(0));
+    gen.seed(static_cast<unsigned>(time(0)));
 
     // Borders
     for (std::size_t i = 0; i < 4; ++i) {

@@ -76,7 +76,6 @@ TEST(Field, equal_after_move_assignement) {
 }
 
 void test_show_field() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     for (int i = 64; i <= 512; i *= 2) {
         sf::RenderWindow window{ sf::VideoMode(1280, 720), "TEST" };
         std::shared_ptr<Field> field;

@@ -35,7 +35,6 @@ Game::Game() {
 
 void Game::game_loop() {    
     sf::Clock clock;
-    sf::Keyboard::Key key = sf::Keyboard::Down;
     sf::Event last_event;
     while (window.isOpen()) {
         // The regulator of game speed
@@ -57,8 +56,8 @@ void Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
-        for(auto& x : enemies) {
-             x->action(player, time);
+        for(auto& enemy : enemies) {
+             enemy->action(time);
         }
 
         last_event = std::move(event);

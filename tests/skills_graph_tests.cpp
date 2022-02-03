@@ -159,8 +159,8 @@ TEST(SkillsGraph, multuple_locking_0) {
     SkillsGraph graph;
     std::shared_ptr<Skill> skill(new Skill());
     std::size_t root = graph.add_skill(skill, 0);
-    std::size_t child1 = graph.add_skill(skill, 0, static_cast<int>(root));
-    std::size_t child2 = graph.add_skill(skill, 0, static_cast<int>(root));
+    graph.add_skill(skill, 0, static_cast<int>(root));
+    graph.add_skill(skill, 0, static_cast<int>(root));
     ASSERT_FALSE(graph.is_locked(root));
 }
 
@@ -170,7 +170,7 @@ TEST(SkillsGraph, multuple_locking_1) {
     std::size_t root = graph.add_skill(skill, 0);
     std::size_t child1 = graph.add_skill(skill, 0, static_cast<int>(root));
     std::size_t child2 = graph.add_skill(skill, 0, static_cast<int>(root));
-    ASSERT_TRUE(graph.is_locked(child1) && graph.is_locked(child1));
+    ASSERT_TRUE(graph.is_locked(child1) && graph.is_locked(child2));
 }
 
 TEST(SkillsGraph, multuple_locking_2) {
@@ -180,7 +180,7 @@ TEST(SkillsGraph, multuple_locking_2) {
     std::size_t child1 = graph.add_skill(skill, 0, static_cast<int>(root));
     std::size_t child2 = graph.add_skill(skill, 0, static_cast<int>(root));
     graph.unlock(root);
-    ASSERT_FALSE(graph.is_locked(child1) || graph.is_locked(child1));
+    ASSERT_FALSE(graph.is_locked(child1) || graph.is_locked(child2));
 }
 
 TEST(SkillsGraph, multuple_locking_3) {
