@@ -11,7 +11,6 @@ Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, co
 
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health, const sf::Vector2f& pos) {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     switch (type) {
         case CreatureType::BEETLE:   return std::shared_ptr<Enemy>(new Beetle(manager));
         case CreatureType::TAUR:     return std::shared_ptr<Enemy>(new Taur(manager));
@@ -21,11 +20,10 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
     }
 }
 
-void Enemy::action(const std::shared_ptr<Player>& player, float time) {    
+void Enemy::action(float time) {    
     update_stuck_frame(time);
     if (died)
         Action::dying(this, time);
     else
         Action::stop_animation(this);
 }
-
