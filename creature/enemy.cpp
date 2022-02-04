@@ -16,7 +16,7 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
         case CreatureType::TAUR:     return std::shared_ptr<Enemy>(new Taur(manager));
         case CreatureType::WOLF:     return std::shared_ptr<Enemy>(new Wolf(manager));
         case CreatureType::SKELETON: return std::shared_ptr<Enemy>(new Skeleton(manager, health, pos));
-        default:                     throw std::logic_error("Try to spawn undefined enemy");
+        default:                     throw std::invalid_argument("Try to spawn undefined enemy");
     }
 }
 

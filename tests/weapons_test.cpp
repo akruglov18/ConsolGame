@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "axe.h"
+#include "Axe.h"
 
 #include "creature.h"
 #include "enemy.h"
@@ -9,9 +9,9 @@
 
 namespace TestsTypes {
 
-typedef AxeTypes   axe_weapon_type;
-typedef SpearTypes spear_weapon_type;
-typedef SwordTypes sword_weapon_type;
+typedef AxeType   axe_weapon_type;
+typedef SpearType spear_weapon_type;
+typedef SwordType sword_weapon_type;
 
 };  // TestsTypes 
 
@@ -26,9 +26,9 @@ typedef std::tuple<
 typedef std::tuple<
         sword_weapon_type> SwordTestsParams;
 
-std::vector<axe_weapon_type> axes =     { AxeTypes::Axe_basic };
-std::vector<spear_weapon_type> spears = { SpearTypes::Spear_wood };
-std::vector<sword_weapon_type> swords = { SwordTypes::Long_sword_basic };
+std::vector<axe_weapon_type> axes =     { AxeType::Axe_basic };
+std::vector<spear_weapon_type> spears = { SpearType::Spear_wood };
+std::vector<sword_weapon_type> swords = { SwordType::Long_sword_basic };
 
 class AxeTests : public ::testing::TestWithParam<AxeTestsParams> {
 public:

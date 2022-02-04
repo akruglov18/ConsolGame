@@ -5,11 +5,11 @@
 
 namespace TestsTypes {
 
-typedef BodyArmorTypes body_armor_type;
-typedef BootsTypes boots_type;
-typedef GauntletsTypes gauntlets_type;
-typedef HelmetTypes helmet_type;
-typedef PantsTypes pants_type;
+typedef BodyArmorType body_armor_type;
+typedef BootsType boots_type;
+typedef GauntletsType gauntlets_type;
+typedef HelmetType helmet_type;
+typedef PantsType pants_type;
 
 };  // TestsTypes 
 
@@ -30,13 +30,13 @@ typedef std::tuple<
 typedef std::tuple<
         pants_type> PantsTestsParams;
 
-std::vector<body_armor_type> body_armors = { BodyArmorTypes::BodyArmor_chain, BodyArmorTypes::BodyArmor_chain_purple, 
-        BodyArmorTypes::BodyArmor_leather, BodyArmorTypes::BodyArmor_plate, BodyArmorTypes::BodyArmor_robe };
-std::vector<boots_type> boots = { BootsTypes::Boots_brown, BootsTypes::Boots_plate };
-std::vector<gauntlets_type> gauntlets = { GauntletsTypes::Gauntlets_plate };
-std::vector<helmet_type> helmets = { HelmetTypes::Helmet_chain_helmet, HelmetTypes::Helmet_chain_hood, HelmetTypes::Helmet_leather_hat,
-        HelmetTypes::Helmet_plate, HelmetTypes::Helmet_robe };
-std::vector<pants_type> pants = { PantsTypes::Pants_green, PantsTypes::Pants_plate, PantsTypes::Pants_robe_skirt };
+std::vector<body_armor_type> body_armors = { BodyArmorType::BodyArmor_chain, BodyArmorType::BodyArmor_chain_purple, 
+        BodyArmorType::BodyArmor_leather, BodyArmorType::BodyArmor_plate, BodyArmorType::BodyArmor_robe };
+std::vector<boots_type> boots = { BootsType::Boots_brown, BootsType::Boots_plate };
+std::vector<gauntlets_type> gauntlets = { GauntletsType::Gauntlets_plate };
+std::vector<helmet_type> helmets = { HelmetType::Helmet_chain_helmet, HelmetType::Helmet_chain_hood, HelmetType::Helmet_leather_hat,
+        HelmetType::Helmet_plate, HelmetType::Helmet_robe };
+std::vector<pants_type> pants = { PantsType::Pants_green, PantsType::Pants_plate, PantsType::Pants_robe_skirt };
 
 class BodyArmorTests : public ::testing::TestWithParam<BodyArmorTestsParams> {
 public:

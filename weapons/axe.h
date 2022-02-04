@@ -1,14 +1,14 @@
 #pragma once
 
-#include "weapon.h"
+#include "BaseWeapon.h"
 
-enum class AxeTypes {
+enum class AxeType {
     Axe_basic
 };
 
-class Axe : public Weapon {
+class Axe : public BaseWeapon {
 public:
-    Axe(const std::string& name);
-    std::string name() const override { return "Axe"; }
-    static std::shared_ptr<Weapon> make_axe(AxeTypes type);
+    Axe(const std::string& name, AxeType type);
+    static std::shared_ptr<Axe> make_axe(AxeType type);
+    static std::shared_ptr<Axe> make_axe_from_json(const json& json_obj);
 };

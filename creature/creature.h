@@ -6,10 +6,10 @@
 #include "sfml/Graphics.hpp"
 #include "field.h"
 #include "armor_set.h"
-#include "weapon.h"
-#include "sword.h"
-#include "spear.h"
-#include "axe.h"
+#include "BaseWeapon.h"
+#include "Sword.h"
+#include "Spear.h"
+#include "Axe.h"
 #include "nlohmann_json/json.hpp"
 
 using json = nlohmann::json;
@@ -47,15 +47,16 @@ public:
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
     json to_json() const;
-    
+    void load(const json& json_obj);
+
     void change_mode(Modes mode);
     void die();
 
     //getters & setters
     ArmorSet& get_armor() { return armor_set; }
-    std::shared_ptr<Weapon> get_weapon() const { return weapon; };
+    std::shared_ptr<BaseWeapon> get_weapon() const { return weapon; };
     void set_armor(std::shared_ptr<BaseArmor> armor);
-    void set_weapon(std::shared_ptr<Weapon> weapon);
+    void set_weapon(std::shared_ptr<BaseWeapon> weapon);
     sf::Sprite& get_sprite() { return sprite; }
     sf::Vector2f& get_pos() { return pos; }
     float& get_frame() { return current_frame; }
@@ -76,7 +77,7 @@ public:
 protected:
     // general
     ArmorSet armor_set;
-    std::shared_ptr<Weapon> weapon;
+    std::shared_ptr<BaseWeapon> weapon;
 
     int health;
     int experience;

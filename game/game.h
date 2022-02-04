@@ -24,6 +24,7 @@ public:
     // Main loop
     void game_loop();
     bool save(const std::string& name) const;
+    bool load(const std::string& name);
 
     // Game methods
     void render();
