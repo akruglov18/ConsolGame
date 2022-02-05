@@ -27,10 +27,11 @@ Game::Game() {
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { (i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f }));
-        enemies[i]->set_armor(BodyArmor::make_body(BodyArmorTypes::BodyArmor_chain));
-        enemies[i]->set_armor(Helmet::make_helmet(HelmetTypes::Helmet_chain_hood));
+        enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
+        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
-    save("save.json");
+    // save("save.json");
+    // load("save.json");
 }
 
 void Game::game_loop() {    
@@ -105,8 +106,24 @@ bool Game::save(const std::string& file_name) const {
     if(!out.is_open())
         return false;
 
-    auto json_out = player->to_json();
+    json json_out;
+    json_out[player->creature_type_str()] = player->to_json();
     out << json_out.dump(4);
-    std::cout << json_out.dump(4);
+    std::cout << json_out.dump(4) << "\n";
+    return true;
+}
+
+bool Game::load(const std::string& file_name)  {
+    std::ifstream in(file_name);
+    if(!in.is_open())
+        return false;
+    auto json_obj = json::parse(in);
+    for(auto it = json_obj.begin(); it != json_obj.end(); ++it) {
+        if(it.key() == player->creature_type_str()) {
+            player->load(it.value());
+        } else {
+            throw std::invalid_argument("Unused key in json save: " + it.key());
+        }
+    }
     return true;
 }

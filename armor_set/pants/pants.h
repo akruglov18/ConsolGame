@@ -3,7 +3,7 @@
 #include <items.h>
 #include "../base_armor.h"
 
-enum class PantsTypes {
+enum class PantsType {
     Pants_green,
     Pants_plate,
     Pants_robe_skirt
@@ -11,7 +11,7 @@ enum class PantsTypes {
 
 class Pants : public BaseArmor {
 public:
-    Pants(const std::string& name);
-    std::string name() const override { return "Pants"; }
-    static std::shared_ptr<Pants> make_pants(PantsTypes type);
+    Pants(const std::string& name, PantsType type);
+    static std::shared_ptr<Pants> make_pants(PantsType type);
+    static std::shared_ptr<Pants> make_pants_from_json(const json& json_obj);
 };

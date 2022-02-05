@@ -17,10 +17,10 @@ void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& 
 
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
-            case(sf::Keyboard::Left):   Action::move_left   (this, time, game_field);                       break;
-            case(sf::Keyboard::Right):  Action::move_right  (this, time, game_field);                       break;
-            case(sf::Keyboard::Up):     Action::move_up     (this, time, game_field);                       break;
-            case(sf::Keyboard::Down):   Action::move_down   (this, time, game_field);                       break;
+            case(sf::Keyboard::Left):   Action::move_left   (this, time, game_field);           break;
+            case(sf::Keyboard::Right):  Action::move_right  (this, time, game_field);           break;
+            case(sf::Keyboard::Up):     Action::move_up     (this, time, game_field);           break;
+            case(sf::Keyboard::Down):   Action::move_down   (this, time, game_field);           break;
             case(sf::Keyboard::LShift): Action::hit         (this, time, drawable_creatures);   break;
         }
     }
@@ -45,16 +45,17 @@ void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& 
             event.type = sf::Event::KeyPressed;
             event.key.code = sf::Keyboard::LShift;
         }
-        else
+        else {
             Action::stop_animation(this);
+        }
     }
 }
 
 void Player::init_dress() {
-    set_armor(BodyArmor::make_body(BodyArmorTypes::BodyArmor_leather));
-    set_armor(Helmet::make_helmet(HelmetTypes::Helmet_chain_helmet));
-    set_armor(Pants::make_pants(PantsTypes::Pants_green));
-    set_armor(Boots::make_boots(BootsTypes::Boots_brown));
+    set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_leather));
+    set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
+    set_armor(Pants::make_pants(PantsType::Pants_green));
+    set_armor(Boots::make_boots(BootsType::Boots_brown));
 
-    set_weapon(Axe::make_axe(AxeTypes::Axe_basic));
+    set_weapon(Axe::make_axe(AxeType::Axe_basic));
 }

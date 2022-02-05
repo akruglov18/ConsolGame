@@ -43,7 +43,7 @@ void Creature::set_armor(std::shared_ptr<BaseArmor> armor) {
     armor->set_scale(pos);
 }
 
-void Creature::set_weapon(std::shared_ptr<Weapon> _weapon) {
+void Creature::set_weapon(std::shared_ptr<BaseWeapon> _weapon) {
     weapon = _weapon;
     weapon->set_scale(pos);
 }
@@ -87,7 +87,7 @@ void Creature::show_creature(sf::RenderWindow& window) {
     if (direction == Dirs::UP)
         window.draw(get_weapon()->get_sprite());
 
-    for (auto el : get_armor().INNERarmor_set) {
+    for (auto el : get_armor().armor_set) {
         if (el != nullptr)
             window.draw(el->get_sprite());
     }
@@ -111,15 +111,33 @@ std::string Creature::creature_type_str() const {
 
 json Creature::to_json() const {
     json res;
-    auto name = creature_type_str();
-    res[name]["health"] = health;
-    res[name]["experience"] = experience;
-    res[name]["pos"]["x"] = pos.x;
-    res[name]["pos"]["y"] = pos.y;
-    res[name][armor_set.name()] = armor_set.to_json();
+    res["health"] = health;
+    res["experience"] = experience;
+    res["pos"]["x"] = pos.x;
+    res["pos"]["y"] = pos.y;
+    res[armor_set.class_name()] = armor_set.to_json();
     if(weapon != nullptr)
-        res[name]["Weapon"] = weapon->to_json();
+        res[BaseWeapon::class_name()] = weapon->to_json();
     return res;
+}
+
+void Creature::load(const json& json_obj) {
+    for (auto it = json_obj.begin(); it != json_obj.end(); ++it) {
+        if (it.key() == "health") {
+            health = it.value();
+        } else if (it.key() == "experience") {
+            experience = it.value();
+        } else if (it.key() == "pos") {
+            pos.x = it.value()["x"];
+            pos.y = it.value()["y"];
+        } else if (it.key() == ArmorSet::class_name()) {
+            armor_set.load(it.value());
+        } else if (it.key() == BaseWeapon::class_name()) {
+            weapon = BaseWeapon::load(it.value());
+        } else {
+            throw std::invalid_argument("Unused key in json save: " + it.key());
+        }
+    }
 }
 
 void Creature::change_mode(Modes _mode) {
