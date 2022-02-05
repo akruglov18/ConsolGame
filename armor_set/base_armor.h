@@ -31,7 +31,7 @@ public:
     static ArmorType to_case(const std::string& type);
 
     int armor = 0;
-    int id;
 protected:
+    int id;
     ArmorType armor_type;
 };

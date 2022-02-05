@@ -15,8 +15,6 @@ public:
     BaseWeapon(const BaseWeapon& other);
 
     virtual double get_total_damage() const;
-    double get_damage() const { return damage; }
-    int get_critical_chance() const { return critical_chance; }
 
     static std::string class_name() { return "Weapon"; }
     virtual json to_json() const override;
@@ -36,7 +34,7 @@ public:
     double damage = 0;
     int critical_chance = 0;
     double critical_multiplier = 0;
-    int id;
 protected:
+    int id;
     WeaponType weapon_type;
 };

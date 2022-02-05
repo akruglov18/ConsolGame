@@ -1,4 +1,4 @@
-#include "BaseWeapon.h"
+#include "base_weapon.h"
 #include "Axe.h"
 #include "Spear.h"
 #include "Sword.h"
@@ -36,6 +36,7 @@ double BaseWeapon::get_total_damage() const {
 json BaseWeapon::to_json() const {
     json res;
     auto name = get_weapon_type_str();
+    res[name]["id"] = get_weapon_id();
     res[name]["damage"] = damage;
     res[name]["critical_chance"] = critical_chance;
     res[name]["critical_multiplier"] = critical_multiplier;
@@ -56,11 +57,11 @@ std::string BaseWeapon::type_to_str(WeaponType type) {
 }
 
 WeaponType BaseWeapon::to_case(const std::string& type) {
-    if(type == "BodyArmor")
+    if(type == "Axe")
         return WeaponType::AXE;
-    if(type == "Helmet")
+    if(type == "Spear")
         return WeaponType::SPEAR;
-    if(type == "Pants")
+    if(type == "Sword")
         return WeaponType::SWORD;
     throw std::invalid_argument("Undefined weapon type: " + type);
 }

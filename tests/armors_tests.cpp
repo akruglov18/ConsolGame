@@ -3,7 +3,7 @@
 #include "armor_set.h"
 #include "items.h"
 
-namespace TestsTypes {
+namespace ArmorTestsTypes {
 
 typedef BodyArmorType body_armor_type;
 typedef BootsType boots_type;
@@ -13,7 +13,7 @@ typedef PantsType pants_type;
 
 };  // TestsTypes 
 
-using namespace TestsTypes;
+using namespace ArmorTestsTypes;
 
 typedef std::tuple<
         body_armor_type> BodyArmorTestsParams;

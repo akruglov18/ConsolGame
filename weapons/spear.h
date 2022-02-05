@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseWeapon.h"
+#include "base_weapon.h"
 
 enum class SpearType {
     Spear_wood

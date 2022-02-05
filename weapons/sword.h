@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseWeapon.h"
+#include "base_weapon.h"
 
 enum class SwordType {
     Long_sword_basic

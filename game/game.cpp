@@ -30,8 +30,8 @@ Game::Game() {
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
-    save("save.json");
-    load("save.json");
+    // save("save.json");
+    // load("save.json");
 }
 
 void Game::game_loop() {    
@@ -117,9 +117,13 @@ bool Game::load(const std::string& file_name)  {
     std::ifstream in(file_name);
     if(!in.is_open())
         return false;
-    auto j = json::parse(in);
-    for(auto x : j) {
-        // std::cout << x. << "\n\n";
+    auto json_obj = json::parse(in);
+    for(auto it = json_obj.begin(); it != json_obj.end(); ++it) {
+        if(it.key() == player->creature_type_str()) {
+            player->load(it.value());
+        } else {
+            throw std::invalid_argument("Unused key in json save: " + it.key());
+        }
     }
     return true;
 }

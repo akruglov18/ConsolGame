@@ -6,10 +6,10 @@
 #include "sfml/Graphics.hpp"
 #include "field.h"
 #include "armor_set.h"
-#include "BaseWeapon.h"
-#include "Sword.h"
-#include "Spear.h"
-#include "Axe.h"
+#include "base_weapon.h"
+#include "sword.h"
+#include "spear.h"
+#include "axe.h"
 #include "nlohmann_json/json.hpp"
 
 using json = nlohmann::json;
@@ -65,7 +65,8 @@ public:
     void update_stuck_frame(float time);
     void set_health(int health);
     int Creature::get_damage() const;
-    int get_health() const {return health; }
+    int get_health() const { return health; }
+    int get_experience() const { return experience; }
 
     bool died = false;
     bool stuck = false;
