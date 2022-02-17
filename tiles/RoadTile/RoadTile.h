@@ -3,5 +3,5 @@
 
 class RoadTile : public Tile {
 public:
-	RoadTile(sf::Sprite& _sprite);
+    RoadTile(sf::Sprite& _sprite);
 };

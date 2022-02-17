@@ -4,7 +4,8 @@ static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 slider* slider::clicked_slider = nullptr;
 bool slider::was_released = false;
 
-void button::init(const sf::Font& font, const std::string& _text, View_mode func, int font_size, const sf::Color& color, const sf::FloatRect& _coord) {
+void button::init(const sf::Font& font, const std::string& _text, View_mode func, int font_size, const sf::Color& color,
+                  const sf::FloatRect& _coord) {
     texture = HOLDER().getResource("main_ui");
     text_color = color;
     coord = _coord;
@@ -58,7 +59,8 @@ void button::print_button(sf::RenderWindow& window) {
     window.draw(text);
 }
 
-View_mode button::buttons_checker(sf::Vector2i mouse_pos, const std::vector<button*>& _buttons, const sf::Event& _event) {
+View_mode button::buttons_checker(sf::Vector2i mouse_pos, const std::vector<button*>& _buttons,
+                                  const sf::Event& _event) {
     for (auto but : _buttons) {
         if (mouse_pos.x > but->coord.left && mouse_pos.x < but->coord.left + but->coord.width &&
             mouse_pos.y > but->coord.top && mouse_pos.y < but->coord.top + but->coord.height) {
@@ -67,8 +69,7 @@ View_mode button::buttons_checker(sf::Vector2i mouse_pos, const std::vector<butt
             if (_event.type == sf::Event::MouseButtonPressed) {
                 return but->function;
             }
-        }
-        else {
+        } else {
             if (but->hovered)
                 but->normal();
         }
@@ -76,7 +77,8 @@ View_mode button::buttons_checker(sf::Vector2i mouse_pos, const std::vector<butt
     return View_mode::NONE;
 }
 
-void slider::init(const sf::Font& font, const std::string& _text, Function func, int font_size, const sf::Color& color, const sf::FloatRect& _coord) {
+void slider::init(const sf::Font& font, const std::string& _text, Function func, int font_size, const sf::Color& color,
+                  const sf::FloatRect& _coord) {
     texture = HOLDER().getResource("main_ui");
     text_color = color;
     coord = _coord;
@@ -103,7 +105,7 @@ void slider::init(const sf::Font& font, const std::string& _text, Function func,
     sprite_slide.setTextureRect(sf::IntRect(762, 86, 24, 24));
     sprite_slide.setScale(sf::Vector2f(2.f, 2.f));
     sprite_slide.setPosition(sf::Vector2f(coord.left + coord.width - 44, coord.top + 2));
-    
+
     sprite_inner.setTexture(*texture);
     sprite_inner.setTextureRect(sf::IntRect(64, 120, 16, 16));
     sprite_inner.setScale(sf::Vector2f(2.f, 2.f));
@@ -129,13 +131,11 @@ void slider::move_slider(sf::Vector2i mouse_pos) {
         sprite_slide.setPosition(sf::Vector2f(mouse_pos.x + 0.f, coord.top + 2.f));
         sprite_inner.setPosition(sf::Vector2f(mouse_pos.x + 10.f, coord.top + 10.f));
         slide_value = static_cast<int>(1.22f * (100 * (mouse_pos.x - left_border)) / coord.width);
-    }
-    else if (mouse_pos.x >= right_border) {
+    } else if (mouse_pos.x >= right_border) {
         sprite_slide.setPosition(sf::Vector2f(right_border + 0.f, coord.top + 2.f));
         sprite_inner.setPosition(sf::Vector2f(right_border + 10.f, coord.top + 10.f));
         slide_value = 100;
-    }
-    else {
+    } else {
         sprite_slide.setPosition(sf::Vector2f(left_border + 0.f, coord.top + 2.f));
         sprite_inner.setPosition(sf::Vector2f(left_border + 10.f, coord.top + 10.f));
         slide_value = 0;
@@ -144,7 +144,6 @@ void slider::move_slider(sf::Vector2i mouse_pos) {
 }
 
 void slider::sliders_checker(sf::Vector2i mouse_pos, const std::vector<slider*>& _sliders) {
-
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
         was_released = true;
     }
@@ -166,8 +165,7 @@ void slider::sliders_checker(sf::Vector2i mouse_pos, const std::vector<slider*>&
             if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
                 clicked_slider = slider;
                 return;
-            }
-            else {
+            } else {
                 clicked_slider = nullptr;
             }
         }

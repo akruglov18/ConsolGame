@@ -1,18 +1,16 @@
 #include "tiles.h"
-#include "GrassTile/GrassTile.h"
-#include "WaterTile/WaterTile.h"
-#include "RoadTile/RoadTile.h"
 #include "DesertTile/DesertTile.h"
+#include "GrassTile/GrassTile.h"
+#include "RoadTile/RoadTile.h"
+#include "WaterTile/WaterTile.h"
 
-Tile::Tile(sf::Sprite& _sprite) : tile_sprite(_sprite) {
+Tile::Tile(sf::Sprite& _sprite): tile_sprite(_sprite) {
     passability = 2;
 }
 
 bool Tile::operator==(const Tile& tile) const {
-    return passability == tile.passability &&
-        feature == tile.feature &&
-        tree == tile.tree &&
-        &tile_sprite == &tile.tile_sprite;
+    return passability == tile.passability && feature == tile.feature && tree == tile.tree &&
+           &tile_sprite == &tile.tile_sprite;
 }
 
 bool Tile::operator!=(const Tile& tile) const {
@@ -32,16 +30,14 @@ void Tile::scale_borders(sf::Sprite& sprite, int i, int j, int r_b, int btm_b) {
             sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32 + 256, 32, 32));
         else if (i >= 4 && i < btm_b - 4)
             sprite.setTextureRect(sf::IntRect((j % 4) * 32, (i % 4) * 32 + 128, 32, 32));
-    }
-    else if (j >= r_b - 4) {
+    } else if (j >= r_b - 4) {
         if (i < 4)
             sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32, 32, 32));
         else if (i >= btm_b - 4)
             sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32 + 256, 32, 32));
         else if (i >= 4 && i < btm_b - 4)
             sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 256, (i % 4) * 32 + 128, 32, 32));
-    }
-    else if (j >= 4 && j < r_b - 4) {
+    } else if (j >= 4 && j < r_b - 4) {
         if (i < 4)
             sprite.setTextureRect(sf::IntRect((j % 4) * 32 + 128, (i % 4) * 32, 32, 32));
         else if (i >= btm_b - 4)

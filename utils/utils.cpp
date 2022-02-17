@@ -1,7 +1,7 @@
 #include "utils.h"
 
-std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(const std::vector<std::shared_ptr<Enemy>>& enemies,
-                                                                   const std::vector<int>& object_borders) {
+std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
+        const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<int>& object_borders) {
     int obj_top_border = object_borders[0];
     int obj_btm_border = object_borders[1];
     int obj_left_border = object_borders[2];
@@ -10,8 +10,8 @@ std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(const std:
     drawable_creatures.resize(0);
     drawable_creatures.reserve(enemies.size());
     for (const auto& x : enemies) {
-        if (x->get_pos().y > obj_top_border * 32 && x->get_pos().y < obj_btm_border * 32
-            && x->get_pos().x > obj_left_border * 32 + 32 && x->get_pos().x < obj_right_border * 32 - 32)
+        if (x->get_pos().y > obj_top_border * 32 && x->get_pos().y < obj_btm_border * 32 &&
+            x->get_pos().x > obj_left_border * 32 + 32 && x->get_pos().x < obj_right_border * 32 - 32)
             drawable_creatures.push_back(x);
     }
     return drawable_creatures;
@@ -24,7 +24,7 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
                 if (drawable_creatures[j]->get_pos().x > drawable_creatures[j + 1]->get_pos().x) {
                     std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
                 }
-            } else { 
+            } else {
                 if (drawable_creatures[j]->get_pos().y > drawable_creatures[j + 1]->get_pos().y) {
                     std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
                 }
@@ -33,10 +33,10 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
     }
 }
 
-std::vector<int> Utils::get_rendering_borders(int window_width, int window_height, 
-                                              int field_width, int field_height, const sf::Vector2f& player_pos) {
+std::vector<int> Utils::get_rendering_borders(int window_width, int window_height, int field_width, int field_height,
+                                              const sf::Vector2f& player_pos) {
     int left_border, right_border, top_border, btm_border;
-    int tile_size = 32; // immutable parameter
+    int tile_size = 32;  // immutable parameter
 
     // borders of rendering ///////////////////////////////////////////////////////////////////////////////////
     if (player_pos.x < window_width / 2)
@@ -50,7 +50,8 @@ std::vector<int> Utils::get_rendering_borders(int window_width, int window_heigh
     if (player_pos.y < window_height / 2)
         btm_border = window_height / tile_size + 2;
     else
-        btm_border = std::min(static_cast<int>(field_height), static_cast<int>(((player_pos.y + window_height / 2) / tile_size) + 1));
+        btm_border = std::min(static_cast<int>(field_height),
+                              static_cast<int>(((player_pos.y + window_height / 2) / tile_size) + 1));
     if (player_pos.y > field_height * tile_size - window_height / 2)
         top_border = field_height - window_height / tile_size - 2;
     else

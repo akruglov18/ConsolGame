@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "field.h"
 #include "drawer.h"
+#include "field.h"
 
 TEST(Field, move_constructor) {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
@@ -50,7 +50,7 @@ TEST(Field, equal_after_move_assignement) {
             tiles[i][j] = field(i, j);
         }
     }
-    Field field2(size, size); 
+    Field field2(size, size);
     field2 = std::move(field);
     bool res = true;
     for (int i = 0; i < size; i++) {
@@ -64,17 +64,17 @@ TEST(Field, equal_after_move_assignement) {
 
 void test_show_field() {
     for (int i = 64; i <= 512; i *= 2) {
-        sf::RenderWindow window{ sf::VideoMode(1280, 720), "TEST" };
+        sf::RenderWindow window{sf::VideoMode(1280, 720), "TEST"};
         std::shared_ptr<Field> field;
         field = std::shared_ptr<Field>(new Field(i, i));
         field->generate_field();
         std::shared_ptr<Player> player;
         CreatureManager manager;
-        player = std::make_shared<Player>(Player(manager, 100, { 366.f, 366.f }));
+        player = std::make_shared<Player>(Player(manager, 100, {366.f, 366.f}));
         std::vector<std::shared_ptr<Enemy>> enemies;
-        enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, { 400.f, 656.f }));
-        auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y,
-                                                    field->get_width(), field->get_height(), player->get_pos());
+        enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {400.f, 656.f}));
+        auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y, field->get_width(),
+                                                    field->get_height(), player->get_pos());
         auto object_borders = Utils::get_object_borders(borders, field->get_width(), field->get_height());
         auto drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
         Utils::sort_drawable_creatures(drawable_creatures);

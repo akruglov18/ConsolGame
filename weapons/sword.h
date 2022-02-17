@@ -2,9 +2,7 @@
 
 #include "base_weapon.h"
 
-enum class SwordType {
-    Long_sword_basic
-};
+enum class SwordType { Long_sword_basic };
 
 class Sword : public BaseWeapon {
 public:

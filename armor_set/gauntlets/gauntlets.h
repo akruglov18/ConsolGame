@@ -3,9 +3,7 @@
 #include <items.h>
 #include "../base_armor.h"
 
-enum class GauntletsType {
-    Gauntlets_plate
-};
+enum class GauntletsType { Gauntlets_plate };
 
 class Gauntlets : public BaseArmor {
 public:

@@ -17,7 +17,7 @@ View_mode skills_menu::Run(sf::RenderWindow& window) {
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Tab)
                 return View_mode::GAME;
-        }            
+        }
 
         window.clear(_color);
         window.display();

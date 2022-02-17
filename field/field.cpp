@@ -22,7 +22,7 @@ Field::Field(int width, int height) {
     desert_tree_sprite.setTexture(*HOLDER().getResource("desert_trees"));
 }
 
-Field::Field(Field&& field) : _field(std::move(field._field)) {
+Field::Field(Field&& field): _field(std::move(field._field)) {
     _width = field._width;
     _height = field._height;
     field._width = 0;
@@ -32,7 +32,7 @@ Field::Field(Field&& field) : _field(std::move(field._field)) {
 // operators //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Field& Field::operator=(Field&& field) {
-    if(this == &field)
+    if (this == &field)
         return *this;
     _field = std::move(field._field);
     _width = field._width;
@@ -58,7 +58,6 @@ void Field::set_size(int width, int height) {
 }
 
 void Field::generate_desert() {
-
     // GENERATION OF LANDSCAPE
     std::mt19937 gen;
     gen.seed(static_cast<unsigned>(time(0)));
@@ -114,7 +113,6 @@ void Field::generate_desert() {
 
 // It seems to be big and sophisticated method of generation of the game field.
 void Field::generate_field() {
-
     /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
     std::cout << std::fixed << std::setprecision(9) << std::left;
     auto start = std::chrono::high_resolution_clock::now();

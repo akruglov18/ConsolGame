@@ -3,5 +3,5 @@
 
 class GrassTile : public Tile {
 public:
-	GrassTile(sf::Sprite& _sprite);
+    GrassTile(sf::Sprite& _sprite);
 };

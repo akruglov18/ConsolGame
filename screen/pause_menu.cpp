@@ -3,8 +3,10 @@
 pause_menu::pause_menu() {
     color = sf::Color(255, 255, 255);
     font.loadFromFile("../../fonts/CyrilicOld.TTF");
-    b_main_menu.init(font, "Main menu", View_mode::MAIN_MENU, 28, sf::Color(96, 76, 66), sf::FloatRect(540.f, 320.f, 240.f, 52.f));
-    b_to_game.init(font, "To game", View_mode::GAME, 28, sf::Color(96, 76, 66), sf::FloatRect(540.f, 260.f, 240.f, 52.f));
+    b_main_menu.init(font, "Main menu", View_mode::MAIN_MENU, 28, sf::Color(96, 76, 66),
+                     sf::FloatRect(540.f, 320.f, 240.f, 52.f));
+    b_to_game.init(font, "To game", View_mode::GAME, 28, sf::Color(96, 76, 66),
+                   sf::FloatRect(540.f, 260.f, 240.f, 52.f));
 
     buttons.push_back(&b_main_menu);
     buttons.push_back(&b_to_game);

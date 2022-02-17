@@ -18,8 +18,8 @@ std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
 json ArmorSet::to_json() const {
     json res;
     auto size = static_cast<std::size_t>(ArmorType::SET_SIZE);
-    for(std::size_t i = 0; i < size; i++) {
-        if(armor_set[i] != nullptr)
+    for (std::size_t i = 0; i < size; i++) {
+        if (armor_set[i] != nullptr)
             res[armor_set[i]->get_armor_type_str()] = armor_set[i]->to_json();
     }
     return res;
@@ -27,13 +27,13 @@ json ArmorSet::to_json() const {
 
 void ArmorSet::load(const json& json_obj) {
     armor_set.assign(static_cast<int>(ArmorType::SET_SIZE), nullptr);
-    for(auto it = json_obj.begin(); it != json_obj.end(); ++it) {
+    for (auto it = json_obj.begin(); it != json_obj.end(); ++it) {
         auto armor = BaseArmor::make_armor_from_json(BaseArmor::to_case(it.key()), it.value());
         operator[](armor->get_armor_type()) = armor;
     }
 }
 
-std::string ArmorSet::class_name() { 
+std::string ArmorSet::class_name() {
     return "ArmorSet";
 }
 
