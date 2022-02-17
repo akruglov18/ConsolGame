@@ -11,6 +11,7 @@ private:
 public:
 
     void load_textures();
+    //void load_fonts();
 
     std::shared_ptr<ResourceType> loadFromFile(const std::string& fileName, const KeyType& key) {
         std::shared_ptr<ResourceType>& resourceRef = mResources[key];
@@ -330,4 +331,7 @@ inline void ResourceHolder<ResourceType, KeyType>::load_textures() {
     // Terrain Features
     HOLDER().loadFromFile("../../images/terrain/features/desert_features.png", "desert_features");
     HOLDER().loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
+
+// UI ELEMENTS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    HOLDER().loadFromFile("../../images/icons/ui_big_pieces.png", "main_ui");
 }

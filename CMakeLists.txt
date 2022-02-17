@@ -25,4 +25,6 @@ add_subdirectory(drawer)
 add_subdirectory(utils)
 add_subdirectory(tests)
 add_subdirectory(game)
+add_subdirectory(screen)
 add_subdirectory(main)
+
