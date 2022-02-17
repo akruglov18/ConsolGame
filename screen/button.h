@@ -1,6 +1,6 @@
 #pragma once
-#include "SFML/Graphics.hpp"
 #include <iostream>
+#include "SFML/Graphics.hpp"
 #include "utils.h"
 
 class button {
@@ -16,12 +16,14 @@ public:
 
     bool hovered = false;
 
-    void init(const sf::Font& font, const std::string& text, View_mode func, int font_size, const sf::Color& color, const sf::FloatRect& coord);
+    void init(const sf::Font& font, const std::string& text, View_mode func, int font_size, const sf::Color& color,
+              const sf::FloatRect& coord);
     void normal();
     void hover();
     void print_button(sf::RenderWindow& window);
 
-    static View_mode buttons_checker(sf::Vector2i mouse_pos, const std::vector<button*>& _buttons, const sf::Event& _event);
+    static View_mode buttons_checker(sf::Vector2i mouse_pos, const std::vector<button*>& _buttons,
+                                     const sf::Event& _event);
 };
 
 class slider {
@@ -45,7 +47,8 @@ public:
     int slide_value;
     static bool was_released;
 
-    void init(const sf::Font& font, const std::string& text, Function func, int font_size, const sf::Color& color, const sf::FloatRect& coord);
+    void init(const sf::Font& font, const std::string& text, Function func, int font_size, const sf::Color& color,
+              const sf::FloatRect& coord);
     void print_slider(sf::RenderWindow& window);
 
     void move_slider(sf::Vector2i mouse_pos);

@@ -1,32 +1,36 @@
 #pragma once
-#include "tiles.h"
+#include <chrono>
 #include <iomanip>
 #include <numeric>
-#include <chrono>
+#include "tiles.h"
 
-class Field
-{
+class Field {
 private:
     int _width;
     int _height;
-    std::vector <std::vector<std::shared_ptr<Tile>>> _field;
-    
+    std::vector<std::vector<std::shared_ptr<Tile>>> _field;
+
 public:
     // constructors~destructor
     Field();
     Field(int w, int h);
     Field(Field&&);
     Field(const Field&) = delete;
-    ~Field(){}
-    
+    ~Field() {
+    }
+
     // operators
     Field& operator=(Field&&);
     std::shared_ptr<Tile> operator()(int i, int j) const;
-    Field& operator=(const Field&) = delete;    
+    Field& operator=(const Field&) = delete;
 
     // getters & setters
-    int get_width() const { return _width; }
-    int get_height() const { return _height; }
+    int get_width() const {
+        return _width;
+    }
+    int get_height() const {
+        return _height;
+    }
     void set_size(int widht, int height);
 
     // sprites
@@ -44,8 +48,8 @@ public:
 
     void generate_rivers();
     void generate_lakes();
-    
-    void generate_trees();    
+
+    void generate_trees();
     void generate_roads();
     void generate_buildings();
 

@@ -27,4 +27,3 @@ add_subdirectory(tests)
 add_subdirectory(game)
 add_subdirectory(screen)
 add_subdirectory(main)
-

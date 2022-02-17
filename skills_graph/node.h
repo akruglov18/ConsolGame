@@ -1,6 +1,6 @@
-# pragma once
-#include <vector>
+#pragma once
 #include <memory>
+#include <vector>
 #include "skill.h"
 
 class Node {
@@ -15,10 +15,13 @@ public:
     bool is_locked() const;
     std::shared_ptr<Skill> unlock();
 
-    int get_cost() { return _cost; }
+    int get_cost() {
+        return _cost;
+    }
 
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;
+
 private:
     std::vector<std::shared_ptr<Node>> _childs;
     std::shared_ptr<Skill> _skill;

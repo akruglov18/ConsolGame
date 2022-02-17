@@ -3,11 +3,7 @@
 #include <items.h>
 #include "../base_armor.h"
 
-enum class PantsType {
-    Pants_green,
-    Pants_plate,
-    Pants_robe_skirt
-};
+enum class PantsType { Pants_green, Pants_plate, Pants_robe_skirt };
 
 class Pants : public BaseArmor {
 public:

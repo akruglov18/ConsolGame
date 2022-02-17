@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
-#include "creature.h"
-#include "enemy.h"
 #include "Player/player.h"
 #include "ResourceHolder.h"
+#include "creature.h"
+#include "enemy.h"
 
 TEST(CreatureManager, can_create) {
     ASSERT_NO_THROW(CreatureManager());
@@ -26,10 +26,10 @@ void test_stuck() {
     field->generate_desert();
     CreatureManager man;
     CreatureManager skeleton;
-    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, { 256.f, 236.f }));
+    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, {256.f, 236.f}));
     player->init_dress();
     std::vector<std::shared_ptr<Creature>> enemies;
-    enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, skeleton, 100, { 256.f, 256.f }));
+    enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, skeleton, 100, {256.f, 256.f}));
     sf::Event event;
     event.type = sf::Event::KeyPressed;
     event.key.code = sf::Keyboard::LShift;
@@ -55,7 +55,7 @@ TEST(CreatureTests, stuck) {
 
 void test_change_mode() {
     CreatureManager man;
-    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, { 256.f, 236.f }));
+    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, {256.f, 236.f}));
     player->init_dress();
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
         player->change_mode(static_cast<Modes>(i));
