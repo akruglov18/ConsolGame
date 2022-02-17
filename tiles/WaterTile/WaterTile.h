@@ -3,5 +3,5 @@
 
 class WaterTile : public Tile {
 public:
-	WaterTile(sf::Sprite& _sprite);
+    WaterTile(sf::Sprite& _sprite);
 };

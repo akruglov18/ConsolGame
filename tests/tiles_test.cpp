@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "field.h"
-#include "all_tiles.h"
 #include "ResourceHolder.h"
+#include "all_tiles.h"
+#include "field.h"
 
 void load_textures_t() {
     auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;

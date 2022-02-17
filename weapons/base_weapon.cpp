@@ -28,7 +28,7 @@ double BaseWeapon::get_total_damage() const {
     int chance = gen() % 101;
     double result = damage;
     if (chance <= critical_chance) {
-        result = damage*critical_multiplier;
+        result = damage * critical_multiplier;
     }
     return result;
 }
@@ -44,39 +44,47 @@ json BaseWeapon::to_json() const {
 }
 
 std::string BaseWeapon::get_weapon_type_str() const {
-    return  type_to_str(weapon_type);
+    return type_to_str(weapon_type);
 }
 
 std::string BaseWeapon::type_to_str(WeaponType type) {
-    switch(type){
-        case WeaponType::AXE : return "Axe";
-        case WeaponType::SPEAR : return "Spear";
-        case WeaponType::SWORD : return "Sword";
-        default : return "NONE";
+    switch (type) {
+    case WeaponType::AXE:
+        return "Axe";
+    case WeaponType::SPEAR:
+        return "Spear";
+    case WeaponType::SWORD:
+        return "Sword";
+    default:
+        return "NONE";
     }
 }
 
 WeaponType BaseWeapon::to_case(const std::string& type) {
-    if(type == "Axe")
+    if (type == "Axe")
         return WeaponType::AXE;
-    if(type == "Spear")
+    if (type == "Spear")
         return WeaponType::SPEAR;
-    if(type == "Sword")
+    if (type == "Sword")
         return WeaponType::SWORD;
     throw std::invalid_argument("Undefined weapon type: " + type);
 }
 
 std::shared_ptr<BaseWeapon> BaseWeapon::make_weapon_from_json(WeaponType type, const json& json_obj) {
-    switch(type) {
-        case WeaponType::AXE: return Axe::make_axe_from_json(json_obj);
-        case WeaponType::SPEAR: return Spear::make_spear_from_json(json_obj);
-        case WeaponType::SWORD: return Sword::make_sword_from_json(json_obj);
-        default : throw std::invalid_argument("Undefined WeaponType");
+    switch (type) {
+    case WeaponType::AXE:
+        return Axe::make_axe_from_json(json_obj);
+    case WeaponType::SPEAR:
+        return Spear::make_spear_from_json(json_obj);
+    case WeaponType::SWORD:
+        return Sword::make_sword_from_json(json_obj);
+    default:
+        throw std::invalid_argument("Undefined WeaponType");
     }
 }
 
 std::shared_ptr<BaseWeapon> BaseWeapon::load(const json& json_obj) {
-    // to-do 
+    // to-do
     // there is expected that only one weapon will be in the json module called "Weapon"
     // if there will be more weapons than it is needed to updated
     auto it = json_obj.begin();

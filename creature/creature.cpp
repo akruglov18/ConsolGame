@@ -6,8 +6,8 @@
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos) :
-                   manager(_manager), pos(_pos) {
+Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
+        : manager(_manager), pos(_pos) {
     current_frame = 0.f;
     health = _health;
     direction = Dirs::DOWN;
@@ -22,7 +22,7 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
     sprite.setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
 }
 
-Creature::Creature(const Creature& other) : manager(other.manager), pos(other.pos) {
+Creature::Creature(const Creature& other): manager(other.manager), pos(other.pos) {
     current_frame = other.current_frame;
     health = other.health;
     body_textures = other.body_textures;
@@ -49,14 +49,14 @@ void Creature::set_weapon(std::shared_ptr<BaseWeapon> _weapon) {
 }
 
 int Creature::get_damage() const {
-    if(weapon == nullptr)
+    if (weapon == nullptr)
         return 0;
     return static_cast<int>(weapon->get_total_damage());
 }
 
 void Creature::reduce_health(int value) {
     health -= value;
-    //std::cout << "health = " << health << '\n';
+    // std::cout << "health = " << health << '\n';
     stuck = true;
     stuck_time = STUCK_TIME;
     if (health < 0) {
@@ -97,15 +97,23 @@ void Creature::show_creature(sf::RenderWindow& window) {
 }
 
 std::string Creature::creature_type_str() const {
-    switch(creature_type) {
-        case CreatureType::PLAYER:      return "Player";
-        case CreatureType::BEETLE:      return "Beetle";
-        case CreatureType::WOLF:        return "Wolf";
-        case CreatureType::TRADER:      return "Trader";
-        case CreatureType::TAUR:        return "Taur";
-        case CreatureType::SKELETON:    return "Skeleton";
-        case CreatureType::NONE:        return "NONE";
-        default:                        throw std::logic_error("Invalid creature type");
+    switch (creature_type) {
+    case CreatureType::PLAYER:
+        return "Player";
+    case CreatureType::BEETLE:
+        return "Beetle";
+    case CreatureType::WOLF:
+        return "Wolf";
+    case CreatureType::TRADER:
+        return "Trader";
+    case CreatureType::TAUR:
+        return "Taur";
+    case CreatureType::SKELETON:
+        return "Skeleton";
+    case CreatureType::NONE:
+        return "NONE";
+    default:
+        throw std::logic_error("Invalid creature type");
     }
 }
 
@@ -116,7 +124,7 @@ json Creature::to_json() const {
     res["pos"]["x"] = pos.x;
     res["pos"]["y"] = pos.y;
     res[armor_set.class_name()] = armor_set.to_json();
-    if(weapon != nullptr)
+    if (weapon != nullptr)
         res[BaseWeapon::class_name()] = weapon->to_json();
     return res;
 }
@@ -153,10 +161,10 @@ void CreatureManager::setPlayer(const std::shared_ptr<Player>& _player) {
 }
 
 void CreatureManager::creatureDied(Creature* creature) {
-    if(creature->get_type() == CreatureType::NONE)
+    if (creature->get_type() == CreatureType::NONE)
         throw std::logic_error("Creature died, Creture type: NONE");
 
-    if(creature->get_type() == CreatureType::PLAYER) {
+    if (creature->get_type() == CreatureType::PLAYER) {
         // end game
         return;
     }

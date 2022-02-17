@@ -3,21 +3,22 @@
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-Spear::Spear(const std::string& name, SpearType type) : BaseWeapon(name) {
+Spear::Spear(const std::string& name, SpearType type): BaseWeapon(name) {
     weapon_type = WeaponType::SPEAR;
     id = static_cast<int>(type);
 }
 
 std::shared_ptr<Spear> Spear::make_spear(SpearType type) {
     switch (type) {
-        case SpearType::Spear_wood : {
-            auto res = std::shared_ptr<Spear>(new Spear("SPEAR_wood", type));
-            res->damage = 20.0;
-            res->critical_chance = 40;
-            res->critical_multiplier = 1.1;
-            return res;
-        }
-        default: throw std::invalid_argument("Undefined SpearType");
+    case SpearType::Spear_wood: {
+        auto res = std::shared_ptr<Spear>(new Spear("SPEAR_wood", type));
+        res->damage = 20.0;
+        res->critical_chance = 40;
+        res->critical_multiplier = 1.1;
+        return res;
+    }
+    default:
+        throw std::invalid_argument("Undefined SpearType");
     }
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "SFML/Graphics.hpp"
 #include "ResourceHolder.h"
+#include "SFML/Graphics.hpp"
 
 class Tile {
 protected:
@@ -15,14 +15,16 @@ public:
     bool operator==(const Tile& tile) const;
     bool operator!=(const Tile& tile) const;
 
-    //methods
+    // methods
     static void scale_tiles(sf::Sprite& sprite, int i, int j);
     static void scale_borders(sf::Sprite& sprite, int i, int j, int r_b, int btm_b);
     static void scale_features(sf::Sprite& sprite, int chance, int i, int j);
     static void scale_trees(sf::Sprite& sprite, int chance, int i, int j);
 
     // getters & setters
-    int& get_passability() { return passability; }
+    int& get_passability() {
+        return passability;
+    }
 
     bool border = false;
     sf::Sprite& tile_sprite;

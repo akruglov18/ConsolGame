@@ -3,13 +3,7 @@
 #include <items.h>
 #include "../base_armor.h"
 
-enum HelmetType {
-    Helmet_chain_helmet,
-    Helmet_chain_hood,
-    Helmet_leather_hat,
-    Helmet_plate,
-    Helmet_robe
-};
+enum HelmetType { Helmet_chain_helmet, Helmet_chain_hood, Helmet_leather_hat, Helmet_plate, Helmet_robe };
 
 class Helmet : public BaseArmor {
 public:

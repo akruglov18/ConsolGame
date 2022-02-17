@@ -2,9 +2,7 @@
 
 #include "base_weapon.h"
 
-enum class AxeType {
-    Axe_basic
-};
+enum class AxeType { Axe_basic };
 
 class Axe : public BaseWeapon {
 public:

@@ -3,10 +3,7 @@
 #include <items.h>
 #include "../base_armor.h"
 
-enum class BootsType {
-    Boots_plate,
-    Boots_brown
-};
+enum class BootsType { Boots_plate, Boots_brown };
 
 class Boots : public BaseArmor {
 public:

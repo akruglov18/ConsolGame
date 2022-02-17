@@ -2,9 +2,7 @@
 
 #include "base_weapon.h"
 
-enum class SpearType {
-    Spear_wood
-};
+enum class SpearType { Spear_wood };
 
 class Spear : public BaseWeapon {
 public:
