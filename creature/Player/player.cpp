@@ -55,12 +55,3 @@ void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& 
         }
     }
 }
-
-void Player::init_dress() {
-    set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_leather));
-    set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
-    set_armor(Pants::make_pants(PantsType::Pants_green));
-    set_armor(Boots::make_boots(BootsType::Boots_brown));
-
-    set_weapon(Axe::make_axe(AxeType::Axe_basic));
-}

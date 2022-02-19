@@ -4,13 +4,9 @@
 #include <string>
 #include <vector>
 #include "armor_set.h"
-#include "axe.h"
 #include "base_weapon.h"
-#include "field.h"
 #include "nlohmann_json/json.hpp"
 #include "sfml/Graphics.hpp"
-#include "spear.h"
-#include "sword.h"
 
 using json = nlohmann::json;
 
@@ -20,6 +16,7 @@ enum class Dirs { LEFT, RIGHT, UP, DOWN };
 
 class CreatureManager;
 class Player;
+class Enemy;
 
 class Creature {
 public:
@@ -101,11 +98,12 @@ protected:
 class CreatureManager {
 public:
     CreatureManager(){};
-    void setPlayer(const std::shared_ptr<Player>& player);
+    void setPlayer(Player* player);
+    void setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies);
     void creatureDied(Creature* creature);
     ~CreatureManager(){};
 
 private:
-    std::weak_ptr<Player> player;
-    std::weak_ptr<Field> field;
+    Player* player;
+    std::vector<std::shared_ptr<Enemy>>* enemies;
 };

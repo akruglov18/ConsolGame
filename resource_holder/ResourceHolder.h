@@ -1,8 +1,8 @@
 #pragma once
 
 #include <map>
-#include <string>
 #include <memory>
+#include <string>
 
 template <typename ResourceType, typename KeyType>
 class ResourceHolder {
