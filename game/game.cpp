@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <fstream>
 #include <thread>
+#include "armors.h"
+#include "weapons.h"
 
 //#define universal
 
@@ -15,8 +17,14 @@ Game::Game(sf::RenderWindow* _window) {
 
     player = std::shared_ptr<Player>(new Player(manager, 100, {666.f, 260.f}));
     get_player_pos_for_view(player->get_pos());
-    manager.setPlayer(player);
-    player->init_dress();
+    manager.setPlayer(player.get());
+    manager.setEnemies(&enemies);
+
+    player->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_leather));
+    player->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
+    player->set_armor(Pants::make_pants(PantsType::Pants_green));
+    player->set_armor(Boots::make_boots(BootsType::Boots_brown));
+    player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
@@ -24,8 +32,6 @@ Game::Game(sf::RenderWindow* _window) {
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
-    // save("save.json");
-    // load("save.json");
 }
 
 View_mode Game::game_loop() {

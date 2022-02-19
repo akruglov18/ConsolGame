@@ -1,5 +1,5 @@
+#include "weapons.h"
 #include <gtest/gtest.h>
-#include "Axe.h"
 
 #include "Player/player.h"
 #include "ResourceHolder.h"

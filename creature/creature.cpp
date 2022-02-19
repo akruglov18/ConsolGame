@@ -1,6 +1,7 @@
 #include "creature.h"
 #include "Player/player.h"
 #include "ResourceHolder.h"
+#include "enemy.h"
 
 #define STUCK_TIME 3.f
 
@@ -9,6 +10,7 @@ static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
         : manager(_manager), pos(_pos) {
     current_frame = 0.f;
+    experience = 0;
     health = _health;
     direction = Dirs::DOWN;
     mode = Modes::WALK;
@@ -48,6 +50,10 @@ void Creature::set_weapon(std::shared_ptr<BaseWeapon> _weapon) {
     weapon->set_scale(pos);
 }
 
+void Creature::set_health(int _health) {
+    health = _health;
+}
+
 int Creature::get_damage() const {
     if (weapon == nullptr)
         return 0;
@@ -59,7 +65,7 @@ void Creature::reduce_health(int value) {
     // std::cout << "health = " << health << '\n';
     stuck = true;
     stuck_time = STUCK_TIME;
-    if (health < 0) {
+    if (health <= 0) {
         died = true;
     }
 }
@@ -156,8 +162,12 @@ void Creature::change_mode(Modes _mode) {
     mode = _mode;
 }
 
-void CreatureManager::setPlayer(const std::shared_ptr<Player>& _player) {
+void CreatureManager::setPlayer(Player* _player) {
     player = _player;
+}
+
+void CreatureManager::setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies) {
+    enemies = _enemies;
 }
 
 void CreatureManager::creatureDied(Creature* creature) {
@@ -167,10 +177,14 @@ void CreatureManager::creatureDied(Creature* creature) {
     if (creature->get_type() == CreatureType::PLAYER) {
         // end game
         return;
+    } else {
+        for (auto it = (*enemies).begin(); it != (*enemies).end(); ++it) {
+            if (it->get() == creature) {
+                (*enemies).erase(it);
+                break;
+            }
+        }
     }
 
-    auto field_ptr = field.lock();
-
-    auto player_ptr = player.lock();
-    player_ptr->add_experience(10);
+    player->add_experience(10);
 }

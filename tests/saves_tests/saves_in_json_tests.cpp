@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
 
-#include "armor_set.h"
+#include "armors.h"
 #include "items.h"
 #include "player/Player.h"
+#include "weapons.h"
 
 namespace SavesTestsTypes {
 
