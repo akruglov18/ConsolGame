@@ -15,8 +15,8 @@ SkillsGraph::SkillsGraph() {
 
     // Making correct graphics
     skills[0]->set_coord(sf::Vector2f(600.f, 320.f));
-    skills[1]->set_coord(sf::Vector2f(720.f, 320.f));
-    skills[2]->set_coord(sf::Vector2f(840.f, 320.f));
+    skills[1]->set_coord(sf::Vector2f(740.f, 320.f));
+    skills[2]->set_coord(sf::Vector2f(880.f, 320.f));
 }
 
 std::size_t SkillsGraph::add_skill(const std::string& name, std::shared_ptr<Skill> skill, int cost, int parent) {

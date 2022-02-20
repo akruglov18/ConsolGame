@@ -7,9 +7,8 @@ Node::Node(const std::string& name, std::shared_ptr<Skill> _skill, int _cost): c
     font.loadFromFile("../../fonts/CyrilicOld.TTF");
     text.setFont(font);
     text.setString(name);
-    text.setCharacterSize(14);
+    text.setCharacterSize(16);
     text.setFillColor(sf::Color(100, 30, 30));
-    text.setStyle(sf::Text::Bold);
     skill = _skill;
     barrier = 0;
     coord = {0.f, 0.f};

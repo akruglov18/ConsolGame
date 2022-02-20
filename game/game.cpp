@@ -41,7 +41,6 @@ View_mode Game::game_loop() {
         // The regulator of game speed
         auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
-
         sf::Event event;
         window->pollEvent(event);
 
@@ -69,7 +68,7 @@ View_mode Game::game_loop() {
             event = std::move(last_event);
         }
 
-        std::cout << player->get_health() << '\r';
+        //std::cout << player->get_health() << '\r';
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
@@ -78,13 +77,11 @@ View_mode Game::game_loop() {
         }
 
         last_event = std::move(event);
-        /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
-        auto start = std::chrono::high_resolution_clock::now();
+
         render();
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff = end - start;
-        //std::cout << "fps: " << std::setw(9) << 1 / diff.count() << "\r";
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        window->setView(window->getDefaultView());
+        fps.add_time(time, *window);
+        window->display();
     }
     return View_mode::NONE;
 }
@@ -98,7 +95,6 @@ void Game::render() {
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
     Utils::sort_drawable_creatures(drawable_creatures);
     Drawer::show_everything(*window, game_field, borders, object_borders, player, drawable_creatures);
-    window->display();
 }
 
 sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
