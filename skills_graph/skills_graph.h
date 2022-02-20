@@ -19,6 +19,12 @@ public:
     std::shared_ptr<Node> operator[](int index) {
         return skills[index];
     }
+    std::size_t size() const {
+        return skills.size();
+    }
+    std::vector<std::shared_ptr<Node>> get() const {
+        return skills;
+    }
 
 private:
     std::vector<std::shared_ptr<Node>> skills;

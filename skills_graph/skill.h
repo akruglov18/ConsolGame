@@ -6,8 +6,13 @@
 
 class Skill {
 public:
-    Skill(std::function<void(Player&)> _player_func);
+    Skill(std::function<void(Player&)> _player_func, 
+          std::function<void(Player&)> _enemy_func = nullptr,
+          std::function<void(Player&)> _environment_func = nullptr);
+
     std::function<void(Player&)> player_func;
+    std::function<void(Player&)> emeny_func;
+    std::function<void(Player&)> environment_func;
 };
 
 class Skills_Functions {

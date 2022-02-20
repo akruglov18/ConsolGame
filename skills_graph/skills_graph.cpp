@@ -3,12 +3,20 @@
 
 SkillsGraph::SkillsGraph() {
     skills.reserve(128);
+    // Making skills
     std::shared_ptr<Skill> s_vitality5(new Skill(Skills_Functions::vitality5));
     std::shared_ptr<Skill> s_vitality10(new Skill(Skills_Functions::vitality10));
     std::shared_ptr<Skill> s_vitality15(new Skill(Skills_Functions::vitality15));
+
+    // Making graph
     add_skill(s_vitality5, 500);
-    add_skill(s_vitality10, 500, 0);
-    add_skill(s_vitality15, 500, 1);
+    add_skill(s_vitality10, 1000, 0);
+    add_skill(s_vitality15, 1700, 1);
+
+    // Making correct graphics
+    skills[0]->set_coord(sf::Vector2f(600.f, 320.f));
+    skills[1]->set_coord(sf::Vector2f(720.f, 320.f));
+    skills[2]->set_coord(sf::Vector2f(840.f, 320.f));
 }
 
 std::size_t SkillsGraph::add_skill(std::shared_ptr<Skill> skill, int cost, int parent) {
