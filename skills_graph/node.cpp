@@ -3,7 +3,13 @@
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
-Node::Node(std::shared_ptr<Skill> _skill, int _cost): cost(_cost) {
+Node::Node(const std::string& name, std::shared_ptr<Skill> _skill, int _cost): cost(_cost) {
+    font.loadFromFile("../../fonts/CyrilicOld.TTF");
+    text.setFont(font);
+    text.setString(name);
+    text.setCharacterSize(14);
+    text.setFillColor(sf::Color(100, 30, 30));
+    text.setStyle(sf::Text::Bold);
     skill = _skill;
     barrier = 0;
     coord = {0.f, 0.f};
@@ -70,6 +76,7 @@ void Node::print_node(sf::RenderWindow& window) {
     window.draw(node_body_l);
     window.draw(node_body_m);
     window.draw(node_body_r);
+    window.draw(text);
 }
 
 void Node::set_coord(sf::Vector2f& c) {
@@ -77,6 +84,7 @@ void Node::set_coord(sf::Vector2f& c) {
     node_body_l.setPosition(coord);
     node_body_m.setPosition({coord.x + 32, coord.y});
     node_body_r.setPosition({coord.x + 60, coord.y});
+    text.setPosition(sf::Vector2f(coord.x, coord.y - 30));
 }
 
 void Node::node_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,

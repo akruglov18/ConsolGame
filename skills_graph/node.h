@@ -5,7 +5,7 @@
 
 class Node {
 public:
-    Node(std::shared_ptr<Skill> skill, int cost);
+    Node(const std::string& name, std::shared_ptr<Skill> skill, int cost);
     Node(Node&& other);
     Node& operator=(Node&& other);
 
@@ -32,6 +32,10 @@ public:
     Node& operator=(const Node&) = delete;
 
 private:
+    sf::Font font;
+    sf::Text text;
+    sf::Text help_text;
+
     std::shared_ptr<sf::Texture> main_texture;
     sf::Sprite node_body_l;
     sf::Sprite node_body_m;
