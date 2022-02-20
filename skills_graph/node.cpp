@@ -1,33 +1,33 @@
 #include "node.h"
 #include <stdexcept>
 
-Node::Node(std::shared_ptr<Skill> skill, int cost): _cost(cost) {
-    _skill = skill;
-    _barrier = 0;
+Node::Node(std::shared_ptr<Skill> _skill, int _cost): cost(_cost) {
+    skill = _skill;
+    barrier = 0;
 }
 
-Node::Node(Node&& other): _childs(std::move(other._childs)), _skill(std::move(other._skill)) {
-    _barrier = other._barrier;
-    other._barrier = 0;
-    _cost = other._cost;
-    other._cost = 0;
+Node::Node(Node&& other): childs(std::move(other.childs)), skill(std::move(other.skill)) {
+    barrier = other.barrier;
+    other.barrier = 0;
+    cost = other.cost;
+    other.cost = 0;
 }
 
 Node& Node::operator=(Node&& other) {
     if (this == &other)
         return *this;
-    _childs = std::move(other._childs);
-    _skill = std::move(other._skill);
-    _barrier = other._barrier;
-    other._barrier = 0;
-    _cost = other._cost;
-    other._cost = 0;
+    childs = std::move(other.childs);
+    skill = std::move(other.skill);
+    barrier = other.barrier;
+    other.barrier = 0;
+    cost = other.cost;
+    other.cost = 0;
     return *this;
 }
 
-void Node::add_child(std::shared_ptr<Node> child) {
-    _childs.push_back(child);
-    child->_barrier++;
+void Node::add_child(std::shared_ptr<Node> _child) {
+    childs.push_back(_child);
+    _child->barrier++;
 }
 
 void Node::add_childs(const std::vector<std::shared_ptr<Node>>& childs) {
@@ -37,14 +37,18 @@ void Node::add_childs(const std::vector<std::shared_ptr<Node>>& childs) {
 }
 
 bool Node::is_locked() const {
-    return _barrier != 0;
+    return barrier != 0;
 }
 
 std::shared_ptr<Skill> Node::unlock() {
     if (is_locked())
         throw std::logic_error("Skill is blocked");
-    for (const auto& child : _childs) {
-        child->_barrier--;
+    for (const auto& child : childs) {
+        child->barrier--;
     }
-    return _skill;
+    return skill;
+}
+
+void Node::use_skill(Player& p) {
+    skill->player_func(p);
 }

@@ -12,5 +12,5 @@ public:
 
     std::vector<button*> buttons;
 
-    virtual View_mode Run(sf::RenderWindow& window) override;
+    virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player) override;
 };

@@ -16,6 +16,10 @@ public:
     bool is_locked(std::size_t id);
     std::shared_ptr<Skill> unlock(std::size_t id);
 
+    std::shared_ptr<Node> operator[](int index) {
+        return skills[index];
+    }
+
 private:
-    std::vector<std::shared_ptr<Node>> _skills;
+    std::vector<std::shared_ptr<Node>> skills;
 };

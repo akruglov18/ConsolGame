@@ -16,15 +16,17 @@ public:
     std::shared_ptr<Skill> unlock();
 
     int get_cost() {
-        return _cost;
+        return cost;
     }
+
+    void use_skill(Player& p);
 
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;
 
 private:
-    std::vector<std::shared_ptr<Node>> _childs;
-    std::shared_ptr<Skill> _skill;
-    int _barrier;
-    int _cost;
+    std::vector<std::shared_ptr<Node>> childs;
+    std::shared_ptr<Skill> skill;
+    int barrier;
+    int cost;
 };

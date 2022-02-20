@@ -2,17 +2,24 @@
 #include <stdexcept>
 
 SkillsGraph::SkillsGraph() {
+    skills.reserve(128);
+    std::shared_ptr<Skill> s_vitality5(new Skill(Skills_Functions::vitality5));
+    std::shared_ptr<Skill> s_vitality10(new Skill(Skills_Functions::vitality10));
+    std::shared_ptr<Skill> s_vitality15(new Skill(Skills_Functions::vitality15));
+    add_skill(s_vitality5, 500);
+    add_skill(s_vitality10, 500, 0);
+    add_skill(s_vitality15, 500, 1);
 }
 
 std::size_t SkillsGraph::add_skill(std::shared_ptr<Skill> skill, int cost, int parent) {
-    if (parent >= static_cast<int>(_skills.size())) {
+    if (parent >= static_cast<int>(skills.size())) {
         throw std::out_of_range("Parent's skill is out of range");
     }
     std::shared_ptr<Node> node(new Node(skill, cost));
-    _skills.push_back(node);
+    skills.push_back(node);
     if (parent != -1)
-        _skills[parent]->add_child(node);
-    return _skills.size() - 1;
+        skills[parent]->add_child(node);
+    return skills.size() - 1;
 }
 
 std::vector<std::size_t> SkillsGraph::add_skills(const std::vector<std::shared_ptr<Skill>>& skills,
@@ -40,13 +47,13 @@ std::vector<std::size_t> SkillsGraph::add_skills(const std::vector<std::shared_p
 }
 
 void SkillsGraph::connect(std::size_t id_from, std::size_t id_to) {
-    _skills[id_from]->add_child(_skills[id_to]);
+    skills[id_from]->add_child(skills[id_to]);
 }
 
 bool SkillsGraph::is_locked(std::size_t id) {
-    return _skills[id]->is_locked();
+    return skills[id]->is_locked();
 }
 
 std::shared_ptr<Skill> SkillsGraph::unlock(std::size_t id) {
-    return _skills[id]->unlock();
+    return skills[id]->unlock();
 }

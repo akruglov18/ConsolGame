@@ -25,6 +25,7 @@ public:
     View_mode game_loop();
     bool save(const std::string& name) const;
     bool load(const std::string& name);
+    std::shared_ptr<Player> get_player() { return player; }
 
     // Game methods
     void render();
