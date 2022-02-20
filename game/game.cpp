@@ -51,6 +51,9 @@ View_mode Game::game_loop() {
             switch (event.key.code) {
             case (sf::Keyboard::Tab):
                 return View_mode::SKILLS_MENU;
+            case (sf::Keyboard::Tilde):
+                fps.on = !fps.on;
+                break;
             case (sf::Keyboard::Escape):
                 sf::Texture texture;
                 texture.create(window->getSize().x, window->getSize().y);
@@ -58,17 +61,18 @@ View_mode Game::game_loop() {
                 sf::Image screenshot = texture.copyToImage();
                 screenshot.saveToFile("../../images/tmp.jpg");
                 return View_mode::PAUSE_MENU;
-                // case(sf::Keyboard::M): return View_mode::MAP_MENU;
+         // case(sf::Keyboard::M): return View_mode::MAP_MENU;
             }
         }
 
         if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
             event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
-            event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
+            event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) {
             event = std::move(last_event);
         }
 
-        //std::cout << player->get_health() << '\r';
+        std::cout << player->get_health() << '\r';
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 

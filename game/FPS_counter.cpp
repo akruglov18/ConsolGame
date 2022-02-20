@@ -1,6 +1,7 @@
 #include "FPS_counter.h"
 
 FPS_counter::FPS_counter() {
+    on = true;
     font.loadFromFile("../../fonts/CyrilicOld.TTF");
     text_aver_fps.setFont(font);
     text_aver_fps.setCharacterSize(16);
@@ -41,7 +42,9 @@ void FPS_counter::add_time(float time, sf::RenderWindow& window) {
         elapsed_time = 0.f;
         frames_count = 0;
     }
-    window.draw(text_aver_fps);
-    window.draw(text_max_fps);
-    window.draw(text_min_fps);
+    if (on) {
+        window.draw(text_aver_fps);
+        window.draw(text_max_fps);
+        window.draw(text_min_fps);
+    }
 }

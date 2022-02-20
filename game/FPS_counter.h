@@ -17,4 +17,5 @@ private:
 public:
     FPS_counter();
     void add_time(float time, sf::RenderWindow& window);
+    bool on;
 };
