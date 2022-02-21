@@ -6,6 +6,7 @@ skills_menu::skills_menu() {
     exit_button.init(font, "Back", View_mode::GAME, 28, sf::Color(96, 76, 66),
                      sf::FloatRect(20.f, 20.f, 150.f, 52.f));
     buttons.push_back(&exit_button);
+    graph.init();
 }
 
 View_mode skills_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {

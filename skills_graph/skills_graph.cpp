@@ -2,7 +2,10 @@
 #include <stdexcept>
 
 SkillsGraph::SkillsGraph() {
-    skills.reserve(128);
+    skills.reserve(128);    
+}
+
+void SkillsGraph::init() {
     // Making skills
     std::shared_ptr<Skill> s_vitality5(new Skill(Skills_Functions::vitality5));
     std::shared_ptr<Skill> s_vitality10(new Skill(Skills_Functions::vitality10));
