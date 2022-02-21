@@ -1,13 +1,12 @@
 #pragma once
-#include "creature.h"
-#include "Player/player.h"
-#include "field.h"
 #include <functional>
+#include "Player/player.h"
+#include "creature.h"
+#include "field.h"
 
 class Skill {
 public:
-    Skill(std::function<void(Player&)> _player_func, 
-          std::function<void(std::vector<Enemy>&)> _enemy_func = nullptr,
+    Skill(std::function<void(Player&)> _player_func, std::function<void(std::vector<Enemy>&)> _enemy_func = nullptr,
           std::function<void(Field&)> _environment_func = nullptr);
 
     std::function<void(Player&)> player_func;
@@ -17,7 +16,7 @@ public:
 
 class Skills_Functions {
 public:
-////VITALITY///////////////////////////////////////////////////////////////////////////////////////
+    ////VITALITY///////////////////////////////////////////////////////////////////////////////////////
     // спрей от жуков: жуки и пауки теперь не агрятся и не кусают, а наоборот обходят нас стороной
     // в этом есть очевидные плюсы, но есть и минусы, хитин добывать сложнее
     // !!! На первое время здесь будет просто увеличение здоровья
@@ -31,5 +30,5 @@ public:
     // каждая следующая прокачка живучести увеличивает здоровье на 10
     static void vitality15(Player& p);
 
-////MELEE//////////////////////////////////////////////////////////////////////////////////////////
+    ////MELEE//////////////////////////////////////////////////////////////////////////////////////////
 };

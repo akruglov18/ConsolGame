@@ -61,7 +61,7 @@ View_mode Game::game_loop() {
                 sf::Image screenshot = texture.copyToImage();
                 screenshot.saveToFile("../../images/tmp.jpg");
                 return View_mode::PAUSE_MENU;
-         // case(sf::Keyboard::M): return View_mode::MAP_MENU;
+                // case(sf::Keyboard::M): return View_mode::MAP_MENU;
             }
         }
 
@@ -72,7 +72,7 @@ View_mode Game::game_loop() {
             event = std::move(last_event);
         }
 
-        std::cout << player->get_health() << '\r';
+        //std::cout << player->get_health() << '\r';
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 

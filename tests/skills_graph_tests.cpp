@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
-#include "skills_graph.h"
-#include "creature.h"
 #include "Player/player.h"
+#include "creature.h"
 #include "enemy.h"
+#include "skills_graph.h"
 
 void foop(Player& p) {
     p.get_experience();

@@ -23,10 +23,10 @@ public:
 
     void print_node(sf::RenderWindow& window);
 
-    void use_skill(Player& p);
-
     static void node_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
                              const sf::Event& _event, Player& player);
+
+    static bool clicked;
 
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;

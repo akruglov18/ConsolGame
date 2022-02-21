@@ -1,10 +1,10 @@
 #pragma once
+#include "FPS_counter.h"
 #include "creature.h"
 #include "drawer.h"
 #include "enemy.h"
 #include "field.h"
 #include "player/player.h"
-#include "FPS_counter.h"
 
 class Game {
 private:
@@ -27,10 +27,11 @@ public:
     View_mode game_loop();
     bool save(const std::string& name) const;
     bool load(const std::string& name);
-    std::shared_ptr<Player> get_player() { return player; }
+    std::shared_ptr<Player> get_player() {
+        return player;
+    }
 
     // Game methods
     void render();
     sf::View get_player_pos_for_view(const sf::Vector2f&);
 };
-

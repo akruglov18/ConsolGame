@@ -2,19 +2,15 @@
 #include <stdexcept>
 
 SkillsGraph::SkillsGraph() {
-    skills.reserve(128);    
+    skills.reserve(128);
 }
 
 void SkillsGraph::init() {
-    // Making skills
-    std::shared_ptr<Skill> s_vitality5(new Skill(Skills_Functions::vitality5));
-    std::shared_ptr<Skill> s_vitality10(new Skill(Skills_Functions::vitality10));
-    std::shared_ptr<Skill> s_vitality15(new Skill(Skills_Functions::vitality15));
 
     // Making graph
-    add_skill("спрей от жуков", s_vitality5, 500);
-    add_skill("большой желудок", s_vitality10, 1000, 0);
-    add_skill("средние доспехи", s_vitality15, 1700, 1);
+    add_skill("спрей от жуков", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), 500);
+    add_skill("большой желудок", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), 1000, 0);
+    add_skill("средние доспехи", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), 1700, 1);
 
     // Making correct graphics
     skills[0]->set_coord(sf::Vector2f(600.f, 320.f));

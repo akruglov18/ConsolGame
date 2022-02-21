@@ -2,6 +2,7 @@
 #include <stdexcept>
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+bool Node::clicked = false;
 
 Node::Node(const std::string& name, std::shared_ptr<Skill> _skill, int _cost): cost(_cost) {
     font.loadFromFile("../../fonts/CyrilicOld.TTF");
@@ -67,10 +68,6 @@ std::shared_ptr<Skill> Node::unlock() {
     return skill;
 }
 
-void Node::use_skill(Player& p) {
-    skill->player_func(p);
-}
-
 void Node::print_node(sf::RenderWindow& window) {
     window.draw(node_body_l);
     window.draw(node_body_m);
@@ -92,7 +89,10 @@ void Node::node_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_pt
         if (mouse_pos.x > node->coord.x && mouse_pos.x < node->coord.x + 96 && mouse_pos.y > node->coord.y &&
             mouse_pos.y < node->coord.y + 63) {
             if (_event.type == sf::Event::MouseButtonPressed) {
-                return node->use_skill(player);
+                if (!node->is_locked()) {
+                    node->unlock()->player_func(player);
+                    return;
+                }                
             }
         }
     }
