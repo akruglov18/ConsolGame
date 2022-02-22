@@ -30,9 +30,6 @@ void FPS_counter::add_time(float time, sf::RenderWindow& window) {
     frames_count++;
     elapsed_time += time;
     if (elapsed_time > 25.f) {
-        /*std::cout << aver_fps << '\n';
-        std::cout << max_fps << '\n';
-        std::cout << min_fps << '\n';*/
         aver_fps = static_cast<int>(frames_count / elapsed_time * 100.f);
         max_fps = std::max(max_fps, aver_fps);
         min_fps = std::min(min_fps, aver_fps);
@@ -42,9 +39,7 @@ void FPS_counter::add_time(float time, sf::RenderWindow& window) {
         elapsed_time = 0.f;
         frames_count = 0;
     }
-    if (on) {
-        window.draw(text_aver_fps);
-        window.draw(text_max_fps);
-        window.draw(text_min_fps);
-    }
+    window.draw(text_aver_fps);
+    window.draw(text_max_fps);
+    window.draw(text_min_fps);
 }

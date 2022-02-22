@@ -23,7 +23,7 @@ public:
 
     void print_node(sf::RenderWindow& window);
 
-    static void node_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
+    static void node_click_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
                              const sf::Event& _event, Player& player);
 
     static bool clicked;
@@ -32,9 +32,9 @@ public:
     Node& operator=(const Node&) = delete;
 
 private:
+    
     sf::Font font;
     sf::Text text;
-    sf::Text help_text;
 
     std::shared_ptr<sf::Texture> main_texture;
     sf::Sprite node_body_l;

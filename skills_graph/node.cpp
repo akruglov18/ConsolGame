@@ -24,7 +24,12 @@ Node::Node(const std::string& name, std::shared_ptr<Skill> _skill, int _cost): c
     node_body_r.setTextureRect({82, 184, 32, 64});
 }
 
-Node::Node(Node&& other): childs(std::move(other.childs)), skill(std::move(other.skill)), coord(other.coord) {
+Node::Node(Node&& other): childs(std::move(other.childs)), skill(std::move(other.skill)), coord(other.coord),
+          font(std::move(other.font)),
+          node_body_l(std::move(other.node_body_l)),
+          node_body_m(std::move(other.node_body_m)),
+          node_body_r(std::move(other.node_body_r)),
+          node_linker(std::move(other.node_linker)) {
     barrier = other.barrier;
     other.barrier = 0;
     cost = other.cost;
@@ -37,6 +42,11 @@ Node& Node::operator=(Node&& other) {
     childs = std::move(other.childs);
     skill = std::move(other.skill);
     coord = std::move(other.coord);
+    font = std::move(other.font);
+    node_body_l = std::move(other.node_body_l);
+    node_body_m = std::move(other.node_body_m);
+    node_body_r = std::move(other.node_body_r);
+    node_linker = std::move(other.node_linker);
     barrier = other.barrier;
     cost = other.cost;
     other.barrier = 0;
@@ -83,13 +93,17 @@ void Node::set_coord(sf::Vector2f& c) {
     text.setPosition(sf::Vector2f(coord.x, coord.y - 30));
 }
 
-void Node::node_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
+void Node::node_click_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
                         const sf::Event& _event, Player& player) {
+    if (_event.type == sf::Event::MouseButtonReleased && Node::clicked) {
+        Node::clicked = false;
+    }
     for (auto node : _skills) {
         if (mouse_pos.x > node->coord.x && mouse_pos.x < node->coord.x + 96 && mouse_pos.y > node->coord.y &&
             mouse_pos.y < node->coord.y + 63) {
             if (_event.type == sf::Event::MouseButtonPressed) {
-                if (!node->is_locked()) {
+                if (!node->is_locked() && !clicked) {
+                    clicked = true;
                     node->unlock()->player_func(player);
                     return;
                 }                

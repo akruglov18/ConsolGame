@@ -8,9 +8,9 @@ SkillsGraph::SkillsGraph() {
 void SkillsGraph::init() {
 
     // Making graph
-    add_skill("спрей от жуков", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), 500);
-    add_skill("большой желудок", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), 1000, 0);
-    add_skill("средние доспехи", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), 1700, 1);
+    add_skill("Bug spray", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), 500);
+    add_skill("Big stomach", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), 1000, 0);
+    add_skill("Medium armor", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), 1700, 1);
 
     // Making correct graphics
     skills[0]->set_coord(sf::Vector2f(600.f, 320.f));

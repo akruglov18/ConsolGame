@@ -72,7 +72,6 @@ View_mode Game::game_loop() {
             event = std::move(last_event);
         }
 
-        //std::cout << player->get_health() << '\r';
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
@@ -83,8 +82,10 @@ View_mode Game::game_loop() {
         last_event = std::move(event);
 
         render();
-        window->setView(window->getDefaultView());
-        fps.add_time(time, *window);
+        if (fps.on) {
+            window->setView(window->getDefaultView());
+            fps.add_time(time, *window);        
+        }
         window->display();
     }
     return View_mode::NONE;
