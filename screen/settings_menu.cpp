@@ -1,14 +1,11 @@
 #include "settings_menu.h"
 
-settings_menu::settings_menu() {
+settings_menu::settings_menu() :
+    b_main_menu("Main menu", sf::FloatRect(540.f, 380.f, 240.f, 52.f), View_mode::MAIN_MENU),
+    s_sound("Sound volume", sf::FloatRect(540.f, 320.f, 240.f, 52.f), {}),
+    s_difficulty("Difficulty", sf::FloatRect(540.f, 260.f, 240.f, 52.f), {}) {
+
     color = sf::Color(30, 101, 125);
-    font.loadFromFile("../../fonts/CyrilicOld.TTF");
-    b_main_menu.init(font, "Main menu", View_mode::MAIN_MENU, 28, sf::Color(96, 76, 66),
-                     sf::FloatRect(540.f, 380.f, 240.f, 52.f));
-    s_sound.init(font, "Sound volume", Function::SOUND, 28, sf::Color(100, 30, 30),
-                 sf::FloatRect(540.f, 320.f, 240.f, 52.f));
-    s_difficulty.init(font, "Difficulty", Function::DIFFICULTY, 28, sf::Color(100, 30, 30),
-                      sf::FloatRect(540.f, 260.f, 240.f, 52.f));
     buttons.push_back(&b_main_menu);
     sliders.push_back(&s_sound);
     sliders.push_back(&s_difficulty);
@@ -28,7 +25,7 @@ View_mode settings_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> p
             return View_mode::EXIT;
         }
         if (slider::clicked_slider == nullptr)
-            to_return = button::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
+            to_return = menu_button::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE) {
             slider::was_released = false;
             return to_return;
@@ -42,8 +39,8 @@ View_mode settings_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> p
 
         window.clear(color);
         b_main_menu.print_button(window);
-        s_sound.print_slider(window);
-        s_difficulty.print_slider(window);
+        s_sound.print_button(window);
+        s_difficulty.print_button(window);
         window.display();
     }
 }

@@ -2,10 +2,11 @@
 #include <memory>
 #include <vector>
 #include "skill.h"
+#include "skill_button.h"
 
 class Node {
 public:
-    Node(const std::string& name, std::shared_ptr<Skill> skill, int cost);
+    Node(const std::string& name, std::shared_ptr<Skill> skill, int cost, const sf::FloatRect& _coord);
     Node(Node&& other);
     Node& operator=(Node&& other);
 
@@ -13,37 +14,24 @@ public:
     void add_childs(const std::vector<std::shared_ptr<Node>>& childs);
 
     bool is_locked() const;
+    bool is_available() const;
+    bool is_opened() const;
     std::shared_ptr<Skill> unlock();
 
     int get_cost() {
         return cost;
     }
 
-    void set_coord(sf::Vector2f& c);
-
-    void print_node(sf::RenderWindow& window);
-
-    static void node_click_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
-                             const sf::Event& _event, Player& player);
-
-    static bool clicked;
+    skill_button node_button;
 
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;
 
 private:
-    
-    sf::Font font;
-    sf::Text text;
 
-    std::shared_ptr<sf::Texture> main_texture;
-    sf::Sprite node_body_l;
-    sf::Sprite node_body_m;
-    sf::Sprite node_body_r;
-    sf::Sprite node_linker;
     std::vector<std::shared_ptr<Node>> childs;
     std::shared_ptr<Skill> skill;
-    sf::Vector2f coord;
     int barrier;
     int cost;
+    bool opened;
 };

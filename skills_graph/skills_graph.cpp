@@ -8,21 +8,17 @@ SkillsGraph::SkillsGraph() {
 void SkillsGraph::init() {
 
     // Making graph
-    add_skill("Bug spray", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), 500);
-    add_skill("Big stomach", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), 1000, 0);
-    add_skill("Medium armor", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), 1700, 1);
-
-    // Making correct graphics
-    skills[0]->set_coord(sf::Vector2f(600.f, 320.f));
-    skills[1]->set_coord(sf::Vector2f(740.f, 320.f));
-    skills[2]->set_coord(sf::Vector2f(880.f, 320.f));
+    add_skill("Bug spray", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), {600, 320, 0, 0}, 500);
+    add_skill("Big stomach", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), {740, 320, 0, 0}, 1000, 0);
+    add_skill("Medium armor", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), {880, 320, 0, 0}, 1700, 1);
 }
 
-std::size_t SkillsGraph::add_skill(const std::string& name, std::shared_ptr<Skill> skill, int cost, int parent) {
+std::size_t SkillsGraph::add_skill(const std::string& name, std::shared_ptr<Skill> skill,
+                                   const sf::FloatRect& _coord, int cost, int parent) {
     if (parent >= static_cast<int>(skills.size())) {
         throw std::out_of_range("Parent's skill is out of range");
     }
-    std::shared_ptr<Node> node(new Node(name, skill, cost));
+    std::shared_ptr<Node> node(new Node(name, skill, cost, _coord));
     skills.push_back(node);
     if (parent != -1)
         skills[parent]->add_child(node);
@@ -36,7 +32,8 @@ std::vector<std::size_t> SkillsGraph::add_skills(const std::vector<std::shared_p
     std::vector<std::size_t> id;
     id.reserve(skills.size());
     for (std::size_t i = 0; i < skills.size(); i++) {
-        id.push_back(add_skill("TEMPORARY NOTHING", skills[i], costs[i], parent));
+        id.push_back(add_skill(
+                "TEMPORARY NOTHING", skills[i], {0, 0, 0, 0}, costs[i], parent));
     }
     return id;
 }
@@ -48,7 +45,8 @@ std::vector<std::size_t> SkillsGraph::add_skills(const std::vector<std::shared_p
     std::vector<std::size_t> id;
     id.reserve(skills.size());
     for (std::size_t i = 0; i < skills.size(); i++) {
-        id.push_back(add_skill("TEMPORARY NOTHING", skills[i], costs[i], parents[i]));
+        id.push_back(add_skill(
+                "TEMPORARY NOTHING", skills[i], {0, 0, 0, 0}, costs[i], parents[i]));
     }
     return id;
 }
