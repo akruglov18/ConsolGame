@@ -4,7 +4,7 @@ map_menu::map_menu() {
     color = sf::Color(255, 0, 0);
 }
 
-View_mode map_menu::Run(sf::RenderWindow& window) {
+View_mode map_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Clock clock;
     while (true) {
         // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;

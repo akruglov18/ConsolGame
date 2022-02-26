@@ -19,7 +19,7 @@ pause_menu::pause_menu() {
     pause_text.setPosition(sf::Vector2f(520.f, 120.f));
 }
 
-View_mode pause_menu::Run(sf::RenderWindow& window) {
+View_mode pause_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     pause_screenIMG.loadFromFile("../../images/tmp.jpg");
     pause_screen.setTexture(pause_screenIMG);
     pause_screen.setColor(sf::Color(255, 255, 255, 180));

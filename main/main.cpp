@@ -29,7 +29,6 @@ int main() {
     screens[View_mode::PAUSE_MENU] = &p_menu;
     screens[View_mode::SKILLS_MENU] = &sk_menu;
     screens[View_mode::SETTINGS_MENU] = &st_menu;
-
     while (screen != View_mode::EXIT) {
         screen = screens[screen]->Run(*window);
         if (screen == View_mode::GAME) {
@@ -38,7 +37,7 @@ int main() {
                 screen = game.game_loop();
                 if (screen == View_mode::EXIT)
                     break;
-                screen = screens[screen]->Run(*window);
+                screen = screens[screen]->Run(*window, game.get_player());
             }
         }
     }

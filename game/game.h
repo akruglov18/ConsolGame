@@ -1,4 +1,5 @@
 #pragma once
+#include "FPS_counter.h"
 #include "creature.h"
 #include "drawer.h"
 #include "enemy.h"
@@ -20,11 +21,15 @@ private:
 
 public:
     Game(sf::RenderWindow* _window);
+    FPS_counter fps;
 
     // Main loop
     View_mode game_loop();
     bool save(const std::string& name) const;
     bool load(const std::string& name);
+    std::shared_ptr<Player> get_player() {
+        return player;
+    }
 
     // Game methods
     void render();

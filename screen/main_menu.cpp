@@ -14,7 +14,7 @@ main_menu::main_menu() {
     buttons.push_back(&b_exit);
 }
 
-View_mode main_menu::Run(sf::RenderWindow& window) {
+View_mode main_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Clock clock;
     View_mode to_return;
     while (true) {

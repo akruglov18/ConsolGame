@@ -6,7 +6,8 @@
 class SkillsGraph {
 public:
     SkillsGraph();
-    std::size_t add_skill(std::shared_ptr<Skill> skill, int cost, int parent = -1);
+    void init();
+    std::size_t add_skill(const std::string& name, std::shared_ptr<Skill> skill, int cost, int parent = -1);
     std::vector<std::size_t> add_skills(const std::vector<std::shared_ptr<Skill>>& skills,
                                         const std::vector<int>& costs, int parent = -1);
     std::vector<std::size_t> add_skills(const std::vector<std::shared_ptr<Skill>>& skills,
@@ -16,6 +17,16 @@ public:
     bool is_locked(std::size_t id);
     std::shared_ptr<Skill> unlock(std::size_t id);
 
+    std::shared_ptr<Node> operator[](int index) {
+        return skills[index];
+    }
+    std::size_t size() const {
+        return skills.size();
+    }
+    std::vector<std::shared_ptr<Node>> get() const {
+        return skills;
+    }
+
 private:
-    std::vector<std::shared_ptr<Node>> _skills;
+    std::vector<std::shared_ptr<Node>> skills;
 };

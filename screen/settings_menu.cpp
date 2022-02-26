@@ -14,7 +14,7 @@ settings_menu::settings_menu() {
     sliders.push_back(&s_difficulty);
 }
 
-View_mode settings_menu::Run(sf::RenderWindow& window) {
+View_mode settings_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Clock clock;
     View_mode to_return = View_mode::NONE;
     while (true) {
