@@ -490,5 +490,5 @@ template <typename ResourceType, typename KeyType>
 inline void ResourceHolder<ResourceType, KeyType>::load_fonts() {
     auto HOLDER = getGlobalResourceHolder<sf::Font, std::string>;
 
-    HOLDER().loadFromFile("../../fonts/CyrilicOld.TTF", "basic_font");
+    HOLDER().loadFromFile("../../interfaces/fonts/CyrilicOld.TTF", "basic_font");
 }
