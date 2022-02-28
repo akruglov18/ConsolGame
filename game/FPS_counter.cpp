@@ -1,8 +1,10 @@
 #include "FPS_counter.h"
 
+static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
+
 FPS_counter::FPS_counter() {
     on = true;
-    font.loadFromFile("../../fonts/CyrilicOld.TTF");
+    font = *HOLDERF().getResource("basic_font");
     text_aver_fps.setFont(font);
     text_aver_fps.setCharacterSize(16);
     text_aver_fps.setStyle(sf::Text::Bold);
