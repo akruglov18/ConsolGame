@@ -32,6 +32,8 @@ Game::Game(sf::RenderWindow* _window) {
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
+
+    game_UI.update_UI(*player);
 }
 
 View_mode Game::game_loop() {
@@ -81,17 +83,15 @@ View_mode Game::game_loop() {
 
         last_event = std::move(event);
 
-        render();
-        if (fps.on) {
-            window->setView(window->getDefaultView());
-            fps.add_time(time, *window);        
-        }
+        game_UI.update_UI(*player);
+        render(time);
         window->display();
     }
     return View_mode::NONE;
 }
 
-void Game::render() {
+void Game::render(float time) {
+    // RENDERING DYNAMIC OBJECTS
     window->setView(view);
     window->clear(sf::Color(0, 0, 0));
     auto borders = Utils::get_rendering_borders(window->getSize().x, window->getSize().y, game_field->get_width(),
@@ -100,6 +100,13 @@ void Game::render() {
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
     Utils::sort_drawable_creatures(drawable_creatures);
     Drawer::show_everything(*window, game_field, borders, object_borders, player, drawable_creatures);
+
+    // RENDERING STATIC UI ELEMENTS
+    window->setView(window->getDefaultView());
+    game_UI.show_UI(*window);
+    if (fps.on) {
+        fps.add_time(time, *window);
+    }
 }
 
 sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {

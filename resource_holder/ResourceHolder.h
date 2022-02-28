@@ -13,7 +13,7 @@ private:
 
 public:
     void load_textures();
-    // void load_fonts();
+    void load_fonts();
 
     std::shared_ptr<ResourceType> loadFromFile(const std::string& fileName, const KeyType& key) {
         std::shared_ptr<ResourceType>& resourceRef = mResources[key];
@@ -484,4 +484,11 @@ inline void ResourceHolder<ResourceType, KeyType>::load_textures() {
     // UI ELEMENTS
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     HOLDER().loadFromFile("../../images/icons/ui_big_pieces.png", "main_ui");
+}
+
+template <typename ResourceType, typename KeyType>
+inline void ResourceHolder<ResourceType, KeyType>::load_fonts() {
+    auto HOLDER = getGlobalResourceHolder<sf::Font, std::string>;
+
+    HOLDER().loadFromFile("../../fonts/CyrilicOld.TTF", "basic_font");
 }

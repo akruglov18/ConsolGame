@@ -3,8 +3,6 @@
 
 enum class View_mode { NONE, EXIT, GAME, MAIN_MENU, PAUSE_MENU, SETTINGS_MENU, SKILLS_MENU, MAP_MENU };
 
-enum class Function { SOUND, DIFFICULTY };
-
 class Utils {
 public:
     static std::vector<std::shared_ptr<Creature>> find_drawable_creatures(

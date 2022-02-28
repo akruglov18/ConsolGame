@@ -5,6 +5,7 @@
 #include "enemy.h"
 #include "field.h"
 #include "player/player.h"
+#include "game_ui.h"
 
 class Game {
 private:
@@ -22,6 +23,7 @@ private:
 public:
     Game(sf::RenderWindow* _window);
     FPS_counter fps;
+    Game_UI game_UI;
 
     // Main loop
     View_mode game_loop();
@@ -32,6 +34,6 @@ public:
     }
 
     // Game methods
-    void render();
+    void render(float time);
     sf::View get_player_pos_for_view(const sf::Vector2f&);
 };

@@ -7,20 +7,22 @@
 #include "skills_menu.h"
 
 static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
+static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
 
 int main() {
     std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{sf::VideoMode(1280, 720), "Application"});
-    std::map<View_mode, screen*> screens;
-    View_mode screen = View_mode::MAIN_MENU;
 
     /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
     auto start = std::chrono::high_resolution_clock::now();
     HOLDER().load_textures();
+    HOLDERF().load_fonts();
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start;
     std::cout << "Textures loading: " << std::setw(9) << diff.count() << " s\n";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    std::map<View_mode, screen*> screens;
+    View_mode screen = View_mode::MAIN_MENU;
     main_menu m_menu;
     pause_menu p_menu;
     skills_menu sk_menu;

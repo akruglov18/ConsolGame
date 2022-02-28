@@ -1,16 +1,17 @@
 #pragma once
 #include "screen.h"
+#include "menu_button.h"
 
 class main_menu : public screen {
 public:
     main_menu();
     sf::Color color;
 
-    button b_play;
-    button b_settings;
-    button b_exit;
+    menu_button b_play;
+    menu_button b_settings;
+    menu_button b_exit;
 
-    std::vector<button*> buttons;
+    std::vector<menu_button*> buttons;
 
     virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
 };
