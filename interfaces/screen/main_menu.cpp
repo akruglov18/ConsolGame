@@ -1,9 +1,9 @@
 #include "main_menu.h"
 
 main_menu::main_menu() : 
-    b_play("Start game", sf::FloatRect(540.f, 260.f, 240.f, 52.f), View_mode::GAME), 
-    b_settings("Settings", sf::FloatRect(540.f, 320.f, 240.f, 52.f), View_mode::SETTINGS_MENU),
-    b_exit("Exit", sf::FloatRect(540.f, 380.f, 240.f, 52.f), View_mode::EXIT) {
+    b_play("Start game", sf::FloatRect({540.f, 260.f}, {240.f, 52.f}), View_mode::GAME), 
+    b_settings("Settings", sf::FloatRect({540.f, 320.f}, {240.f, 52.f}), View_mode::SETTINGS_MENU),
+          b_exit("Exit", sf::FloatRect({540.f, 380.f}, {240.f, 52.f}), View_mode::EXIT) {
 
     color = sf::Color(240, 164, 99);
 

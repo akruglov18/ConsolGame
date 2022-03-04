@@ -20,7 +20,7 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
         body_textures[i] = HOLDER().getResource(_name + Items::suffixes[i]);
     }
     sprite.setTexture(*body_textures[static_cast<int>(Modes::WALK)]);
-    sprite.setTextureRect(sf::IntRect(0, 128, 64, 64));
+    sprite.setTextureRect(sf::IntRect({0, 128}, {64, 64}));
     sprite.setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
 }
 

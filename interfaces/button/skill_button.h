@@ -1,3 +1,4 @@
+#pragma once
 #include "button.h"
 
 class skill_button : public button {
