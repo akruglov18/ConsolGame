@@ -15,27 +15,27 @@ slider::slider(const std::string& _text, const sf::FloatRect& _coord, std::funct
     right_border = static_cast<int>(coord.left + coord.width - 44);
 
     spriteL.setTexture(*texture);
-    spriteL.setTextureRect(sf::IntRect(634, 142, 24, 26));
+    spriteL.setTextureRect(sf::IntRect({634, 142}, {24, 26}));
     spriteL.setScale(sf::Vector2f(2.f, 2.f));
     spriteL.setPosition(sf::Vector2f(coord.left, coord.top));
 
     spriteM.setTexture(*texture);
-    spriteM.setTextureRect(sf::IntRect(658, 142, 24, 26));
+    spriteM.setTextureRect(sf::IntRect({658, 142}, {24, 26}));
     spriteM.setScale(sf::Vector2f(coord.width / 36, 2.f));
     spriteM.setPosition(sf::Vector2f(coord.left + 36, coord.top));
 
     spriteR.setTexture(*texture);
-    spriteR.setTextureRect(sf::IntRect(682, 142, 26, 26));
+    spriteR.setTextureRect(sf::IntRect({682, 142}, {26, 26}));
     spriteR.setScale(sf::Vector2f(2.f, 2.f));
     spriteR.setPosition(sf::Vector2f(coord.left + coord.width - 48, coord.top));
 
     sprite_slide.setTexture(*texture);
-    sprite_slide.setTextureRect(sf::IntRect(762, 86, 24, 24));
+    sprite_slide.setTextureRect(sf::IntRect({762, 86}, {24, 24}));
     sprite_slide.setScale(sf::Vector2f(2.f, 2.f));
     sprite_slide.setPosition(sf::Vector2f(coord.left + coord.width - 44, coord.top + 2));
 
     sprite_inner.setTexture(*texture);
-    sprite_inner.setTextureRect(sf::IntRect(64, 120, 16, 16));
+    sprite_inner.setTextureRect(sf::IntRect({64, 120}, {16, 16}));
     sprite_inner.setScale(sf::Vector2f(2.f, 2.f));
     sprite_inner.setPosition(sf::Vector2f(coord.left + coord.width - 34, coord.top + 10));
 

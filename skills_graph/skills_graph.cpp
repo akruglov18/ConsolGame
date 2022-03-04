@@ -8,9 +8,12 @@ SkillsGraph::SkillsGraph() {
 void SkillsGraph::init() {
 
     // Making graph
-    add_skill("Bug spray", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), {600, 320, 0, 0}, 500);
-    add_skill("Big stomach", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), {740, 320, 0, 0}, 1000, 0);
-    add_skill("Medium armor", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), {880, 320, 0, 0}, 1700, 1);
+    add_skill("Bug spray", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), {{600, 320}, {0, 0}},
+              500);
+    add_skill("Big stomach", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), {{740, 320}, {0, 0}},
+              1000, 0);
+    add_skill("Medium armor", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), {{880, 320}, {0, 0}},
+              1700, 1);
 }
 
 std::size_t SkillsGraph::add_skill(const std::string& name, std::shared_ptr<Skill> skill,
@@ -32,8 +35,7 @@ std::vector<std::size_t> SkillsGraph::add_skills(const std::vector<std::shared_p
     std::vector<std::size_t> id;
     id.reserve(skills.size());
     for (std::size_t i = 0; i < skills.size(); i++) {
-        id.push_back(add_skill(
-                "TEMPORARY NOTHING", skills[i], {0, 0, 0, 0}, costs[i], parent));
+        id.push_back(add_skill("TEMPORARY NOTHING", skills[i], {{0, 0}, {0, 0}}, costs[i], parent));
     }
     return id;
 }
@@ -45,8 +47,7 @@ std::vector<std::size_t> SkillsGraph::add_skills(const std::vector<std::shared_p
     std::vector<std::size_t> id;
     id.reserve(skills.size());
     for (std::size_t i = 0; i < skills.size(); i++) {
-        id.push_back(add_skill(
-                "TEMPORARY NOTHING", skills[i], {0, 0, 0, 0}, costs[i], parents[i]));
+        id.push_back(add_skill("TEMPORARY NOTHING", skills[i], {{0, 0}, {0, 0}}, costs[i], parents[i]));
     }
     return id;
 }

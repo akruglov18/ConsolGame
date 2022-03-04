@@ -1,3 +1,4 @@
+#pragma once
 #include "base_armor.h"
 #include "body_armor/body_armor.h"
 #include "boots/boots.h"

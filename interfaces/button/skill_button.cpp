@@ -8,9 +8,9 @@ skill_button::skill_button(const std::string& _text, const sf::FloatRect& _coord
     spriteM.setTexture(*texture);
     spriteR.setTexture(*texture);
 
-    spriteL.setTextureRect({16, 184, 40, 64});
-    spriteM.setTextureRect({50, 184, 30, 64});
-    spriteR.setTextureRect({82, 184, 32, 64});
+    spriteL.setTextureRect({{16, 184}, {40, 64}});
+    spriteM.setTextureRect({{50, 184}, {30, 64}});
+    spriteR.setTextureRect({{82, 184}, {32, 64}});
 
     spriteL.setPosition(sf::Vector2f(coord.left, coord.top));
     spriteM.setPosition(sf::Vector2f(coord.left + 32, coord.top));
