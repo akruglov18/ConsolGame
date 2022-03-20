@@ -38,16 +38,17 @@ Game::Game(sf::RenderWindow* _window) {
 
 View_mode Game::game_loop() {
     sf::Clock clock;
-    sf::Event last_event;
+    sf::Event last_event{sf::Event::EventType::GainedFocus};
+    sf::Event event{sf::Event::EventType::GainedFocus};
     while (window->isOpen()) {
         // The regulator of game speed
         auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
-        sf::Event event;
         window->pollEvent(event);
 
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed) {
             return View_mode::EXIT;
+        }            
 
         if (event.type == sf::Event::KeyPressed) {
             switch (event.key.code) {
@@ -63,7 +64,6 @@ View_mode Game::game_loop() {
                 sf::Image screenshot = texture.copyToImage();
                 screenshot.saveToFile("../../images/tmp.jpg");
                 return View_mode::PAUSE_MENU;
-                // case(sf::Keyboard::M): return View_mode::MAP_MENU;
             }
         }
 
