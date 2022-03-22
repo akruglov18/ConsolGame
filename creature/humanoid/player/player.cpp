@@ -4,7 +4,7 @@
 class Action;
 
 Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
-        : Creature("man", _manager, _health, _pos) {
+        : Humanoid("man", _manager, _health, _pos) {
     creature_type = CreatureType::PLAYER;
 }
 

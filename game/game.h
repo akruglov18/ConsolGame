@@ -4,7 +4,7 @@
 #include "drawer.h"
 #include "enemy.h"
 #include "field.h"
-#include "player/player.h"
+#include "humanoid/player/player.h"
 #include "game_ui.h"
 
 class Game {

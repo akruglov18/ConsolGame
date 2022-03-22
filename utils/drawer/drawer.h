@@ -1,5 +1,5 @@
 #pragma once
-#include "Player/player.h"
+#include "humanoid/player/player.h"
 #include "enemy.h"
 #include "field.h"
 #include "utils.h"

@@ -2,7 +2,7 @@
 #include "ResourceHolder.h"
 #include "action.h"
 #include "beetle/beetle.h"
-#include "skeleton/skeleton.h"
+#include "humanoid/enemy_hum/skeleton/skeleton.h"
 #include "taur/taur.h"
 #include "wolf/wolf.h"
 
@@ -19,8 +19,6 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
         return std::shared_ptr<Enemy>(new Taur(manager));
     case CreatureType::WOLF:
         return std::shared_ptr<Enemy>(new Wolf(manager));
-    case CreatureType::SKELETON:
-        return std::shared_ptr<Enemy>(new Skeleton(manager, health, pos));
     default:
         throw std::invalid_argument("Try to spawn undefined enemy");
     }

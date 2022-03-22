@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include "Player/player.h"
+#include "humanoid/player/player.h"
 #include "creature.h"
 #include "field.h"
 

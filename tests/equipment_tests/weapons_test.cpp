@@ -1,7 +1,7 @@
 #include "weapons.h"
 #include <gtest/gtest.h>
 
-#include "Player/player.h"
+#include "humanoid/player/player.h"
 #include "ResourceHolder.h"
 #include "creature.h"
 #include "enemy.h"

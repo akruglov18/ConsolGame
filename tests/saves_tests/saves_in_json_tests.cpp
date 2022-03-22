@@ -2,7 +2,7 @@
 
 #include "armors.h"
 #include "items.h"
-#include "player/Player.h"
+#include "humanoid/player/player.h"
 #include "weapons.h"
 
 namespace SavesTestsTypes {

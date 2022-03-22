@@ -1,6 +1,6 @@
 #pragma once
 #include "creature.h"
-#include "player/player.h"
+#include "humanoid/player/player.h"
 #include "sfml/Graphics.hpp"
 
 class Enemy : public Creature {
