@@ -1,9 +1,9 @@
 #include "settings_menu.h"
 
-settings_menu::settings_menu() :
-    b_main_menu("Main menu", sf::FloatRect(540.f, 380.f, 240.f, 52.f), View_mode::MAIN_MENU),
-    s_sound("Sound volume", sf::FloatRect(540.f, 320.f, 240.f, 52.f), {}),
-    s_difficulty("Difficulty", sf::FloatRect(540.f, 260.f, 240.f, 52.f), {}) {
+settings_menu::settings_menu()
+        : b_main_menu("Main menu", sf::FloatRect({540.f, 380.f}, {240.f, 52.f}), View_mode::MAIN_MENU),
+          s_sound("Sound volume", sf::FloatRect({540.f, 320.f}, {240.f, 52.f}), {}),
+          s_difficulty("Difficulty", sf::FloatRect({540.f, 260.f}, {240.f, 52.f}), {}) {
 
     color = sf::Color(30, 101, 125);
     buttons.push_back(&b_main_menu);

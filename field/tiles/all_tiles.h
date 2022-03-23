@@ -1,3 +1,4 @@
+#pragma once
 #include "DesertTile/DesertTile.h"
 #include "GrassTile/GrassTile.h"
 #include "RoadTile/RoadTile.h"

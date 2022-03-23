@@ -4,8 +4,8 @@ static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
 
 pause_menu::pause_menu(): 
-    b_main_menu("Main menu", sf::FloatRect(540.f, 320.f, 240.f, 52.f), View_mode::MAIN_MENU), 
-    b_to_game("To game", sf::FloatRect(540.f, 260.f, 240.f, 52.f), View_mode::GAME) {
+    b_main_menu("Main menu", sf::FloatRect({540.f, 320.f}, {240.f, 52.f}), View_mode::MAIN_MENU), 
+    b_to_game("To game", sf::FloatRect({540.f, 260.f}, {240.f, 52.f}), View_mode::GAME) {
 
     color = sf::Color(255, 255, 255);
 

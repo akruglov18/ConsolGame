@@ -7,17 +7,17 @@ menu_button::menu_button(const std::string& _text, const sf::FloatRect& _coord, 
         : button(_text, _coord, _text_color) {
     function = _func;
     spriteL.setTexture(*texture);
-    spriteL.setTextureRect(sf::IntRect(634, 24, 42, 26));
+    spriteL.setTextureRect(sf::IntRect({634, 24}, {42, 26}));
     spriteL.setScale(sf::Vector2f(2.f, 2.f));
     spriteL.setPosition(sf::Vector2f(coord.left, coord.top));
 
     spriteM.setTexture(*texture);
-    spriteM.setTextureRect(sf::IntRect(674, 24, 42, 26));
+    spriteM.setTextureRect(sf::IntRect({674, 24}, {42, 26}));
     spriteM.setScale(sf::Vector2f(coord.width / 84, 2.f));
     spriteM.setPosition(sf::Vector2f(coord.left + 66, coord.top));
 
     spriteR.setTexture(*texture);
-    spriteR.setTextureRect(sf::IntRect(714, 24, 42, 26));
+    spriteR.setTextureRect(sf::IntRect({714, 24}, {42, 26}));
     spriteR.setScale(sf::Vector2f(2.f, 2.f));
     spriteR.setPosition(sf::Vector2f(coord.left + coord.width - 84, coord.top));
 
@@ -29,19 +29,19 @@ menu_button::menu_button(const std::string& _text, const sf::FloatRect& _coord, 
 
 void menu_button::normal() {
     hovered = false;
-    spriteL.setTextureRect(sf::IntRect(634, 24, 42, 26));
+    spriteL.setTextureRect(sf::IntRect({634, 24}, {42, 26}));
     spriteL.move(sf::Vector2f(2, 0));
-    spriteM.setTextureRect(sf::IntRect(674, 24, 42, 26));
-    spriteR.setTextureRect(sf::IntRect(714, 24, 42, 26));
+    spriteM.setTextureRect(sf::IntRect({674, 24}, {42, 26}));
+    spriteR.setTextureRect(sf::IntRect({714, 24}, {42, 26}));
     text.setFillColor(text_color);
 }
 
 void menu_button::hover() {
     hovered = true;
-    spriteL.setTextureRect(sf::IntRect(633, 54, 42, 30));
+    spriteL.setTextureRect(sf::IntRect({633, 54}, {42, 30}));
     spriteL.move(sf::Vector2f(-2, 0));
-    spriteM.setTextureRect(sf::IntRect(674, 54, 42, 30));
-    spriteR.setTextureRect(sf::IntRect(714, 54, 43, 30));
+    spriteM.setTextureRect(sf::IntRect({674, 54}, {42, 30}));
+    spriteR.setTextureRect(sf::IntRect({714, 54}, {43, 30}));
     text.setFillColor(sf::Color(100, 30, 30));
 }
 

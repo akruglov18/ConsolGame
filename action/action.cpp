@@ -25,18 +25,21 @@ void Action::move_animation(Creature* creature, Dirs dir) {
     auto& weapon = creature->get_weapon();
 
     creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
-    creature->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, y_texture, 64, 64));
+    creature->get_sprite().setTextureRect(
+            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
 
     for (int i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
             armor_set[i]->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
-            armor_set[i]->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, y_texture, 64, 64));
+            armor_set[i]->get_sprite().setTextureRect(
+                    sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
         }
     }
 
     if (weapon != nullptr) {
         weapon->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
-        weapon->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, y_texture, 64, 64));
+        weapon->get_sprite().setTextureRect(
+                sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
     }
 
     creature->direction = dir;
@@ -50,16 +53,16 @@ void Action::stop_animation(Creature* creature) {
     auto& armor_set = creature->get_armor();
     auto& weapon = creature->get_weapon();
 
-    creature->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+    creature->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
 
     for (int i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
-            armor_set[i]->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+            armor_set[i]->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
         }
     }
 
     if (weapon != nullptr)
-        weapon->get_sprite().setTextureRect(sf::IntRect(0, y_texture, 64, 64));
+        weapon->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
 }
 
 void Action::hit_animation(Creature* creature) {
@@ -72,16 +75,19 @@ void Action::hit_animation(Creature* creature) {
     auto& armor_set = creature->get_armor();
     auto& weapon = creature->get_weapon();
 
-    creature->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, y_texture, 64, 64));
+    creature->get_sprite().setTextureRect(
+            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
 
     for (int i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
-            armor_set[i]->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, y_texture, 64, 64));
+            armor_set[i]->get_sprite().setTextureRect(
+                    sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
         }
     }
 
     if (weapon != nullptr) {
-        weapon->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 192, y_texture * 3, 192, 192));
+        weapon->get_sprite().setTextureRect(
+                sf::IntRect({(static_cast<int>(current_frame) + 1) * 192, y_texture * 3}, {192, 192}));
         weapon->get_sprite().setPosition(sf::Vector2f(pos.x - 64, pos.y - 96));
     }
 }
@@ -92,16 +98,17 @@ void Action::die_animation(Creature* creature) {
     auto& armor_set = creature->get_armor();
     auto& weapon = creature->get_weapon();
 
-    creature->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, 0, 64, 64));
+    creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
 
     for (int i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
-            armor_set[i]->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, 0, 64, 64));
+            armor_set[i]->get_sprite().setTextureRect(
+                    sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
         }
     }
 
     if (weapon != nullptr)
-        weapon->get_sprite().setTextureRect(sf::IntRect((static_cast<int>(current_frame) + 1) * 64, 0, 64, 64));
+        weapon->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

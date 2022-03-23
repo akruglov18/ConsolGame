@@ -1,7 +1,7 @@
 #include "skills_menu.h"
 
 skills_menu::skills_menu() : 
-    b_exit("Back", sf::FloatRect(20.f, 20.f, 150.f, 52.f), View_mode::GAME) {
+    b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.f, 52.f}), View_mode::GAME) {
     color = sf::Color(240, 164, 99);
     buttons.push_back(&b_exit);
     graph.init();
