@@ -1,7 +1,7 @@
 #include "utils.h"
 
 std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
-        const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<int>& object_borders) {
+        const std::vector<std::shared_ptr<Creature>>& enemies, const std::vector<int>& object_borders) {
     int obj_top_border = object_borders[0];
     int obj_btm_border = object_borders[1];
     int obj_left_border = object_borders[2];

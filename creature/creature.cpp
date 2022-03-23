@@ -166,7 +166,7 @@ void CreatureManager::setPlayer(Player* _player) {
     player = _player;
 }
 
-void CreatureManager::setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies) {
+void CreatureManager::setEnemies(std::vector<std::shared_ptr<Creature>>* _enemies) {
     enemies = _enemies;
 }
 

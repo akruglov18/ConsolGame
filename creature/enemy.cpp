@@ -14,11 +14,11 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
                                           const sf::Vector2f& pos) {
     switch (type) {
     case CreatureType::BEETLE:
-        return std::shared_ptr<Enemy>(new Beetle(manager));
+        return std::shared_ptr<Enemy>(new Beetle(manager, health, pos));
     case CreatureType::TAUR:
-        return std::shared_ptr<Enemy>(new Taur(manager));
+        return std::shared_ptr<Enemy>(new Taur(manager, health, pos));
     case CreatureType::WOLF:
-        return std::shared_ptr<Enemy>(new Wolf(manager));
+        return std::shared_ptr<Enemy>(new Wolf(manager, health, pos));
     default:
         throw std::invalid_argument("Try to spawn undefined enemy");
     }

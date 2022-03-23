@@ -78,6 +78,7 @@ public:
     Modes mode;
     Dirs direction;
     int action_animation_duration;
+    virtual void action(float time) = 0;
 
 protected:
     // general
@@ -99,11 +100,11 @@ class CreatureManager {
 public:
     CreatureManager(){};
     void setPlayer(Player* player);
-    void setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies);
+    void setEnemies(std::vector<std::shared_ptr<Creature>>* _enemies);
     void creatureDied(Creature* creature);
     ~CreatureManager(){};
 
 private:
     Player* player;
-    std::vector<std::shared_ptr<Enemy>>* enemies;
+    std::vector<std::shared_ptr<Creature>>* enemies;
 };

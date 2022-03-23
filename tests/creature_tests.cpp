@@ -4,6 +4,7 @@
 #include "armors.h"
 #include "creature.h"
 #include "enemy.h"
+#include "humanoid/enemy_hum/enemy_hum.h"
 #include "weapons.h"
 
 TEST(CreatureManager, can_create) {
@@ -45,7 +46,7 @@ void test_stuck() {
     while (true) {
         float time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
-        player->action(event, time, field, enemies);
+        player->action_p(event, time, field, enemies);
         if (!enemies[0]->stuck)
             throw;
         if (enemies[0]->get_health() < 0) {
@@ -85,13 +86,13 @@ TEST(CreatureTests, change_mode) {
 TEST(CreatureTests, creature_death) {
     CreatureManager manager;
     auto player = std::make_shared<Player>(*(new Player(manager)));
-    std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<std::shared_ptr<Creature>> enemies;
     manager.setEnemies(&enemies);
     manager.setPlayer(player.get());
     std::size_t size = 5;
     for (std::size_t i = 0; i < size; ++i) {
-        enemies.push_back(
-                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
+        enemies.push_back(Enemy_hum::spawn_enemy(CreatureType::SKELETON, manager, 100,
+                                                 {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }

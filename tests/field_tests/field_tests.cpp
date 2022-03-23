@@ -71,7 +71,7 @@ void test_show_field() {
         std::shared_ptr<Player> player;
         CreatureManager manager;
         player = std::make_shared<Player>(Player(manager, 100, {366.f, 366.f}));
-        std::vector<std::shared_ptr<Enemy>> enemies;
+        std::vector<std::shared_ptr<Creature>> enemies;
         enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {400.f, 656.f}));
         auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y, field->get_width(),
                                                     field->get_height(), player->get_pos());
