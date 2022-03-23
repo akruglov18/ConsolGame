@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "drawer.h"
+#include "humanoid/enemy_hum/enemy_hum.h"
 #include "field.h"
 
 TEST(Field, move_constructor) {
@@ -72,7 +73,7 @@ void test_show_field() {
         CreatureManager manager;
         player = std::make_shared<Player>(Player(manager, 100, {366.f, 366.f}));
         std::vector<std::shared_ptr<Creature>> enemies;
-        enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {400.f, 656.f}));
+        enemies.push_back(Enemy_hum::spawn_enemy(CreatureType::SKELETON, manager, 100, {400.f, 656.f}));
         auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y, field->get_width(),
                                                     field->get_height(), player->get_pos());
         auto object_borders = Utils::get_object_borders(borders, field->get_width(), field->get_height());

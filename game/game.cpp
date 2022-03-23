@@ -74,7 +74,7 @@ View_mode Game::game_loop() {
             event = std::move(last_event);
         }
 
-        player->action_p(event, time, game_field, drawable_creatures);
+        player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
         for (auto& enemy : enemies) {

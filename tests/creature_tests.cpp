@@ -38,7 +38,7 @@ void test_stuck() {
     player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
 
     std::vector<std::shared_ptr<Creature>> enemies;
-    enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, skeleton, 100, {256.f, 256.f}));
+    enemies.push_back(Enemy_hum::spawn_enemy(CreatureType::SKELETON, skeleton, 100, {256.f, 256.f}));
     sf::Event event;
     event.type = sf::Event::KeyPressed;
     event.key.code = sf::Keyboard::LShift;
@@ -46,7 +46,7 @@ void test_stuck() {
     while (true) {
         float time = clock.getElapsedTime().asMicroseconds() / 15000.f;
         clock.restart();
-        player->action_p(event, time, field, enemies);
+        player->action(event, time, field, enemies);
         if (!enemies[0]->stuck)
             throw;
         if (enemies[0]->get_health() < 0) {
