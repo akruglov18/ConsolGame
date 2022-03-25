@@ -1,4 +1,5 @@
 #include "FPS_counter.h"
+#include <algorithm>
 
 static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
 
