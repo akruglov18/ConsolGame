@@ -3,7 +3,7 @@ name: Build application
 on: [push, pull_request]
 
 jobs:
-  windows-msvc-build:
+  windows-msvc-build-release:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1

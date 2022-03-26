@@ -1,10 +1,8 @@
 #include "game_ui.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
 
 Game_UI::Game_UI() {
-    font = *HOLDERF().getResource("basic_font");
+    font = *Resources::FontsHolder::getResource("basic_font");
     UI_health.setFont(font);
     UI_health.setFillColor(sf::Color(255, 0, 0));
     UI_health.setCharacterSize(40);

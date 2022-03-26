@@ -39,7 +39,8 @@ std::string ArmorSet::class_name() {
 
 void ArmorSet::change_mode(Modes mode) {
     for (auto el : armor_set) {
-        if (el != nullptr)
+        if (el != nullptr) {
             BaseArmor::change_mode(mode, el);
+        }
     }
 }

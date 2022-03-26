@@ -1,15 +1,12 @@
 #include "base_weapon.h"
-#include "Axe.h"
-#include "Spear.h"
-#include "Sword.h"
+#include "weapons.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 
 BaseWeapon::BaseWeapon(const std::string& name) {
     item_type = ItemType::WEAPON;
     textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
-        textures[i] = HOLDER().getResource(name + suffixes[i]);
+        textures[i] = Resources::TexturesHolder::getResource(name + suffixes[i]);
     }
 }
 

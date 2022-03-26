@@ -1,7 +1,5 @@
 #include "sword.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
 Sword::Sword(const std::string& name, SwordType type): BaseWeapon(name) {
     weapon_type = WeaponType::SWORD;
     id = static_cast<int>(type);

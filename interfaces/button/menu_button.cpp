@@ -1,7 +1,5 @@
 #include "menu_button.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
 menu_button::menu_button(const std::string& _text, const sf::FloatRect& _coord, View_mode _func,
                          const sf::Color& _text_color)
         : button(_text, _coord, _text_color) {

@@ -5,6 +5,8 @@
 #include "player/Player.h"
 #include "weapons.h"
 
+namespace {
+
 namespace SavesTestsTypes {
 
 typedef BodyArmorType body_armor_type;
@@ -122,3 +124,5 @@ bool SaveArmorTests::is_equal_weapons(BaseWeapon* w1, BaseWeapon* w2) {
         return false;
     return true;
 }
+
+};  // namespace
