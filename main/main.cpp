@@ -6,16 +6,13 @@
 #include "settings_menu.h"
 #include "skills_menu.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
-
 int main() {
     std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{sf::VideoMode(1280, 720), "Application"});
 
     /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
     auto start = std::chrono::high_resolution_clock::now();
-    HOLDER().load_textures();
-    HOLDERF().load_fonts();
+    Resources::TexturesHolder::load();
+    Resources::FontsHolder::load();
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start;
     std::cout << "Textures loading: " << std::setw(9) << diff.count() << " s\n";

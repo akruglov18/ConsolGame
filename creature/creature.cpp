@@ -5,8 +5,6 @@
 
 #define STUCK_TIME 3.f
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
 Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
         : manager(_manager), pos(_pos) {
     current_frame = 0.f;
@@ -17,7 +15,7 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
     action_animation_duration = 8;
     body_textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
-        body_textures[i] = HOLDER().getResource(_name + Items::suffixes[i]);
+        body_textures[i] = Resources::TexturesHolder::getResource(_name + Items::suffixes[i]);
     }
     sprite.setTexture(*body_textures[static_cast<int>(Modes::WALK)]);
     sprite.setTextureRect(sf::IntRect({0, 128}, {64, 64}));

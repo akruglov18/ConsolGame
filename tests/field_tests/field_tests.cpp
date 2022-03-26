@@ -2,9 +2,9 @@
 #include "drawer.h"
 #include "field.h"
 
+namespace {
+
 TEST(Field, move_constructor) {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    HOLDER().load_textures();
     int size = 128;
     Field field(size, size);
     field.generate_field();
@@ -89,3 +89,5 @@ void test_show_field() {
 TEST(Field, show_field) {
     ASSERT_NO_THROW(test_show_field());
 }
+
+} // namepsace

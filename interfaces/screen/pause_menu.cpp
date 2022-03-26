@@ -1,8 +1,5 @@
 #include "pause_menu.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
-
 pause_menu::pause_menu(): 
     b_main_menu("Main menu", sf::FloatRect({540.f, 320.f}, {240.f, 52.f}), View_mode::MAIN_MENU), 
     b_to_game("To game", sf::FloatRect({540.f, 260.f}, {240.f, 52.f}), View_mode::GAME) {
@@ -12,7 +9,7 @@ pause_menu::pause_menu():
     buttons.push_back(&b_main_menu);
     buttons.push_back(&b_to_game);
 
-    pause_text.setFont(*HOLDERF().getResource("basic_font"));
+    pause_text.setFont(*Resources::FontsHolder::getResource("basic_font"));
     pause_text.setString("PAUSE");
     pause_text.setCharacterSize(78);
     pause_text.setFillColor(sf::Color(100, 30, 30));

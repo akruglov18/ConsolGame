@@ -1,8 +1,6 @@
 #include "node.h"
 #include <stdexcept>
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
 Node::Node(const std::string& name, std::shared_ptr<Skill> _skill, int _cost, const sf::FloatRect& _coord)
         : cost(_cost), node_button(name, _coord) {
     skill = _skill;

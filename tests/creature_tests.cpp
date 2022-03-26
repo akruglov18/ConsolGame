@@ -6,6 +6,8 @@
 #include "enemy.h"
 #include "weapons.h"
 
+namespace {
+
 TEST(CreatureManager, can_create) {
     ASSERT_NO_THROW(CreatureManager());
 }
@@ -22,8 +24,6 @@ TEST(PlayerTests, get_type) {
 }
 
 void test_stuck() {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-    HOLDER().load_textures();
     std::shared_ptr<Field> field = std::shared_ptr<Field>(new Field(128, 128));
     field->generate_desert();
     CreatureManager man;
@@ -99,3 +99,5 @@ TEST(CreatureTests, creature_death) {
     enemies[1]->die();
     ASSERT_EQ(size, enemies.size() + 2);
 }
+
+} // namespace

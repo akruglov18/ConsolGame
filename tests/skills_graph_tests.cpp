@@ -4,13 +4,7 @@
 #include "enemy.h"
 #include "skills_graph.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-static auto HOLDERF = getGlobalResourceHolder<sf::Font, std::string>;
-
-void load() {
-    HOLDER().load_textures();
-    HOLDERF().load_fonts();
-}
+namespace {
 
 void foop(Player& p) {
     p.get_experience();
@@ -25,7 +19,6 @@ void foof(Field& f) {
 }
 
 TEST(Skill, can_create) {
-    load();
     EXPECT_NO_THROW(Skill(foop, fooe, foof));
 }
 
@@ -260,3 +253,5 @@ TEST(SkillsGraph, multuple_locking_7) {
     graph.connect(root2, child);
     ASSERT_FALSE(graph.is_locked(root1) || graph.is_locked(root2));
 }
+
+} // namespace

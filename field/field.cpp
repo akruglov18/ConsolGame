@@ -11,15 +11,14 @@ Field::Field() {
 }
 
 Field::Field(int width, int height) {
-    auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
     _width = width;
     _height = height;
     _field.assign(_height, std::vector<std::shared_ptr<Tile>>(_width, nullptr));
-    sand1_sprite.setTexture(*HOLDER().getResource("sand1"));
-    sand1_borders_sprite.setTexture(*HOLDER().getResource("borders_sand1"));
-    dry1_sprite.setTexture(*HOLDER().getResource("dry1"));
-    desert_feature_sprite.setTexture(*HOLDER().getResource("desert_features"));
-    desert_tree_sprite.setTexture(*HOLDER().getResource("desert_trees"));
+    sand1_sprite.setTexture(*Resources::TexturesHolder::getResource("sand1"));
+    sand1_borders_sprite.setTexture(*Resources::TexturesHolder::getResource("borders_sand1"));
+    dry1_sprite.setTexture(*Resources::TexturesHolder::getResource("dry1"));
+    desert_feature_sprite.setTexture(*Resources::TexturesHolder::getResource("desert_features"));
+    desert_tree_sprite.setTexture(*Resources::TexturesHolder::getResource("desert_trees"));
 }
 
 Field::Field(Field&& field): _field(std::move(field._field)) {

@@ -3,6 +3,8 @@
 #include "armor_set.h"
 #include "items.h"
 
+namespace {
+
 namespace ArmorTestsTypes {
 
 typedef BodyArmorType body_armor_type;
@@ -118,3 +120,5 @@ void PantsTests::Run() {
     std::tie(pants) = GetParam();
     ASSERT_NO_THROW(Pants::make_pants(pants));
 }
+
+} // namespace

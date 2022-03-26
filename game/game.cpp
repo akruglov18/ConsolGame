@@ -6,8 +6,6 @@
 
 //#define universal
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
 Game::Game(sf::RenderWindow* _window) {
     window = _window;
 

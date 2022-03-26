@@ -1,8 +1,6 @@
 #include "spear.h"
 #include <stdexcept>
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
-
 Spear::Spear(const std::string& name, SpearType type): BaseWeapon(name) {
     weapon_type = WeaponType::SPEAR;
     id = static_cast<int>(type);

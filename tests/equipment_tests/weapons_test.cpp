@@ -7,6 +7,8 @@
 #include "enemy.h"
 #include "items.h"
 
+namespace {
+
 namespace TestsTypes {
 
 typedef AxeType axe_weapon_type;
@@ -77,3 +79,5 @@ void SwordTests::Run() {
     std::tie(sword) = GetParam();
     ASSERT_NO_THROW(Sword::make_sword(sword));
 }
+
+} // namespace

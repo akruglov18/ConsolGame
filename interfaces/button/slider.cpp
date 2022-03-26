@@ -1,13 +1,12 @@
 #include "slider.h"
 
-static auto HOLDER = getGlobalResourceHolder<sf::Texture, std::string>;
 slider* slider::clicked_slider = nullptr;
 bool slider::was_released = false;
 
 slider::slider(const std::string& _text, const sf::FloatRect& _coord, std::function<void()> _func,
                const sf::Color& _text_color)
         : button(_text, _coord, _text_color) {
-    texture = HOLDER().getResource("main_ui");
+    texture = Resources::TexturesHolder::getResource("main_ui");
     text_color = _text_color;
     coord = _coord;
     function = _func;
