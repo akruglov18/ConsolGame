@@ -24,11 +24,11 @@ TEST(PlayerTests, get_type) {
 }
 
 void test_stuck() {
-    std::shared_ptr<Field> field = std::shared_ptr<Field>(new Field(128, 128));
+    std::shared_ptr<Field> field = std::make_shared<Field>(Field(128, 128));
     field->generate_desert();
     CreatureManager man;
     CreatureManager skeleton;
-    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, {256.f, 236.f}));
+    std::shared_ptr<Player> player = std::make_shared<Player>(Player(man, 100, {256.f, 236.f}));
 
     player->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_leather));
     player->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
@@ -38,21 +38,16 @@ void test_stuck() {
 
     std::vector<std::shared_ptr<Creature>> enemies;
     enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, skeleton, 100, {256.f, 256.f}));
-    sf::Event event;
+    sf::Event event{sf::Event::EventType::GainedFocus};
     event.type = sf::Event::KeyPressed;
     event.key.code = sf::Keyboard::LShift;
     sf::Clock clock;
-    while (true) {
-        float time = clock.getElapsedTime().asMicroseconds() / 15000.f;
-        clock.restart();
-        player->action(event, time, field, enemies);
-        if (!enemies[0]->stuck)
-            throw;
+    for (int i = 0; i < 100; i++) {
+        player->action(event, 0.05f, field, enemies);
+        ASSERT_TRUE(enemies[0]->stuck);
         if (enemies[0]->get_health() < 0) {
-            if (!enemies[0]->died)
-                throw;
-            else
-                break;
+            ASSERT_TRUE(enemies[0]->died);
+            break;
         }
     }
 }
