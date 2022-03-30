@@ -84,7 +84,7 @@ TEST(CreatureTests, change_mode) {
 
 TEST(CreatureTests, creature_death) {
     CreatureManager manager;
-    auto player = std::make_shared<Player>(*(new Player(manager)));
+    auto player = std::make_shared<Player>(Player(manager));
     std::vector<std::shared_ptr<Enemy>> enemies;
     manager.setEnemies(&enemies);
     manager.setPlayer(player.get());

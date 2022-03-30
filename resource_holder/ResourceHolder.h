@@ -18,7 +18,7 @@ public:
         if (it != mResources.end()) {
             return;
         }
-        auto texture = std::make_shared<ResourceType>(*(new ResourceType()));
+        auto texture = std::make_shared<ResourceType>(ResourceType());
         if (!texture->loadFromFile(fileName)) {
             return;
         }
