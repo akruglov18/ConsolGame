@@ -8,11 +8,11 @@ SkillsGraph::SkillsGraph() {
 void SkillsGraph::init() {
 
     // Making graph
-    add_skill("Bug spray", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality5))), {{600, 320}, {0, 0}},
+    add_skill("Bug spray", std::make_shared<Skill>(Skill(Skills_Functions::vitality5)), {{600, 320}, {0, 0}},
               500);
-    add_skill("Big stomach", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality10))), {{740, 320}, {0, 0}},
+    add_skill("Big stomach", std::make_shared<Skill>(Skill(Skills_Functions::vitality10)), {{740, 320}, {0, 0}},
               1000, 0);
-    add_skill("Medium armor", std::make_shared<Skill>(*(new Skill(Skills_Functions::vitality15))), {{880, 320}, {0, 0}},
+    add_skill("Medium armor", std::make_shared<Skill>(Skill(Skills_Functions::vitality15)), {{880, 320}, {0, 0}},
               1700, 1);
 }
 
