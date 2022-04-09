@@ -5,6 +5,8 @@ void Animation::move_animation(Creature* creature, Dirs dir) {
     case (CreatureAnim::HUMANOID):
         move_hum(creature, dir);
         break;
+    case (CreatureAnim::SPIDER):
+        move_spider(creature, dir);
     }
 }
 
@@ -140,4 +142,26 @@ void Animation::die_hum(Creature* creature) {
 
     if (weapon != nullptr)
         weapon->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
+}
+
+//=================================================================================================
+                                        // SPIDER
+//=================================================================================================
+
+void Animation::move_spider(Creature* creature, Dirs dir) {
+    int y_texture = 0;
+    switch (dir) {
+        case (Dirs::LEFT):  y_texture = 64;     break;
+        case (Dirs::RIGHT): y_texture = 192;    break;
+        case (Dirs::UP):    y_texture = 0;      break;
+        case (Dirs::DOWN):  y_texture = 128;    break;
+    }
+    auto& pos = creature->get_pos();
+    auto& current_frame = creature->get_frame();
+
+    creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    creature->get_sprite().setTextureRect(
+            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
+
+    creature->direction = dir;
 }

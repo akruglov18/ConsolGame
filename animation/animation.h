@@ -17,7 +17,7 @@ public:
     // ====================================================
 
     // SPIDER =============================================
-    //static void move_spider(Creature* creature, Dirs dir);
+    static void move_spider(Creature* creature, Dirs dir);
     // ====================================================
 };
 

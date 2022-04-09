@@ -60,6 +60,18 @@ public:
         loadFromFile("../../images/creature/enemies/Skeleton/HEAD_skeleton_eye_glow_spellcast.png",
                             "skeleton_eye_spellcast");
 
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_low1.png", "spider_low1_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_low2.png", "spider_low2_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_low3.png", "spider_low3_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_low4.png", "spider_low4_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_low5.png", "spider_low5_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_low6.png", "spider_low6_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_mid1.png", "spider_mid1_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_mid2.png", "spider_mid2_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_mid3.png", "spider_mid3_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_high1.png", "spider_high1_walk");
+        loadFromFile("../../images/creature/enemies/LPC_Spiders/spider_high2.png", "spider_high2_walk");
+
         // armors ///////////////////////////////////////////////////////////////////////////////////// // BELTS
         loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_bow.png", "BELT_leather_bow");
         loadFromFile("../../images/items/armor_set/belt/leather_belt/BELT_leather_hurt.png", "BELT_leather_hurt");
