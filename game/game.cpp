@@ -26,17 +26,22 @@ Game::Game(sf::RenderWindow* _window) {
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
+<<<<<<< HEAD
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
         enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+=======
+                Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 200.f}));
+        //enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
+        //enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
+        //enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+>>>>>>> 3f6de31 (working)
     }
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     }
-
-    enemies.push_back(Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {300.f, 300.f}));
 
     game_UI.update_UI(*player);
 }
