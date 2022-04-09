@@ -5,6 +5,7 @@
 #include "creature.h"
 #include "enemy.h"
 #include "weapons.h"
+#include "utils.h"
 
 namespace {
 
@@ -92,6 +93,7 @@ TEST(CreatureTests, creature_death) {
     }
     enemies[2]->die();
     enemies[1]->die();
+    Utils::delete_dead_creatures(enemies);
     ASSERT_EQ(size, enemies.size() + 2);
 }
 

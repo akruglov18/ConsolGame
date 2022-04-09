@@ -77,6 +77,7 @@ public:
     }
 
     bool died = false;
+    bool to_delete_from_vector = false;
     bool stuck = false;
     float stuck_time = 3.f;
     Modes mode;

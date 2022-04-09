@@ -91,7 +91,7 @@ void Creature::show_creature(sf::RenderWindow& window) {
     if (direction == Dirs::UP)
         window.draw(get_weapon()->get_sprite());
 
-    for (auto el : get_armor().armor_set) {
+    for (auto& el : get_armor().armor_set) {
         if (el != nullptr)
             window.draw(el->get_sprite());
     }
@@ -176,12 +176,7 @@ void CreatureManager::creatureDied(Creature* creature) {
         // end game
         return;
     } else {
-        for (auto it = (*enemies).begin(); it != (*enemies).end(); ++it) {
-            if (it->get() == creature) {
-                (*enemies).erase(it);
-                break;
-            }
-        }
+        creature->to_delete_from_vector = true;
     }
 
     player->add_experience(10);
