@@ -1,5 +1,19 @@
 #include "animation.h"
 
+std::vector<int> Animation::anim_dur_hum = {8, 8, 7, 5, 6, 13};
+std::vector<int> Animation::anim_dur_spider = {6, 0, 0, 3, 4, 0};
+
+void Animation::choose_animation_duration(Creature* creature) {
+    switch (creature->get_anim()) {
+    case (CreatureAnim::HUMANOID):
+        creature->action_animation_duration = anim_dur_hum[static_cast<int>(creature->mode)];
+        break;
+    case (CreatureAnim::SPIDER):
+        creature->action_animation_duration = anim_dur_spider[static_cast<int>(creature->mode)];
+        break;
+    }
+}
+
 void Animation::move_animation(Creature* creature, Dirs dir) {
     switch (creature->get_anim()) { 
     case (CreatureAnim::HUMANOID):
@@ -30,6 +44,9 @@ void Animation::die_animation(Creature* creature) {
     switch (creature->get_anim()) {
     case (CreatureAnim::HUMANOID):
         die_hum(creature);
+        break;
+    case (CreatureAnim::SPIDER):
+        die_spider(creature);
         break;
     }
 }
@@ -164,4 +181,9 @@ void Animation::move_spider(Creature* creature, Dirs dir) {
             sf::IntRect({(static_cast<int>(current_frame) + 1) * 64 + 192, y_texture}, {64, 64}));
 
     creature->direction = dir;
+}
+
+void Animation::die_spider(Creature* creature) {
+    auto& current_frame = creature->get_frame();
+    creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 256}, {64, 64}));
 }

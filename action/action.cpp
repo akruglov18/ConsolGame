@@ -77,18 +77,6 @@ void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_
     }
 }
 
-int Action::choose_animation_duration(Modes mode) {
-    switch (mode) {
-        case(Modes::SLASH): return 5;
-        case(Modes::HURT): return 6;
-        case(Modes::THRUST): return 8;
-        case(Modes::SPELLCAST): return 7;
-        case(Modes::WALK): return 8;
-        case(Modes::BOW): return 13;
-        default: return 0;
-    }
-}
-
 void Action::choose_mode_according_to_weapon(Creature* creature) {
 
     if (creature->died && creature->mode != Modes::HURT) {
@@ -116,7 +104,7 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
     auto& current_frame = creature->get_frame();
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
         choose_mode_according_to_weapon(creature);
-        creature->action_animation_duration = choose_animation_duration(creature->mode);
+        Animation::choose_animation_duration(creature);
         current_frame = 0.f;
         
         float top_hit_border, btm_hit_border, left_hit_border, right_hit_border;
@@ -153,7 +141,7 @@ void Action::dying(Creature* creature, float time) {
 
     if (creature->mode != Modes::HURT) {
         choose_mode_according_to_weapon(creature);
-        creature->action_animation_duration = choose_animation_duration(creature->mode);
+        Animation::choose_animation_duration(creature);
         current_frame = 0.f;
     }
 

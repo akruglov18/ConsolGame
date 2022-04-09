@@ -34,6 +34,7 @@ void Enemy::action(float time, std::shared_ptr<Field>& field) {
     if (died)
         Action::dying(this, time);
     else
-        // Animation::stop_animation(this);
+        /*Animation::stop_animation(this);
+    if (false)*/
         Action::move_left(this, time, field);
 }
