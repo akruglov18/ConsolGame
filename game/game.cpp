@@ -84,6 +84,7 @@ View_mode Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         for (int i = 0; i < enemies.size(); ++i) {
             enemies[i]->action(time, drawable_creatures, game_field);
 =======
@@ -95,7 +96,12 @@ View_mode Game::game_loop() {
             enemies[i]->action(time, game_field);
 >>>>>>> e476378 (add spider)
 >>>>>>> 4f47383 (add spider)
+=======
+        for (auto& enemy : enemies) {
+            enemy->action(time, drawable_creatures, game_field);
+>>>>>>> 6f13aac (fixes)
         }
+        Utils::delete_dead_creatures(enemies);
 
         if (player->dead) {
             countdown_before_gameover_screen += time;
