@@ -1,7 +1,10 @@
 #include "animation.h"
 
+<<<<<<< HEAD
 // WALK THRUST SPELLCAST SLASH HURT BOW
 
+=======
+>>>>>>> 3f6de31 (working)
 std::vector<int> Animation::anim_dur_hum = {8, 8, 7, 5, 6, 13};
 std::vector<int> Animation::anim_dur_spider = {6, 0, 0, 3, 4, 0};
 

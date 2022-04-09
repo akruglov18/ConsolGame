@@ -2,6 +2,8 @@
 #include <iostream>
 #include "creature.h"
 
+// WALK THRUST SPELLCAST SLASH HURT BOW
+
 class Animation {
 public:
     static std::vector<int> anim_dur_hum;
