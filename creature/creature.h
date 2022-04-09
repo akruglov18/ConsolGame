@@ -11,6 +11,7 @@
 using json = nlohmann::json;
 
 enum class CreatureType { NONE, PLAYER, TRADER, BEETLE, TAUR, WOLF, SKELETON };
+enum class CreatureAnim { NONE, HUMANOID, SPIDER };
 
 enum class Dirs { LEFT, RIGHT, UP, DOWN };
 
@@ -29,6 +30,9 @@ public:
     // Methods
     CreatureType get_type() const {
         return creature_type;
+    }
+    CreatureAnim get_anim() const {
+        return creature_anim;
     }
     void reduce_health(int value);
     void add_experience(int exp);
@@ -93,6 +97,7 @@ protected:
     CreatureManager& manager;
 
     CreatureType creature_type = CreatureType::NONE;
+    CreatureAnim creature_anim = CreatureAnim::NONE;
 };
 
 class CreatureManager {
