@@ -78,14 +78,10 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
-<<<<<<< HEAD
         for (auto& enemy : enemies) {
             enemy->action(time, drawable_creatures, game_field);
-=======
-        for (int i = 0; i < enemies.size(); ++i) {
-            enemies[i]->action(time, game_field);
->>>>>>> e476378 (add spider)
         }
+        Utils::delete_dead_creatures(enemies);
 
         last_event = std::move(event);
 
