@@ -93,6 +93,7 @@ View_mode Game::game_loop() {
 >>>>>>> e476378 (add spider)
         }
         Utils::delete_dead_creatures(enemies);
+        std::cout << enemies.size() << '\n';
 
         last_event = std::move(event);
 
