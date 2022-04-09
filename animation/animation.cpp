@@ -161,7 +161,7 @@ void Animation::move_spider(Creature* creature, Dirs dir) {
 
     creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
     creature->get_sprite().setTextureRect(
-            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
+            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64 + 192, y_texture}, {64, 64}));
 
     creature->direction = dir;
 }

@@ -82,6 +82,7 @@ View_mode Game::game_loop() {
             enemies[i]->action(time, game_field);
         }
         Utils::delete_dead_creatures(enemies);
+        std::cout << enemies.size() << '\n';
 
         last_event = std::move(event);
 

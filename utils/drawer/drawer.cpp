@@ -38,25 +38,29 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                 window.draw(field->desert_tree_sprite);
             }
 
-            if (counter < drawable_creatures.size() &&
-                i == (static_cast<int>(drawable_creatures[counter]->get_pos().y)) / 32 + 1 &&
-                j == (static_cast<int>(drawable_creatures[counter]->get_pos().x)) / 32 + 1) {
-                // being stuck or not
-                if (drawable_creatures[counter]->stuck) {
-                    if (drawable_creatures[counter]->stuck_time < 2)
-                        drawable_creatures[counter]->get_sprite().setColor(
-                                sf::Color(250, 0, 0, 240));  // being red after hit
-                } else {
-                    drawable_creatures[counter]->get_sprite().setColor(sf::Color(255, 255, 255));  // being normal
-                }
+            while (true) { // This loop is neccessary if creatures stay on the same tile
+                if (counter < drawable_creatures.size() &&
+                    i == (static_cast<int>(drawable_creatures[counter]->get_pos().y)) / 32 + 1 &&
+                    j == (static_cast<int>(drawable_creatures[counter]->get_pos().x)) / 32 + 1) {
+                    // being stuck or not
+                    if (drawable_creatures[counter]->stuck) {
+                        if (drawable_creatures[counter]->stuck_time < 2)
+                            drawable_creatures[counter]->get_sprite().setColor(
+                                    sf::Color(250, 0, 0, 240));  // being red after hit
+                    } else {
+                        drawable_creatures[counter]->get_sprite().setColor(sf::Color(255, 255, 255));  // being normal
+                    }
 
-                drawable_creatures[counter]->show_creature(window);
-                if ((*field)(i, j - 1)->tree) {
-                    Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
-                    window.draw(field->desert_tree_sprite);
-                }
-                ++counter;
-            }
+                    drawable_creatures[counter]->show_creature(window);
+                    if ((*field)(i, j - 1)->tree) {
+                        Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
+                        window.draw(field->desert_tree_sprite);
+                    }
+                    ++counter;
+                } 
+                else
+                    break;
+            }            
 
             if (i == (static_cast<int>(player->get_pos().y)) / 32 + 1 &&
                 j == (static_cast<int>(player->get_pos().x)) / 32 + 1) {
