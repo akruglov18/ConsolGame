@@ -39,6 +39,8 @@ Game::Game(sf::RenderWindow* _window) {
                 Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     }
 
+    enemies.push_back(Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {300.f, 300.f}));
+
     game_UI.update_UI(*player);
 }
 
@@ -81,8 +83,18 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
+<<<<<<< HEAD
         for (int i = 0; i < enemies.size(); ++i) {
             enemies[i]->action(time, drawable_creatures, game_field);
+=======
+<<<<<<< HEAD
+        for (auto& enemy : enemies) {
+            enemy->action(time, drawable_creatures, game_field);
+=======
+        for (int i = 0; i < enemies.size(); ++i) {
+            enemies[i]->action(time, game_field);
+>>>>>>> e476378 (add spider)
+>>>>>>> 4f47383 (add spider)
         }
 
         if (player->dead) {
