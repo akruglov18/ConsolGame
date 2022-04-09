@@ -26,11 +26,20 @@ Game::Game(sf::RenderWindow* _window) {
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
+<<<<<<< HEAD
                 Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 200.f}));
         //enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         //enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
         //enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+=======
+                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 200.f}));
+        enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
+        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
+        enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+>>>>>>> e476378 (add spider)
     }
+
+    enemies.push_back(Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {300.f, 300.f}));
 
     game_UI.update_UI(*player);
 }
@@ -77,7 +86,11 @@ View_mode Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
         for (int i = 0; i < enemies.size(); ++i) {
+<<<<<<< HEAD
             enemies[i]->action(time, drawable_creatures, game_field);
+=======
+            enemies[i]->action(time, game_field);
+>>>>>>> e476378 (add spider)
         }
         Utils::delete_dead_creatures(enemies);
 
