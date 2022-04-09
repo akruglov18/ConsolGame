@@ -32,8 +32,6 @@ Game::Game(sf::RenderWindow* _window) {
         enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
     }
 
-    enemies.push_back(Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {300.f, 300.f}));
-
     game_UI.update_UI(*player);
 }
 
