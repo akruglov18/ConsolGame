@@ -28,8 +28,11 @@ Game::Game(sf::RenderWindow* _window) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
-        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
+        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
+        enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
     }
+
+    enemies.push_back(Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {300.f, 300.f}));
 
     game_UI.update_UI(*player);
 }
@@ -75,8 +78,13 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
+<<<<<<< HEAD
         for (auto& enemy : enemies) {
             enemy->action(time, drawable_creatures, game_field);
+=======
+        for (int i = 0; i < enemies.size(); ++i) {
+            enemies[i]->action(time, game_field);
+>>>>>>> e476378 (add spider)
         }
 
         last_event = std::move(event);
