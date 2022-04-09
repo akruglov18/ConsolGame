@@ -39,8 +39,6 @@ Game::Game(sf::RenderWindow* _window) {
                 Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     }
 
-    enemies.push_back(Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {300.f, 300.f}));
-
     game_UI.update_UI(*player);
 }
 
