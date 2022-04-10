@@ -77,7 +77,7 @@ View_mode Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
         for (int i = 0; i < enemies.size(); ++i) {
-            enemies[i]->action(time, game_field);
+            enemies[i]->action(time, drawable_creatures, game_field);
         }
         Utils::delete_dead_creatures(enemies);
 

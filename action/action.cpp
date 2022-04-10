@@ -84,6 +84,13 @@ void Action::choose_mode_according_to_weapon(Creature* creature) {
         return;
     }
 
+    if (creature->get_weapon() == nullptr) {
+        if (creature->mode != Modes::SLASH) {
+            creature->change_mode(Modes::SLASH);
+        }
+        return;
+    }
+
     WeaponType type = creature->get_weapon()->get_weapon_type();
     if (type == WeaponType::SPEAR) {
         if (creature->mode != Modes::THRUST) {
@@ -126,9 +133,10 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
 
     if (current_frame > creature->action_animation_duration) {
         creature->change_mode(Modes::WALK);
-        creature->action_animation_duration = 8;
+        Animation::choose_animation_duration(creature);
         current_frame = 0.f;
-        weapon->get_sprite().setPosition(sf::Vector2f(creature->get_pos().x, creature->get_pos().y - 32));
+        if (weapon != nullptr)
+            weapon->get_sprite().setPosition(sf::Vector2f(creature->get_pos().x, creature->get_pos().y - 32));
         return;
     }
 

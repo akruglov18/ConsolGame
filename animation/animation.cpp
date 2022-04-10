@@ -1,5 +1,7 @@
 #include "animation.h"
 
+// WALK THRUST SPELLCAST SLASH HURT BOW
+
 std::vector<int> Animation::anim_dur_hum = {8, 8, 7, 5, 6, 13};
 std::vector<int> Animation::anim_dur_spider = {6, 0, 0, 3, 4, 0};
 
@@ -29,6 +31,9 @@ void Animation::stop_animation(Creature* creature) {
     case (CreatureAnim::HUMANOID):
         stop_hum(creature);
         break;
+    case (CreatureAnim::SPIDER):
+        stop_spider(creature);
+        break;
     }
 }
 
@@ -36,6 +41,9 @@ void Animation::hit_animation(Creature* creature) {
     switch (creature->get_anim()) {
     case (CreatureAnim::HUMANOID):
         hit_hum(creature);
+        break;
+    case (CreatureAnim::SPIDER):
+        hit_spider(creature);
         break;
     }
 }
@@ -183,7 +191,34 @@ void Animation::move_spider(Creature* creature, Dirs dir) {
     creature->direction = dir;
 }
 
+void Animation::stop_spider(Creature* creature) {
+    int y_texture = 0;
+    switch (creature->direction) {
+        case (Dirs::LEFT):  y_texture = 64;     break;
+        case (Dirs::RIGHT): y_texture = 192;    break;
+        case (Dirs::UP):    y_texture = 0;      break;
+        case (Dirs::DOWN):  y_texture = 128;    break;
+    }
+    creature->get_sprite().setTextureRect(sf::IntRect({192, y_texture}, {64, 64}));
+}
+
+void Animation::hit_spider(Creature* creature) {
+    int y_texture = 0;
+    switch (creature->direction) {
+        case (Dirs::LEFT):  y_texture = 64;     break;
+        case (Dirs::RIGHT): y_texture = 192;    break;
+        case (Dirs::UP):    y_texture = 0;      break;
+        case (Dirs::DOWN):  y_texture = 128;    break;
+    }
+    
+    auto& current_frame = creature->get_frame();
+
+    creature->get_sprite().setTextureRect(
+            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
+}
+
 void Animation::die_spider(Creature* creature) {
     auto& current_frame = creature->get_frame();
     creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 256}, {64, 64}));
 }
+
