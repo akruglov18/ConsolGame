@@ -98,8 +98,9 @@ void Game::render(float time) {
                                                 game_field->get_height(), player->get_pos());
     auto object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
+    drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
-    Drawer::show_everything(*window, game_field, borders, object_borders, player, drawable_creatures);
+    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures);
 
     // RENDERING STATIC UI ELEMENTS
     window->setView(window->getDefaultView());
