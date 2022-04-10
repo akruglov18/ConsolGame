@@ -3,10 +3,12 @@
 #include <thread>
 #include "armors.h"
 #include "weapons.h"
+#include <cassert>
 
 //#define universal
 
 Game::Game(sf::RenderWindow* _window) {
+    assert(1<2);
     window = _window;
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
@@ -26,23 +28,9 @@ Game::Game(sf::RenderWindow* _window) {
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3f6de31 (working)
-                Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 200.f}));
-        //enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
-        //enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
-        //enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
-<<<<<<< HEAD
-=======
-                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 200.f}));
+                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
-        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
-        enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
->>>>>>> e476378 (add spider)
-=======
->>>>>>> 3f6de31 (working)
+        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
 
     game_UI.update_UI(*player);
@@ -89,14 +77,9 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
-        for (int i = 0; i < enemies.size(); ++i) {
-<<<<<<< HEAD
-            enemies[i]->action(time, drawable_creatures, game_field);
-=======
-            enemies[i]->action(time, game_field);
->>>>>>> e476378 (add spider)
+        for (auto& enemy : enemies) {
+            enemy->action(time);
         }
-        Utils::delete_dead_creatures(enemies);
 
         last_event = std::move(event);
 
@@ -115,9 +98,8 @@ void Game::render(float time) {
                                                 game_field->get_height(), player->get_pos());
     auto object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
-    drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
-    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures);
+    Drawer::show_everything(*window, game_field, borders, object_borders, player, drawable_creatures);
 
     // RENDERING STATIC UI ELEMENTS
     window->setView(window->getDefaultView());
