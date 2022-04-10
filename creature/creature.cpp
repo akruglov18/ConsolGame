@@ -115,6 +115,8 @@ std::string Creature::creature_type_str() const {
         return "Skeleton";
     case CreatureType::NONE:
         return "NONE";
+    case CreatureType::SPIDER:
+        return "SPIDER";
     default:
         throw std::logic_error("Invalid creature type");
     }

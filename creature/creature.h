@@ -81,6 +81,7 @@ public:
     bool stuck = false;
     float stuck_time = 3.f;
     int action_animation_duration = 8;
+    int strength = 20;
     Modes mode;
     Dirs direction;
 

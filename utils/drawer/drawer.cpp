@@ -3,7 +3,6 @@
 
 void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
                              const std::vector<int>& borders, const std::vector<int>& object_borders,
-                             const std::shared_ptr<Player>& player,
                              const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     int top_border = borders[0];
     int btm_border = borders[1];
@@ -50,7 +49,6 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                     } else {
                         drawable_creatures[counter]->get_sprite().setColor(sf::Color(255, 255, 255));  // being normal
                     }
-
                     drawable_creatures[counter]->show_creature(window);
                     if ((*field)(i, j - 1)->tree) {
                         Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
@@ -58,16 +56,8 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                     }
                     ++counter;
                 } 
-                else
+                else {
                     break;
-            }            
-
-            if (i == (static_cast<int>(player->get_pos().y)) / 32 + 1 &&
-                j == (static_cast<int>(player->get_pos().x)) / 32 + 1) {
-                player->show_creature(window);
-                if (field->operator()(i, j - 1)->tree) {
-                    Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
-                    window.draw(field->desert_tree_sprite);
                 }
             }
         }

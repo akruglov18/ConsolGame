@@ -122,7 +122,10 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
             if (x->get_pos().y > top_hit_border && x->get_pos().y < btm_hit_border
                 && x->get_pos().x > left_hit_border && x->get_pos().x < right_hit_border) {
                 if (Utils::square(x->get_pos().x - pos.x) + Utils::square(x->get_pos().y - pos.y) <= Utils::square(48.f)) {
-                    x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage()));
+                    if (creature->get_weapon() != nullptr)
+                        x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage()));
+                    else
+                        x->reduce_health(creature->strength);
                 }
             }            
         }

@@ -33,12 +33,15 @@ std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
 void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     for (int i = 0; i < drawable_creatures.size(); ++i) {
         for (int j = 0; j < drawable_creatures.size() - i - 1; ++j) {
-            if (drawable_creatures[j]->get_pos().y == drawable_creatures[j + 1]->get_pos().y) {
-                if (drawable_creatures[j]->get_pos().x > drawable_creatures[j + 1]->get_pos().x) {
+            if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) == 
+                static_cast<int>(drawable_creatures[j + 1]->get_pos().y / 32)) {
+                if (static_cast<int>(drawable_creatures[j]->get_pos().x / 32) > 
+                    static_cast<int>(drawable_creatures[j + 1]->get_pos().x / 32)) {
                     std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
                 }
             } else {
-                if (drawable_creatures[j]->get_pos().y > drawable_creatures[j + 1]->get_pos().y) {
+                if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) >
+                    static_cast<int>(drawable_creatures[j + 1]->get_pos().y / 32)) {
                     std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
                 }
             }
