@@ -6,29 +6,24 @@
 #define STUCK_TIME 3.f
 
 Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
-                   const sf::Vector2f& _hit, const sf::Vector2f& _collision)
+                   const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
         : manager(_manager),
           pos(_pos),
-          hit_box({{_pos.x + _hit.x / 2.f, _pos.y}, _hit}),
-          collision_box({{_pos.x + _hit.x / 2.f, _pos.y + 32.f}, _collision}) {
+          hit_box({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}),
+          collision_box({_pos.x + _centre_offset.x - _collision.x / 2.f, _pos.y + _centre_offset.y - _collision.y}, _collision),
+          centre_offset(_centre_offset) {
 
     rect_hit_box.setOutlineThickness(3.f);
     rect_hit_box.setOutlineColor(sf::Color(255, 0, 0));
     rect_hit_box.setFillColor(sf::Color(255, 255, 255, 0));
-    rect_hit_box.setPosition(pos);
+    rect_hit_box.setPosition(hit_box.getPosition());
     rect_hit_box.setSize(_hit);
 
     rect_collision_box.setOutlineThickness(3.f);
     rect_collision_box.setOutlineColor(sf::Color(0, 0, 255));
     rect_collision_box.setFillColor(sf::Color(255, 255, 255, 0));
-    rect_collision_box.setPosition(pos);
+    rect_collision_box.setPosition(collision_box.getPosition());
     rect_collision_box.setSize(_collision);
-
-    point_pos.setOutlineThickness(3.f);
-    point_pos.setOutlineColor(sf::Color(0, 255, 0));
-    point_pos.setFillColor(sf::Color(255, 255, 255, 0));
-    point_pos.setPosition(pos);
-    point_pos.setRadius(3.f);
 
     current_frame = 0.f;
     experience = 0;
@@ -141,7 +136,6 @@ void Creature::show_creature(sf::RenderWindow& window) {
 void Creature::show_box(sf::RenderWindow& window) {
     window.draw(rect_hit_box);
     window.draw(rect_collision_box);
-    window.draw(point_pos);
 }
 
 std::string Creature::creature_type_str() const {
