@@ -17,13 +17,13 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
     rect_hit_box.setOutlineColor(sf::Color(255, 0, 0));
     rect_hit_box.setFillColor(sf::Color(255, 255, 255, 0));
     rect_hit_box.setPosition(hit_box.getPosition());
-    rect_hit_box.setSize(_hit);
+    rect_hit_box.setSize(hit_box.getSize());
 
     rect_collision_box.setOutlineThickness(3.f);
     rect_collision_box.setOutlineColor(sf::Color(0, 0, 255));
     rect_collision_box.setFillColor(sf::Color(255, 255, 255, 0));
     rect_collision_box.setPosition(collision_box.getPosition());
-    rect_collision_box.setSize(_collision);
+    rect_collision_box.setSize(collision_box.getSize());
 
     current_frame = 0.f;
     experience = 0;
