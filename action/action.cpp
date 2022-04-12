@@ -14,7 +14,9 @@ void Action::move_left(Creature* creature, float time, const std::shared_ptr<Fie
     auto& pos = creature->get_pos();
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
-    float offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    float offset = 0;
+    if (creature->can_move)
+        offset = time* static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     pos.x -= offset;
     creature->hit_box.left -= offset;
     creature->collision_box.left -= offset;
@@ -28,7 +30,9 @@ void Action::move_right(Creature* creature, float time, const std::shared_ptr<Fi
     auto& pos = creature->get_pos();
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
-    float offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    float offset = 0;
+    if (creature->can_move)
+        offset = time* static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     pos.x += offset;
     creature->hit_box.left += offset;
     creature->collision_box.left += offset;
@@ -42,7 +46,9 @@ void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field
     auto& pos = creature->get_pos();
     auto y = static_cast<int>((pos.y - time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1.f);
-    float offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    float offset = 0;
+    if (creature->can_move)
+        offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     pos.y -= offset;
     creature->hit_box.top -= offset;
     creature->collision_box.top -= offset;
@@ -56,7 +62,9 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
     auto& pos = creature->get_pos();
     auto y = static_cast<int>((pos.y + time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1);
-    float offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    float offset = 0;
+    if (creature->can_move)
+        offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     pos.y += offset;
     creature->hit_box.top += offset;
     creature->collision_box.top += offset;
