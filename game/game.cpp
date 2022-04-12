@@ -100,6 +100,7 @@ View_mode Game::game_loop() {
 >>>>>>> 6f13aac (fixes)
         }
         Utils::delete_dead_creatures(enemies);
+        Utils::detect_collisions(drawable_creatures);
 
         if (player->dead) {
             countdown_before_gameover_screen += time;
