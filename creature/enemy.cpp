@@ -7,8 +7,9 @@
 #include "wolf/wolf.h"
 #include "spider/spider.h"
 
-Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
-        : Creature(_name, _manager, _health, _pos) {
+Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
+             const sf::Vector2f& _hit, const sf::Vector2f& _collision)
+        : Creature(_name, _manager, _health, _pos, _hit, _collision) {
 }
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health,

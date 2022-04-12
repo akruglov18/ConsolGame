@@ -22,7 +22,8 @@ class Enemy;
 class Creature {
 public:
     // Constructor ~ Destructor
-    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos);
+    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos, 
+        const sf::Vector2f& hit, const sf::Vector2f& collision);
     Creature(const Creature&);
     virtual ~Creature() {
     }
@@ -37,6 +38,7 @@ public:
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
+    void show_box(sf::RenderWindow& window);
     json to_json() const;
     void load(const json& json_obj);
 
@@ -77,6 +79,12 @@ public:
     }
     void become_red();
     void become_normal();
+
+    sf::FloatRect hit_box;
+    sf::FloatRect collision_box;
+    sf::RectangleShape rect_hit_box;
+    sf::RectangleShape rect_collision_box;
+    sf::CircleShape point_pos;
 
     bool died = false;
     bool to_delete_from_vector = false;

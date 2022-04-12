@@ -49,6 +49,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                         drawable_creatures[counter]->become_normal();  // being normal
                     }
                     drawable_creatures[counter]->show_creature(window);
+                    drawable_creatures[counter]->show_box(window);
                     if ((*field)(i, j - 1)->tree) {
                         Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
                         window.draw(field->desert_tree_sprite);
