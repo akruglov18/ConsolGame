@@ -8,8 +8,8 @@
 #include "spider/spider.h"
 
 Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
-             const sf::Vector2f& _hit, const sf::Vector2f& _collision)
-        : Creature(_name, _manager, _health, _pos, _hit, _collision) {
+             const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
+        : Creature(_name, _manager, _health, _pos, _hit, _collision, _centre_offset) {
 }
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health,

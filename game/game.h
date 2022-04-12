@@ -25,6 +25,9 @@ public:
     FPS_counter fps;
     Game_UI game_UI;
 
+    // additional information
+    bool show_boxes = false;
+
     // Main loop
     View_mode game_loop();
     bool save(const std::string& name) const;

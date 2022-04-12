@@ -60,6 +60,9 @@ View_mode Game::game_loop() {
             case (sf::Keyboard::Tilde):
                 fps.on = !fps.on;
                 break;
+            case (sf::Keyboard::B):
+                show_boxes = !show_boxes;
+                break;
             case (sf::Keyboard::Escape):
                 sf::Texture texture;
                 texture.create(window->getSize().x, window->getSize().y);
@@ -73,7 +76,7 @@ View_mode Game::game_loop() {
         if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
             event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
             event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased ||
-            sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) {
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde) || sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
             event = std::move(last_event);
         }
 
@@ -104,7 +107,7 @@ void Game::render(float time) {
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
     drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
-    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures);
+    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures, show_boxes);
 
     // RENDERING STATIC UI ELEMENTS
     window->setView(window->getDefaultView());
