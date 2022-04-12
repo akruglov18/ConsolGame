@@ -15,6 +15,11 @@ void Action::move_left(Creature* creature, float time, const std::shared_ptr<Fie
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
     pos.x -= time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    creature->hit_box.left = creature->collision_box.left = pos.x;
+    creature->hit_box.top = creature->collision_box.top = pos.y;
+    creature->rect_hit_box.setPosition(pos);
+    creature->rect_collision_box.setPosition(pos);
+    creature->point_pos.setPosition(pos);
     Animation::move_animation(creature, Dirs::LEFT);
 }
 
@@ -24,6 +29,11 @@ void Action::move_right(Creature* creature, float time, const std::shared_ptr<Fi
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
     pos.x += time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    creature->hit_box.left = creature->collision_box.left = pos.x;
+    creature->hit_box.top = creature->collision_box.top = pos.y;
+    creature->rect_hit_box.setPosition(pos);
+    creature->rect_collision_box.setPosition(pos);
+    creature->point_pos.setPosition(pos);
     Animation::move_animation(creature, Dirs::RIGHT);
 }
 
@@ -33,6 +43,11 @@ void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field
     auto y = static_cast<int>((pos.y - time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1.f);
     pos.y -= time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    creature->hit_box.left = creature->collision_box.left = pos.x;
+    creature->hit_box.top = creature->collision_box.top = pos.y;
+    creature->rect_hit_box.setPosition(pos);
+    creature->rect_collision_box.setPosition(pos);
+    creature->point_pos.setPosition(pos);
     Animation::move_animation(creature, Dirs::UP);
 }
 
@@ -42,6 +57,11 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
     auto y = static_cast<int>((pos.y + time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1);
     pos.y += time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+    creature->hit_box.left = creature->collision_box.left = pos.x;
+    creature->hit_box.top = creature->collision_box.top = pos.y;
+    creature->rect_hit_box.setPosition(pos);
+    creature->rect_collision_box.setPosition(pos);
+    creature->point_pos.setPosition(pos);
     Animation::move_animation(creature, Dirs::DOWN);
 }
 
