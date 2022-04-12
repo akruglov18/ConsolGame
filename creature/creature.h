@@ -89,6 +89,7 @@ public:
     bool died = false;
     bool to_delete_from_vector = false;
     bool stuck = false;
+    bool can_move = true;
     float stuck_time = 3.f;
     int action_animation_duration = 8;
     int strength = 20;

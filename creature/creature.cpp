@@ -13,13 +13,13 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
           collision_box({_pos.x + _centre_offset.x - _collision.x / 2.f, _pos.y + _centre_offset.y - _collision.y}, _collision),
           centre_offset(_centre_offset) {
 
-    rect_hit_box.setOutlineThickness(3.f);
+    rect_hit_box.setOutlineThickness(2.f);
     rect_hit_box.setOutlineColor(sf::Color(255, 0, 0));
     rect_hit_box.setFillColor(sf::Color(255, 255, 255, 0));
     rect_hit_box.setPosition(hit_box.getPosition());
     rect_hit_box.setSize(hit_box.getSize());
 
-    rect_collision_box.setOutlineThickness(3.f);
+    rect_collision_box.setOutlineThickness(2.f);
     rect_collision_box.setOutlineColor(sf::Color(0, 0, 255));
     rect_collision_box.setFillColor(sf::Color(255, 255, 255, 0));
     rect_collision_box.setPosition(collision_box.getPosition());

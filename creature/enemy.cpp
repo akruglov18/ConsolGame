@@ -36,9 +36,9 @@ void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_
     if (died)
         Action::dying(this, time);
     else
-        Action::hit(this, time, drawable_creatures);
-    if (false) {
         Animation::stop_animation(this);
+    if (false) {
+        Action::hit(this, time, drawable_creatures);
         Action::move_left(this, time, field);
     }
 }

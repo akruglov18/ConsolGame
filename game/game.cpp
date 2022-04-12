@@ -87,6 +87,7 @@ View_mode Game::game_loop() {
             enemy->action(time, drawable_creatures, game_field);
         }
         Utils::delete_dead_creatures(enemies);
+        Utils::detect_collisions(drawable_creatures);
 
         last_event = std::move(event);
 
