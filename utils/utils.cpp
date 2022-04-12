@@ -66,18 +66,16 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
 bool Utils::check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Dirs dir) {
     if (box1.findIntersection(box2).has_value()) {
         if (dir == Dirs::LEFT && box1.left > box2.left)
-            if (box2.left + box2.width - box1.left < 1.f)
+            if (box2.left + box2.width - box1.left < 5.f)
                 return true;
         if (dir == Dirs::RIGHT && box1.left < box2.left)
-            if (box1.left + box1.width - box2.left < 1.f)
+            if (box1.left + box1.width - box2.left < 5.f)
                 return true;
-        if (dir == Dirs::UP && box1.top > box2.top) {
-            std::cout << box2.top + box2.height - box1.top << '\n';
-            if (box2.top + box2.height - box1.top < 1.f)
+        if (dir == Dirs::UP && box1.top > box2.top)
+            if (box2.top + box2.height - box1.top < 5.f)
                 return true;
-        }
         if (dir == Dirs::DOWN && box1.top < box2.top)
-            if (box1.top + box1.height - box2.top < 1.f)
+            if (box1.top + box1.height - box2.top < 5.f)
                 return true;
     }
     return false;
