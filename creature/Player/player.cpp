@@ -6,6 +6,7 @@ class Action;
 Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
         : Creature("man", _manager, _health, _pos) {
     creature_type = CreatureType::PLAYER;
+    creature_anim = CreatureAnim::HUMANOID;
 }
 
 void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& game_field,
@@ -51,7 +52,7 @@ void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& 
             event.type = sf::Event::KeyPressed;
             event.key.code = sf::Keyboard::LShift;
         } else {
-            Action::stop_animation(this);
+            Animation::stop_animation(this);
         }
     }
 }

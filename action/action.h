@@ -3,6 +3,7 @@
 #include <iostream>
 #include "field.h"
 #include "creature.h"
+#include "animation.h"
 #include "utils.h"
 
 class Action
@@ -18,15 +19,8 @@ public:
     static void hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures);
     static void dying(Creature* creature, float time);
 
-
     // animation
-    static void switch_y_txt(Dirs dir, int& y_texture);
     static void update_frame(Creature* creature, float time);
-    static void move_animation(Creature* creature, Dirs dir);
-    static void stop_animation(Creature* creature);
-    static void hit_animation(Creature* creature);
-    static void die_animation(Creature* creature);
-
 
 private:
     // inner, additional functions

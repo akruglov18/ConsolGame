@@ -31,5 +31,5 @@ void Enemy::action(float time) {
     if (died)
         Action::dying(this, time);
     else
-        Action::stop_animation(this);
+        Animation::stop_animation(this);
 }

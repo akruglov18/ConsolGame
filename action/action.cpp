@@ -6,111 +6,6 @@ void Action::update_frame(Creature* creature, float time) {
         creature->get_frame() = 0;
 }
 
-void Action::switch_y_txt(Dirs dir, int& y_texture) {
-    switch (dir) {
-    case (Dirs::LEFT):  y_texture = 64;     break;
-    case (Dirs::RIGHT): y_texture = 192;    break;
-    case (Dirs::UP):    y_texture = 0;      break;
-    case (Dirs::DOWN):  y_texture = 128;    break;
-    }
-}
-
-void Action::move_animation(Creature* creature, Dirs dir) {
-
-    int y_texture;
-    switch_y_txt(dir, y_texture);
-    auto& pos = creature->get_pos();
-    auto& current_frame = creature->get_frame();
-    auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
-
-    creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
-    creature->get_sprite().setTextureRect(
-            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
-
-    for (int i = 0; i < armor_set.size(); ++i) {
-        if (armor_set[i] != nullptr) {
-            armor_set[i]->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
-            armor_set[i]->get_sprite().setTextureRect(
-                    sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
-        }
-    }
-
-    if (weapon != nullptr) {
-        weapon->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
-        weapon->get_sprite().setTextureRect(
-                sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
-    }
-
-    creature->direction = dir;
-}
-
-void Action::stop_animation(Creature* creature) {
-
-    int y_texture;
-    switch_y_txt(creature->direction, y_texture);
-
-    auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
-
-    creature->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
-
-    for (int i = 0; i < armor_set.size(); ++i) {
-        if (armor_set[i] != nullptr) {
-            armor_set[i]->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
-        }
-    }
-
-    if (weapon != nullptr)
-        weapon->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
-}
-
-void Action::hit_animation(Creature* creature) {
-
-    int y_texture;
-    switch_y_txt(creature->direction, y_texture);
-
-    auto& pos = creature->get_pos();
-    auto& current_frame = creature->get_frame();
-    auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
-
-    creature->get_sprite().setTextureRect(
-            sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
-
-    for (int i = 0; i < armor_set.size(); ++i) {
-        if (armor_set[i] != nullptr) {
-            armor_set[i]->get_sprite().setTextureRect(
-                    sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
-        }
-    }
-
-    if (weapon != nullptr) {
-        weapon->get_sprite().setTextureRect(
-                sf::IntRect({(static_cast<int>(current_frame) + 1) * 192, y_texture * 3}, {192, 192}));
-        weapon->get_sprite().setPosition(sf::Vector2f(pos.x - 64, pos.y - 96));
-    }
-}
-
-void Action::die_animation(Creature* creature) {
-
-    auto& current_frame = creature->get_frame();
-    auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
-
-    creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
-
-    for (int i = 0; i < armor_set.size(); ++i) {
-        if (armor_set[i] != nullptr) {
-            armor_set[i]->get_sprite().setTextureRect(
-                    sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
-        }
-    }
-
-    if (weapon != nullptr)
-        weapon->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
-}
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////////////////
 
@@ -120,7 +15,7 @@ void Action::move_left(Creature* creature, float time, const std::shared_ptr<Fie
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
     pos.x -= time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    move_animation(creature, Dirs::LEFT);
+    Animation::move_animation(creature, Dirs::LEFT);
 }
 
 void Action::move_right(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
@@ -129,7 +24,7 @@ void Action::move_right(Creature* creature, float time, const std::shared_ptr<Fi
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
     pos.x += time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    move_animation(creature, Dirs::RIGHT);
+    Animation::move_animation(creature, Dirs::RIGHT);
 }
 
 void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
@@ -138,7 +33,7 @@ void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field
     auto y = static_cast<int>((pos.y - time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1.f);
     pos.y -= time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    move_animation(creature, Dirs::UP);
+    Animation::move_animation(creature, Dirs::UP);
 }
 
 void Action::move_down(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
@@ -147,7 +42,7 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
     auto y = static_cast<int>((pos.y + time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1);
     pos.y += time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    move_animation(creature, Dirs::DOWN);
+    Animation::move_animation(creature, Dirs::DOWN);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,7 +144,7 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
         return;
     }
 
-    hit_animation(creature);
+    Animation::hit_animation(creature);
 }
 
 void Action::dying(Creature* creature, float time) {
@@ -269,5 +164,5 @@ void Action::dying(Creature* creature, float time) {
         return;
     }
 
-    die_animation(creature);
+    Animation::die_animation(creature);
 }

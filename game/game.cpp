@@ -24,9 +24,9 @@ Game::Game(sf::RenderWindow* _window) {
     player->set_armor(Boots::make_boots(BootsType::Boots_brown));
     player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 300; ++i) {
         enemies.push_back(
-                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
+                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 20 + 1) * 70.f, (i / 20 + 1) * 70.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
@@ -75,9 +75,10 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
-        for (auto& enemy : enemies) {
-            enemy->action(time);
+        for (int i = 0; i < enemies.size(); ++i) {
+            enemies[i]->action(time);
         }
+        Utils::delete_dead_creatures(enemies);
 
         last_event = std::move(event);
 
