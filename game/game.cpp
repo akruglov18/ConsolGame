@@ -3,12 +3,10 @@
 #include <thread>
 #include "armors.h"
 #include "weapons.h"
-#include <cassert>
 
 //#define universal
 
-Game::Game(sf::RenderWindow* _window) {
-    assert(1<2);
+Game::Game(sf::RenderWindow* _window) {    
     window = _window;
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
@@ -78,7 +76,7 @@ View_mode Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
         for (auto& enemy : enemies) {
-            enemy->action(time);
+            enemy->action(time, drawable_creatures, game_field);
         }
 
         last_event = std::move(event);
