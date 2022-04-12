@@ -184,35 +184,13 @@ void Animation::move_spider(Creature* creature, Dirs dir) {
     creature->direction = dir;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 void Animation::stop_spider(Creature* creature) {
     int y_texture = switch_y_texture(creature->direction);
-=======
-void Animation::stop_spider(Creature* creature) {
-    int y_texture = 0;
-    switch (creature->direction) {
-        case (Dirs::LEFT):  y_texture = 64;     break;
-        case (Dirs::RIGHT): y_texture = 192;    break;
-        case (Dirs::UP):    y_texture = 0;      break;
-        case (Dirs::DOWN):  y_texture = 128;    break;
-    }
->>>>>>> de5e082 (attacking spider)
     creature->get_sprite().setTextureRect(sf::IntRect({192, y_texture}, {64, 64}));
 }
 
 void Animation::hit_spider(Creature* creature) {
-<<<<<<< HEAD
     int y_texture = switch_y_texture(creature->direction);
-=======
-    int y_texture = 0;
-    switch (creature->direction) {
-        case (Dirs::LEFT):  y_texture = 64;     break;
-        case (Dirs::RIGHT): y_texture = 192;    break;
-        case (Dirs::UP):    y_texture = 0;      break;
-        case (Dirs::DOWN):  y_texture = 128;    break;
-    }
->>>>>>> de5e082 (attacking spider)
     
     auto& current_frame = creature->get_frame();
 
@@ -225,12 +203,3 @@ void Animation::die_spider(Creature* creature) {
     creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 256}, {64, 64}));
 }
 
-<<<<<<< HEAD
-=======
-void Animation::die_spider(Creature* creature) {
-    auto& current_frame = creature->get_frame();
-    creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 256}, {64, 64}));
-}
->>>>>>> 3f6de31 (working)
-=======
->>>>>>> de5e082 (attacking spider)

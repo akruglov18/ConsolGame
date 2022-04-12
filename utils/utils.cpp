@@ -52,8 +52,17 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     for (int i = 0; i < drawable_creatures.size(); ++i) {
         for (int j = 0; j < drawable_creatures.size(); ++j) {
+
+            if (drawable_creatures[j]->get_pos().y > drawable_creatures[i]->get_pos().y + 48.f)
+                break;
+            if (i == j ||
+                drawable_creatures[j]->get_pos().y < drawable_creatures[i]->get_pos().y - 48.f ||
+                drawable_creatures[j]->get_pos().x < drawable_creatures[i]->get_pos().x - 48.f ||
+                drawable_creatures[j]->get_pos().x > drawable_creatures[i]->get_pos().x + 48.f)
+                continue;
+
             if (check_collision(drawable_creatures[i]->collision_box, drawable_creatures[j]->collision_box,
-                                drawable_creatures[i]->direction)) {
+                drawable_creatures[i]->direction)) {
                 drawable_creatures[i]->can_move = false;
                 break;
             } else {
@@ -65,20 +74,14 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
 
 bool Utils::check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Dirs dir) {
     if (box1.findIntersection(box2).has_value()) {
-        if (dir == Dirs::LEFT && box1.left > box2.left)
-            if (box2.left + box2.width - box1.left < 1.f)
-                return true;
-        if (dir == Dirs::RIGHT && box1.left < box2.left)
-            if (box1.left + box1.width - box2.left < 1.f)
-                return true;
-        if (dir == Dirs::UP && box1.top > box2.top) {
-            std::cout << box2.top + box2.height - box1.top << '\n';
-            if (box2.top + box2.height - box1.top < 1.f)
-                return true;
-        }
-        if (dir == Dirs::DOWN && box1.top < box2.top)
-            if (box1.top + box1.height - box2.top < 1.f)
-                return true;
+        if (dir == Dirs::LEFT && box1.left > box2.left && box2.left + box2.width - box1.left < 5.f)
+            return true;
+        if (dir == Dirs::RIGHT && box1.left < box2.left && box1.left + box1.width - box2.left < 5.f)
+            return true;
+        if (dir == Dirs::UP && box1.top > box2.top && box2.top + box2.height - box1.top < 5.f)
+            return true;
+        if (dir == Dirs::DOWN && box1.top < box2.top && box1.top + box1.height - box2.top < 5.f)
+            return true;
     }
     return false;
 }
