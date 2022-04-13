@@ -5,7 +5,7 @@ enum class View_mode { NONE, EXIT, GAME, MAIN_MENU, PAUSE_MENU, SETTINGS_MENU, S
 
 class Utils {
 public:
-    static void delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies);
+    static void delete_dead_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures);
     static std::vector<std::shared_ptr<Creature>> find_drawable_creatures(
             const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<int>& object_borders);
 
