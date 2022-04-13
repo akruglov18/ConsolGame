@@ -1,7 +1,7 @@
 #include "utils.h"
 
-void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) {
-    std::size_t to_resize = enemies.size();
+void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+    std::size_t to_resize = drawable_creatures.size();
     for (int i = 0; i < to_resize; ++i) {
         if (enemies[i]->dead) {
             std::swap(enemies[i], enemies[--to_resize]);
@@ -10,7 +10,7 @@ void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) 
             }
         }
     }
-    enemies.resize(to_resize);
+    drawable_creatures.resize(to_resize);
 }
 
 std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
