@@ -13,6 +13,10 @@ Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
 void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& game_field,
                     const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     update_stuck_frame(time);
+    if (dying) {
+        Action::dying(this, time);
+        return;
+    }
     if (mode == Modes::SLASH || mode == Modes::THRUST) {
         Action::hit(this, time, drawable_creatures);
         return;

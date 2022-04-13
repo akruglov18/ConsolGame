@@ -86,10 +86,11 @@ public:
     sf::RectangleShape rect_hit_box;
     sf::RectangleShape rect_collision_box;
 
-    bool died = false;
-    bool to_delete_from_vector = false;
-    bool stuck = false;
     bool can_move = true;
+    bool stuck = false;
+    bool dying = false;
+    bool dead = false;
+
     float stuck_time = 3.f;
     int action_animation_duration = 8;
     int strength = 20;

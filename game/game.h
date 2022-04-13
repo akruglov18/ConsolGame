@@ -27,6 +27,7 @@ public:
 
     // additional information
     bool show_boxes = false;
+    float countdown_before_gameover_screen = 0.f;
 
     // Main loop
     View_mode game_loop();

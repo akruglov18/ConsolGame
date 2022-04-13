@@ -107,7 +107,7 @@ void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_
 
 void Action::choose_mode_according_to_weapon(Creature* creature) {
 
-    if (creature->died && creature->mode != Modes::HURT) {
+    if (creature->dying && creature->mode != Modes::HURT) {
         creature->change_mode(Modes::HURT);
         return;
     }

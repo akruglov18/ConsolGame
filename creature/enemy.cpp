@@ -33,12 +33,12 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
 void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures,
                    std::shared_ptr<Field>& field) {
     update_stuck_frame(time);
-    if (died)
+    if (dying)
         Action::dying(this, time);
     else
-        Animation::stop_animation(this);
-    if (false) {
         Action::hit(this, time, drawable_creatures);
+    if (false) {
+        Animation::stop_animation(this);
         Action::move_left(this, time, field);
     }
 }

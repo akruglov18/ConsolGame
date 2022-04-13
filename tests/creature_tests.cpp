@@ -47,7 +47,7 @@ void test_stuck() {
         player->action(event, 0.05f, field, enemies);
         ASSERT_TRUE(enemies[0]->stuck);
         if (enemies[0]->get_health() < 0) {
-            ASSERT_TRUE(enemies[0]->died);
+            ASSERT_TRUE(enemies[0]->dying);
             break;
         }
     }
@@ -93,6 +93,7 @@ TEST(CreatureTests, creature_death) {
     }
     enemies[2]->die();
     enemies[1]->die();
+
     Utils::delete_dead_creatures(enemies);
     ASSERT_EQ(size, enemies.size() + 2);
 }
