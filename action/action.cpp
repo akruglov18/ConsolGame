@@ -16,7 +16,7 @@ void Action::move_left(Creature* creature, float time, const std::shared_ptr<Fie
     auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
     float offset = 0.f;
     if (creature->can_move)
-        offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     else
         offset = -0.5f;
     pos.x -= offset;
@@ -34,7 +34,7 @@ void Action::move_right(Creature* creature, float time, const std::shared_ptr<Fi
     auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
     float offset = 0.f;
     if (creature->can_move)
-        offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     else
         offset = -0.5f;
     pos.x += offset;
@@ -52,7 +52,7 @@ void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field
     auto x = static_cast<int>(pos.x / 32.f + 1.f);
     float offset = 0.f;
     if (creature->can_move)
-        offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     else
         offset = -0.5f;
     pos.y -= offset;
@@ -70,7 +70,7 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
     auto x = static_cast<int>(pos.x / 32.f + 1);
     float offset = 0.f;
     if (creature->can_move)
-        offset = time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     else
         offset = -0.5f;
     pos.y += offset;
