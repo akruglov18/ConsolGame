@@ -12,11 +12,8 @@ settings_menu::settings_menu()
 }
 
 View_mode settings_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    sf::Clock clock;
     View_mode to_return = View_mode::NONE;
     while (true) {
-        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
-        clock.restart();
         sf::Event event;
         window.pollEvent(event);
 

@@ -212,12 +212,12 @@ void CreatureManager::creatureDied(Creature* creature) {
     if (creature->get_type() == CreatureType::NONE)
         throw std::logic_error("Creature died, Creture type: NONE");
 
+    creature->to_delete_from_vector = true;
+
     if (creature->get_type() == CreatureType::PLAYER) {
-        // end game
-        return;
+        //end
     } else {
-        creature->to_delete_from_vector = true;
+        player->add_experience(10);    
     }
 
-    player->add_experience(10);
 }

@@ -1,16 +1,16 @@
 #include "utils.h"
 
-void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) {
-    std::size_t to_resize = enemies.size();
+void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+    std::size_t to_resize = drawable_creatures.size();
     for (int i = 0; i < to_resize; ++i) {
-        if (enemies[i]->to_delete_from_vector) {
-            std::swap(enemies[i], enemies[--to_resize]);
-            if (enemies[i]->to_delete_from_vector) {
+        if (drawable_creatures[i]->to_delete_from_vector) {
+            std::swap(drawable_creatures[i], drawable_creatures[--to_resize]);
+            if (drawable_creatures[i]->to_delete_from_vector) {
                 --i;
             }
         }
     }
-    enemies.resize(to_resize);
+    drawable_creatures.resize(to_resize);
 }
 
 std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(

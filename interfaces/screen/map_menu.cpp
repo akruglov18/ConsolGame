@@ -5,10 +5,7 @@ map_menu::map_menu() {
 }
 
 View_mode map_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    sf::Clock clock;
     while (true) {
-        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
-        clock.restart();
         sf::Event event;
         window.pollEvent(event);
 

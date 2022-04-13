@@ -4,6 +4,7 @@
 #include "screen.h"
 #include "settings_menu.h"
 #include "skills_menu.h"
+#include "gameover_menu.h"
 
 int main() {
     std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{sf::VideoMode(1280, 720), "Application"});
@@ -23,19 +24,24 @@ int main() {
     pause_menu p_menu;
     skills_menu sk_menu;
     settings_menu st_menu;
+    gameover_menu gg_menu;
     screens[View_mode::MAIN_MENU] = &m_menu;
     screens[View_mode::PAUSE_MENU] = &p_menu;
     screens[View_mode::SKILLS_MENU] = &sk_menu;
     screens[View_mode::SETTINGS_MENU] = &st_menu;
+    screens[View_mode::GAMEOVER_MENU] = &gg_menu;
     while (screen != View_mode::EXIT) {
-        screen = screens[screen]->Run(*window);
-        if (screen == View_mode::GAME) {
+        if (screen != View_mode::GAME)
+            screen = screens[screen]->Run(*window);
+        else {
             Game game(window.get());
             while (screen != View_mode::MAIN_MENU && screen != View_mode::EXIT) {
                 screen = game.game_loop();
                 if (screen == View_mode::EXIT)
                     break;
                 screen = screens[screen]->Run(*window, game.get_player());
+                if (game.get_player()->died && screen == View_mode::GAME)
+                    break;
             }
         }
     }

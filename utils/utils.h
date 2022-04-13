@@ -1,11 +1,11 @@
 #pragma once
 #include "enemy.h"
 
-enum class View_mode { NONE, EXIT, GAME, MAIN_MENU, PAUSE_MENU, SETTINGS_MENU, SKILLS_MENU, MAP_MENU };
+enum class View_mode { NONE, EXIT, GAME, MAIN_MENU, PAUSE_MENU, SETTINGS_MENU, SKILLS_MENU, MAP_MENU, GAMEOVER_MENU };
 
 class Utils {
 public:
-    static void delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies);
+    static void delete_dead_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures);
     static std::vector<std::shared_ptr<Creature>> find_drawable_creatures(
             const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<int>& object_borders);
 
