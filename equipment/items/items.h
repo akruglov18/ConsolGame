@@ -9,7 +9,7 @@ using json = nlohmann::json;
 
 enum class Modes { WALK, THRUST, SPELLCAST, SLASH, HURT, BOW, MODES_SIZE };
 
-enum class ItemType { NONE, WEAPON, ARMOR };
+enum class ItemType { NONE, WEAPON, ARMOR, COINS };
 
 class Items {
 public:
@@ -29,4 +29,9 @@ protected:
     std::vector<std::shared_ptr<sf::Texture>> textures;
     sf::Sprite sprite;
     ItemType item_type = ItemType::NONE;
+};
+
+struct Drop {
+    int coins = 0;
+    int experience = 0;
 };

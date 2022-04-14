@@ -2,6 +2,7 @@
 #include "Player/player.h"
 #include "ResourceHolder.h"
 #include "enemy.h"
+#include "coins.h"
 
 #define STUCK_TIME 3.f
 
@@ -208,6 +209,10 @@ void CreatureManager::setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies) 
     enemies = _enemies;
 }
 
+void CreatureManager::setField(Field* _field) {
+    field = _field;
+}
+
 void CreatureManager::creatureDied(Creature* creature) {
     if (creature->get_type() == CreatureType::NONE)
         throw std::logic_error("Creature died, Creture type: NONE");
@@ -217,7 +222,12 @@ void CreatureManager::creatureDied(Creature* creature) {
     if (creature->get_type() == CreatureType::PLAYER) {
         //end
     } else {
-        player->add_experience(10);    
+        auto drop = creature->drop();
+        auto x = static_cast<int>(creature->get_pos().x) >> 5;
+        auto y = static_cast<int>(creature->get_pos().y) >> 5;
+        if(drop.coins > 0) {
+            (*field)(x, y)->items.push_back(std::shared_ptr<Items>(new Coins(drop.coins, creature->get_pos())));
+        }
+        player->add_experience(drop.experience);
     }
-
 }
