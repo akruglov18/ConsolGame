@@ -82,7 +82,6 @@ TEST(CreatureTests, creature_death) {
     CreatureManager manager;
     auto player = std::make_shared<Player>(Player(manager));
     std::vector<std::shared_ptr<Enemy>> enemies;
-    std::vector<std::shared_ptr<Creature>> drawable_creatures;
     manager.setEnemies(&enemies);
     manager.setPlayer(player.get());
     std::size_t size = 5;
