@@ -36,7 +36,7 @@ void Action::move_right(Creature* creature, float time, const std::shared_ptr<Fi
     if (creature->can_move)
         offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
     else
-        offset = -0.5f;
+        offset = -0.05f;
     pos.x += offset;
     creature->hit_box.left += offset;
     creature->collision_box.left += offset;

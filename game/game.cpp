@@ -99,7 +99,7 @@ View_mode Game::game_loop() {
             }
         }
 
-        Utils::delete_dead_creatures(drawable_creatures);
+        Utils::delete_dead_creatures(enemies); //this method will get several vectors (traders, enemies, animals...)
         Utils::detect_collisions(drawable_creatures);
 
         last_event = std::move(event);

@@ -1,16 +1,16 @@
 #include "utils.h"
 
-void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
-    std::size_t to_resize = drawable_creatures.size();
+void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) {
+    std::size_t to_resize = enemies.size();
     for (int i = 0; i < to_resize; ++i) {
-        if (drawable_creatures[i]->to_delete_from_vector) {
-            std::swap(drawable_creatures[i], drawable_creatures[--to_resize]);
-            if (drawable_creatures[i]->to_delete_from_vector) {
+        if (enemies[i]->to_delete_from_vector) {
+            std::swap(enemies[i], enemies[--to_resize]);
+            if (enemies[i]->to_delete_from_vector) {
                 --i;
             }
         }
     }
-    drawable_creatures.resize(to_resize);
+    enemies.resize(to_resize);
 }
 
 std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
@@ -38,7 +38,7 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
                 if (static_cast<int>(drawable_creatures[j]->get_pos().x / 32) > 
                     static_cast<int>(drawable_creatures[j + 1]->get_pos().x / 32)) {
                     std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
-                }
+                } 
             } else {
                 if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) >
                     static_cast<int>(drawable_creatures[j + 1]->get_pos().y / 32)) {

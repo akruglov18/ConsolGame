@@ -82,7 +82,6 @@ TEST(CreatureTests, creature_death) {
     CreatureManager manager;
     auto player = std::make_shared<Player>(Player(manager));
     std::vector<std::shared_ptr<Enemy>> enemies;
-    std::vector<std::shared_ptr<Creature>> drawable_creatures;
     manager.setEnemies(&enemies);
     manager.setPlayer(player.get());
     std::size_t size = 5;
@@ -92,12 +91,11 @@ TEST(CreatureTests, creature_death) {
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
-    drawable_creatures = Utils::find_drawable_creatures(enemies, {0, 1000, 0, 1000});
-    drawable_creatures[2]->die();
-    drawable_creatures[1]->die();
+    enemies[2]->die();
+    enemies[1]->die();
 
-    Utils::delete_dead_creatures(drawable_creatures);
-    ASSERT_EQ(size, drawable_creatures.size() + 2);
+    Utils::delete_dead_creatures(enemies);
+    ASSERT_EQ(size, enemies.size() + 2);
 }
 
 } // namespace

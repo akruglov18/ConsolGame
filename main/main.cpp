@@ -36,9 +36,12 @@ int main() {
         else {
             Game game(window.get());
             while (screen != View_mode::MAIN_MENU && screen != View_mode::EXIT) {
+
                 screen = game.game_loop();
-                if (screen == View_mode::EXIT)
+                if (screen == View_mode::EXIT) {
                     break;
+                }
+
                 screen = screens[screen]->Run(*window, game.get_player());
                 if (game.get_player()->died && screen == View_mode::GAME)
                     break;

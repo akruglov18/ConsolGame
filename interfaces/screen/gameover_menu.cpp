@@ -23,8 +23,9 @@ View_mode gameover_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> p
     gameover_screen.setColor(sf::Color(255, 0, 0, 70));
 
     View_mode to_return;
+    sf::Event event{sf::Event::EventType::GainedFocus};
+
     while (true) {
-        sf::Event event;
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed) {

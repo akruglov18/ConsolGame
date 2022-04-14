@@ -13,12 +13,10 @@ main_menu::main_menu() :
 }
 
 View_mode main_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    sf::Clock clock;
     View_mode to_return;
+    sf::Event event{sf::Event::EventType::GainedFocus};
+    
     while (true) {
-        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
-        clock.restart();
-        sf::Event event;
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed)
