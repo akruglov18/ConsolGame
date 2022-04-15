@@ -3,7 +3,7 @@
 #include <items.h>
 #include <random>
 
-enum class WeaponType { SWORD, SPEAR, AXE };
+enum class WeaponType { SWORD, SPEAR, AXE, FLAIL, HALBERD };
 
 class BaseWeapon : public Items {
 public:

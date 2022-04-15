@@ -126,7 +126,12 @@ void Action::choose_mode_according_to_weapon(Creature* creature) {
         }
         return;
     }
-    else if (type == WeaponType::AXE || type == WeaponType::SWORD || type == WeaponType::SPEAR) {
+    else 
+    if (type == WeaponType::AXE || 
+        type == WeaponType::SWORD || 
+        type == WeaponType::SPEAR || 
+        type == WeaponType::FLAIL || 
+        type == WeaponType::HALBERD) {
         if (creature->mode != Modes::SLASH) {
             creature->change_mode(Modes::SLASH);
         }
