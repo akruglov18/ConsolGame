@@ -70,4 +70,5 @@ void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& 
             Animation::stop_animation(this);
         }
     }
+    health_bar.update(health, max_health, hit_box);
 }

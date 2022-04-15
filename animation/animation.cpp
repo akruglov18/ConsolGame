@@ -191,16 +191,7 @@ void Animation::stop_spider(Creature* creature) {
 }
 
 void Animation::hit_spider(Creature* creature) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    int y_texture = switch_y_texture(creature->direction);    
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 331400c (working)
     int y_texture = switch_y_texture(creature->direction);
-    
->>>>>>> 5491992 (attacking spider)
     auto& current_frame = creature->get_frame();
     creature->get_sprite().setTextureRect(
             sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));

@@ -6,13 +6,44 @@
 
 #define STUCK_TIME 3.f
 
+Health_bar::Health_bar(sf::FloatRect hit_box) {
+    health_bar_outline.setOutlineThickness(1.f);
+    health_bar_outline.setOutlineColor(sf::Color(0, 0, 0));
+    health_bar_outline.setFillColor(sf::Color(255, 255, 255, 0));
+    health_bar_outline.setPosition({hit_box.left + (hit_box.width - 20.f) / 2.f, hit_box.top - 18.f});
+    health_bar_outline.setSize({20.f, 3.f});
+
+    health_bar.setFillColor(sf::Color(0, 255, 0));
+    health_bar.setPosition({hit_box.left + (hit_box.width - 20.f) / 2.f, hit_box.top - 18.f});
+    health_bar.setSize({20.f, 3.f});
+}
+
+void Health_bar::update(int health, int max_health, sf::FloatRect& hit_box) {
+    health_bar_outline.setPosition({hit_box.left + (hit_box.width - 20.f) / 2.f, hit_box.top - 18.f});
+    health_bar.setPosition({hit_box.left + (hit_box.width - 20.f) / 2.f, hit_box.top - 18.f});
+
+    float scale = static_cast<float>(health) / max_health;
+    health_bar.setSize({std::fmaxf(20.f * scale, 0.f), 3.f});
+
+    sf::Uint8 red = static_cast<sf::Uint8>(std::min(768 * (1.f - scale), 255.f));
+    sf::Uint8 green = static_cast<sf::Uint8>(std::min(384 * scale, 255.f));
+
+    health_bar.setFillColor(sf::Color(red, green, 0));
+}
+
+void Health_bar::show_bar(sf::RenderWindow& window) {
+    window.draw(health_bar_outline);
+    window.draw(health_bar);
+}
+
 Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
                    const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
         : manager(_manager),
           pos(_pos),
           hit_box({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}),
           collision_box({_pos.x + _centre_offset.x - _collision.x / 2.f, _pos.y + _centre_offset.y - _collision.y}, _collision),
-          centre_offset(_centre_offset) {
+          centre_offset(_centre_offset),
+          health_bar({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}) {
 
     rect_hit_box.setOutlineThickness(2.f);
     rect_hit_box.setOutlineColor(sf::Color(255, 0, 0));
@@ -29,6 +60,7 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
     current_frame = 0.f;
     experience = 0;
     health = _health;
+    max_health = _health;
     direction = Dirs::DOWN;
     mode = Modes::WALK;
     body_textures.resize(static_cast<int>(Modes::MODES_SIZE));
@@ -40,7 +72,7 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
     sprite.setPosition(sf::Vector2f(_pos.x, _pos.y - 32));
 }
 
-Creature::Creature(const Creature& other): manager(other.manager), pos(other.pos) {
+Creature::Creature(const Creature& other): manager(other.manager), pos(other.pos), health_bar(other.health_bar) {
     current_frame = other.current_frame;
     health = other.health;
     body_textures = other.body_textures;
@@ -67,6 +99,7 @@ void Creature::set_weapon(std::shared_ptr<BaseWeapon> _weapon) {
 }
 
 void Creature::set_health(int _health) {
+    max_health = _health;
     health = _health;
 }
 
@@ -132,6 +165,9 @@ void Creature::show_creature(sf::RenderWindow& window) {
 
     if (get_weapon() != nullptr && direction != Dirs::UP)
         window.draw(get_weapon()->get_sprite());
+
+    if (!dying)
+        health_bar.show_bar(window);
 }
 
 void Creature::show_box(sf::RenderWindow& window) {
@@ -231,3 +267,4 @@ void CreatureManager::creatureDied(Creature* creature) {
         player->add_experience(drop.experience);
     }
 }
+

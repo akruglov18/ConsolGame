@@ -19,6 +19,17 @@ enum class Dirs { LEFT, RIGHT, UP, DOWN };
 class CreatureManager;
 class Player;
 class Enemy;
+class Creature;
+
+class Health_bar {
+public:
+    Health_bar(sf::FloatRect hit_box);
+    sf::RectangleShape health_bar_outline;
+    sf::RectangleShape health_bar;
+
+    void update(int health, int max_health, sf::FloatRect& hit_box);
+    void show_bar(sf::RenderWindow& window);
+};
 
 class Creature {
 public:
@@ -70,6 +81,9 @@ public:
     int get_health() {
         return health;
     }
+    int get_max_health() {
+        return max_health;
+    }
     void set_health(int health);
     int Creature::get_damage() const;
     int get_health() const {
@@ -87,6 +101,7 @@ public:
     sf::Vector2f centre_offset;
     sf::RectangleShape rect_hit_box;
     sf::RectangleShape rect_collision_box;
+    Health_bar health_bar;
 
     bool can_move = true;
     bool stuck = false;
@@ -106,6 +121,7 @@ protected:
     std::shared_ptr<BaseWeapon> weapon;
 
     int health;
+    int max_health;
     int experience;
     float current_frame;
     sf::Vector2f pos;
