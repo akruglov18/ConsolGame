@@ -17,8 +17,12 @@ void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& 
         Action::dying(this, time);
         return;
     }
-    if (mode == Modes::SLASH || mode == Modes::THRUST) {
-        Action::hit(this, time, drawable_creatures);
+    if (mode == Modes::SLASH) {
+        Action::hit(this, time, drawable_creatures, Modes::SLASH);
+        return;
+    }
+    if (mode == Modes::THRUST) {
+        Action::hit(this, time, drawable_creatures, Modes::THRUST);
         return;
     }
 
@@ -37,9 +41,15 @@ void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& 
             Action::move_down(this, time, game_field);
             break;
         case (sf::Keyboard::LShift):
-            Action::hit(this, time, drawable_creatures);
+            if (weapon->can_slash)
+                Action::hit(this, time, drawable_creatures, Modes::SLASH);
+            break;
+        case (sf::Keyboard::Space):
+            if (weapon->can_thrust)
+                Action::hit(this, time, drawable_creatures, Modes::THRUST);
             break;
         }
+
     } else if (event.type == sf::Event::KeyReleased) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             event.type = sf::Event::KeyPressed;

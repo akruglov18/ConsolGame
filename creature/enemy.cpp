@@ -36,7 +36,7 @@ void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_
     if (dying)
         Action::dying(this, time);
     else
-        Action::hit(this, time, drawable_creatures);
+        Action::hit(this, time, drawable_creatures, Modes::SLASH); // Enemy will choose mode according to weapon due to AI
     if (false) {
         Action::move_right(this, time, field);
         Animation::stop_animation(this);

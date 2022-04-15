@@ -105,45 +105,11 @@ void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_
     }
 }
 
-void Action::choose_mode_according_to_weapon(Creature* creature) {
-
-    if (creature->dying && creature->mode != Modes::HURT) {
-        creature->change_mode(Modes::HURT);
-        return;
-    }
-
-    if (creature->get_weapon() == nullptr) {
-        if (creature->mode != Modes::SLASH) {
-            creature->change_mode(Modes::SLASH);
-        }
-        return;
-    }
-
-    WeaponType type = creature->get_weapon()->get_weapon_type();
-    if (type == WeaponType::SPEAR) {
-        if (creature->mode != Modes::THRUST) {
-            creature->change_mode(Modes::THRUST);
-        }
-        return;
-    }
-    else 
-    if (type == WeaponType::AXE || 
-        type == WeaponType::SWORD || 
-        type == WeaponType::SPEAR || 
-        type == WeaponType::FLAIL || 
-        type == WeaponType::HALBERD) {
-        if (creature->mode != Modes::SLASH) {
-            creature->change_mode(Modes::SLASH);
-        }
-        return;
-    }
-}
-
-void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
 
     auto& current_frame = creature->get_frame();
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
-        choose_mode_according_to_weapon(creature);
+        creature->change_mode(mode);
         Animation::choose_animation_duration(creature);
         current_frame = 0.f;
         
@@ -156,7 +122,7 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
                 && x->get_pos().x > left_hit_border && x->get_pos().x < right_hit_border) {
                 if (Utils::square(x->get_pos().x - pos.x) + Utils::square(x->get_pos().y - pos.y) <= Utils::square(48.f)) {
                     if (creature->get_weapon() != nullptr)
-                        x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage()));
+                        x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage(creature->mode)));
                     else
                         x->reduce_health(creature->strength);
                 }
@@ -184,7 +150,7 @@ void Action::dying(Creature* creature, float time) {
     auto& current_frame = creature->get_frame();
 
     if (creature->mode != Modes::HURT) {
-        choose_mode_according_to_weapon(creature);
+        creature->change_mode(Modes::HURT);
         Animation::choose_animation_duration(creature);
         current_frame = 0.f;
     }

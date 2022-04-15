@@ -72,7 +72,7 @@ void Creature::set_health(int _health) {
 int Creature::get_damage() const {
     if (weapon == nullptr)
         return 0;
-    return static_cast<int>(weapon->get_total_damage());
+    return static_cast<int>(weapon->get_total_damage(mode));
 }
 
 void Creature::become_red() {

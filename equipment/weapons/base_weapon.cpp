@@ -13,19 +13,24 @@ BaseWeapon::BaseWeapon(const std::string& name) {
 BaseWeapon::BaseWeapon(const BaseWeapon& other) {
     textures = other.textures;
     sprite = other.sprite;
-    damage = other.damage;
+    damage_slash = other.damage_slash;
+    damage_thrust = other.damage_thrust;
     critical_chance = other.critical_chance;
     critical_multiplier = other.critical_multiplier;
     weapon_type = other.weapon_type;
 }
 
-double BaseWeapon::get_total_damage() const {
+double BaseWeapon::get_total_damage(Modes mode) const {
     std::random_device device;
     std::mt19937 gen(device());
     int chance = gen() % 101;
-    double result = damage;
+    double result = 0.0;
+    if (mode == Modes::SLASH)
+        result = damage_slash;
+    else
+        result = damage_thrust;
     if (chance <= critical_chance) {
-        result = damage * critical_multiplier;
+        result *= critical_multiplier;
     }
     return result;
 }
@@ -34,7 +39,8 @@ json BaseWeapon::to_json() const {
     json res;
     auto name = get_weapon_type_str();
     res[name]["id"] = get_weapon_id();
-    res[name]["damage"] = damage;
+    res[name]["damage_slash"] = damage_slash;
+    res[name]["damage_thrust"] = damage_thrust;
     res[name]["critical_chance"] = critical_chance;
     res[name]["critical_multiplier"] = critical_multiplier;
     return res;
@@ -52,6 +58,10 @@ std::string BaseWeapon::type_to_str(WeaponType type) {
         return "Spear";
     case WeaponType::SWORD:
         return "Sword";
+    case WeaponType::FLAIL:
+        return "Flail";
+    case WeaponType::HALBERD:
+        return "Halberd";
     default:
         return "NONE";
     }
@@ -64,6 +74,10 @@ WeaponType BaseWeapon::to_case(const std::string& type) {
         return WeaponType::SPEAR;
     if (type == "Sword")
         return WeaponType::SWORD;
+    if (type == "Flail")
+        return WeaponType::FLAIL;
+    if (type == "Halberd")
+        return WeaponType::HALBERD;
     throw std::invalid_argument("Undefined weapon type: " + type);
 }
 
@@ -75,6 +89,10 @@ std::shared_ptr<BaseWeapon> BaseWeapon::make_weapon_from_json(WeaponType type, c
         return Spear::make_spear_from_json(json_obj);
     case WeaponType::SWORD:
         return Sword::make_sword_from_json(json_obj);
+    case WeaponType::FLAIL:
+        return Flail::make_flail_from_json(json_obj);
+    case WeaponType::HALBERD:
+        return Halberd::make_halberd_from_json(json_obj);
     default:
         throw std::invalid_argument("Undefined WeaponType");
     }
