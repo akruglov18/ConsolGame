@@ -106,6 +106,7 @@ void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
 =======
 void Action::choose_mode_according_to_weapon(Creature* creature) {
@@ -144,6 +145,9 @@ void Action::choose_mode_according_to_weapon(Creature* creature) {
 
 void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
 >>>>>>> 2c26019 (flail and halberd)
+=======
+void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
+>>>>>>> 564bf4b (reworked damage system)
 
     auto& current_frame = creature->get_frame();
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {

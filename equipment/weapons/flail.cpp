@@ -7,11 +7,16 @@ Flail::Flail(const std::string& name) : BaseWeapon(name) {
 std::shared_ptr<Flail> Flail::make_flail() {
     auto res = std::shared_ptr<Flail>(new Flail("FLAIL"));
 <<<<<<< HEAD
+<<<<<<< HEAD
     res->can_slash = true;
     res->damage_slash = 30.0;
 =======
     res->damage = 30.0;
 >>>>>>> 2c26019 (flail and halberd)
+=======
+    res->can_slash = true;
+    res->damage_slash = 30.0;
+>>>>>>> 564bf4b (reworked damage system)
     res->critical_chance = 50;
     res->critical_multiplier = 1.15;
     return res;

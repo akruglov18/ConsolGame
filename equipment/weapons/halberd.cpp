@@ -7,6 +7,7 @@ Halberd::Halberd(const std::string& name) : BaseWeapon(name) {
 std::shared_ptr<Halberd> Halberd::make_halberd() {
     auto res = std::shared_ptr<Halberd>(new Halberd("HALBERD"));
 <<<<<<< HEAD
+<<<<<<< HEAD
     res->can_slash = true;
     res->can_thrust = true;
     res->damage_slash = 35.0;
@@ -14,6 +15,12 @@ std::shared_ptr<Halberd> Halberd::make_halberd() {
 =======
     res->damage = 50.0;
 >>>>>>> 2c26019 (flail and halberd)
+=======
+    res->can_slash = true;
+    res->can_thrust = true;
+    res->damage_slash = 50.0;
+    res->damage_thrust = 40.0;
+>>>>>>> 564bf4b (reworked damage system)
     res->critical_chance = 30;
     res->critical_multiplier = 1.1;
     return res;
