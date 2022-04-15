@@ -13,6 +13,11 @@ public:
     static void hit_animation(Creature* creature);
     static void die_animation(Creature* creature);
 
+private:
+    // AUXILIARY ==========================================
+    static int switch_y_texture(Dirs dir);
+
+public:
     // HUMANOID ===========================================
     static void move_hum(Creature* creature, Dirs dir);
     static void stop_hum(Creature* creature);
