@@ -105,7 +105,45 @@ void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_
     }
 }
 
+<<<<<<< HEAD
 void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
+=======
+void Action::choose_mode_according_to_weapon(Creature* creature) {
+
+    if (creature->dying && creature->mode != Modes::HURT) {
+        creature->change_mode(Modes::HURT);
+        return;
+    }
+
+    if (creature->get_weapon() == nullptr) {
+        if (creature->mode != Modes::SLASH) {
+            creature->change_mode(Modes::SLASH);
+        }
+        return;
+    }
+
+    WeaponType type = creature->get_weapon()->get_weapon_type();
+    if (type == WeaponType::SPEAR) {
+        if (creature->mode != Modes::THRUST) {
+            creature->change_mode(Modes::THRUST);
+        }
+        return;
+    }
+    else 
+    if (type == WeaponType::AXE || 
+        type == WeaponType::SWORD || 
+        type == WeaponType::SPEAR || 
+        type == WeaponType::FLAIL || 
+        type == WeaponType::HALBERD) {
+        if (creature->mode != Modes::SLASH) {
+            creature->change_mode(Modes::SLASH);
+        }
+        return;
+    }
+}
+
+void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+>>>>>>> 2c26019 (flail and halberd)
 
     auto& current_frame = creature->get_frame();
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
