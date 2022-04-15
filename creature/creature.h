@@ -10,7 +10,7 @@
 
 using json = nlohmann::json;
 
-enum class CreatureType { NONE, PLAYER, TRADER, BEETLE, TAUR, WOLF, SKELETON };
+enum class CreatureType { NONE, PLAYER, TRADER, BEETLE, TAUR, WOLF, SKELETON, SPIDER };
 enum class CreatureAnim { NONE, HUMANOID, SPIDER };
 
 enum class Dirs { LEFT, RIGHT, UP, DOWN };
@@ -80,9 +80,10 @@ public:
     bool to_delete_from_vector = false;
     bool stuck = false;
     float stuck_time = 3.f;
+    int action_animation_duration = 8;
+    int strength = 20;
     Modes mode;
     Dirs direction;
-    int action_animation_duration;
 
 protected:
     // general

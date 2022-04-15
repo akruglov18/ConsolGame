@@ -9,6 +9,7 @@ class BaseWeapon : public Items {
 public:
     BaseWeapon(const std::string& name);
     BaseWeapon(const BaseWeapon& other);
+    virtual ~BaseWeapon() {}
 
     virtual double get_total_damage() const;
 
@@ -32,8 +33,6 @@ public:
 
     void change_mode(Modes mode);
 
-    virtual ~BaseWeapon() {
-    }
     double damage = 0;
     int critical_chance = 0;
     double critical_multiplier = 0;

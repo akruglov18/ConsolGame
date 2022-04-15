@@ -77,10 +77,11 @@ void test_show_field() {
                                                     field->get_height(), player->get_pos());
         auto object_borders = Utils::get_object_borders(borders, field->get_width(), field->get_height());
         auto drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
+        drawable_creatures.push_back(player);
         Utils::sort_drawable_creatures(drawable_creatures);
-        Drawer::show_everything(window, field, borders, object_borders, player, drawable_creatures);
+        Drawer::show_everything(window, field, borders, object_borders, drawable_creatures);
         for (int j = 4; j <= i - 4; j++) {
-            Drawer::show_everything(window, field, borders, object_borders, player, drawable_creatures);
+            Drawer::show_everything(window, field, borders, object_borders, drawable_creatures);
         }
         window.close();
     }

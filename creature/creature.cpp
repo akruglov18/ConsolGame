@@ -12,7 +12,6 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
     health = _health;
     direction = Dirs::DOWN;
     mode = Modes::WALK;
-    action_animation_duration = 8;
     body_textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
         body_textures[i] = Resources::TexturesHolder::getResource(_name + Items::suffixes[i]);
@@ -116,6 +115,8 @@ std::string Creature::creature_type_str() const {
         return "Skeleton";
     case CreatureType::NONE:
         return "NONE";
+    case CreatureType::SPIDER:
+        return "SPIDER";
     default:
         throw std::logic_error("Invalid creature type");
     }

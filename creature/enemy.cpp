@@ -5,6 +5,7 @@
 #include "skeleton/skeleton.h"
 #include "taur/taur.h"
 #include "wolf/wolf.h"
+#include "spider/spider.h"
 
 Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
         : Creature(_name, _manager, _health, _pos) {
@@ -21,15 +22,22 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
         return std::shared_ptr<Enemy>(new Wolf(manager));
     case CreatureType::SKELETON:
         return std::shared_ptr<Enemy>(new Skeleton(manager, health, pos));
+    case CreatureType::SPIDER:
+        return std::shared_ptr<Enemy>(new Spider(manager, health, pos));
     default:
         throw std::invalid_argument("Try to spawn undefined enemy");
     }
 }
 
-void Enemy::action(float time) {
+void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures,
+                   std::shared_ptr<Field>& field) {
     update_stuck_frame(time);
     if (died)
         Action::dying(this, time);
     else
+        Action::hit(this, time, drawable_creatures);
+    if (false) {
         Animation::stop_animation(this);
+        Action::move_left(this, time, field);
+    }
 }

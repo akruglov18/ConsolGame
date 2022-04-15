@@ -24,11 +24,12 @@ Game::Game(sf::RenderWindow* _window) {
     player->set_armor(Boots::make_boots(BootsType::Boots_brown));
     player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
 
-    for (int i = 0; i < 300; ++i) {
+    for (int i = 0; i < 3; ++i) {
         enemies.push_back(
-                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 20 + 1) * 70.f, (i / 20 + 1) * 70.f}));
-        enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
-        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
+                Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 200.f}));
+        //enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
+        //enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
+        //enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
     }
 
     game_UI.update_UI(*player);
@@ -76,7 +77,7 @@ View_mode Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
         for (int i = 0; i < enemies.size(); ++i) {
-            enemies[i]->action(time);
+            enemies[i]->action(time, drawable_creatures, game_field);
         }
         Utils::delete_dead_creatures(enemies);
 
@@ -97,8 +98,9 @@ void Game::render(float time) {
                                                 game_field->get_height(), player->get_pos());
     auto object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
+    drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
-    Drawer::show_everything(*window, game_field, borders, object_borders, player, drawable_creatures);
+    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures);
 
     // RENDERING STATIC UI ELEMENTS
     window->setView(window->getDefaultView());
