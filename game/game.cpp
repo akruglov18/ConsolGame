@@ -6,7 +6,7 @@
 
 //#define universal
 
-Game::Game(sf::RenderWindow* _window) {
+Game::Game(sf::RenderWindow* _window) {    
     window = _window;
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
@@ -26,10 +26,9 @@ Game::Game(sf::RenderWindow* _window) {
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
-                Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 200.f}));
-        //enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
-        //enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
-        //enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
+        enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
+        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
     }
 
     game_UI.update_UI(*player);
@@ -76,10 +75,9 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
-        for (int i = 0; i < enemies.size(); ++i) {
-            enemies[i]->action(time, drawable_creatures, game_field);
+        for (auto& enemy : enemies) {
+            enemy->action(time, drawable_creatures, game_field);
         }
-        Utils::delete_dead_creatures(enemies);
 
         last_event = std::move(event);
 

@@ -75,6 +75,8 @@ public:
     int get_experience() const {
         return experience;
     }
+    void become_red();
+    void become_normal();
 
     bool died = false;
     bool to_delete_from_vector = false;

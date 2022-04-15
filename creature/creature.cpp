@@ -57,6 +57,22 @@ int Creature::get_damage() const {
     return static_cast<int>(weapon->get_total_damage());
 }
 
+void Creature::become_red() {
+    sprite.setColor(sf::Color(250, 0, 0, 240));
+    for (auto& el : armor_set.armor_set) {
+        if (el != nullptr)
+            el->get_sprite().setColor(sf::Color(250, 0, 0, 240));
+    }
+}
+
+void Creature::become_normal() {
+    sprite.setColor(sf::Color(255, 255, 255));
+    for (auto& el : armor_set.armor_set) {
+        if (el != nullptr)
+            el->get_sprite().setColor(sf::Color(255, 255, 255));
+    }
+}
+
 void Creature::reduce_health(int value) {
     health -= value;
     // std::cout << "health = " << health << '\n';
