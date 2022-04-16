@@ -79,9 +79,9 @@ void test_show_field() {
         auto drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
         drawable_creatures.push_back(player);
         Utils::sort_drawable_creatures(drawable_creatures);
-        Drawer::show_everything(window, field, borders, object_borders, drawable_creatures);
+        Drawer::show_everything(window, field, borders, object_borders, drawable_creatures, true);
         for (int j = 4; j <= i - 4; j++) {
-            Drawer::show_everything(window, field, borders, object_borders, drawable_creatures);
+            Drawer::show_everything(window, field, borders, object_borders, drawable_creatures, true);
         }
         window.close();
     }

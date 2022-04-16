@@ -22,7 +22,8 @@ class Enemy;
 class Creature {
 public:
     // Constructor ~ Destructor
-    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos);
+    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos, 
+        const sf::Vector2f& hit, const sf::Vector2f& collision, const sf::Vector2f& centre_offset); // offset is caused by different textures
     Creature(const Creature&);
     virtual ~Creature() {
     }
@@ -37,6 +38,7 @@ public:
     void reduce_health(int value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
+    void show_box(sf::RenderWindow& window);
     json to_json() const;
     void load(const json& json_obj);
 
@@ -78,9 +80,16 @@ public:
     void become_red();
     void become_normal();
 
+    sf::FloatRect hit_box;
+    sf::FloatRect collision_box;
+    sf::Vector2f centre_offset;
+    sf::RectangleShape rect_hit_box;
+    sf::RectangleShape rect_collision_box;
+
     bool died = false;
     bool to_delete_from_vector = false;
     bool stuck = false;
+    bool can_move = true;
     float stuck_time = 3.f;
     int action_animation_duration = 8;
     int strength = 20;

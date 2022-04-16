@@ -7,8 +7,9 @@
 #include "wolf/wolf.h"
 #include "spider/spider.h"
 
-Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
-        : Creature(_name, _manager, _health, _pos) {
+Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
+             const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
+        : Creature(_name, _manager, _health, _pos, _hit, _collision, _centre_offset) {
 }
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health,
@@ -35,9 +36,9 @@ void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_
     if (died)
         Action::dying(this, time);
     else
-        Action::hit(this, time, drawable_creatures);
-    if (false) {
         Animation::stop_animation(this);
+    if (false) {
+        Action::hit(this, time, drawable_creatures);
         Action::move_left(this, time, field);
     }
 }

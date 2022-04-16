@@ -3,7 +3,7 @@
 
 void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
                              const std::vector<int>& borders, const std::vector<int>& object_borders,
-                             const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+                             const std::vector<std::shared_ptr<Creature>>& drawable_creatures, bool show_boxes) {
     int top_border = borders[0];
     int btm_border = borders[1];
     int left_border = borders[2];
@@ -49,6 +49,8 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                         drawable_creatures[counter]->become_normal();  // being normal
                     }
                     drawable_creatures[counter]->show_creature(window);
+                    if (show_boxes)
+                        drawable_creatures[counter]->show_box(window);
                     if ((*field)(i, j - 1)->tree) {
                         Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j - 1)->tree - 1, i, j - 1);
                         window.draw(field->desert_tree_sprite);

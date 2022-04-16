@@ -28,7 +28,12 @@ Game::Game(sf::RenderWindow* _window) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
-        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_hood));
+        enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
+        enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+    }
+    for (int i = 0; i < 3; ++i) {
+        enemies.push_back(
+                Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     }
 
     game_UI.update_UI(*player);
@@ -55,6 +60,9 @@ View_mode Game::game_loop() {
             case (sf::Keyboard::Tilde):
                 fps.on = !fps.on;
                 break;
+            case (sf::Keyboard::B):
+                show_boxes = !show_boxes;
+                break;
             case (sf::Keyboard::Escape):
                 sf::Texture texture;
                 texture.create(window->getSize().x, window->getSize().y);
@@ -68,7 +76,7 @@ View_mode Game::game_loop() {
         if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
             event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
             event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased ||
-            sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde)) {
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde) || sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
             event = std::move(last_event);
         }
 
@@ -78,6 +86,8 @@ View_mode Game::game_loop() {
         for (auto& enemy : enemies) {
             enemy->action(time, drawable_creatures, game_field);
         }
+        Utils::delete_dead_creatures(enemies);
+        Utils::detect_collisions(drawable_creatures);
 
         last_event = std::move(event);
 
@@ -98,7 +108,7 @@ void Game::render(float time) {
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
     drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
-    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures);
+    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures, show_boxes);
 
     // RENDERING STATIC UI ELEMENTS
     window->setView(window->getDefaultView());

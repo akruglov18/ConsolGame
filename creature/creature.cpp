@@ -5,8 +5,26 @@
 
 #define STUCK_TIME 3.f
 
-Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
-        : manager(_manager), pos(_pos) {
+Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
+                   const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
+        : manager(_manager),
+          pos(_pos),
+          hit_box({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}),
+          collision_box({_pos.x + _centre_offset.x - _collision.x / 2.f, _pos.y + _centre_offset.y - _collision.y}, _collision),
+          centre_offset(_centre_offset) {
+
+    rect_hit_box.setOutlineThickness(2.f);
+    rect_hit_box.setOutlineColor(sf::Color(255, 0, 0));
+    rect_hit_box.setFillColor(sf::Color(255, 255, 255, 0));
+    rect_hit_box.setPosition(hit_box.getPosition());
+    rect_hit_box.setSize(hit_box.getSize());
+
+    rect_collision_box.setOutlineThickness(2.f);
+    rect_collision_box.setOutlineColor(sf::Color(0, 0, 255));
+    rect_collision_box.setFillColor(sf::Color(255, 255, 255, 0));
+    rect_collision_box.setPosition(collision_box.getPosition());
+    rect_collision_box.setSize(collision_box.getSize());
+
     current_frame = 0.f;
     experience = 0;
     health = _health;
@@ -113,6 +131,11 @@ void Creature::show_creature(sf::RenderWindow& window) {
 
     if (get_weapon() != nullptr && direction != Dirs::UP)
         window.draw(get_weapon()->get_sprite());
+}
+
+void Creature::show_box(sf::RenderWindow& window) {
+    window.draw(rect_hit_box);
+    window.draw(rect_collision_box);
 }
 
 std::string Creature::creature_type_str() const {
