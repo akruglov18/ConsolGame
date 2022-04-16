@@ -3,9 +3,9 @@
 void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) {
     std::size_t to_resize = enemies.size();
     for (int i = 0; i < to_resize; ++i) {
-        if (enemies[i]->to_delete_from_vector) {
+        if (enemies[i]->dead) {
             std::swap(enemies[i], enemies[--to_resize]);
-            if (enemies[i]->to_delete_from_vector) {
+            if (enemies[i]->dead) {
                 --i;
             }
         }

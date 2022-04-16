@@ -18,29 +18,26 @@ pause_menu::pause_menu():
 }
 
 View_mode pause_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    pause_screenIMG.loadFromFile("../../images/tmp.jpg");
+    pause_screenIMG.loadFromFile("../../images/tmp_pause.jpg");
     pause_screen.setTexture(pause_screenIMG);
     pause_screen.setColor(sf::Color(255, 255, 255, 180));
 
-    sf::Clock clock;
     View_mode to_return;
     while (true) {
-        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
-        clock.restart();
         sf::Event event;
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed) {
-            std::remove("../../images/tmp.jpg");
+            std::remove("../../images/tmp_pause.jpg");
             return View_mode::EXIT;
         }
         to_return = menu_button::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE) {
-            std::remove("../../images/tmp.jpg");
+            std::remove("../../images/tmp_pause.jpg");
             return to_return;
         }
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-            std::remove("../../images/tmp.jpg");
+            std::remove("../../images/tmp_pause.jpg");
             return View_mode::GAME;
         }
 

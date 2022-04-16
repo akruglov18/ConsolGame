@@ -27,11 +27,8 @@ void skills_menu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<s
 }
 
 View_mode skills_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    sf::Clock clock;
     View_mode to_return;
     while (true) {
-        // auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
-        clock.restart();
         sf::Event event;
         window.pollEvent(event);
 

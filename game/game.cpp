@@ -68,7 +68,7 @@ View_mode Game::game_loop() {
                 texture.create(window->getSize().x, window->getSize().y);
                 texture.update(*window);
                 sf::Image screenshot = texture.copyToImage();
-                screenshot.saveToFile("../../images/tmp.jpg");
+                screenshot.saveToFile("../../images/tmp_pause.jpg");
                 return View_mode::PAUSE_MENU;
             }
         }
@@ -86,6 +86,19 @@ View_mode Game::game_loop() {
         for (auto& enemy : enemies) {
             enemy->action(time, drawable_creatures, game_field);
         }
+
+        if (player->dead) {
+            countdown_before_gameover_screen += time;
+            if (countdown_before_gameover_screen > 5.f) {
+                sf::Texture texture;
+                texture.create(window->getSize().x, window->getSize().y);
+                texture.update(*window);
+                sf::Image screenshot = texture.copyToImage();
+                screenshot.saveToFile("../../images/tmp_gameover.jpg");
+                return View_mode::GAMEOVER_MENU;
+            }
+        }
+
         Utils::delete_dead_creatures(enemies);
         Utils::detect_collisions(drawable_creatures);
 
@@ -106,7 +119,8 @@ void Game::render(float time) {
                                                 game_field->get_height(), player->get_pos());
     auto object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
     drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
-    drawable_creatures.push_back(player);
+    if (!player->dead)
+        drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
     Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures, show_boxes);
 
