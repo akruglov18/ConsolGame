@@ -81,10 +81,6 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            event = std::move(last_event);
-        }
-
         for (int i = 0; i < enemies.size(); ++i) {
             enemies[i]->action(time, drawable_creatures, game_field);
         }

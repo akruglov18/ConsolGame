@@ -112,7 +112,6 @@ public:
     float speed = 1.f;
     int action_animation_duration = 8;
     int strength = 20;
-    float speed = 1.f;
     Modes mode;
     Dirs direction;
 
