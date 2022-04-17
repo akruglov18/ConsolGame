@@ -23,9 +23,9 @@ Game::Game(sf::RenderWindow* _window) {
     player->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
     player->set_armor(Pants::make_pants(PantsType::Pants_green));
     player->set_armor(Boots::make_boots(BootsType::Boots_brown));
-    //player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
+    player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
     //player->set_weapon(Flail::make_flail());
-    player->set_weapon(Halberd::make_halberd());
+    //player->set_weapon(Halberd::make_halberd());
 
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
@@ -33,6 +33,7 @@ Game::Game(sf::RenderWindow* _window) {
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
         enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+        enemies[i]->set_weapon(Axe::make_axe(AxeType::Axe_basic));
     }
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(

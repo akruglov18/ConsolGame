@@ -1,6 +1,7 @@
 #include "flail.h"
 
-Flail::Flail(const std::string& name) : BaseWeapon(name) {
+Flail::Flail(const std::string& name) : 
+    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{52.f, 36.f}, {68.f, 36.f}}) {
     weapon_type = WeaponType::FLAIL;
 }
 
@@ -31,4 +32,28 @@ std::shared_ptr<Flail> Flail::make_flail_from_json(const json& json_obj) {
     res->critical_chance = json_obj["critical_chance"];
     res->critical_multiplier = json_obj["critical_multiplier"];
     return res;
+}
+
+void Flail::calculate_damage_box(sf::Vector2f& pos, int dir) {
+    if (dir == 0 || dir == 1) {
+        if (dir == 0)
+            damage_box.left = pos.x - 16.f;
+        else
+            damage_box.left = pos.x + 28.f;
+
+        damage_box.top = pos.y - 12.f;
+        rect_damage_box.setSize(damage_box.getSize());
+        rect_damage_box.setPosition(damage_box.getPosition());
+    } else {
+        if (dir == 2) {
+            damage_box.top = pos.y - 24;
+            rect_damage_box.setSize(damage_box.getSize());
+        } else {
+            damage_box.top = pos.y;
+            rect_damage_box.setSize({damage_box_vertical.x, damage_box_vertical.y + 8.f});
+        }
+
+        damage_box.left = pos.x + 12.f;        
+        rect_damage_box.setPosition(damage_box.getPosition());
+    }
 }

@@ -1,6 +1,7 @@
 #include "sword.h"
 
-Sword::Sword(const std::string& name, SwordType type): BaseWeapon(name) {
+Sword::Sword(const std::string& name, SwordType type): 
+    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {32.f, 32.f}}) {
     weapon_type = WeaponType::SWORD;
     id = static_cast<int>(type);
 }
@@ -29,4 +30,29 @@ std::shared_ptr<Sword> Sword::make_sword_from_json(const json& json_obj) {
     res->critical_chance = json_obj["critical_chance"];
     res->critical_multiplier = json_obj["critical_multiplier"];
     return res;
+}
+
+void Sword::calculate_damage_box(sf::Vector2f& pos, int dir) {
+    if (dir == 0 || dir == 1) {
+        if (dir == 0)
+            damage_box.left = pos.x - 12.f;
+        else
+            damage_box.left = pos.x + 28.f;
+
+        damage_box.top = pos.y - 12.f;
+        damage_box.height = damage_box_horisontal.y;
+        damage_box.width = damage_box_horisontal.x;
+
+    } else {
+        if (dir == 2)
+            damage_box.top = pos.y - 24;
+        else
+            damage_box.top = pos.y;
+
+        damage_box.left = pos.x + 4.f;
+        damage_box.height = damage_box_vertical.y;
+        damage_box.width = damage_box_vertical.x;
+    }
+    rect_damage_box.setSize(damage_box.getSize());
+    rect_damage_box.setPosition(damage_box.getPosition());
 }

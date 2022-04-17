@@ -173,6 +173,9 @@ void Creature::show_creature(sf::RenderWindow& window) {
 void Creature::show_box(sf::RenderWindow& window) {
     window.draw(rect_hit_box);
     window.draw(rect_collision_box);
+    if (weapon != nullptr && (mode == Modes::SLASH || mode == Modes::THRUST)) {
+        window.draw(weapon->rect_damage_box);
+    }
 }
 
 std::string Creature::creature_type_str() const {

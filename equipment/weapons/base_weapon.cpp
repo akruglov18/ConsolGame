@@ -2,8 +2,15 @@
 #include "weapons.h"
 
 
-BaseWeapon::BaseWeapon(const std::string& name) {
+BaseWeapon::BaseWeapon(const std::string& name, std::pair<sf::Vector2f, sf::Vector2f>& damage_boxes) {
     item_type = ItemType::WEAPON;
+    damage_box_horisontal = damage_boxes.first;
+    damage_box_vertical = damage_boxes.second;
+
+    rect_damage_box.setOutlineThickness(1.f);
+    rect_damage_box.setOutlineColor(sf::Color(0, 255, 0));
+    rect_damage_box.setFillColor(sf::Color(255, 255, 255, 0));
+
     textures.resize(static_cast<int>(Modes::MODES_SIZE));
     for (int i = 0; i < static_cast<int>(Modes::MODES_SIZE); ++i) {
         textures[i] = Resources::TexturesHolder::getResource(name + suffixes[i]);
