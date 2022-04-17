@@ -5,8 +5,8 @@ map_menu::map_menu() {
 }
 
 View_mode map_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
+    sf::Event event{sf::Event::EventType::GainedFocus};
     while (true) {
-        sf::Event event;
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed)

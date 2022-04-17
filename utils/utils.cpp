@@ -50,6 +50,12 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
 }
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+
+    if (drawable_creatures.size() == 1) {
+        drawable_creatures[0]->can_move = true;
+        return;
+    }
+
     for (int i = 0; i < drawable_creatures.size(); ++i) {
         for (int j = 0; j < drawable_creatures.size(); ++j) {
 
