@@ -18,7 +18,10 @@ void skills_menu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<s
             if (_event.type == sf::Event::MouseButtonPressed) {
                 if (node->is_available() && !node->is_opened() && !skill_button::clicked) {
                     skill_button::clicked = true;
-                    node->unlock()->player_func(player);
+                    if(player.get_experience() >= node->get_cost()) {
+                        node->unlock()->player_func(player);
+                        player.add_experience(-node->get_cost());
+                    }
                     return;
                 }
             }
