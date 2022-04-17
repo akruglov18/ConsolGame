@@ -15,8 +15,8 @@ std::shared_ptr<Flail> Flail::make_flail() {
 
 std::shared_ptr<Flail> Flail::make_flail_from_json(const json& json_obj) {
     auto res = make_flail();
-    /*res->can_slash = json_obj["can_slash"];
-    res->can_thrust = json_obj["can_thrust"];*/
+    res->can_slash = json_obj["can_slash"];
+    res->can_thrust = json_obj["can_thrust"];
     res->damage_slash = json_obj["damage_slash"];
     res->damage_thrust = json_obj["damage_thrust"];
     res->critical_chance = json_obj["critical_chance"];

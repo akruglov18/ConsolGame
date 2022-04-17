@@ -39,6 +39,8 @@ json BaseWeapon::to_json() const {
     json res;
     auto name = get_weapon_type_str();
     res[name]["id"] = get_weapon_id();
+    res[name]["can_slash"] = can_slash;
+    res[name]["can_thrust"] = can_thrust;
     res[name]["damage_slash"] = damage_slash;
     res[name]["damage_thrust"] = damage_thrust;
     res[name]["critical_chance"] = critical_chance;

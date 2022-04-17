@@ -23,6 +23,7 @@ Game::Game(sf::RenderWindow* _window) {
     player->set_armor(Pants::make_pants(PantsType::Pants_green));
     player->set_armor(Boots::make_boots(BootsType::Boots_brown));
     //player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
+    //player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
     for (int i = 0; i < 3; ++i) {
@@ -74,19 +75,10 @@ View_mode Game::game_loop() {
             }
         }
 
-        if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
-            event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
-            event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased ||
-            sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde) || sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
-            event = std::move(last_event);
-        }
-
+        Utils::clear_event(event, last_event, player);   
+            
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            event = std::move(last_event);
-        }
 
         for (int i = 0; i < enemies.size(); ++i) {
             enemies[i]->action(time, drawable_creatures, game_field);

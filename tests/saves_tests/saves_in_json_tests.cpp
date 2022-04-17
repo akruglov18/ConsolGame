@@ -112,10 +112,10 @@ bool SaveArmorTests::is_equal_weapons(BaseWeapon* w1, BaseWeapon* w2) {
     if (w1 == nullptr && w2 != nullptr || w1 != nullptr && w2 == nullptr) {
         return false;
     }
-    /*if (w1->can_slash != w2->can_slash)
+    if (w1->can_slash != w2->can_slash)
         return false;
     if (w1->can_thrust != w2->can_thrust)
-        return false;*/
+        return false;
     if (w1->damage_slash != w2->damage_slash)
         return false;
     if (w1->damage_thrust != w2->damage_thrust)
