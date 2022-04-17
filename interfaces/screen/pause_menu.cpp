@@ -22,9 +22,9 @@ View_mode pause_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> play
     pause_screen.setTexture(pause_screenIMG);
     pause_screen.setColor(sf::Color(255, 255, 255, 180));
 
-    View_mode to_return;
+    sf::Event event{sf::Event::EventType::GainedFocus};
+    View_mode to_return{View_mode::NONE};
     while (true) {
-        sf::Event event;
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed) {

@@ -38,7 +38,7 @@ void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_
     else
         Action::hit(this, time, drawable_creatures);
     if (false) {
+        Action::move_right(this, time, field);
         Animation::stop_animation(this);
-        Action::move_left(this, time, field);
     }
 }

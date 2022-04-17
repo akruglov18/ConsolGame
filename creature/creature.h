@@ -92,6 +92,7 @@ public:
     bool dead = false;
 
     float stuck_time = 3.f;
+    float speed = 1.f;
     int action_animation_duration = 8;
     int strength = 20;
     Modes mode;
