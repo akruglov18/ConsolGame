@@ -11,12 +11,13 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
 
     for (int i = top_border; i < btm_border; ++i) {
         for (int j = left_border; j < right_border; ++j) {
-            if (field->operator()(i, j)->border)
-                Tile::scale_borders((*field)(i, j)->tile_sprite, i, j, field->get_width(), field->get_height());
-            else
-                Tile::scale_tiles((*field)(i, j)->tile_sprite, i, j);
-
-            window.draw((*field)(i, j)->tile_sprite);
+            auto cur_tile = (*field)(i,j);
+            if (cur_tile->border) {
+                Tile::scale_borders(cur_tile->tile_sprite, i, j, field->get_width(), field->get_height());
+            } else {
+                Tile::scale_tiles(cur_tile->tile_sprite, i, j);
+            }
+            window.draw(cur_tile->tile_sprite);
         }
     }
 
@@ -28,12 +29,16 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
     std::size_t counter = 0;
     for (int i = obj_top_border; i < obj_btm_border; ++i) {
         for (int j = obj_left_border; j < obj_right_border; ++j) {
-            if ((*field)(i, j)->feature) {
-                Tile::scale_features(field->desert_feature_sprite, (*field)(i, j)->feature - 1, i, j);
+            auto cur_tile = (*field)(i,j);
+            if (cur_tile->feature) {
+                Tile::scale_features(field->desert_feature_sprite, cur_tile->feature - 1, i, j);
                 window.draw(field->desert_feature_sprite);
             }
-            if ((*field)(i, j)->tree) {
-                Tile::scale_trees(field->desert_tree_sprite, (*field)(i, j)->tree - 1, i, j);
+            for(std::size_t i = 0; i < cur_tile->items.size(); i++) {
+                window.draw(cur_tile->items[i]->get_sprite());
+            }
+            if (cur_tile->tree) {
+                Tile::scale_trees(field->desert_tree_sprite, cur_tile->tree - 1, i, j);
                 window.draw(field->desert_tree_sprite);
             }
 

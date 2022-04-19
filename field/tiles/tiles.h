@@ -1,7 +1,7 @@
 #pragma once
-#include <iostream>
 #include "ResourceHolder.h"
 #include "SFML/Graphics.hpp"
+#include "items.h"
 
 class Tile {
 protected:
@@ -28,6 +28,7 @@ public:
 
     bool border = false;
     sf::Sprite& tile_sprite;
+    std::vector<std::shared_ptr<Items>> items; 
     char feature = 0;
     char tree = 0;
 };

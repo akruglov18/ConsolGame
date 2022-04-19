@@ -483,6 +483,8 @@ public:
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         loadFromFile("../../images/icons/ui_big_pieces.png", "main_ui");
 
+        loadFromFile("../../images/items/coins/gold.png", "gold");
+
         return;
     }
 };

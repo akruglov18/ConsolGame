@@ -17,6 +17,7 @@ Game::Game(sf::RenderWindow* _window) {
     get_player_pos_for_view(player->get_pos());
     manager.setPlayer(player.get());
     manager.setEnemies(&enemies);
+    manager.setField(game_field.get());
 
     player->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_leather));
     player->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));

@@ -7,6 +7,7 @@
 #include "base_weapon.h"
 #include "nlohmann_json/json.hpp"
 #include "sfml/Graphics.hpp"
+#include "field.h"
 
 using json = nlohmann::json;
 
@@ -79,6 +80,7 @@ public:
     }
     void become_red();
     void become_normal();
+    virtual Drop drop() const { return Drop(); }
 
     sf::FloatRect hit_box;
     sf::FloatRect collision_box;
@@ -118,12 +120,14 @@ protected:
 class CreatureManager {
 public:
     CreatureManager(){};
-    void setPlayer(Player* player);
+    void setPlayer(Player* _player);
     void setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies);
+    void setField(Field* _field);
     void creatureDied(Creature* creature);
     ~CreatureManager(){};
 
 private:
     Player* player;
     std::vector<std::shared_ptr<Enemy>>* enemies;
+    Field* field;
 };
