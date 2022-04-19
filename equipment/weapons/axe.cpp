@@ -1,7 +1,7 @@
 #include "axe.h"
 
 Axe::Axe(const std::string& name, AxeType type): 
-    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 36.f}, {74.f, 36.f}}) {
+    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {58.f, 20.f}}) {
     weapon_type = WeaponType::AXE;
     id = static_cast<int>(type);
 }
@@ -32,27 +32,34 @@ std::shared_ptr<Axe> Axe::make_axe_from_json(const json& json_obj) {
     return res;
 }
 
-void Axe::calculate_damage_box(sf::Vector2f& pos, int dir) {
-    if (dir == 0 || dir == 1) {
-        if (dir == 0)
-            damage_box.left = pos.x - 12.f;
-        else
-            damage_box.left = pos.x + 28.f;
+void Axe::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
+    if (mode == Modes::SLASH) {
+        if (dir == 0 || dir == 1) {
+            if (dir == 0)
+                damage_box.left = pos.x - 12.f;
+            else
+                damage_box.left = pos.x + 28.f;
 
-        damage_box.top = pos.y - 12.f;
-        damage_box.height = damage_box_horisontal.y;
-        damage_box.width = damage_box_horisontal.x;
+            damage_box.top = pos.y - 12.f;
+            damage_box.height = damage_box_horisontal.y;
+            damage_box.width = damage_box_horisontal.x;
+            rect_damage_box.setSize(damage_box.getSize());
         
-    } else {
-        if (dir == 2)
-            damage_box.top = pos.y - 24;
-        else
-            damage_box.top = pos.y;
+        } else {
+            damage_box.left = pos.x + 16.f;
+            damage_box.height = damage_box_vertical.y;
+            damage_box.width = damage_box_vertical.x;
 
-        damage_box.left = pos.x + 4.f;
-        damage_box.height = damage_box_vertical.y;
-        damage_box.width = damage_box_vertical.x;
+            if (dir == 2) {
+                damage_box.top = pos.y - 20.f;
+                rect_damage_box.setSize({damage_box.getSize().x, damage_box.getSize().y + 8.f});
+            } else {
+                damage_box.top = pos.y + 20.f;
+                rect_damage_box.setSize(damage_box.getSize());
+            }
+        }
+        rect_damage_box.setPosition(damage_box.getPosition());
+    } else {
+        throw std::invalid_argument("Wrong mode");
     }
-    rect_damage_box.setSize(damage_box.getSize());
-    rect_damage_box.setPosition(damage_box.getPosition());
 }
