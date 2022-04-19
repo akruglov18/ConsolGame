@@ -1,7 +1,7 @@
 #include "halberd.h"
 
 Halberd::Halberd(const std::string& name) : 
-    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {32.f, 32.f}}) {
+    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {80.f, 32.f}}) {
     weapon_type = WeaponType::HALBERD;
 }
 
@@ -28,27 +28,64 @@ std::shared_ptr<Halberd> Halberd::make_halberd_from_json(const json& json_obj) {
     return res;
 }
 
-void Halberd::calculate_damage_box(sf::Vector2f& pos, int dir) {
-    if (dir == 0 || dir == 1) {
-        if (dir == 0)
-            damage_box.left = pos.x - 12.f;
-        else
-            damage_box.left = pos.x + 28.f;
+void Halberd::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
+    if (mode == Modes::SLASH) {
+        if (dir == 0 || dir == 1) {
+            if (dir == 0)
+                damage_box.left = pos.x - 22.f;
+            else
+                damage_box.left = pos.x + 38.f;
 
-        damage_box.top = pos.y - 12.f;
-        damage_box.height = damage_box_horisontal.y;
-        damage_box.width = damage_box_horisontal.x;
+            damage_box.top = pos.y - 4.f;
+            damage_box.height = damage_box_horisontal.y;
+            damage_box.width = damage_box_horisontal.x;
+            rect_damage_box.setSize(damage_box.getSize());
+
+        } else {
+            damage_box.left = pos.x;
+
+            if (dir == 2) {
+                damage_box.top = pos.y - 32.f;
+                damage_box.width = 80.f;
+                damage_box.height = 42.f;
+                rect_damage_box.setSize(damage_box.getSize());
+            } else {
+                damage_box.top = pos.y + 16.f;
+                damage_box.height = damage_box_vertical.y;
+                damage_box.width = damage_box_vertical.x;
+                rect_damage_box.setSize(damage_box.getSize());
+            }
+        }        
+        rect_damage_box.setPosition(damage_box.getPosition());
+
+    } else if (mode == Modes::THRUST) {
+        if (dir == 0 || dir == 1) {
+            if (dir == 0)
+                damage_box.left = pos.x - 8.f;
+            else
+                damage_box.left = pos.x + 40.f;
+
+            damage_box.top = pos.y + 6.f;
+            damage_box.width = 32.f;
+            damage_box.height = 16.f;
+            rect_damage_box.setSize(damage_box.getSize());
+
+        } else {
+            if (dir == 2) {
+                damage_box.top = pos.y - 32.f;
+                damage_box.left = pos.x + 32.f;
+            } else {
+                damage_box.top = pos.y + 8.f;
+                damage_box.left = pos.x + 20.f;
+            }
+            
+            damage_box.width = 12.f;
+            damage_box.height = 32.f;
+            rect_damage_box.setSize(damage_box.getSize());
+        }        
+        rect_damage_box.setPosition(damage_box.getPosition());
 
     } else {
-        if (dir == 2)
-            damage_box.top = pos.y - 24;
-        else
-            damage_box.top = pos.y;
-
-        damage_box.left = pos.x + 4.f;
-        damage_box.height = damage_box_vertical.y;
-        damage_box.width = damage_box_vertical.x;
+        throw std::invalid_argument("Wrong mode");
     }
-    rect_damage_box.setSize(damage_box.getSize());
-    rect_damage_box.setPosition(damage_box.getPosition());
 }

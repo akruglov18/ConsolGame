@@ -76,81 +76,8 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////ANOTHER ACTIONS/////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
-void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_hit_border, float& left_hit_border, float& right_hit_border) {
-    switch (creature->direction) {
-        case(Dirs::LEFT):
-            top_hit_border = creature->get_pos().y - 16;
-            btm_hit_border = creature->get_pos().y + 12;
-            left_hit_border = creature->get_pos().x - 48;
-            right_hit_border = creature->get_pos().x;
-            break;
-        case(Dirs::RIGHT):
-            top_hit_border = creature->get_pos().y - 16;
-            btm_hit_border = creature->get_pos().y + 12;
-            left_hit_border = creature->get_pos().x;
-            right_hit_border = creature->get_pos().x + 48;
-            break;
-        case(Dirs::UP):
-            top_hit_border = creature->get_pos().y - 48;
-            btm_hit_border = creature->get_pos().y;
-            left_hit_border = creature->get_pos().x - 24;
-            right_hit_border = creature->get_pos().x + 32;
-            break;
-        case(Dirs::DOWN):
-            top_hit_border = creature->get_pos().y;
-            btm_hit_border = creature->get_pos().y + 32;
-            left_hit_border = creature->get_pos().x - 16;
-            right_hit_border = creature->get_pos().x + 32;
-            break;
-    }
-}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0f5db3f (damage boxes)
 void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
-=======
-void Action::choose_mode_according_to_weapon(Creature* creature) {
-
-    if (creature->dying && creature->mode != Modes::HURT) {
-        creature->change_mode(Modes::HURT);
-        return;
-    }
-
-    if (creature->get_weapon() == nullptr) {
-        if (creature->mode != Modes::SLASH) {
-            creature->change_mode(Modes::SLASH);
-        }
-        return;
-    }
-
-    WeaponType type = creature->get_weapon()->get_weapon_type();
-    if (type == WeaponType::SPEAR) {
-        if (creature->mode != Modes::THRUST) {
-            creature->change_mode(Modes::THRUST);
-        }
-        return;
-    }
-    else 
-    if (type == WeaponType::AXE || 
-        type == WeaponType::SWORD || 
-        type == WeaponType::SPEAR || 
-        type == WeaponType::FLAIL || 
-        type == WeaponType::HALBERD) {
-        if (creature->mode != Modes::SLASH) {
-            creature->change_mode(Modes::SLASH);
-        }
-        return;
-    }
-}
-
-void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
->>>>>>> 2c26019 (flail and halberd)
-=======
-void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
->>>>>>> 564bf4b (reworked damage system)
 
     auto& current_frame = creature->get_frame();
     auto& weapon = creature->get_weapon();
@@ -162,7 +89,7 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
         current_frame = 0.f;
 
         if (weapon != nullptr) {            
-            weapon->calculate_damage_box(pos, static_cast<int>(dir));
+            weapon->calculate_damage_box(pos, static_cast<int>(dir), mode);
         }
 
         for (auto& x : drawable_creatures) {
@@ -178,9 +105,8 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
         creature->change_mode(Modes::WALK);
         Animation::choose_animation_duration(creature);
         current_frame = 0.f;
-        if (weapon != nullptr) {
+        if (weapon != nullptr)
             weapon->get_sprite().setPosition(sf::Vector2f(creature->get_pos().x, creature->get_pos().y - 32));
-        }
         return;
     }
 

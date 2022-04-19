@@ -32,7 +32,7 @@ public:
     static WeaponType to_case(const std::string& type);
 
     void change_mode(Modes mode);
-    virtual void calculate_damage_box(sf::Vector2f& pos, int dir) = 0;
+    virtual void calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) = 0;
 
     bool can_slash = false;
     bool can_thrust = false;

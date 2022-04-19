@@ -235,8 +235,11 @@ void Creature::load(const json& json_obj) {
 void Creature::change_mode(Modes _mode) {
     sprite.setTexture(*body_textures[static_cast<int>(_mode)]);
     armor_set.change_mode(_mode);
-    if (weapon != nullptr)
+    if (weapon != nullptr) {
         weapon->change_mode(_mode);
+        if (_mode == Modes::HURT)
+            weapon->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    }
     mode = _mode;
 }
 
