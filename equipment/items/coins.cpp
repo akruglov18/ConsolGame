@@ -2,15 +2,15 @@
 #include "ResourceHolder.h"
 #include <iostream>
 
-Coins::Coins(int value, const sf::Vector2f& position) {
+Coins::Coins(int _value, const sf::Vector2f& position) {
     sprite.setTexture(*Resources::TexturesHolder::getResource("gold"));
-    _value = value;
+    value = _value;
     chooseTexture();
     sprite.setPosition(position);
 }
 
 void Coins::changeValue(int added) {
-    _value += added;
+    value += added;
     chooseTexture();
 }
 
@@ -18,7 +18,7 @@ void Coins::chooseTexture() {
     std::vector<int> bounds = {1, 100, 500, 1000, 5000};
     auto size = static_cast<int>(bounds.size());
     for (int i = size - 1; i >= 0; i--) {
-        if(_value >= bounds[i]) {
+        if(value >= bounds[i]) {
             // it's done according to existing texture
             // the texture can be converted to items line
             // and the calculating of position will be more easier

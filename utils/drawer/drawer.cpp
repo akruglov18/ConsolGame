@@ -11,7 +11,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
 
     for (int i = top_border; i < btm_border; ++i) {
         for (int j = left_border; j < right_border; ++j) {
-            auto cur_tile = field->operator()(i, j);
+            auto cur_tile = (*field)(i,j);
             if (cur_tile->border) {
                 Tile::scale_borders(cur_tile->tile_sprite, i, j, field->get_width(), field->get_height());
             } else {
@@ -29,7 +29,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
     std::size_t counter = 0;
     for (int i = obj_top_border; i < obj_btm_border; ++i) {
         for (int j = obj_left_border; j < obj_right_border; ++j) {
-            auto cur_tile = field->operator()(i, j);
+            auto cur_tile = (*field)(i,j);
             if (cur_tile->feature) {
                 Tile::scale_features(field->desert_feature_sprite, cur_tile->feature - 1, i, j);
                 window.draw(field->desert_feature_sprite);

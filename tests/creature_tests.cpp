@@ -82,8 +82,11 @@ TEST(CreatureTests, creature_death) {
     CreatureManager manager;
     auto player = std::make_shared<Player>(Player(manager));
     std::vector<std::shared_ptr<Enemy>> enemies;
+    std::shared_ptr<Field> field = std::make_shared<Field>(Field(128, 128));
+    field->generate_desert();
     manager.setEnemies(&enemies);
     manager.setPlayer(player.get());
+    manager.setField(field.get());
     std::size_t size = 5;
     for (std::size_t i = 0; i < size; ++i) {
         enemies.push_back(
