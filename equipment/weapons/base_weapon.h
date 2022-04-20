@@ -3,7 +3,7 @@
 #include <items.h>
 #include <random>
 
-enum class WeaponType { SWORD, SPEAR, AXE };
+enum class WeaponType { SWORD, SPEAR, AXE, FLAIL, HALBERD };
 
 class BaseWeapon : public Items {
 public:
@@ -11,7 +11,7 @@ public:
     BaseWeapon(const BaseWeapon& other);
     virtual ~BaseWeapon() {}
 
-    virtual double get_total_damage() const;
+    virtual double get_total_damage(Modes mode) const;
 
     static std::string class_name() {
         return "Weapon";
@@ -33,7 +33,10 @@ public:
 
     void change_mode(Modes mode);
 
-    double damage = 0;
+    bool can_slash = false;
+    bool can_thrust = false;
+    double damage_slash = 0.0;
+    double damage_thrust = 0.0;
     int critical_chance = 0;
     double critical_multiplier = 0;
 

@@ -38,7 +38,7 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
                 if (static_cast<int>(drawable_creatures[j]->get_pos().x / 32) > 
                     static_cast<int>(drawable_creatures[j + 1]->get_pos().x / 32)) {
                     std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
-                }
+                } 
             } else {
                 if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) >
                     static_cast<int>(drawable_creatures[j + 1]->get_pos().y / 32)) {
@@ -125,4 +125,29 @@ std::vector<int> Utils::get_object_borders(const std::vector<int>& borders, int 
     int obj_left_border = std::max(borders[2] - 2, 0);
     int obj_right_border = std::min(borders[3] + 2, field_width);
     return {obj_top_border, obj_btm_border, obj_left_border, obj_right_border};
+}
+
+void Utils::clear_event(sf::Event& event, sf::Event& last_event, std::shared_ptr<Player> player) {
+    if (event.type == sf::Event::MouseMoved || event.type == sf::Event::MouseWheelScrolled ||
+        event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
+        event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde) || sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
+        event = std::move(last_event);
+    }
+
+    // ignoring the space button if player can't thrust
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !player->get_weapon()->can_thrust)) {
+        if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
+              sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+                event.type = sf::Event::KeyPressed;
+                event.key.code = sf::Keyboard::LShift;
+            } else {
+                event.type = sf::Event::KeyReleased;
+                event.key.code = sf::Keyboard::Unknown;
+            }
+        } else {
+            event = std::move(last_event);
+        }
+    }
 }

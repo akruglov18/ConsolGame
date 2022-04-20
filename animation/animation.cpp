@@ -2,7 +2,7 @@
 
 // WALK THRUST SPELLCAST SLASH HURT BOW
 
-std::vector<int> Animation::anim_dur_hum = {8, 8, 7, 5, 5, 13};
+std::vector<int> Animation::anim_dur_hum = {8, 7, 7, 5, 6, 13};
 std::vector<int> Animation::anim_dur_spider = {6, 0, 0, 3, 4, 0};
 
 void Animation::choose_animation_duration(Creature* creature) {

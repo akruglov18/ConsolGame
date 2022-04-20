@@ -14,6 +14,7 @@ public:
     static std::vector<int> get_rendering_borders(int window_width, int window_height, int field_width,
                                                   int field_height, const sf::Vector2f& player_pos);
     static std::vector<int> get_object_borders(const std::vector<int>& borders, int field_width, int field_height);
+    static void clear_event(sf::Event& event, sf::Event& last_event, std::shared_ptr<Player> player);
     static float square(float x) {
         return x * x;
     }
