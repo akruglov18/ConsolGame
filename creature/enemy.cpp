@@ -41,4 +41,5 @@ void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_
         Action::move_right(this, time, field);
         Animation::stop_animation(this);
     }
+    health_bar.update(health, max_health, hit_box);
 }

@@ -186,11 +186,12 @@ void Animation::move_spider(Creature* creature, Dirs dir) {
 
 void Animation::stop_spider(Creature* creature) {
     int y_texture = switch_y_texture(creature->direction);
+
     creature->get_sprite().setTextureRect(sf::IntRect({192, y_texture}, {64, 64}));
 }
 
 void Animation::hit_spider(Creature* creature) {
-    int y_texture = switch_y_texture(creature->direction);    
+    int y_texture = switch_y_texture(creature->direction);
     auto& current_frame = creature->get_frame();
     creature->get_sprite().setTextureRect(
             sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));

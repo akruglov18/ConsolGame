@@ -81,9 +81,12 @@ View_mode Game::game_loop() {
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
-        for (int i = 0; i < enemies.size(); ++i) {
-            enemies[i]->action(time, drawable_creatures, game_field);
+        for (auto& enemy : enemies) {
+            enemy->action(time, drawable_creatures, game_field);
         }
+
+        Utils::delete_dead_creatures(enemies);
+        Utils::detect_collisions(drawable_creatures);
 
         if (player->dead) {
             countdown_before_gameover_screen += time;
