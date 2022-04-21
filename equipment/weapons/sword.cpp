@@ -1,6 +1,7 @@
 #include "sword.h"
 
-Sword::Sword(const std::string& name, SwordType type): BaseWeapon(name) {
+Sword::Sword(const std::string& name, SwordType type): 
+    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {32.f, 32.f}}) {
     weapon_type = WeaponType::SWORD;
     id = static_cast<int>(type);
 }
@@ -29,4 +30,11 @@ std::shared_ptr<Sword> Sword::make_sword_from_json(const json& json_obj) {
     res->critical_chance = json_obj["critical_chance"];
     res->critical_multiplier = json_obj["critical_multiplier"];
     return res;
+}
+
+void Sword::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
+    // there will be something
+    mode;
+    pos;
+    dir;
 }

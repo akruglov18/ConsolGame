@@ -76,69 +76,35 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////ANOTHER ACTIONS/////////////////////////////////////////////////////////////
 
-void Action::make_borders(Creature* creature, float& top_hit_border, float& btm_hit_border, float& left_hit_border, float& right_hit_border) {
-    switch (creature->direction) {
-        case(Dirs::LEFT):
-            top_hit_border = creature->get_pos().y - 16;
-            btm_hit_border = creature->get_pos().y + 12;
-            left_hit_border = creature->get_pos().x - 48;
-            right_hit_border = creature->get_pos().x;
-            break;
-        case(Dirs::RIGHT):
-            top_hit_border = creature->get_pos().y - 16;
-            btm_hit_border = creature->get_pos().y + 12;
-            left_hit_border = creature->get_pos().x;
-            right_hit_border = creature->get_pos().x + 48;
-            break;
-        case(Dirs::UP):
-            top_hit_border = creature->get_pos().y - 48;
-            btm_hit_border = creature->get_pos().y;
-            left_hit_border = creature->get_pos().x - 24;
-            right_hit_border = creature->get_pos().x + 32;
-            break;
-        case(Dirs::DOWN):
-            top_hit_border = creature->get_pos().y;
-            btm_hit_border = creature->get_pos().y + 32;
-            left_hit_border = creature->get_pos().x - 16;
-            right_hit_border = creature->get_pos().x + 32;
-            break;
-    }
-}
 
 void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
 
     auto& current_frame = creature->get_frame();
+    auto& weapon = creature->get_weapon();
+    auto& pos = creature->get_pos();
+    auto& dir = creature->direction;
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
         creature->change_mode(mode);
         Animation::choose_animation_duration(creature);
         current_frame = 0.f;
-        
-        float top_hit_border, btm_hit_border, left_hit_border, right_hit_border;
-        sf::Vector2f pos = creature->get_pos();
-        make_borders(creature, top_hit_border, btm_hit_border, left_hit_border, right_hit_border);
+
+        if (weapon != nullptr) {            
+            weapon->calculate_damage_box(pos, static_cast<int>(dir), mode);
+        }
 
         for (auto& x : drawable_creatures) {
-            if (x->get_pos().y > top_hit_border && x->get_pos().y < btm_hit_border
-                && x->get_pos().x > left_hit_border && x->get_pos().x < right_hit_border) {
-                if (Utils::square(x->get_pos().x - pos.x) + Utils::square(x->get_pos().y - pos.y) <= Utils::square(48.f)) {
-                    if (creature->get_weapon() != nullptr)
-                        x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage(creature->mode)));
-                    else
-                        x->reduce_health(creature->strength);
-                }
-            }            
+            if (weapon != nullptr && x.get() != creature && weapon->damage_box.findIntersection(x->hit_box).has_value()) {
+                x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage(creature->mode)));
+            }
         }
     }
 
-    auto weapon = creature->get_weapon();
     current_frame += 0.15f * time;
 
     if (current_frame > creature->action_animation_duration) {
         creature->change_mode(Modes::WALK);
         Animation::choose_animation_duration(creature);
         current_frame = 0.f;
-        if (weapon != nullptr)
-            weapon->get_sprite().setPosition(sf::Vector2f(creature->get_pos().x, creature->get_pos().y - 32));
         return;
     }
 

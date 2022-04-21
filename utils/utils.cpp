@@ -50,13 +50,8 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
 }
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
-
-    if (drawable_creatures.size() == 1) {
-        drawable_creatures[0]->can_move = true;
-        return;
-    }
-
     for (int i = 0; i < drawable_creatures.size(); ++i) {
+        bool somebody_near = false;
         for (int j = 0; j < drawable_creatures.size(); ++j) {
 
             if (drawable_creatures[j]->get_pos().y > drawable_creatures[i]->get_pos().y + 48.f)
@@ -67,6 +62,8 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
                 drawable_creatures[j]->get_pos().x > drawable_creatures[i]->get_pos().x + 48.f)
                 continue;
 
+            somebody_near = true;
+
             if (check_collision(drawable_creatures[i]->collision_box, drawable_creatures[j]->collision_box,
                 drawable_creatures[i]->direction)) {
                 drawable_creatures[i]->can_move = false;
@@ -75,6 +72,8 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
                 drawable_creatures[i]->can_move = true;
             }
         }
+        if (!somebody_near)
+            drawable_creatures[i]->can_move = true;
     }
 }
 

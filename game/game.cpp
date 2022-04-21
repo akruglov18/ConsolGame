@@ -33,6 +33,7 @@ Game::Game(sf::RenderWindow* _window) {
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
         enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
+        enemies[i]->set_weapon(Axe::make_axe(AxeType::Axe_basic));
     }
     for (int i = 0; i < 3; ++i) {
         enemies.push_back(
@@ -84,6 +85,9 @@ View_mode Game::game_loop() {
         for (auto& enemy : enemies) {
             enemy->action(time, drawable_creatures, game_field);
         }
+
+        Utils::delete_dead_creatures(enemies);
+        Utils::detect_collisions(drawable_creatures);
 
         Utils::delete_dead_creatures(enemies);
         Utils::detect_collisions(drawable_creatures);

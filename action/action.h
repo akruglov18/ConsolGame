@@ -21,10 +21,5 @@ public:
 
     // animation
     static void update_frame(Creature* creature, float time);
-
-private:
-    // inner, additional functions
-    static void make_borders(Creature* creature, float& top_hit_border, float& btm_hit_border, float& left_hit_border, float& right_hit_border);
-
 };
 

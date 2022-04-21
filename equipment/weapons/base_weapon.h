@@ -7,7 +7,7 @@ enum class WeaponType { SWORD, SPEAR, AXE, FLAIL, HALBERD };
 
 class BaseWeapon : public Items {
 public:
-    BaseWeapon(const std::string& name);
+    BaseWeapon(const std::string& name, std::pair<sf::Vector2f, sf::Vector2f>& damage_boxes);
     BaseWeapon(const BaseWeapon& other);
     virtual ~BaseWeapon() {}
 
@@ -32,6 +32,7 @@ public:
     static WeaponType to_case(const std::string& type);
 
     void change_mode(Modes mode);
+    virtual void calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) = 0;
 
     bool can_slash = false;
     bool can_thrust = false;
@@ -40,7 +41,12 @@ public:
     int critical_chance = 0;
     double critical_multiplier = 0;
 
+    sf::FloatRect damage_box;
+    sf::RectangleShape rect_damage_box;
+
 protected:
     int id;
     WeaponType weapon_type;
+    sf::Vector2f damage_box_vertical;
+    sf::Vector2f damage_box_horisontal;
 };
