@@ -80,4 +80,4 @@ void SwordTests::Run() {
     ASSERT_NO_THROW(Sword::make_sword(sword));
 }
 
-} // namespace
+}  // namespace

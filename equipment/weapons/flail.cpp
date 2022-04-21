@@ -1,7 +1,7 @@
 #include "flail.h"
 
-Flail::Flail(const std::string& name) : 
-    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {58.f, 32.f}}) {
+Flail::Flail(const std::string& name)
+        : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {58.f, 32.f}}) {
     weapon_type = WeaponType::FLAIL;
 }
 
@@ -36,7 +36,6 @@ void Flail::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
             damage_box.top = pos.y - 12.f;
             damage_box.height = damage_box_horisontal.y;
             damage_box.width = damage_box_horisontal.x;
-        
 
         } else {
             damage_box.left = pos.x + 16.f;

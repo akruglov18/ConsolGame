@@ -11,7 +11,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
 
     for (int i = top_border; i < btm_border; ++i) {
         for (int j = left_border; j < right_border; ++j) {
-            auto cur_tile = (*field)(i,j);
+            auto cur_tile = (*field)(i, j);
             if (cur_tile->border) {
                 Tile::scale_borders(cur_tile->tile_sprite, i, j, field->get_width(), field->get_height());
             } else {
@@ -29,12 +29,12 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
     std::size_t counter = 0;
     for (int i = obj_top_border; i < obj_btm_border; ++i) {
         for (int j = obj_left_border; j < obj_right_border; ++j) {
-            auto cur_tile = (*field)(i,j);
+            auto cur_tile = (*field)(i, j);
             if (cur_tile->feature) {
                 Tile::scale_features(field->desert_feature_sprite, cur_tile->feature - 1, i, j);
                 window.draw(field->desert_feature_sprite);
             }
-            for(std::size_t i = 0; i < cur_tile->items.size(); i++) {
+            for (std::size_t i = 0; i < cur_tile->items.size(); i++) {
                 window.draw(cur_tile->items[i]->get_sprite());
             }
             if (cur_tile->tree) {
@@ -42,7 +42,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                 window.draw(field->desert_tree_sprite);
             }
 
-            while (true) { // This loop is neccessary if creatures stay on the same tile
+            while (true) {  // This loop is neccessary if creatures stay on the same tile
                 if (counter < drawable_creatures.size() &&
                     i == (static_cast<int>(drawable_creatures[counter]->get_pos().y)) / 32 + 1 &&
                     j == (static_cast<int>(drawable_creatures[counter]->get_pos().x)) / 32 + 1) {
@@ -62,8 +62,7 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
                         window.draw(field->desert_tree_sprite);
                     }
                     ++counter;
-                } 
-                else {
+                } else {
                     break;
                 }
             }

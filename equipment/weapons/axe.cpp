@@ -1,7 +1,7 @@
 #include "axe.h"
 
-Axe::Axe(const std::string& name, AxeType type): 
-    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {58.f, 20.f}}) {
+Axe::Axe(const std::string& name, AxeType type)
+        : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {58.f, 20.f}}) {
     weapon_type = WeaponType::AXE;
     id = static_cast<int>(type);
 }
@@ -44,7 +44,7 @@ void Axe::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
             damage_box.height = damage_box_horisontal.y;
             damage_box.width = damage_box_horisontal.x;
             rect_damage_box.setSize(damage_box.getSize());
-        
+
         } else {
             damage_box.left = pos.x + 16.f;
             damage_box.height = damage_box_vertical.y;

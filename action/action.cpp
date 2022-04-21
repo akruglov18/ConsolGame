@@ -6,8 +6,8 @@ void Action::update_frame(Creature* creature, float time) {
         creature->get_frame() = 0;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////
 
 void Action::move_left(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
     update_frame(creature, time);
@@ -73,12 +73,11 @@ void Action::move_down(Creature* creature, float time, const std::shared_ptr<Fie
     Animation::move_animation(creature, Dirs::DOWN);
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////ANOTHER ACTIONS/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////ANOTHER ACTIONS///////////////////////////////////////////////////
 
-
-void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode) {
-
+void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
+                 Modes mode) {
     auto& current_frame = creature->get_frame();
     auto& weapon = creature->get_weapon();
     auto& pos = creature->get_pos();
@@ -88,12 +87,13 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
         Animation::choose_animation_duration(creature);
         current_frame = 0.f;
 
-        if (weapon != nullptr) {            
+        if (weapon != nullptr) {
             weapon->calculate_damage_box(pos, static_cast<int>(dir), mode);
         }
 
         for (auto& x : drawable_creatures) {
-            if (weapon != nullptr && x.get() != creature && weapon->damage_box.findIntersection(x->hit_box).has_value()) {
+            if (weapon != nullptr && x.get() != creature &&
+                weapon->damage_box.findIntersection(x->hit_box).has_value()) {
                 x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage(creature->mode)));
             }
         }
@@ -105,6 +105,8 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
         creature->change_mode(Modes::WALK);
         Animation::choose_animation_duration(creature);
         current_frame = 0.f;
+        if (weapon != nullptr)
+            weapon->get_sprite().setPosition(sf::Vector2f(creature->get_pos().x, creature->get_pos().y - 32));
         return;
     }
 
@@ -112,7 +114,6 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
 }
 
 void Action::dying(Creature* creature, float time) {
-
     auto& current_frame = creature->get_frame();
 
     if (creature->mode != Modes::HURT) {

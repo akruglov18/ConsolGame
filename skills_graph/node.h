@@ -28,7 +28,6 @@ public:
     Node& operator=(const Node&) = delete;
 
 private:
-
     std::vector<std::shared_ptr<Node>> childs;
     std::shared_ptr<Skill> skill;
     int barrier;

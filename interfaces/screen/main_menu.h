@@ -1,6 +1,6 @@
 #pragma once
-#include "screen.h"
 #include "menu_button.h"
+#include "screen.h"
 
 class main_menu : public screen {
 public:

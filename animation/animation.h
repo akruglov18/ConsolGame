@@ -32,4 +32,3 @@ public:
     static void die_spider(Creature* creature);
     // ====================================================
 };
-

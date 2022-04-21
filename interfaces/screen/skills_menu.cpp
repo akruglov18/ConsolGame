@@ -1,14 +1,13 @@
 #include "skills_menu.h"
 
-skills_menu::skills_menu() : 
-    b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.f, 52.f}), View_mode::GAME) {
+skills_menu::skills_menu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.f, 52.f}), View_mode::GAME) {
     color = sf::Color(240, 164, 99);
     buttons.push_back(&b_exit);
     graph.init();
 }
 
 void skills_menu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
-                                      const sf::Event& _event, Player& player) {
+                                     const sf::Event& _event, Player& player) {
     if (_event.type == sf::Event::MouseButtonReleased && skill_button::clicked) {
         skill_button::clicked = false;
     }
@@ -18,7 +17,7 @@ void skills_menu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<s
             if (_event.type == sf::Event::MouseButtonPressed) {
                 if (node->is_available() && !node->is_opened() && !skill_button::clicked) {
                     skill_button::clicked = true;
-                    if(player.get_experience() >= node->get_cost()) {
+                    if (player.get_experience() >= node->get_cost()) {
                         node->unlock()->player_func(player);
                         player.add_experience(-node->get_cost());
                     }

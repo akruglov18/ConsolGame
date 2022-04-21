@@ -4,7 +4,7 @@
 Node::Node(const std::string& name, std::shared_ptr<Skill> _skill, int _cost, const sf::FloatRect& _coord)
         : cost(_cost), node_button(name, _coord) {
     skill = _skill;
-    barrier = 0;    
+    barrier = 0;
     opened = false;
 }
 
@@ -63,5 +63,3 @@ std::shared_ptr<Skill> Node::unlock() {
     opened = true;
     return skill;
 }
-
-

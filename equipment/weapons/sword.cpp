@@ -1,7 +1,7 @@
 #include "sword.h"
 
-Sword::Sword(const std::string& name, SwordType type): 
-    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {32.f, 32.f}}) {
+Sword::Sword(const std::string& name, SwordType type)
+        : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {32.f, 32.f}}) {
     weapon_type = WeaponType::SWORD;
     id = static_cast<int>(type);
 }

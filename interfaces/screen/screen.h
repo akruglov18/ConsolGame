@@ -1,7 +1,7 @@
 #pragma once
+#include <map>
 #include "button.h"
 #include "utils.h"
-#include <map>
 
 class screen {
 public:

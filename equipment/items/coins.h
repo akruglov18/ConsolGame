@@ -8,9 +8,14 @@ public:
     Coins& operator=(const Coins& other) = default;
     ~Coins() = default;
 
-    int getValue() const { return value; }
+    int getValue() const {
+        return value;
+    }
     void changeValue(int added);
-    virtual json to_json() const override { return json(); }
+    virtual json to_json() const override {
+        return json();
+    }
+
 private:
     int value;
     void chooseTexture();

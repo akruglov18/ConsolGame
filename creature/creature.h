@@ -5,9 +5,9 @@
 #include <vector>
 #include "armor_set.h"
 #include "base_weapon.h"
+#include "field.h"
 #include "nlohmann_json/json.hpp"
 #include "sfml/Graphics.hpp"
-#include "field.h"
 
 using json = nlohmann::json;
 
@@ -33,9 +33,20 @@ public:
 
 class Creature {
 public:
-    // Constructor ~ Destructor
-    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos, 
-        const sf::Vector2f& hit, const sf::Vector2f& collision, const sf::Vector2f& centre_offset); // offset is caused by different textures
+    /**
+     * @brief Constructor
+     * @param[in] name 
+     * @param[in] manager
+     * @param[in] health 
+     * @param[in] pos Creature's position
+     * @param[in] hit Box for hit's definition
+     * @param[in] collision Box for movement's definition
+     * @param[in] centre_offset Offset for box showing (offset is caused by different textures)
+     * @return Output expression
+     */
+    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos,
+             const sf::Vector2f& hit, const sf::Vector2f& collision,
+             const sf::Vector2f& centre_offset);
     Creature(const Creature&);
     virtual ~Creature() {
     }
@@ -94,7 +105,9 @@ public:
     }
     void become_red();
     void become_normal();
-    virtual Drop drop() const { return Drop(); }
+    virtual Drop drop() const {
+        return Drop();
+    }
 
     sf::FloatRect hit_box;
     sf::FloatRect collision_box;

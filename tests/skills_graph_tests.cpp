@@ -150,7 +150,7 @@ TEST(SkillsGraph, locking_0) {
 TEST(SkillsGraph, locking_1) {
     SkillsGraph graph;
     std::shared_ptr<Skill> skill(new Skill(foop));
-    std::size_t root = graph.add_skill("name", skill, sf::FloatRect() , 0);
+    std::size_t root = graph.add_skill("name", skill, sf::FloatRect(), 0);
     std::size_t child = graph.add_skill("name", skill, sf::FloatRect(), 0, static_cast<int>(root));
     ASSERT_TRUE(graph.is_locked(child));
 }
@@ -254,4 +254,4 @@ TEST(SkillsGraph, multuple_locking_7) {
     ASSERT_FALSE(graph.is_locked(root1) || graph.is_locked(root2));
 }
 
-} // namespace
+}  // namespace

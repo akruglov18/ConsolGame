@@ -1,8 +1,8 @@
 #include "spear.h"
 #include <stdexcept>
 
-Spear::Spear(const std::string& name, SpearType type): 
-    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {32.f, 32.f}}) {
+Spear::Spear(const std::string& name, SpearType type)
+        : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {32.f, 32.f}}) {
     weapon_type = WeaponType::SPEAR;
     id = static_cast<int>(type);
 }
@@ -34,7 +34,7 @@ std::shared_ptr<Spear> Spear::make_spear_from_json(const json& json_obj) {
 }
 
 void Spear::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
-    //there will be something
+    // there will be something
     mode;
     pos;
     dir;

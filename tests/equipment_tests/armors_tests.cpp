@@ -121,4 +121,4 @@ void PantsTests::Run() {
     ASSERT_NO_THROW(Pants::make_pants(pants));
 }
 
-} // namespace
+}  // namespace

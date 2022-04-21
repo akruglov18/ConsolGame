@@ -6,7 +6,7 @@
 
 //#define universal
 
-Game::Game(sf::RenderWindow* _window) {    
+Game::Game(sf::RenderWindow* _window) {
     window = _window;
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
@@ -23,8 +23,8 @@ Game::Game(sf::RenderWindow* _window) {
     player->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
     player->set_armor(Pants::make_pants(PantsType::Pants_green));
     player->set_armor(Boots::make_boots(BootsType::Boots_brown));
-    //player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
-    //player->set_weapon(Flail::make_flail());
+    // player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
+    // player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
     for (int i = 0; i < 3; ++i) {
@@ -55,7 +55,7 @@ View_mode Game::game_loop() {
 
         if (event.type == sf::Event::Closed) {
             return View_mode::EXIT;
-        }            
+        }
 
         if (event.type == sf::Event::KeyPressed) {
             switch (event.key.code) {
@@ -77,8 +77,8 @@ View_mode Game::game_loop() {
             }
         }
 
-        Utils::clear_event(event, last_event, player);   
-            
+        Utils::clear_event(event, last_event, player);
+
         player->action(event, time, game_field, drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
@@ -104,7 +104,7 @@ View_mode Game::game_loop() {
             }
         }
 
-        Utils::delete_dead_creatures(enemies); //this method will get several vectors (traders, enemies, animals...)
+        Utils::delete_dead_creatures(enemies);  // this method will get several vectors (traders, enemies, animals...)
         Utils::detect_collisions(drawable_creatures);
 
         last_event = std::move(event);

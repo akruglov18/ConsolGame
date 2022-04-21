@@ -4,8 +4,8 @@
 #include "armors.h"
 #include "creature.h"
 #include "enemy.h"
-#include "weapons.h"
 #include "utils.h"
+#include "weapons.h"
 
 namespace {
 
@@ -101,4 +101,4 @@ TEST(CreatureTests, creature_death) {
     ASSERT_EQ(size, enemies.size() + 2);
 }
 
-} // namespace
+}  // namespace

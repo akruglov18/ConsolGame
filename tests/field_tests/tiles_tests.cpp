@@ -41,4 +41,4 @@ TEST(Tile, no_equality) {
     ASSERT_NE(*desert1, *desert2);
 }
 
-} // namespace 
+}  // namespace

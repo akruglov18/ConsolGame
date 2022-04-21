@@ -1,6 +1,6 @@
 #pragma once
-#include "screen.h"
 #include "menu_button.h"
+#include "screen.h"
 #include "slider.h"
 
 class settings_menu : public screen {

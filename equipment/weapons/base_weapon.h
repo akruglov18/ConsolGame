@@ -9,7 +9,8 @@ class BaseWeapon : public Items {
 public:
     BaseWeapon(const std::string& name, std::pair<sf::Vector2f, sf::Vector2f>& damage_boxes);
     BaseWeapon(const BaseWeapon& other);
-    virtual ~BaseWeapon() {}
+    virtual ~BaseWeapon() {
+    }
 
     virtual double get_total_damage(Modes mode) const;
 

@@ -1,7 +1,7 @@
 #pragma once
+#include "menu_button.h"
 #include "screen.h"
 #include "skills_graph.h"
-#include "menu_button.h"
 
 class skills_menu : public screen {
 public:
