@@ -4,7 +4,6 @@
 class Action;
 
 Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
-                                                   // hit_box   collision_box  centre_offset
         : Creature("man", _manager, _health, _pos, {24.f, 44.f}, {14.f, 14.f}, {32.f, 32.f}) {
     creature_type = CreatureType::PLAYER;
     creature_anim = CreatureAnim::HUMANOID;

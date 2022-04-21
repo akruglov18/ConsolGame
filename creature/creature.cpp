@@ -1,8 +1,8 @@
 #include "creature.h"
 #include "Player/player.h"
 #include "ResourceHolder.h"
-#include "enemy.h"
 #include "coins.h"
+#include "enemy.h"
 
 #define STUCK_TIME 3.f
 
@@ -41,10 +41,10 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, int _hea
         : manager(_manager),
           pos(_pos),
           hit_box({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}),
-          collision_box({_pos.x + _centre_offset.x - _collision.x / 2.f, _pos.y + _centre_offset.y - _collision.y}, _collision),
+          collision_box({_pos.x + _centre_offset.x - _collision.x / 2.f, _pos.y + _centre_offset.y - _collision.y},
+                        _collision),
           centre_offset(_centre_offset),
           health_bar({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}) {
-
     rect_hit_box.setOutlineThickness(2.f);
     rect_hit_box.setOutlineColor(sf::Color(255, 0, 0));
     rect_hit_box.setFillColor(sf::Color(255, 255, 255, 0));
@@ -262,15 +262,14 @@ void CreatureManager::creatureDied(Creature* creature) {
     creature->dead = true;
 
     if (creature->get_type() == CreatureType::PLAYER) {
-        //end
+        // end
     } else {
         auto drop = creature->drop();
         auto x = static_cast<int>(creature->get_pos().x) >> 5;
         auto y = static_cast<int>(creature->get_pos().y) >> 5;
-        if(drop.coins > 0) {
+        if (drop.coins > 0) {
             (*field)(y, x)->items.push_back(std::shared_ptr<Items>(new Coins(drop.coins, creature->get_pos())));
         }
         player->add_experience(drop.experience);
     }
 }
-

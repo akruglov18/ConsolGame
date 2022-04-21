@@ -1,8 +1,8 @@
 #pragma once
+#include <functional>
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "utils.h"
-#include <functional>
 
 #define FONT_SIZE 28
 
@@ -16,7 +16,7 @@ public:
     sf::FloatRect coord;
     sf::Sprite spriteL;
     sf::Sprite spriteM;
-    sf::Sprite spriteR;    
+    sf::Sprite spriteR;
 
     virtual void print_button(sf::RenderWindow& window) = 0;
 };

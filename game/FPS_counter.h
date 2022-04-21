@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "SFML/Graphics.hpp"
 #include "ResourceHolder.h"
+#include "SFML/Graphics.hpp"
 
 class FPS_counter {
 private:

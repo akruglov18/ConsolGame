@@ -28,7 +28,7 @@ public:
 
     bool border = false;
     sf::Sprite& tile_sprite;
-    std::vector<std::shared_ptr<Items>> items; 
+    std::vector<std::shared_ptr<Items>> items;
     char feature = 0;
     char tree = 0;
 };

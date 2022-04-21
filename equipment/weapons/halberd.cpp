@@ -1,7 +1,7 @@
 #include "halberd.h"
 
-Halberd::Halberd(const std::string& name) : 
-    BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {80.f, 32.f}}) {
+Halberd::Halberd(const std::string& name)
+        : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {80.f, 32.f}}) {
     weapon_type = WeaponType::HALBERD;
 }
 
@@ -55,7 +55,7 @@ void Halberd::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
                 damage_box.width = damage_box_vertical.x;
                 rect_damage_box.setSize(damage_box.getSize());
             }
-        }        
+        }
         rect_damage_box.setPosition(damage_box.getPosition());
 
     } else if (mode == Modes::THRUST) {
@@ -78,11 +78,11 @@ void Halberd::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
                 damage_box.top = pos.y + 8.f;
                 damage_box.left = pos.x + 20.f;
             }
-            
+
             damage_box.width = 12.f;
             damage_box.height = 32.f;
             rect_damage_box.setSize(damage_box.getSize());
-        }        
+        }
         rect_damage_box.setPosition(damage_box.getPosition());
 
     } else {

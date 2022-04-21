@@ -3,9 +3,9 @@
 #include "action.h"
 #include "beetle/beetle.h"
 #include "skeleton/skeleton.h"
+#include "spider/spider.h"
 #include "taur/taur.h"
 #include "wolf/wolf.h"
-#include "spider/spider.h"
 
 Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
              const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
@@ -36,7 +36,8 @@ void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_
     if (dying)
         Action::dying(this, time);
     else
-        Action::hit(this, time, drawable_creatures, Modes::SLASH); // Enemy will choose mode according to weapon due to AI
+        Action::hit(this, time, drawable_creatures,
+                    Modes::SLASH);  // Enemy will choose mode according to weapon due to AI
     if (false) {
         Action::move_right(this, time, field);
         Animation::stop_animation(this);

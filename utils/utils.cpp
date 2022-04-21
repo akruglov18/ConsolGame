@@ -33,12 +33,12 @@ std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
 void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     for (int i = 0; i < drawable_creatures.size(); ++i) {
         for (int j = 0; j < drawable_creatures.size() - i - 1; ++j) {
-            if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) == 
+            if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) ==
                 static_cast<int>(drawable_creatures[j + 1]->get_pos().y / 32)) {
-                if (static_cast<int>(drawable_creatures[j]->get_pos().x / 32) > 
+                if (static_cast<int>(drawable_creatures[j]->get_pos().x / 32) >
                     static_cast<int>(drawable_creatures[j + 1]->get_pos().x / 32)) {
                     std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
-                } 
+                }
             } else {
                 if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) >
                     static_cast<int>(drawable_creatures[j + 1]->get_pos().y / 32)) {
@@ -53,11 +53,9 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
     for (int i = 0; i < drawable_creatures.size(); ++i) {
         bool somebody_near = false;
         for (int j = 0; j < drawable_creatures.size(); ++j) {
-
             if (drawable_creatures[j]->get_pos().y > drawable_creatures[i]->get_pos().y + 48.f)
                 break;
-            if (i == j ||
-                drawable_creatures[j]->get_pos().y < drawable_creatures[i]->get_pos().y - 48.f ||
+            if (i == j || drawable_creatures[j]->get_pos().y < drawable_creatures[i]->get_pos().y - 48.f ||
                 drawable_creatures[j]->get_pos().x < drawable_creatures[i]->get_pos().x - 48.f ||
                 drawable_creatures[j]->get_pos().x > drawable_creatures[i]->get_pos().x + 48.f)
                 continue;
@@ -65,7 +63,7 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
             somebody_near = true;
 
             if (check_collision(drawable_creatures[i]->collision_box, drawable_creatures[j]->collision_box,
-                drawable_creatures[i]->direction)) {
+                                drawable_creatures[i]->direction)) {
                 drawable_creatures[i]->can_move = false;
                 break;
             } else {

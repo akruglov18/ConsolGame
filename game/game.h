@@ -4,8 +4,8 @@
 #include "drawer.h"
 #include "enemy.h"
 #include "field.h"
-#include "player/player.h"
 #include "game_ui.h"
+#include "player/player.h"
 
 class Game {
 private:

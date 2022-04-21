@@ -1,9 +1,8 @@
 #include "gameover_menu.h"
 
-gameover_menu::gameover_menu() : 
-    b_main_menu("Main menu", sf::FloatRect({380.f, 600.f}, {240.f, 52.f}), View_mode::MAIN_MENU),
-    b_restart("Restart", sf::FloatRect({680.f, 600.f}, {240.f, 52.f}), View_mode::GAME) {
-
+gameover_menu::gameover_menu()
+        : b_main_menu("Main menu", sf::FloatRect({380.f, 600.f}, {240.f, 52.f}), View_mode::MAIN_MENU),
+          b_restart("Restart", sf::FloatRect({680.f, 600.f}, {240.f, 52.f}), View_mode::GAME) {
     color = sf::Color(255, 255, 255);
 
     buttons.push_back(&b_main_menu);

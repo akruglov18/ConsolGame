@@ -1,7 +1,7 @@
 #include "field.h"
-#include "all_tiles.h"
-#include <random>
 #include <iostream>
+#include <random>
+#include "all_tiles.h"
 
 // constructors~destructor /////////////////////////////////////////////////////////////////////////////////////////////
 

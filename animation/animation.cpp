@@ -17,7 +17,7 @@ void Animation::choose_animation_duration(Creature* creature) {
 }
 
 void Animation::move_animation(Creature* creature, Dirs dir) {
-    switch (creature->get_anim()) { 
+    switch (creature->get_anim()) {
     case (CreatureAnim::HUMANOID):
         move_hum(creature, dir);
         break;
@@ -62,20 +62,20 @@ void Animation::die_animation(Creature* creature) {
 
 int Animation::switch_y_texture(Dirs dir) {
     switch (dir) {
-        case (Dirs::LEFT):
-            return 64;
-        case (Dirs::RIGHT):
-            return 192;
-        case (Dirs::UP): 
-            return 0;
-        case (Dirs::DOWN):
-            return 128;
+    case (Dirs::LEFT):
+        return 64;
+    case (Dirs::RIGHT):
+        return 192;
+    case (Dirs::UP):
+        return 0;
+    case (Dirs::DOWN):
+        return 128;
     }
     return 0;
 }
 
 //=================================================================================================
-                                           // HUMANOID
+// HUMANOID
 //=================================================================================================
 
 void Animation::move_hum(Creature* creature, Dirs dir) {
@@ -169,7 +169,7 @@ void Animation::die_hum(Creature* creature) {
 }
 
 //=================================================================================================
-                                        // SPIDER
+// SPIDER
 //=================================================================================================
 
 void Animation::move_spider(Creature* creature, Dirs dir) {
@@ -200,4 +200,3 @@ void Animation::die_spider(Creature* creature) {
     auto& current_frame = creature->get_frame();
     creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 256}, {64, 64}));
 }
-

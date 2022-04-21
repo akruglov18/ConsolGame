@@ -1,6 +1,6 @@
 #pragma once
-#include "SFML/Graphics.hpp"
 #include "Player/player.h"
+#include "SFML/Graphics.hpp"
 
 class Game_UI {
 public:

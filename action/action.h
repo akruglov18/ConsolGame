@@ -1,13 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "field.h"
-#include "creature.h"
 #include "animation.h"
+#include "creature.h"
+#include "field.h"
 #include "utils.h"
 
-class Action
-{
+class Action {
 public:
     // movements
     static void move_left(Creature* creature, float time, const std::shared_ptr<Field>& game_field);
@@ -16,10 +15,10 @@ public:
     static void move_down(Creature* creature, float time, const std::shared_ptr<Field>& game_field);
 
     // another actions such as take, cut, hit, trade, use magic and so on
-    static void hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures, Modes mode);
+    static void hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
+                    Modes mode);
     static void dying(Creature* creature, float time);
 
     // animation
     static void update_frame(Creature* creature, float time);
 };
-

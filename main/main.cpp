@@ -1,10 +1,10 @@
 #include "game.h"
+#include "gameover_menu.h"
 #include "main_menu.h"
 #include "pause_menu.h"
 #include "screen.h"
 #include "settings_menu.h"
 #include "skills_menu.h"
-#include "gameover_menu.h"
 
 int main() {
     std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{sf::VideoMode(1280, 720), "Application"});
@@ -36,7 +36,6 @@ int main() {
         else {
             Game game(window.get());
             while (screen != View_mode::MAIN_MENU && screen != View_mode::EXIT) {
-
                 screen = game.game_loop();
                 if (screen == View_mode::EXIT) {
                     break;
