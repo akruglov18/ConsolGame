@@ -9,7 +9,7 @@ void Action::update_frame(Creature* creature, float time) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////MOVEMENTS///////////////////////////////////////////////////
 
-void Action::move_left(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
+void Action::move_left(Creature* creature, float time, Field* game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
@@ -25,7 +25,7 @@ void Action::move_left(Creature* creature, float time, const std::shared_ptr<Fie
     Animation::move_animation(creature, Dirs::LEFT);
 }
 
-void Action::move_right(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
+void Action::move_right(Creature* creature, float time, Field* game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
@@ -41,7 +41,7 @@ void Action::move_right(Creature* creature, float time, const std::shared_ptr<Fi
     Animation::move_animation(creature, Dirs::RIGHT);
 }
 
-void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
+void Action::move_up(Creature* creature, float time, Field* game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>((pos.y - time) / 32.f + 1.f);
@@ -57,7 +57,7 @@ void Action::move_up(Creature* creature, float time, const std::shared_ptr<Field
     Animation::move_animation(creature, Dirs::UP);
 }
 
-void Action::move_down(Creature* creature, float time, const std::shared_ptr<Field>& game_field) {
+void Action::move_down(Creature* creature, float time, Field* game_field) {
     update_frame(creature, time);
     auto& pos = creature->get_pos();
     auto y = static_cast<int>((pos.y + time) / 32.f + 1.f);

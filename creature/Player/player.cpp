@@ -9,7 +9,7 @@ Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
     creature_anim = CreatureAnim::HUMANOID;
 }
 
-void Player::action(sf::Event& event, float time, const std::shared_ptr<Field>& game_field,
+void Player::action(sf::Event& event, float time, Field* game_field,
                     const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     update_stuck_frame(time);
     if (dying) {

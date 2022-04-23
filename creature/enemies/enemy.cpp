@@ -1,4 +1,5 @@
 #include "enemy.h"
+#include "AI/AI.h"
 #include "ResourceHolder.h"
 #include "action.h"
 #include "beetle/beetle.h"
@@ -13,7 +14,7 @@ Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, co
 }
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health,
-                                          const sf::Vector2f& pos) {
+                                            const sf::Vector2f& pos) {
     switch (type) {
     case CreatureType::BEETLE:
         return std::shared_ptr<Enemy>(new Beetle(manager));
@@ -30,17 +31,16 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
     }
 }
 
-void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures,
-                   std::shared_ptr<Field>& field) {
+void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures, Field* field,
+                   Player* player) {
     update_stuck_frame(time);
-    if (dying)
+    if (dying) {
         Action::dying(this, time);
-    else
-        Action::hit(this, time, drawable_creatures,
-                    Modes::SLASH);  // Enemy will choose mode according to weapon due to AI
-    if (false) {
-        Action::move_right(this, time, field);
-        Animation::stop_animation(this);
+    } else {
+        drawable_creatures;
+        if (true) {
+            AI::takeAction(field, this, player, time);
+        }
     }
     health_bar.update(health, max_health, hit_box);
 }
