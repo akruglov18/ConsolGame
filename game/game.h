@@ -2,7 +2,7 @@
 #include "FPS_counter.h"
 #include "creature.h"
 #include "drawer.h"
-#include "enemy.h"
+#include "enemies/enemy.h"
 #include "field.h"
 #include "game_ui.h"
 #include "player/player.h"

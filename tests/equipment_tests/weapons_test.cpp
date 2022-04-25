@@ -4,7 +4,7 @@
 #include "Player/player.h"
 #include "ResourceHolder.h"
 #include "creature.h"
-#include "enemy.h"
+#include "enemies/enemy.h"
 #include "items.h"
 
 namespace {

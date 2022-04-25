@@ -35,9 +35,9 @@ class Creature {
 public:
     /**
      * @brief Constructor
-     * @param[in] name 
+     * @param[in] name
      * @param[in] manager
-     * @param[in] health 
+     * @param[in] health
      * @param[in] pos Creature's position
      * @param[in] hit Box for hit's definition
      * @param[in] collision Box for movement's definition
@@ -45,8 +45,7 @@ public:
      * @return Output expression
      */
     Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos,
-             const sf::Vector2f& hit, const sf::Vector2f& collision,
-             const sf::Vector2f& centre_offset);
+             const sf::Vector2f& hit, const sf::Vector2f& collision, const sf::Vector2f& centre_offset);
     Creature(const Creature&);
     virtual ~Creature() {
     }

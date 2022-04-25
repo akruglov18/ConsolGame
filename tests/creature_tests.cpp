@@ -3,7 +3,7 @@
 #include "ResourceHolder.h"
 #include "armors.h"
 #include "creature.h"
-#include "enemy.h"
+#include "enemies/enemy.h"
 #include "utils.h"
 #include "weapons.h"
 
@@ -44,7 +44,7 @@ void test_stuck() {
     event.key.code = sf::Keyboard::LShift;
     sf::Clock clock;
     for (int i = 0; i < 100; i++) {
-        player->action(event, 0.05f, field, enemies);
+        player->action(event, 0.05f, field.get(), enemies);
         ASSERT_TRUE(enemies[0]->stuck);
         if (enemies[0]->get_health() < 0) {
             ASSERT_TRUE(enemies[0]->dying);

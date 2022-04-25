@@ -2,7 +2,7 @@
 #include "Player/player.h"
 #include "ResourceHolder.h"
 #include "coins.h"
-#include "enemy.h"
+#include "enemies/enemy.h"
 
 #define STUCK_TIME 3.f
 

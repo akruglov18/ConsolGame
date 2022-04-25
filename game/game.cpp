@@ -27,7 +27,7 @@ Game::Game(sf::RenderWindow* _window) {
     // player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 15; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
@@ -35,10 +35,10 @@ Game::Game(sf::RenderWindow* _window) {
         enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
         enemies[i]->set_weapon(Axe::make_axe(AxeType::Axe_basic));
     }
-    for (int i = 0; i < 3; ++i) {
-        enemies.push_back(
-                Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
-    }
+    // for (int i = 0; i < 3; ++i) {
+    //     enemies.push_back(
+    //             Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
+    // }
 
     game_UI.update_UI(*player);
 }
@@ -79,11 +79,11 @@ View_mode Game::game_loop() {
 
         Utils::clear_event(event, last_event, player);
 
-        player->action(event, time, game_field, drawable_creatures);
+        player->action(event, time, game_field.get(), drawable_creatures);
         get_player_pos_for_view(player->get_pos());
 
         for (auto& enemy : enemies) {
-            enemy->action(time, drawable_creatures, game_field);
+            enemy->action(time, drawable_creatures, game_field.get(), player.get());
         }
 
         Utils::delete_dead_creatures(enemies);

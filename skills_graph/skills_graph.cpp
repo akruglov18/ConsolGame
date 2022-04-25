@@ -9,7 +9,8 @@ void SkillsGraph::init() {
     // Making graph
     add_skill("Bug spray", std::make_shared<Skill>(Skill(Skills_Functions::vitality5)), {{600, 320}, {0, 0}}, 20);
     add_skill("Big stomach", std::make_shared<Skill>(Skill(Skills_Functions::vitality10)), {{740, 320}, {0, 0}}, 30, 0);
-    add_skill("Medium armor", std::make_shared<Skill>(Skill(Skills_Functions::vitality15)), {{880, 320}, {0, 0}}, 50, 1);
+    add_skill("Medium armor", std::make_shared<Skill>(Skill(Skills_Functions::vitality15)), {{880, 320}, {0, 0}}, 50,
+              1);
 }
 
 std::size_t SkillsGraph::add_skill(const std::string& name, std::shared_ptr<Skill> skill, const sf::FloatRect& _coord,

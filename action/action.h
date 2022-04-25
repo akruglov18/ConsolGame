@@ -9,10 +9,10 @@
 class Action {
 public:
     // movements
-    static void move_left(Creature* creature, float time, const std::shared_ptr<Field>& game_field);
-    static void move_right(Creature* creature, float time, const std::shared_ptr<Field>& game_field);
-    static void move_up(Creature* creature, float time, const std::shared_ptr<Field>& game_field);
-    static void move_down(Creature* creature, float time, const std::shared_ptr<Field>& game_field);
+    static void move_left(Creature* creature, float time, Field* game_field);
+    static void move_right(Creature* creature, float time, Field* game_field);
+    static void move_up(Creature* creature, float time, Field* game_field);
+    static void move_down(Creature* creature, float time, Field* game_field);
 
     // another actions such as take, cut, hit, trade, use magic and so on
     static void hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
