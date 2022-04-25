@@ -1,9 +1,9 @@
 #pragma once
 #include "button.h"
 
-class slider : public button {
+class Slider : public Button {
 public:
-    slider(const std::string& _text, const sf::FloatRect& _coord, std::function<void()> _func,
+    Slider(const std::string& _text, const sf::FloatRect& _coord, std::function<void()> _func,
            const sf::Color& _text_color = {100, 30, 30});
     sf::Text percent_value;
     std::function<void()> function;
@@ -17,8 +17,8 @@ public:
     static bool was_released;
 
     void move_slider(sf::Vector2i mouse_pos);
-    static void sliders_checker(sf::Vector2i mouse_pos, const std::vector<slider*>& _sliders);
+    static void sliders_checker(sf::Vector2i mouse_pos, const std::vector<Slider*>& _sliders);
     virtual void print_button(sf::RenderWindow& window) override;
 
-    static slider* clicked_slider;
+    static Slider* clicked_slider;
 };

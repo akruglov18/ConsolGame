@@ -18,12 +18,13 @@ int main() {
     std::cout << "Textures loading: " << std::setw(9) << diff.count() << " s\n";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    std::map<View_mode, screen*> screens;
+    std::map<View_mode, Screen*> screens;
     View_mode screen = View_mode::MAIN_MENU;
-    main_menu m_menu;
-    pause_menu p_menu;
-    skills_menu sk_menu;
-    settings_menu st_menu;
+    MainMenu m_menu;
+    PauseMenu p_menu;
+    SkillsMenu sk_menu;
+    GameSettings settings;
+    SettingsMenu st_menu(settings);
     gameover_menu gg_menu;
     screens[View_mode::MAIN_MENU] = &m_menu;
     screens[View_mode::PAUSE_MENU] = &p_menu;
@@ -34,7 +35,7 @@ int main() {
         if (screen != View_mode::GAME)
             screen = screens[screen]->Run(*window);
         else {
-            Game game(window.get());
+            Game game(window.get(), settings);
             while (screen != View_mode::MAIN_MENU && screen != View_mode::EXIT) {
                 screen = game.game_loop();
                 if (screen == View_mode::EXIT) {

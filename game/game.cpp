@@ -6,7 +6,7 @@
 
 //#define universal
 
-Game::Game(sf::RenderWindow* _window) {
+Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settings) {
     window = _window;
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
@@ -83,7 +83,7 @@ View_mode Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
         for (auto& enemy : enemies) {
-            enemy->action(time, drawable_creatures, game_field.get(), player.get());
+            enemy->action(time, drawable_creatures, game_field.get(), player.get(), settings.difficulty);
         }
 
         Utils::delete_dead_creatures(enemies);

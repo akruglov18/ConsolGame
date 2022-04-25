@@ -1,11 +1,11 @@
 #include "slider.h"
 
-slider* slider::clicked_slider = nullptr;
-bool slider::was_released = false;
+Slider* Slider::clicked_slider = nullptr;
+bool Slider::was_released = false;
 
-slider::slider(const std::string& _text, const sf::FloatRect& _coord, std::function<void()> _func,
+Slider::Slider(const std::string& _text, const sf::FloatRect& _coord, std::function<void()> _func,
                const sf::Color& _text_color)
-        : button(_text, _coord, _text_color) {
+        : Button(_text, _coord, _text_color) {
     texture = Resources::TexturesHolder::getResource("main_ui");
     text_color = _text_color;
     coord = _coord;
@@ -51,7 +51,7 @@ slider::slider(const std::string& _text, const sf::FloatRect& _coord, std::funct
     percent_value.setPosition(sf::Vector2f(right_border + 80.f, coord.top + 0.f));
 }
 
-void slider::move_slider(sf::Vector2i mouse_pos) {
+void Slider::move_slider(sf::Vector2i mouse_pos) {
     if (mouse_pos.x < right_border && mouse_pos.x > left_border) {
         sprite_slide.setPosition(sf::Vector2f(mouse_pos.x + 0.f, coord.top + 2.f));
         sprite_inner.setPosition(sf::Vector2f(mouse_pos.x + 10.f, coord.top + 10.f));
@@ -68,7 +68,7 @@ void slider::move_slider(sf::Vector2i mouse_pos) {
     percent_value.setString(std::to_string(slide_value) + "%");
 }
 
-void slider::sliders_checker(sf::Vector2i mouse_pos, const std::vector<slider*>& _sliders) {
+void Slider::sliders_checker(sf::Vector2i mouse_pos, const std::vector<Slider*>& _sliders) {
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
         was_released = true;
     }
@@ -97,7 +97,7 @@ void slider::sliders_checker(sf::Vector2i mouse_pos, const std::vector<slider*>&
     }
 }
 
-void slider::print_button(sf::RenderWindow& window) {
+void Slider::print_button(sf::RenderWindow& window) {
     window.draw(spriteL);
     window.draw(spriteM);
     window.draw(spriteR);

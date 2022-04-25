@@ -1,8 +1,8 @@
 #include "menu_button.h"
 
-menu_button::menu_button(const std::string& _text, const sf::FloatRect& _coord, View_mode _func,
-                         const sf::Color& _text_color)
-        : button(_text, _coord, _text_color) {
+MenuButton::MenuButton(const std::string& _text, const sf::FloatRect& _coord, View_mode _func,
+                       const sf::Color& _text_color)
+        : Button(_text, _coord, _text_color) {
     function = _func;
     spriteL.setTexture(*texture);
     spriteL.setTextureRect(sf::IntRect({634, 24}, {42, 26}));
@@ -25,7 +25,7 @@ menu_button::menu_button(const std::string& _text, const sf::FloatRect& _coord, 
     text.setPosition(sf::Vector2f(coord.left + coord.width / 2.f - FONT_SIZE * (_text.size() / 4.f), coord.top + 8));
 }
 
-void menu_button::normal() {
+void MenuButton::normal() {
     hovered = false;
     spriteL.setTextureRect(sf::IntRect({634, 24}, {42, 26}));
     spriteL.move(sf::Vector2f(2, 0));
@@ -34,7 +34,7 @@ void menu_button::normal() {
     text.setFillColor(text_color);
 }
 
-void menu_button::hover() {
+void MenuButton::hover() {
     hovered = true;
     spriteL.setTextureRect(sf::IntRect({633, 54}, {42, 30}));
     spriteL.move(sf::Vector2f(-2, 0));
@@ -43,25 +43,27 @@ void menu_button::hover() {
     text.setFillColor(sf::Color(100, 30, 30));
 }
 
-View_mode menu_button::buttons_checker(sf::Vector2i mouse_pos, const std::vector<menu_button*>& _buttons,
-                                       const sf::Event& _event) {
+View_mode MenuButton::buttons_checker(sf::Vector2i mouse_pos, const std::vector<MenuButton*>& _buttons,
+                                      const sf::Event& _event) {
     for (auto but : _buttons) {
         if (mouse_pos.x > but->coord.left && mouse_pos.x < but->coord.left + but->coord.width &&
             mouse_pos.y > but->coord.top && mouse_pos.y < but->coord.top + but->coord.height) {
-            if (!but->hovered)
+            if (!but->hovered) {
                 but->hover();
+            }
             if (_event.type == sf::Event::MouseButtonPressed) {
                 return but->function;
             }
         } else {
-            if (but->hovered)
+            if (but->hovered) {
                 but->normal();
+            }
         }
     }
     return View_mode::NONE;
 }
 
-void menu_button::print_button(sf::RenderWindow& window) {
+void MenuButton::print_button(sf::RenderWindow& window) {
     window.draw(spriteL);
     window.draw(spriteM);
     window.draw(spriteR);

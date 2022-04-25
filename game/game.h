@@ -4,6 +4,7 @@
 #include "drawer.h"
 #include "enemies/enemy.h"
 #include "field.h"
+#include "game_settings.h"
 #include "game_ui.h"
 #include "player/player.h"
 
@@ -18,12 +19,13 @@ private:
     std::vector<std::shared_ptr<Enemy>> enemies;  // maybe this must be <Creature> too
     std::vector<std::shared_ptr<Creature>> drawable_creatures;
     CreatureManager manager;
+    GameSettings& settings;
     sf::View view;
 
 public:
-    Game(sf::RenderWindow* _window);
+    Game(sf::RenderWindow* _window, GameSettings& _settings);
     FPS_counter fps;
-    Game_UI game_UI;
+    GameUI game_UI;
 
     // additional information
     bool show_boxes = false;

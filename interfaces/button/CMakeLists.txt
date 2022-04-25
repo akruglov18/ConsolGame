@@ -1,4 +1,4 @@
-set(ProjectId button)
+set(ProjectId buttons)
 project(${ProjectId})
 
 file(GLOB ALL_SOURCE_FILES *.cpp *.h *.hpp)

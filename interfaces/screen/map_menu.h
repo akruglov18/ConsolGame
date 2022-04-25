@@ -1,9 +1,9 @@
 #pragma once
 #include "screen.h"
 
-class map_menu : public screen {
+class MapMenu : public Screen {
 public:
-    map_menu();
+    MapMenu();
     sf::Color color;
     virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
 };

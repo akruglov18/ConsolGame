@@ -1,10 +1,10 @@
 #include "map_menu.h"
 
-map_menu::map_menu() {
+MapMenu::MapMenu() {
     color = sf::Color(255, 0, 0);
 }
 
-View_mode map_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
+View_mode MapMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Event event{sf::Event::EventType::GainedFocus};
     while (true) {
         window.pollEvent(event);

@@ -3,14 +3,14 @@
 #include "screen.h"
 #include "skills_graph.h"
 
-class skills_menu : public screen {
+class SkillsMenu : public Screen {
 public:
-    skills_menu();
+    SkillsMenu();
     sf::Color color;
     SkillsGraph graph;
 
-    menu_button b_exit;
-    std::vector<menu_button*> buttons;
+    MenuButton b_exit;
+    std::vector<MenuButton*> buttons;
 
     static void node_click_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
                                    const sf::Event& _event, Player& player);
