@@ -14,6 +14,7 @@ MainMenu::MainMenu()
 View_mode MainMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Event event{sf::Event::EventType::GainedFocus};
     View_mode to_return{View_mode::NONE};
+
     while (true) {
         window.pollEvent(event);
 
@@ -29,5 +30,6 @@ View_mode MainMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player
         b_settings.print_button(window);
         b_exit.print_button(window);
         window.display();
+        play_music();
     }
 }

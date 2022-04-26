@@ -2,9 +2,9 @@
 #include "menu_button.h"
 #include "screen.h"
 
-class gameover_menu : public Screen {
+class GameoverMenu : public Screen {
 public:
-    gameover_menu();
+    GameoverMenu();
     sf::Color color;
     sf::Text gameover_text;
     sf::Texture gameover_screenIMG;

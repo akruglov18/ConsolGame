@@ -1,6 +1,6 @@
 #include "gameover_menu.h"
 
-gameover_menu::gameover_menu()
+GameoverMenu::GameoverMenu()
         : b_main_menu("Main menu", sf::FloatRect({380.f, 600.f}, {240.f, 52.f}), View_mode::MAIN_MENU),
           b_restart("Restart", sf::FloatRect({680.f, 600.f}, {240.f, 52.f}), View_mode::GAME) {
     color = sf::Color(255, 255, 255);
@@ -16,7 +16,7 @@ gameover_menu::gameover_menu()
     gameover_text.setPosition(sf::Vector2f(480.f, 120.f));
 }
 
-View_mode gameover_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
+View_mode GameoverMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     gameover_screenIMG.loadFromFile("../../images/tmp_gameover.jpg");
     gameover_screen.setTexture(gameover_screenIMG);
     gameover_screen.setColor(sf::Color(255, 0, 0, 70));
@@ -47,5 +47,6 @@ View_mode gameover_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> p
         b_restart.print_button(window);
         window.draw(gameover_text);
         window.display();
+        play_music();
     }
 }

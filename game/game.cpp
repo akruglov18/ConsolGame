@@ -61,6 +61,8 @@ View_mode Game::game_loop() {
             switch (event.key.code) {
             case (sf::Keyboard::Tab):
                 return View_mode::SKILLS_MENU;
+            case (sf::Keyboard::M):
+                return View_mode::MAP_MENU;
             case (sf::Keyboard::Tilde):
                 fps.on = !fps.on;
                 break;

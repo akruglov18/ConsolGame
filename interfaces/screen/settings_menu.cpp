@@ -14,6 +14,7 @@ SettingsMenu::SettingsMenu(GameSettings& _settings)
 View_mode SettingsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Event event{sf::Event::EventType::GainedFocus};
     View_mode to_return{View_mode::NONE};
+
     while (true) {
         window.pollEvent(event);
 
@@ -42,9 +43,12 @@ View_mode SettingsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> pl
         s_sound.print_button(window);
         s_difficulty.print_button(window);
         window.display();
+        menu_music.setVolume(static_cast<float>(s_sound.slide_value));
+        play_music();
     }
-
+    
     set();
+
     return to_return;
 }
 
