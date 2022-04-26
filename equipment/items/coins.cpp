@@ -6,7 +6,8 @@ Coins::Coins(int _value, const sf::Vector2f& position) {
     sprite.setTexture(*Resources::TexturesHolder::getResource("gold"));
     value = _value;
     chooseTexture();
-    sprite.setPosition(position);
+    sprite.setPosition({position.x + 16.f, position.y + 8.f});
+    item_type = ItemType::COINS;
 }
 
 void Coins::changeValue(int added) {

@@ -17,6 +17,5 @@ public:
     }
 
 private:
-    int value;
     void chooseTexture();
 };

@@ -25,6 +25,7 @@ public:
     void set_scale(const sf::Vector2f& pos);
     virtual json to_json() const = 0;
 
+    int value = 1;
 protected:
     std::vector<std::shared_ptr<sf::Texture>> textures;
     sf::Sprite sprite;

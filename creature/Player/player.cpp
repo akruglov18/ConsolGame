@@ -12,6 +12,9 @@ Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
 void Player::action(sf::Event& event, float time, Field* game_field,
                     const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     update_stuck_frame(time);
+
+    take_drop(game_field);
+
     if (dying) {
         Action::dying(this, time);
         return;
@@ -70,4 +73,10 @@ void Player::action(sf::Event& event, float time, Field* game_field,
         }
     }
     health_bar.update(health, max_health, hit_box);
+}
+
+void Player::take_drop(Field* field) {
+    auto& items = (*field)(static_cast<int>(pos.y / 32), static_cast<int>(pos.x / 32) + 1)->items;
+    if (items.size())
+        inventory.take(items);
 }

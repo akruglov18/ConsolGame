@@ -5,4 +5,4 @@ file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h *.hpp)
 
 add_library(${ProjectId} STATIC ${ALL_SOURCE_FILES})
 target_include_directories(${ProjectId} PUBLIC .)
-target_link_libraries(${ProjectId} action resource_holder items tiles field armor_set weapon)
+target_link_libraries(${ProjectId} action resource_holder inventory items tiles field armor_set weapon)
