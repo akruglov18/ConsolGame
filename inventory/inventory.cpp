@@ -81,4 +81,3 @@ void Inventory::take(std::vector<std::shared_ptr<Items>>& items) {
     
     items = std::move(cant_pick_up);
 }
-
