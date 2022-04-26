@@ -1,8 +1,8 @@
 #pragma once
 #include "button.h"
 
-class checkbox : public button {
+class Checkbox : public Button {
 public:
-    checkbox();
+    Checkbox();
     virtual void print_button(sf::RenderWindow& window) override;
 };

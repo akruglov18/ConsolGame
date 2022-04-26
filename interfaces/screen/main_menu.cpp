@@ -1,6 +1,6 @@
 #include "main_menu.h"
 
-main_menu::main_menu()
+MainMenu::MainMenu()
         : b_play("Start game", sf::FloatRect({540.f, 260.f}, {240.f, 52.f}), View_mode::GAME),
           b_settings("Settings", sf::FloatRect({540.f, 320.f}, {240.f, 52.f}), View_mode::SETTINGS_MENU),
           b_exit("Exit", sf::FloatRect({540.f, 380.f}, {240.f, 52.f}), View_mode::EXIT) {
@@ -11,7 +11,7 @@ main_menu::main_menu()
     buttons.push_back(&b_exit);
 }
 
-View_mode main_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
+View_mode MainMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Event event{sf::Event::EventType::GainedFocus};
     View_mode to_return{View_mode::NONE};
     while (true) {
@@ -20,7 +20,7 @@ View_mode main_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> playe
         if (event.type == sf::Event::Closed)
             return View_mode::EXIT;
 
-        to_return = menu_button::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
+        to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE)
             return to_return;
 

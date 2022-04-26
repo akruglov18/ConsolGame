@@ -6,9 +6,9 @@
 
 #define FONT_SIZE 28
 
-class button {
+class Button {
 public:
-    button(const std::string& text, const sf::FloatRect& coord, const sf::Color& text_color);
+    Button(const std::string& text, const sf::FloatRect& coord, const sf::Color& text_color);
     sf::Font font;
     sf::Text text;
     std::shared_ptr<sf::Texture> texture;

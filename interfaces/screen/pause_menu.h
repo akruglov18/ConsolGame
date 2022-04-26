@@ -2,18 +2,18 @@
 #include "menu_button.h"
 #include "screen.h"
 
-class pause_menu : public screen {
+class PauseMenu : public Screen {
 public:
-    pause_menu();
+    PauseMenu();
     sf::Color color;
     sf::Text pause_text;
     sf::Texture pause_screenIMG;
     sf::Sprite pause_screen;
 
-    menu_button b_to_game;
-    menu_button b_main_menu;
+    MenuButton b_to_game;
+    MenuButton b_main_menu;
 
-    std::vector<menu_button*> buttons;
+    std::vector<MenuButton*> buttons;
 
     virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
 };

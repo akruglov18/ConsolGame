@@ -1,19 +1,24 @@
 #pragma once
+#include "game_settings.h"
 #include "menu_button.h"
 #include "screen.h"
 #include "slider.h"
 
-class settings_menu : public screen {
+class SettingsMenu : public Screen {
 public:
-    settings_menu();
+    SettingsMenu(GameSettings& _settings);
     sf::Color color;
+    GameSettings& settings;
 
-    menu_button b_main_menu;
-    slider s_sound;
-    slider s_difficulty;
+    MenuButton b_main_menu;
+    Slider s_sound;
+    Slider s_difficulty;
 
-    std::vector<menu_button*> buttons;
-    std::vector<slider*> sliders;
+    std::vector<MenuButton*> buttons;
+    std::vector<Slider*> sliders;
 
     virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
+
+private:
+    void set();
 };

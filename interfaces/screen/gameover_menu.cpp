@@ -30,7 +30,7 @@ View_mode gameover_menu::Run(sf::RenderWindow& window, std::shared_ptr<Player> p
             std::remove("../../images/tmp_gameover.jpg");
             return View_mode::EXIT;
         }
-        to_return = menu_button::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
+        to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE) {
             std::remove("../../images/tmp_gameover.jpg");
             return to_return;

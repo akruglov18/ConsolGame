@@ -1,9 +1,9 @@
 #include "skill_button.h"
 
-bool skill_button::clicked = false;
+bool SkillButton::clicked = false;
 
-skill_button::skill_button(const std::string& _text, const sf::FloatRect& _coord, const sf::Color& _text_color)
-        : button(_text, _coord, _text_color) {
+SkillButton::SkillButton(const std::string& _text, const sf::FloatRect& _coord, const sf::Color& _text_color)
+        : Button(_text, _coord, _text_color) {
     spriteL.setTexture(*texture);
     spriteM.setTexture(*texture);
     spriteR.setTexture(*texture);
@@ -21,7 +21,7 @@ skill_button::skill_button(const std::string& _text, const sf::FloatRect& _coord
     text.setPosition(sf::Vector2f(coord.left, coord.top - 20));
 }
 
-void skill_button::print_button(sf::RenderWindow& window) {
+void SkillButton::print_button(sf::RenderWindow& window) {
     window.draw(node_linker);
     window.draw(spriteL);
     window.draw(spriteM);

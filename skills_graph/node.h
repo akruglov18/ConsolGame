@@ -22,7 +22,7 @@ public:
         return cost;
     }
 
-    skill_button node_button;
+    SkillButton node_button;
 
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;

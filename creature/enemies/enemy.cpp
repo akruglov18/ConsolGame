@@ -14,7 +14,7 @@ Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, co
 }
 
 std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health,
-                                            const sf::Vector2f& pos) {
+                                          const sf::Vector2f& pos) {
     switch (type) {
     case CreatureType::BEETLE:
         return std::shared_ptr<Enemy>(new Beetle(manager));
@@ -31,14 +31,14 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
     }
 }
 
-void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures, Field* field,
-                   Player* player) {
+void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures, Field* field, Player* player,
+                   bool difficulty) {
     update_stuck_frame(time);
     if (dying) {
         Action::dying(this, time);
     } else {
         drawable_creatures;
-        if (true) {
+        if (difficulty) {
             AI::takeAction(field, this, player, time);
         }
     }

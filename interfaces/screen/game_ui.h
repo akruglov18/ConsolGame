@@ -2,9 +2,9 @@
 #include "Player/player.h"
 #include "SFML/Graphics.hpp"
 
-class Game_UI {
+class GameUI {
 public:
-    Game_UI();
+    GameUI();
     sf::Font font;
     sf::Text UI_health;
 
