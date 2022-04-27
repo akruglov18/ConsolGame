@@ -22,11 +22,13 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
     game_field->generate_field();
-    for (int i = 1; i <= 16; i++) {
+    for (int i = 1; i <= 12; i++) {
         (*game_field)(10, i * 2 + 20)->items.push_back(std::shared_ptr<Items>
-                    (new CommonThing("bone", i, {32.f * (i * 2.f + 20.f), 32.f * 10.f})));
+                    (new CommonThing("bone", 50, {32.f * (i * 2.f + 20.f), 32.f * 10.f})));
         (*game_field)(12, i * 2 + 20)->items.push_back(std::shared_ptr<Items>
-                    (new CommonThing("antidote", i, {32.f * (i * 2.f + 20.f), 32.f * 12.f})));
+                    (new CommonThing("antidote", 50, {32.f * (i * 2.f + 20.f), 32.f * 12.f})));
+        (*game_field)(14, i * 2 + 20)->items.push_back(std::shared_ptr<Items>(
+                        new CommonThing("necklace03", 50, {32.f * (i * 2.f + 20.f), 32.f * 14.f})));
     }
     view.reset(sf::FloatRect({0, 0}, {1280, 720}));
 
@@ -88,12 +90,12 @@ View_mode Game::game_loop() {
                 break;
             case (sf::Keyboard::B):
                 show_boxes = !show_boxes;
-                break;                
+                break;
             case (sf::Keyboard::Escape):
                 make_screenshot("tmp_pause");
                 return View_mode::PAUSE_MENU;
             case (sf::Keyboard::E):
-                InventoryMenu::update_graphic_inventory(player->inventory.get());
+                InventoryMenu::update_graphic_inventory(player->inventory.get(), player->inventory.get_money());
                 make_screenshot("tmp_inventory");
                 return View_mode::INVENTORY_MENU;
             }

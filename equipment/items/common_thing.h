@@ -11,6 +11,7 @@ public:
     int getValue() const {
         return value;
     }
+
     virtual json to_json() const override {
         return json();
     }

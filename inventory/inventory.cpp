@@ -6,7 +6,7 @@ Slot::Slot() {
     max_amount = 0;
 }
 
-void Slot::place_item_in_new_slot(std::shared_ptr<Items> _item) {    
+void Slot::place_item_in_new_slot(std::shared_ptr<Items> _item) { 
     item = _item;
     switch (item->get_type()) {
     case (ItemType::WEAPON):
@@ -22,7 +22,7 @@ void Slot::place_item_in_new_slot(std::shared_ptr<Items> _item) {
 }
 
 void Slot::add_to_existing_slot(int& value) {
-    if (amount + value < max_amount) {
+    if (amount + value <= max_amount) {
         amount += value;
         value = 0;
     } else {
@@ -80,9 +80,5 @@ void Inventory::take(std::vector<std::shared_ptr<Items>>& items) {
     }
     
     items = std::move(cant_pick_up);
-    /*for (auto& el : items_array) {
-        if (el->get_item() != nullptr)
-            std::cout << el->get_item()->get_id() << ' ' << el->get_amount() << '\n';
-    }*/
 }
 

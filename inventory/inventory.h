@@ -28,6 +28,9 @@ public:
     std::vector<std::shared_ptr<Slot>> get() {
         return items_array;
     }
+    int get_money() {
+        return money;
+    }
 
 private:
     int money;
