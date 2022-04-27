@@ -90,7 +90,7 @@ View_mode Game::game_loop() {
                 break;
             case (sf::Keyboard::B):
                 show_boxes = !show_boxes;
-                break;
+                break;                
             case (sf::Keyboard::Escape):
                 make_screenshot("tmp_pause");
                 return View_mode::PAUSE_MENU;
