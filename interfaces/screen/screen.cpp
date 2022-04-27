@@ -13,6 +13,4 @@ void Screen::play_music() {
         //menu_music.setPlayingOffset(menu_music.getDuration() - sf::seconds(10.f));
         menu_music.play();
     }
-Screen::Screen() {
-    font = *Resources::FontsHolder::getResource("basic_font");
 }
