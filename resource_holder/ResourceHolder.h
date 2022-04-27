@@ -449,7 +449,12 @@ public:
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         loadFromFile("../../images/icons/ui_big_pieces.png", "main_ui");
 
+        // LOOT
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         loadFromFile("../../images/items/coins/gold.png", "gold");
+        loadFromFile("../../images/items/loot/Ac_Necklace03.png", "necklace03");
+        loadFromFile("../../images/items/loot/I_Antidote.png", "antidote");
+        loadFromFile("../../images/items/loot/I_Bone.png", "bone");
 
         return;
     }

@@ -3,14 +3,31 @@
 #include <thread>
 #include "armors.h"
 #include "weapons.h"
+#include "inventory_menu.h"
+#include "items.h"
+#include "common_thing.h"
 
 //#define universal
+
+void Game::make_screenshot(const std::string& name) {
+    sf::Texture texture;
+    texture.create(window->getSize().x, window->getSize().y);
+    texture.update(*window);
+    sf::Image screenshot = texture.copyToImage();
+    screenshot.saveToFile("../../images/" + name + ".jpg");
+}
 
 Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settings) {
     window = _window;
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
     game_field->generate_field();
+    for (int i = 1; i <= 16; i++) {
+        (*game_field)(10, i * 2 + 20)->items.push_back(std::shared_ptr<Items>
+                    (new CommonThing("bone", i, {32.f * (i * 2.f + 20.f), 32.f * 10.f})));
+        (*game_field)(12, i * 2 + 20)->items.push_back(std::shared_ptr<Items>
+                    (new CommonThing("antidote", i, {32.f * (i * 2.f + 20.f), 32.f * 12.f})));
+    }
     view.reset(sf::FloatRect({0, 0}, {1280, 720}));
 
     player = std::shared_ptr<Player>(new Player(manager, 100, {666.f, 260.f}));
@@ -41,12 +58,16 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     // }
 
     game_UI.update_UI(*player);
+    // There will be a method that will load inventory from json
 }
 
 View_mode Game::game_loop() {
     sf::Clock clock;
     sf::Event last_event{sf::Event::EventType::GainedFocus};
     sf::Event event{sf::Event::EventType::GainedFocus};
+
+    InventoryMenu::bind_inventory(player->inventory.get());
+
     while (window->isOpen()) {
         // The regulator of game speed
         auto time = clock.getElapsedTime().asMicroseconds() / 15000.f;
@@ -68,14 +89,13 @@ View_mode Game::game_loop() {
                 break;
             case (sf::Keyboard::B):
                 show_boxes = !show_boxes;
-                break;
+                break;                
             case (sf::Keyboard::Escape):
-                sf::Texture texture;
-                texture.create(window->getSize().x, window->getSize().y);
-                texture.update(*window);
-                sf::Image screenshot = texture.copyToImage();
-                screenshot.saveToFile("../../images/tmp_pause.jpg");
+                make_screenshot("tmp_pause");
                 return View_mode::PAUSE_MENU;
+            case (sf::Keyboard::E):
+                make_screenshot("tmp_inventory");
+                return View_mode::INVENTORY_MENU;
             }
         }
 
@@ -88,20 +108,10 @@ View_mode Game::game_loop() {
             enemy->action(time, drawable_creatures, game_field.get(), player.get(), settings.difficulty);
         }
 
-        Utils::delete_dead_creatures(enemies);
-        Utils::detect_collisions(drawable_creatures);
-
-        Utils::delete_dead_creatures(enemies);
-        Utils::detect_collisions(drawable_creatures);
-
         if (player->dead) {
             countdown_before_gameover_screen += time;
             if (countdown_before_gameover_screen > 5.f) {
-                sf::Texture texture;
-                texture.create(window->getSize().x, window->getSize().y);
-                texture.update(*window);
-                sf::Image screenshot = texture.copyToImage();
-                screenshot.saveToFile("../../images/tmp_gameover.jpg");
+                make_screenshot("tmp_gameover");
                 return View_mode::GAMEOVER_MENU;
             }
         }
