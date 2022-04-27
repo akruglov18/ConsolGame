@@ -31,6 +31,7 @@ void SkillsMenu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<st
 View_mode SkillsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Event event{sf::Event::EventType::GainedFocus};
     View_mode to_return{View_mode::NONE};
+    window.setView(window.getDefaultView());
     while (true) {
         window.pollEvent(event);
 
@@ -47,7 +48,6 @@ View_mode SkillsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> play
 
         node_click_checker(sf::Mouse::getPosition(window), graph.get(), event, *player);
 
-        window.setView(window.getDefaultView());
         window.clear(color);
         b_exit.print_button(window);
         for (int i = 0; i < graph.size(); ++i) {

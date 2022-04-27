@@ -14,7 +14,7 @@ MainMenu::MainMenu()
 View_mode MainMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Event event{sf::Event::EventType::GainedFocus};
     View_mode to_return{View_mode::NONE};
-
+    window.setView(window.getDefaultView());
     while (true) {
         window.pollEvent(event);
 

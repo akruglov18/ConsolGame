@@ -4,6 +4,7 @@ CommonThing::CommonThing(const std::string& name, int _value, const sf::Vector2f
     sprite.setTexture(*Resources::TexturesHolder::getResource(name));
     value = _value;
     sprite.setPosition({position.x + 16.f, position.y + 8.f});
+    sprite.setScale({0.8f, 0.8f});
     id = name;
     item_type = ItemType::COMMON_THING;
 }

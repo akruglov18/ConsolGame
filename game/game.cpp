@@ -66,7 +66,7 @@ View_mode Game::game_loop() {
     sf::Event last_event{sf::Event::EventType::GainedFocus};
     sf::Event event{sf::Event::EventType::GainedFocus};
 
-    InventoryMenu::bind_inventory(player->inventory.get());
+    InventoryMenu::build_inventory(player->inventory.get());
 
     while (window->isOpen()) {
         // The regulator of game speed

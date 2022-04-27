@@ -23,6 +23,7 @@ View_mode GameoverMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> pl
 
     sf::Event event{sf::Event::EventType::GainedFocus};
     View_mode to_return{View_mode::NONE};
+    window.setView(window.getDefaultView());
     while (true) {
         window.pollEvent(event);
 
@@ -40,7 +41,6 @@ View_mode GameoverMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> pl
             return View_mode::GAME;
         }
 
-        window.setView(window.getDefaultView());
         window.clear(color);
         window.draw(gameover_screen);
         b_main_menu.print_button(window);
