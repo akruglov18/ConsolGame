@@ -2,7 +2,9 @@
 
 void GraphicSlot::show_slot(sf::RenderWindow& window) {
     window.draw(slot_sprite);
-    //window.draw(slot->get_item()->get_sprite());
+    if (slot->get_item() != nullptr)
+        window.draw(slot->get_item()->get_sprite());
+    window.draw(gr_amount);
 }
 
 InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.f, 52.f}), View_mode::GAME) {
@@ -15,6 +17,9 @@ void InventoryMenu::build_inventory(std::vector<std::shared_ptr<Slot>>& items) {
     for (int i = 0; i < items.size(); ++i) {
         gr_items_array.push_back(std::make_shared<GraphicSlot>(GraphicSlot()));
     }
+
+    float pos_x = 400.f;
+    float pos_y = 100.f;
 
     size_t width = static_cast<size_t>(std::sqrt(items.size()));
     size_t height = static_cast<size_t>(std::sqrt(items.size()));
@@ -78,16 +83,30 @@ void InventoryMenu::build_inventory(std::vector<std::shared_ptr<Slot>>& items) {
             slot->slot = items[i * width + j];
             slot->slot_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
             slot->slot_sprite.setTextureRect({{x, y}, {w, h}});
-            slot->slot_sprite.setPosition({(j * 76.f) - offset_x + 400.f, (i * 76.f) - offset_y + 100.f});
+            slot->slot_sprite.setPosition({(j * 76.f) - offset_x + pos_x, (i * 76.f) - offset_y + pos_y});
             slot->slot_sprite.setScale({2.f, 2.f});
+
+            slot->gr_amount.setFont(font);
+            slot->gr_amount.setCharacterSize(16);
+            slot->gr_amount.setStyle(sf::Text::Bold);
+            slot->gr_amount.setFillColor(sf::Color(0, 240, 24));
+            slot->gr_amount.setPosition(
+                    sf::Vector2f({(j * 76.f) - offset_x + pos_x + 54.f, (i * 76.f) - offset_y + pos_y + 52.f}));
         }
     }
 }
 
-void InventoryMenu::update_graphic_inventory() {
-    /*for (int i = 0; i < items_array.max_size(); i++) {
-        gr_items_array[i].slot = items_array[i];
-    }*/
+void InventoryMenu::update_graphic_inventory(std::vector<std::shared_ptr<Slot>>& items_array) {
+    for (int i = 0; i < items_array.size(); i++) {
+        gr_items_array[i]->slot = items_array[i];
+        if (gr_items_array[i]->slot->get_item() != nullptr) {
+            float x = gr_items_array[i]->slot_sprite.getPosition().x + 16.f;
+            float y = gr_items_array[i]->slot_sprite.getPosition().y + 16.f;
+            gr_items_array[i]->slot->get_item()->get_sprite().setPosition({x, y});
+            gr_items_array[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+            gr_items_array[i]->gr_amount.setString(std::to_string(gr_items_array[i]->slot->get_amount()));
+        }
+    }
 }
 
 void InventoryMenu::show_inventory(sf::RenderWindow& window) {

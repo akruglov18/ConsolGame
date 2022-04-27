@@ -20,11 +20,10 @@ public:
     MenuButton b_exit;
     std::vector<MenuButton*> buttons;
     static inline std::vector<std::shared_ptr<GraphicSlot>> gr_items_array;
-    // static std::vector<std::shared_ptr<Slot>>& items_array;
 
     virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
     static void build_inventory(std::vector<std::shared_ptr<Slot>>& items);
-    static void update_graphic_inventory();
+    static void update_graphic_inventory(std::vector<std::shared_ptr<Slot>>& items_array);
 
 private:
     void show_inventory(sf::RenderWindow& window);

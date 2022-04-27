@@ -59,14 +59,13 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
 
     game_UI.update_UI(*player);
     // There will be a method that will load inventory from json
+    InventoryMenu::build_inventory(player->inventory.get());
 }
 
 View_mode Game::game_loop() {
     sf::Clock clock;
     sf::Event last_event{sf::Event::EventType::GainedFocus};
     sf::Event event{sf::Event::EventType::GainedFocus};
-
-    InventoryMenu::build_inventory(player->inventory.get());
 
     while (window->isOpen()) {
         // The regulator of game speed
@@ -94,6 +93,7 @@ View_mode Game::game_loop() {
                 make_screenshot("tmp_pause");
                 return View_mode::PAUSE_MENU;
             case (sf::Keyboard::E):
+                InventoryMenu::update_graphic_inventory(player->inventory.get());
                 make_screenshot("tmp_inventory");
                 return View_mode::INVENTORY_MENU;
             }
