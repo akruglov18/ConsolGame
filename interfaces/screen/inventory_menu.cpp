@@ -136,6 +136,11 @@ void InventoryMenu::show_inventory(sf::RenderWindow& window) {
     window.draw(gr_money);
 }
 
+void InventoryMenu::show_inventory(sf::RenderWindow& window) {
+    for (auto& el : gr_items_array)
+        el->show_slot(window);
+}
+
 View_mode InventoryMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     inventory_screenIMG.loadFromFile("../../images/tmp_inventory.jpg");
     inventory_screen.setTexture(inventory_screenIMG);
