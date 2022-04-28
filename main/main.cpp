@@ -5,6 +5,7 @@
 #include "screen.h"
 #include "settings_menu.h"
 #include "skills_menu.h"
+#include "map_menu.h"
 
 int main() {
     std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{sf::VideoMode(1280, 720), "Application"});
@@ -15,7 +16,7 @@ int main() {
     Resources::FontsHolder::load();
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start;
-    std::cout << "Textures loading: " << std::setw(9) << diff.count() << " s\n";
+    std::cout << "Resources loading: " << std::setw(9) << diff.count() << " s\n";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     std::map<View_mode, Screen*> screens;
@@ -25,12 +26,14 @@ int main() {
     SkillsMenu sk_menu;
     GameSettings settings;
     SettingsMenu st_menu(settings);
-    gameover_menu gg_menu;
+    GameoverMenu gg_menu;
+    MapMenu map_menu;
     screens[View_mode::MAIN_MENU] = &m_menu;
     screens[View_mode::PAUSE_MENU] = &p_menu;
     screens[View_mode::SKILLS_MENU] = &sk_menu;
     screens[View_mode::SETTINGS_MENU] = &st_menu;
     screens[View_mode::GAMEOVER_MENU] = &gg_menu;
+    screens[View_mode::MAP_MENU] = &map_menu;
     while (screen != View_mode::EXIT) {
         if (screen != View_mode::GAME)
             screen = screens[screen]->Run(*window);

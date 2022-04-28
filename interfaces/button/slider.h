@@ -13,7 +13,7 @@ public:
 
     int left_border;
     int right_border;
-    int slide_value;
+    int slide_value = 100;
     static bool was_released;
 
     void move_slider(sf::Vector2i mouse_pos);

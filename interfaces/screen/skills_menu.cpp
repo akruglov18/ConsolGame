@@ -54,5 +54,6 @@ View_mode SkillsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> play
             graph[i]->node_button.print_button(window);
         }
         window.display();
+        play_music();
     }
 }

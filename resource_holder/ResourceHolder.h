@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio/Music.hpp"
 
 namespace Resources {
 

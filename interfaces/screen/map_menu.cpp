@@ -16,5 +16,6 @@ View_mode MapMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player)
 
         window.clear(color);
         window.display();
+        play_music();
     }
 }

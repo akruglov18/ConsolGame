@@ -47,5 +47,6 @@ View_mode PauseMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> playe
         b_to_game.print_button(window);
         window.draw(pause_text);
         window.display();
+        play_music();
     }
 }
