@@ -80,18 +80,19 @@ void InventoryMenu::build_inventory(const std::vector<std::shared_ptr<Slot>>& it
                 w = h = 36;
             }
 
-            int offset_x = 0;
-            int offset_y = 0;
-            int offset_amount_x = 0;
-            int offset_amount_y = 0;
+            float offset_x = 0.f;
+            float offset_y = 0.f;
+            float offset_amount_x = 0.f;
+            float offset_amount_y = 0.f;
+
             if (j >= 2)
-                offset_x = static_cast<int>(j - 1) * 4;
+                offset_x = static_cast<float>(j - 1) * 4;
             if (i >= 2)
-                offset_y = static_cast<int>(i - 1) * 4;
+                offset_y = static_cast<float>(i - 1) * 4;
             if (j >= 1)
-                offset_amount_x = static_cast<int>(j) * 4;
+                offset_amount_x = static_cast<float>(j) * 4;
             if (i >= 1)
-                offset_amount_y = static_cast<int>(i) * 4;
+                offset_amount_y = static_cast<float>(i) * 4;
 
             auto& slot = gr_items_array[i * width + j];
             slot->slot = items[i * width + j];
@@ -167,6 +168,7 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> p
         b_exit.print_button(window);
         show_inventory(window);
         window.display();
+        play_music();
     }
 }
 

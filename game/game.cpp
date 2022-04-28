@@ -126,6 +126,7 @@ View_mode Game::game_loop() {
         game_UI.update_UI(*player);
         render(time);
         window->display();
+        Screen::play_music();
     }
     return View_mode::NONE;
 }
@@ -145,7 +146,7 @@ void Game::render(float time) {
 
     // RENDERING STATIC UI ELEMENTS
     window->setView(window->getDefaultView());
-    game_UI.show_UI(*window);
+    game_UI.show_UI(*window, {false, false});
     if (fps.on) {
         fps.add_time(time, *window);
     }
