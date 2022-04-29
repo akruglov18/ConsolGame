@@ -3,7 +3,7 @@
 #include <items.h>
 #include <vector>
 #include "ResourceHolder.h"
-#include "sfml/Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 enum class ArmorType { TORSO = 0, HELMET, PANTS, BOOTS, GAUNTLETS, SET_SIZE };
 

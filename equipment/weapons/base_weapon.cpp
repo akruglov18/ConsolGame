@@ -1,7 +1,7 @@
 #include "base_weapon.h"
 #include "weapons.h"
 
-BaseWeapon::BaseWeapon(const std::string& name, std::pair<sf::Vector2f, sf::Vector2f>& damage_boxes) {
+BaseWeapon::BaseWeapon(const std::string& name, const std::pair<sf::Vector2f, sf::Vector2f>& damage_boxes) {
     item_type = ItemType::WEAPON;
     damage_box_horisontal = damage_boxes.first;
     damage_box_vertical = damage_boxes.second;

@@ -18,7 +18,7 @@ InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.
     gr_money.setPosition({500.f, 130.f});
 }
 
-void InventoryMenu::build_inventory(std::vector<std::shared_ptr<Slot>>& items) {
+void InventoryMenu::build_inventory(const std::vector<std::shared_ptr<Slot>>& items) {
 
     gr_items_array.resize(0);
     gr_items_array.reserve(items.size());
@@ -110,7 +110,7 @@ void InventoryMenu::build_inventory(std::vector<std::shared_ptr<Slot>>& items) {
     }
 }
 
-void InventoryMenu::update_graphic_inventory(std::vector<std::shared_ptr<Slot>>& items_array, int _money) {
+void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, int _money) {
     for (int i = 0; i < items_array.size(); i++) {
         gr_items_array[i]->slot = items_array[i];
         if (gr_items_array[i]->slot->get_item() != nullptr) {

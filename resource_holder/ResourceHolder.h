@@ -36,9 +36,6 @@ public:
     }
 };
 
-ResourceHolder<std::string, sf::Texture>::MapType ResourceHolder<std::string, sf::Texture>::mResources{};
-ResourceHolder<std::string, sf::Font>::MapType ResourceHolder<std::string, sf::Font>::mResources{};
-
 class TexturesHolder : public ResourceHolder<std::string, sf::Texture> {
 public:
     static void load() {

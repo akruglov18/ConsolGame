@@ -1,5 +1,5 @@
 #include "creature.h"
-#include "Player/player.h"
+#include "player/player.h"
 #include "ResourceHolder.h"
 #include "coins.h"
 #include "enemies/enemy.h"

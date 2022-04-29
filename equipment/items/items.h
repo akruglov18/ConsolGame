@@ -3,7 +3,7 @@
 #include <string>
 #include "ResourceHolder.h"
 #include "nlohmann_json/json.hpp"
-#include "sfml/Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 using json = nlohmann::json;
 

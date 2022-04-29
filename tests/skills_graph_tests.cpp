@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Player/player.h"
+#include "player/player.h"
 #include "creature.h"
 #include "enemies/enemy.h"
 #include "skills_graph.h"

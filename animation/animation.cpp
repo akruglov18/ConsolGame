@@ -84,7 +84,7 @@ void Animation::move_hum(Creature* creature, Dirs dir) {
     auto& pos = creature->get_pos();
     auto& current_frame = creature->get_frame();
     auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
+    const auto& weapon = creature->get_weapon();
 
     creature->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
     creature->get_sprite().setTextureRect(
@@ -111,7 +111,7 @@ void Animation::stop_hum(Creature* creature) {
     int y_texture = switch_y_texture(creature->direction);
 
     auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
+    const auto& weapon = creature->get_weapon();
 
     creature->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
 
@@ -131,7 +131,7 @@ void Animation::hit_hum(Creature* creature) {
     auto& pos = creature->get_pos();
     auto& current_frame = creature->get_frame();
     auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
+    const auto& weapon = creature->get_weapon();
 
     creature->get_sprite().setTextureRect(
             sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
@@ -153,7 +153,7 @@ void Animation::hit_hum(Creature* creature) {
 void Animation::die_hum(Creature* creature) {
     auto& current_frame = creature->get_frame();
     auto& armor_set = creature->get_armor();
-    auto& weapon = creature->get_weapon();
+    const auto& weapon = creature->get_weapon();
 
     creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
 

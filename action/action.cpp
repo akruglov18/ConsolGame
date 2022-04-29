@@ -1,4 +1,4 @@
-#include "Action.h"
+#include "action.h"
 
 void Action::update_frame(Creature* creature, float time) {
     creature->get_frame() += 0.15f * time;
@@ -79,7 +79,7 @@ void Action::move_down(Creature* creature, float time, Field* game_field) {
 void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
                  Modes mode) {
     auto& current_frame = creature->get_frame();
-    auto& weapon = creature->get_weapon();
+    const auto& weapon = creature->get_weapon();
     auto& pos = creature->get_pos();
     auto& dir = creature->direction;
     if (creature->mode != Modes::SLASH && creature->mode != Modes::THRUST) {
