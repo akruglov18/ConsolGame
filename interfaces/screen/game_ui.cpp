@@ -28,17 +28,12 @@ void SettingsInGame::check_settings(sf::Vector2i mouse_pos) {
 }
 
 GameUI::GameUI() {
-    font = *Resources::FontsHolder::getResource("basic_font");
+    font = *Resources::FontsHolder::getResource("basic_font");    
 
-    gr_items_array_size = 12;
+    // BARS AND SETTINGS //////////////////////////////////////////////////////////////////////////
     stats_bar_x = 10.f;
     stats_bar_y = 646.f;
-    stats_plate_x = 220.f;
-    stats_plate_y = 648.f;
-    items_arr_x = 320.f;
-    items_arr_y = 648.f;
 
-    // THREE BARS IN THE LEFT BOTTOM CORNER ///////////////////////////////////////////////////////
     stats_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
     stats_bar_sprite.setTextureRect({{448, 180}, {84, 64}});
     stats_bar_sprite.setPosition({stats_bar_x, stats_bar_y});
@@ -71,23 +66,30 @@ GameUI::GameUI() {
     edge_bar_sprite.setTextureRect({{324, 40}, {9, 20}});
     edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 2.f});
 
-    // STATS PLATE BOTTOM /////////////////////////////////////////////////////////////////////////
+    // MAGIC MENU /////////////////////////////////////////////////////////////////////////////////
+    magic_plate_x = 220.f;
+    magic_plate_y = 648.f;
+
     magic_plate_spriteL.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
     magic_plate_spriteL.setTextureRect({{16, 510}, {16, 40}});
-    magic_plate_spriteL.setPosition({stats_plate_x, stats_plate_y});
+    magic_plate_spriteL.setPosition({magic_plate_x, magic_plate_y});
     magic_plate_spriteL.setScale({1.f, 1.5f});
 
     magic_plate_spriteM.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
     magic_plate_spriteM.setTextureRect({{84, 510}, {16, 40}});
-    magic_plate_spriteM.setPosition({stats_plate_x + 16.f, stats_plate_y});
+    magic_plate_spriteM.setPosition({magic_plate_x + 16.f, magic_plate_y});
     magic_plate_spriteM.setScale({4.f, 1.5f});
 
     magic_plate_spriteR.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
     magic_plate_spriteR.setTextureRect({{154, 510}, {16, 40}});
-    magic_plate_spriteR.setPosition({stats_plate_x + 80.f, stats_plate_y});
+    magic_plate_spriteR.setPosition({magic_plate_x + 80.f, magic_plate_y});
     magic_plate_spriteR.setScale({1.f, 1.5f});
 
-    // INVENTORY SLOTS BOTTOM /////////////////////////////////////////////////////////////////////
+    // INVENTORY //////////////////////////////////////////////////////////////////////////////////
+    gr_items_array_size = 12;
+    items_arr_x = 320.f;
+    items_arr_y = 648.f;
+
     for (int i = 0; i < gr_items_array_size; ++i) {
         gr_items_array.push_back(std::make_shared<GraphicSlot>(GraphicSlot()));
         gr_items_array[i]->slot_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
@@ -105,6 +107,15 @@ GameUI::GameUI() {
         gr_items_array[i]->slot_sprite.setScale({1.5f, 1.5f});
         gr_items_array[i]->slot = std::make_shared<Slot>(Slot());
     }
+
+    // MAP ////////////////////////////////////////////////////////////////////////////////////////
+    map_x = 1205.f;
+    map_y = 645.f;
+    map_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    map_sprite.setTextureRect({{847, 290}, {-128, 128}});
+    map_sprite.setOrigin({64.f, 64.f});
+    map_sprite.setRotation(sf::degrees(180.f));
+    map_sprite.setPosition({map_x, map_y});
 }
 
 void GameUI::update_UI(Player& p) {
@@ -148,13 +159,15 @@ void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanic
     window.draw(satiety_bar_sprite);
     window.draw(expirience_bar_sprite);
 
-    for (auto& el : gr_items_array)
-        el->show_slot(window);
-
     if (show_settings) {
         settings.check_settings(sf::Mouse::getPosition(window));
         settings.show_settings(window);
     }
+
+    for (auto& el : gr_items_array)
+        el->show_slot(window);
+
+    window.draw(map_sprite);
 }
 
 void GameUI::check_settings_cogwheel(sf::Vector2i mouse_pos) {

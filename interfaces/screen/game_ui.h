@@ -63,17 +63,13 @@ public:
     GameUI();
     sf::Font font;
 
+    // BARS AND SETTINGS //////////////////////////////////////////////////////////////////////////
     float stats_bar_x;
     float stats_bar_y;
-    float stats_plate_x;
-    float stats_plate_y;
-    float items_arr_x;
-    float items_arr_y;
-
     bool cogwheel_pressed = false;
     bool show_settings = true;
     bool play_music = true;
-
+    SettingsInGame settings;
     sf::Sprite stats_bar_sprite;
     sf::Sprite cogwheel_sprite;
     sf::Sprite health_bar_sprite;
@@ -82,17 +78,25 @@ public:
     sf::Sprite back_bar_sprite;
     sf::Sprite edge_bar_sprite;
 
+    // MAGIC MENU /////////////////////////////////////////////////////////////////////////////////
+    float magic_plate_x;
+    float magic_plate_y;
     sf::Sprite magic_plate_spriteL;
     sf::Sprite magic_plate_spriteM;
     sf::Sprite magic_plate_spriteR;
-    sf::Text text_health;
-    sf::Text text_hunger;
-    sf::Text text_mana;
 
+    // INVENTORY //////////////////////////////////////////////////////////////////////////////////
+    float items_arr_x;
+    float items_arr_y;
     int gr_items_array_size;
     std::vector<std::shared_ptr<GraphicSlot>> gr_items_array;
-    SettingsInGame settings;
 
+    // MAP ////////////////////////////////////////////////////////////////////////////////////////
+    float map_x;
+    float map_y;
+    sf::Sprite map_sprite;
+
+    // METHODS ////////////////////////////////////////////////////////////////////////////////////
     void update_UI(Player& p);
     void show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanics = {false});
     void check_settings_cogwheel(sf::Vector2i mouse_pos);
