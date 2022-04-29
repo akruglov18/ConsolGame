@@ -94,7 +94,7 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
         for (auto& x : drawable_creatures) {
             if (weapon != nullptr && x.get() != creature &&
                 weapon->damage_box.findIntersection(x->hit_box).has_value()) {
-                x->reduce_health(static_cast<int>(creature->get_weapon()->get_total_damage(creature->mode)));
+                x->reduce_health(static_cast<float>(creature->get_weapon()->get_total_damage(creature->mode)));
             }
         }
     }

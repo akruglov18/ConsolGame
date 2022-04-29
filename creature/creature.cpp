@@ -18,7 +18,7 @@ Health_bar::Health_bar(sf::FloatRect hit_box) {
     health_bar.setSize({20.f, 3.f});
 }
 
-void Health_bar::update(int health, int max_health, sf::FloatRect& hit_box) {
+void Health_bar::update(float health, float max_health, sf::FloatRect& hit_box) {
     health_bar_outline.setPosition({hit_box.left + (hit_box.width - 20.f) / 2.f, hit_box.top - 18.f});
     health_bar.setPosition({hit_box.left + (hit_box.width - 20.f) / 2.f, hit_box.top - 18.f});
 
@@ -36,7 +36,7 @@ void Health_bar::show_bar(sf::RenderWindow& window) {
     window.draw(health_bar);
 }
 
-Creature::Creature(const std::string& _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
+Creature::Creature(const std::string& _name, CreatureManager& _manager, float _health, const sf::Vector2f& _pos,
                    const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
         : manager(_manager),
           pos(_pos),
@@ -98,7 +98,7 @@ void Creature::set_weapon(std::shared_ptr<BaseWeapon> _weapon) {
     weapon->set_scale(pos);
 }
 
-void Creature::set_health(int _health) {
+void Creature::set_health(float _health) {
     max_health = _health;
     health = _health;
 }
@@ -125,7 +125,7 @@ void Creature::become_normal() {
     }
 }
 
-void Creature::reduce_health(int value) {
+void Creature::reduce_health(float value) {
     health -= value;
     // std::cout << "health = " << health << '\n';
     stuck = true;

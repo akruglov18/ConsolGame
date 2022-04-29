@@ -3,17 +3,26 @@
 
 class Action;
 
-Player::Player(CreatureManager& _manager, int _health, const sf::Vector2f& _pos)
+Player::Player(CreatureManager& _manager, float _health, const sf::Vector2f& _pos)
         : Creature("man", _manager, _health, _pos, {24.f, 44.f}, {14.f, 14.f}, {32.f, 32.f}) {
     creature_type = CreatureType::PLAYER;
     creature_anim = CreatureAnim::HUMANOID;
+    satiety = max_satiety = 100.f;
 }
 
 void Player::action(sf::Event& event, float time, Field* game_field,
                     const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     update_stuck_frame(time);
-
     take_drop(game_field);
+
+    health_bar.update(health, max_health, hit_box);
+    satiety = std::fmax(0.f, satiety - time * 0.003f);
+    if (satiety == 0.f) {
+        health -= time * 0.003f;
+    }
+    if (health <= 0.f) {
+        dying = true;
+    }
 
     if (dying) {
         Action::dying(this, time);
@@ -72,7 +81,6 @@ void Player::action(sf::Event& event, float time, Field* game_field,
             Animation::stop_animation(this);
         }
     }
-    health_bar.update(health, max_health, hit_box);
 }
 
 void Player::take_drop(Field* field) {

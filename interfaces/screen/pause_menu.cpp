@@ -34,6 +34,11 @@ View_mode PauseMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> playe
         to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE) {
             std::remove("../../images/tmp_pause.jpg");
+            if (to_return == View_mode::MAIN_MENU) {
+                if (menu_music.getStatus() == menu_music.Paused) {
+                    menu_music.play();
+                }
+            }
             return to_return;
         }
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {

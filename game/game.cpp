@@ -32,7 +32,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     }
     view.reset(sf::FloatRect({0, 0}, {1280, 720}));
 
-    player = std::shared_ptr<Player>(new Player(manager, 100, {666.f, 260.f}));
+    player = std::shared_ptr<Player>(new Player(manager, 100.f, {666.f, 260.f}));
     get_player_pos_for_view(player->get_pos());
     manager.setPlayer(player.get());
     manager.setEnemies(&enemies);
@@ -48,7 +48,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
 
     for (int i = 0; i < 15; ++i) {
         enemies.push_back(
-                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
+                Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 7 + 1) * 200.f, (i / 7 + 1) * 256.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
         enemies[i]->set_armor(Helmet::make_helmet(HelmetType::Helmet_plate));
         enemies[i]->set_armor(Pants::make_pants(PantsType::Pants_plate));
@@ -146,7 +146,7 @@ void Game::render(float time) {
 
     // RENDERING STATIC UI ELEMENTS
     window->setView(window->getDefaultView());
-    game_UI.show_UI(*window, {false, false});
+    game_UI.show_UI(*window);
     if (fps.on) {
         fps.add_time(time, *window);
     }

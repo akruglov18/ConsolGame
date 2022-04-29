@@ -1,5 +1,32 @@
 #include "game_ui.h"
 
+SettingsInGame::SettingsInGame() {
+    settings.push_back(std::make_shared<CheckBox>(CheckBox("music", {10.f, 620.f}, SettingsType::MUSIC)));
+}
+
+void SettingsInGame::show_settings(sf::RenderWindow& window) {
+    for (auto& el : settings)
+        el->show_checkbox(window);
+}
+
+void SettingsInGame::check_settings(sf::Vector2i mouse_pos) {
+    for (auto& el : settings) {
+        if (mouse_pos.x > el->box.left && mouse_pos.x < el->box.left + el->box.width && 
+            mouse_pos.y > el->box.top && mouse_pos.y < el->box.top + el->box.height) {
+            el->text.setFillColor(sf::Color(255, 255, 0));
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !el->box_pressed) {
+                el->switch_mode();
+                el->box_pressed = true;
+            }
+            if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+                el->box_pressed = false;
+            }
+        } else {
+            el->text.setFillColor(sf::Color(255, 0, 0));
+        }
+    }
+}
+
 GameUI::GameUI() {
     font = *Resources::FontsHolder::getResource("basic_font");
 
@@ -14,22 +41,27 @@ GameUI::GameUI() {
     // THREE BARS IN THE LEFT BOTTOM CORNER ///////////////////////////////////////////////////////
     stats_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
     stats_bar_sprite.setTextureRect({{448, 180}, {84, 64}});
-    stats_bar_sprite.setPosition({10.f, 646.f});
+    stats_bar_sprite.setPosition({stats_bar_x, stats_bar_y});
+
+    cogwheel_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    cogwheel_sprite.setTextureRect({{721, 512}, {28, 28}});
+    cogwheel_sprite.setPosition({stats_bar_x + 32.f, stats_bar_y + 32.f});
+    cogwheel_sprite.setOrigin({14.f, 14.f});
 
     health_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
     health_bar_sprite.setTextureRect({{350, 40}, {8, 14}});
     health_bar_sprite.setScale({16.f, 1.f});
     health_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 5.f});
 
-    hunger_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
-    hunger_bar_sprite.setTextureRect({{379, 40}, {8, 14}});
-    hunger_bar_sprite.setScale({16.f, 1.f});
-    hunger_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 25.f});
+    satiety_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    satiety_bar_sprite.setTextureRect({{379, 40}, {8, 14}});
+    satiety_bar_sprite.setScale({16.f, 1.f});
+    satiety_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 25.f});
 
-    mana_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
-    mana_bar_sprite.setTextureRect({{379, 56}, {8, 14}});
-    mana_bar_sprite.setScale({16.f, 1.f});
-    mana_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 45.f});
+    expirience_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    expirience_bar_sprite.setTextureRect({{379, 56}, {8, 14}});
+    expirience_bar_sprite.setScale({0.f, 1.f});
+    expirience_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 45.f});
 
     back_bar_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
     back_bar_sprite.setTextureRect({{284, 42}, {8, 16}});
@@ -40,20 +72,20 @@ GameUI::GameUI() {
     edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 2.f});
 
     // STATS PLATE BOTTOM /////////////////////////////////////////////////////////////////////////
-    stats_plate_spriteL.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
-    stats_plate_spriteL.setTextureRect({{16, 510}, {16, 40}});
-    stats_plate_spriteL.setPosition({stats_plate_x, stats_plate_y});
-    stats_plate_spriteL.setScale({1.f, 1.5f});
+    magic_plate_spriteL.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    magic_plate_spriteL.setTextureRect({{16, 510}, {16, 40}});
+    magic_plate_spriteL.setPosition({stats_plate_x, stats_plate_y});
+    magic_plate_spriteL.setScale({1.f, 1.5f});
 
-    stats_plate_spriteM.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
-    stats_plate_spriteM.setTextureRect({{84, 510}, {16, 40}});
-    stats_plate_spriteM.setPosition({stats_plate_x + 16.f, stats_plate_y});
-    stats_plate_spriteM.setScale({4.f, 1.5f});
+    magic_plate_spriteM.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    magic_plate_spriteM.setTextureRect({{84, 510}, {16, 40}});
+    magic_plate_spriteM.setPosition({stats_plate_x + 16.f, stats_plate_y});
+    magic_plate_spriteM.setScale({4.f, 1.5f});
 
-    stats_plate_spriteR.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
-    stats_plate_spriteR.setTextureRect({{154, 510}, {16, 40}});
-    stats_plate_spriteR.setPosition({stats_plate_x + 80.f, stats_plate_y});
-    stats_plate_spriteR.setScale({1.f, 1.5f});
+    magic_plate_spriteR.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    magic_plate_spriteR.setTextureRect({{154, 510}, {16, 40}});
+    magic_plate_spriteR.setPosition({stats_plate_x + 80.f, stats_plate_y});
+    magic_plate_spriteR.setScale({1.f, 1.5f});
 
     // INVENTORY SLOTS BOTTOM /////////////////////////////////////////////////////////////////////
     for (int i = 0; i < gr_items_array_size; ++i) {
@@ -76,37 +108,65 @@ GameUI::GameUI() {
 }
 
 void GameUI::update_UI(Player& p) {
-    p;
+    float satiety = p.get_satiety();
+    float max_satiety = p.get_max_satiety();
+    float health = p.get_health();
+    float max_health = p.get_max_health();
+    int exp = p.get_experience();
+
+    health_bar_sprite.setScale({std::fmax(0.f, (health / max_health) * 16.f), 1.f});
+    satiety_bar_sprite.setScale({std::fmax(0.f, (satiety / max_satiety) * 16.f), 1.f});
+    expirience_bar_sprite.setScale({std::fmin(16.f, exp * 0.03f), 1.f});
 }
 
-void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_skills) {
+void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanics) {
 
-    if (opened_skills[0]) {
-        back_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 4.f});
-        window.draw(back_bar_sprite);
-        back_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 24.f});
-        window.draw(back_bar_sprite);
-        back_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 44.f});
-        window.draw(back_bar_sprite);
-        edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 2.f});
-        window.draw(edge_bar_sprite);
-        edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 22.f});
-        window.draw(edge_bar_sprite);
-        edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 42.f});
+    check_settings_cogwheel(sf::Mouse::getPosition(window));
 
-        window.draw(edge_bar_sprite);
-        window.draw(stats_bar_sprite);
-        window.draw(health_bar_sprite);
-        window.draw(hunger_bar_sprite);
-        window.draw(mana_bar_sprite);
+    if (opened_mechanics[0]) {
+        window.draw(magic_plate_spriteL);
+        window.draw(magic_plate_spriteM);
+        window.draw(magic_plate_spriteR);
     }
 
-    if (opened_skills[1]) {
-        window.draw(stats_plate_spriteL);
-        window.draw(stats_plate_spriteM);
-        window.draw(stats_plate_spriteR);
-    }
+    back_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 4.f});
+    window.draw(back_bar_sprite);
+    back_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 24.f});
+    window.draw(back_bar_sprite);
+    back_bar_sprite.setPosition({stats_bar_x + 84.f, stats_bar_y + 44.f});
+    window.draw(back_bar_sprite);
+    edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 2.f});
+    window.draw(edge_bar_sprite);
+    edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 22.f});
+    window.draw(edge_bar_sprite);
+    edge_bar_sprite.setPosition({stats_bar_x + 196.f, stats_bar_y + 42.f});
+    window.draw(edge_bar_sprite);
+
+    window.draw(stats_bar_sprite);
+    window.draw(cogwheel_sprite);
+    window.draw(health_bar_sprite);
+    window.draw(satiety_bar_sprite);
+    window.draw(expirience_bar_sprite);
 
     for (auto& el : gr_items_array)
         el->show_slot(window);
+
+    if (show_settings) {
+        settings.check_settings(sf::Mouse::getPosition(window));
+        settings.show_settings(window);
+    }
+}
+
+void GameUI::check_settings_cogwheel(sf::Vector2i mouse_pos) {
+    if (mouse_pos.x > stats_bar_x + 18.f && mouse_pos.x < stats_bar_x + 46.f &&
+        mouse_pos.y > stats_bar_y + 18.f && mouse_pos.y < stats_bar_y + 46.f) {  
+        cogwheel_sprite.rotate(sf::degrees(1.f));
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !cogwheel_pressed) {
+            show_settings = !show_settings;
+            cogwheel_pressed = true;
+        }
+        if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            cogwheel_pressed = false;
+        }
+    }
 }

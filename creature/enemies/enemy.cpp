@@ -8,12 +8,12 @@
 #include "taur/taur.h"
 #include "wolf/wolf.h"
 
-Enemy::Enemy(const std::string _name, CreatureManager& _manager, int _health, const sf::Vector2f& _pos,
+Enemy::Enemy(const std::string _name, CreatureManager& _manager, float _health, const sf::Vector2f& _pos,
              const sf::Vector2f& _hit, const sf::Vector2f& _collision, const sf::Vector2f& _centre_offset)
         : Creature(_name, _manager, _health, _pos, _hit, _collision, _centre_offset) {
 }
 
-std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, int health,
+std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& manager, float health,
                                           const sf::Vector2f& pos) {
     switch (type) {
     case CreatureType::BEETLE:
@@ -34,6 +34,7 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
 void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures, Field* field, Player* player,
                    bool difficulty) {
     update_stuck_frame(time);
+    health_bar.update(health, max_health, hit_box);
     if (dying) {
         Action::dying(this, time);
     } else {
@@ -42,5 +43,4 @@ void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_
             AI::takeAction(field, this, player, time);
         }
     }
-    health_bar.update(health, max_health, hit_box);
 }
