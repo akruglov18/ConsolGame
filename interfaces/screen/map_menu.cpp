@@ -6,6 +6,7 @@ MapMenu::MapMenu() {
 
 View_mode MapMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
     sf::Event event{sf::Event::EventType::GainedFocus};
+    window.setView(window.getDefaultView());
     while (true) {
         window.pollEvent(event);
 

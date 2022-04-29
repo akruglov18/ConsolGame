@@ -22,6 +22,8 @@ private:
     GameSettings& settings;
     sf::View view;
 
+    void make_screenshot(const std::string& name);
+
 public:
     Game(sf::RenderWindow* _window, GameSettings& _settings);
     FPS_counter fps;

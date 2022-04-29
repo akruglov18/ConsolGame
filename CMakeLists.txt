@@ -13,6 +13,7 @@ include_directories("${CMAKE_SOURCE_DIR}/3rdparty/sfml/include")
 include_directories("${CMAKE_SOURCE_DIR}/3rdparty/")
 
 add_subdirectory(resource_holder)
+add_subdirectory(inventory)
 add_subdirectory(skills_graph)
 add_subdirectory(equipment)
 add_subdirectory(creature)
