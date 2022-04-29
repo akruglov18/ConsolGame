@@ -22,3 +22,22 @@ jobs:
       run: |
         cd build_dir/bin
         ./Tests.exe
+  windows-msvc-build-debug:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.3
+    - name: Build
+      run: |
+        mkdir build_dir
+        cd build_dir
+        cmake -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=TRUE -DBUILD_GMOCK=OFF ..
+        cd .. 
+        cmake --build build_dir --config Debug --target install
+    - name: Run tests
+      run: |
+        cd build_dir/bin
+        ./Tests.exe
