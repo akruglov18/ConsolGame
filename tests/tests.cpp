@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "ResourceHolder.h"
-#include "sfml/Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 int main(int argc, char** argv) {
     Resources::TexturesHolder::load();

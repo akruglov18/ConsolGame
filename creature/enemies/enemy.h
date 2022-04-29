@@ -1,7 +1,7 @@
 #pragma once
 #include "creature.h"
-#include "player/player.h"
-#include "sfml/Graphics.hpp"
+#include "../player/player.h"
+#include "SFML/Graphics.hpp"
 
 class Enemy : public Creature {
 public:

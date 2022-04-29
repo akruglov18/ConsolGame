@@ -7,7 +7,7 @@
 #include "base_weapon.h"
 #include "field.h"
 #include "nlohmann_json/json.hpp"
-#include "sfml/Graphics.hpp"
+#include "SFML/Graphics.hpp"
 
 using json = nlohmann::json;
 
@@ -95,7 +95,7 @@ public:
         return max_health;
     }
     void set_health(int health);
-    int Creature::get_damage() const;
+    int get_damage() const;
     int get_health() const {
         return health;
     }

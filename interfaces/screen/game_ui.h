@@ -1,5 +1,5 @@
 #pragma once
-#include "Player/player.h"
+#include "player/player.h"
 #include "SFML/Graphics.hpp"
 
 class GameUI {

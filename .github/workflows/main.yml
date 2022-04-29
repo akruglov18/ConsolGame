@@ -41,3 +41,44 @@ jobs:
       run: |
         cd build_dir/bin
         ./Tests.exe
+  ubuntu-gcc-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        sudo apt-get install g++-9
+        sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
+        sudo apt-get install xvfb
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=TRUE -DBUILD_GMOCK=OFF ..
+        cmake --build $GITHUB_WORKSPACE/build --config Release --target install
+        cd ..
+      env:
+        CC: gcc-9
+        CXX: g++-9
+  ubuntu-clang-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        sudo apt-get install clang-8
+        sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=TRUE -DBUILD_GMOCK=OFF ..
+        cmake --build $GITHUB_WORKSPACE/build --config Release --target install
+        cd ..
+      env:
+        CC: clang-8
+        CXX: clang++-8
