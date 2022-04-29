@@ -27,7 +27,7 @@ public:
     sf::RectangleShape health_bar_outline;
     sf::RectangleShape health_bar;
 
-    void update(int health, int max_health, sf::FloatRect& hit_box);
+    void update(float health, float max_health, sf::FloatRect& hit_box);
     void show_bar(sf::RenderWindow& window);
 };
 
@@ -44,7 +44,7 @@ public:
      * @param[in] centre_offset Offset for box showing (offset is caused by different textures)
      * @return Output expression
      */
-    Creature(const std::string& name, CreatureManager& manager, int health, const sf::Vector2f& pos,
+    Creature(const std::string& name, CreatureManager& manager, float health, const sf::Vector2f& pos,
              const sf::Vector2f& hit, const sf::Vector2f& collision, const sf::Vector2f& centre_offset);
     Creature(const Creature&);
     virtual ~Creature() {
@@ -57,7 +57,7 @@ public:
     CreatureAnim get_anim() const {
         return creature_anim;
     }
-    void reduce_health(int value);
+    void reduce_health(float value);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
     void show_box(sf::RenderWindow& window);
@@ -88,15 +88,15 @@ public:
     void set_pos(float x, float y);
     std::string creature_type_str() const;
     void update_stuck_frame(float time);
-    int get_health() {
+    float get_health() {
         return health;
     }
-    int get_max_health() {
+    float get_max_health() {
         return max_health;
     }
-    void set_health(int health);
+    void set_health(float health);
     int get_damage() const;
-    int get_health() const {
+    float get_health() const {
         return health;
     }
     int get_experience() const {
@@ -132,8 +132,8 @@ protected:
     ArmorSet armor_set;
     std::shared_ptr<BaseWeapon> weapon;
 
-    int health;
-    int max_health;
+    float health;
+    float max_health;
     int experience;
     float current_frame;
     sf::Vector2f pos;

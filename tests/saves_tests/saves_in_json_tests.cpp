@@ -56,7 +56,7 @@ void SaveArmorTests::Run() {
     pants_type pants;
     std::tie(body_armor, boots, gauntlets, helmet, pants) = GetParam();
     CreatureManager man;
-    int health = 250;
+    float health = 250.f;
     sf::Vector2f pos = {251.f, 258.f};
     auto saved_player = std::shared_ptr<Player>(new Player(man, health, pos));
     saved_player->set_armor(BodyArmor::make_body(body_armor));

@@ -3,5 +3,5 @@
 
 class Beetle : public Enemy {
 public:
-    Beetle(CreatureManager& manager, int health = 100, const sf::Vector2f& pos = {128, 128});
+    Beetle(CreatureManager& manager, float health = 100.f, const sf::Vector2f& pos = {128, 128});
 };
