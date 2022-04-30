@@ -66,8 +66,10 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
 
 View_mode Game::game_loop() {
     sf::Clock clock;
-    sf::Event last_event{sf::Event::EventType::GainedFocus};
-    sf::Event event{sf::Event::EventType::GainedFocus};
+    sf::Event last_event;
+    sf::Event event;
+    window->waitEvent(event);
+    window->waitEvent(last_event);
 
     while (window->isOpen()) {
         // The regulator of game speed
@@ -98,6 +100,8 @@ View_mode Game::game_loop() {
                 InventoryMenu::update_graphic_inventory(player->inventory.get(), player->inventory.get_money());
                 make_screenshot("tmp_inventory");
                 return View_mode::INVENTORY_MENU;
+            default:
+                break;
             }
         }
 
@@ -107,7 +111,7 @@ View_mode Game::game_loop() {
         get_player_pos_for_view(player->get_pos());
 
         for (auto& enemy : enemies) {
-            enemy->action(time, drawable_creatures, game_field.get(), player.get(), settings.difficulty);
+            enemy->action(time, game_field.get(), player.get(), settings.difficulty);
         }
 
         if (player->dead) {

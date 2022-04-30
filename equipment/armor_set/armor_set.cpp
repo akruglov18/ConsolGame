@@ -11,7 +11,7 @@ std::shared_ptr<BaseArmor>& ArmorSet::operator[](ArmorType index) {
     return armor_set[static_cast<int>(index)];
 }
 
-std::shared_ptr<BaseArmor>& ArmorSet::operator[](const int index) {
+std::shared_ptr<BaseArmor>& ArmorSet::operator[](const std::size_t index) {
     return armor_set[index];
 }
 

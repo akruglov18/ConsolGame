@@ -5,8 +5,8 @@ class Action;
 
 Player::Player(CreatureManager& _manager, float _health, const sf::Vector2f& _pos)
         : Creature("man", _manager, _health, _pos, {24.f, 44.f}, {14.f, 14.f}, {32.f, 32.f}) {
-    creature_type = CreatureType::PLAYER;
     creature_anim = CreatureAnim::HUMANOID;
+    creature_type = CreatureType::PLAYER;
     satiety = max_satiety = 100.f;
 }
 
@@ -59,6 +59,8 @@ void Player::action(sf::Event& event, float time, Field* game_field,
             if (weapon->can_thrust)
                 Action::hit(this, time, drawable_creatures, Modes::THRUST);
             break;
+        default:
+            return;
         }
 
     } else if (event.type == sf::Event::KeyReleased) {

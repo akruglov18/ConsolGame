@@ -31,14 +31,13 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
     }
 }
 
-void Enemy::action(float time, std::vector<std::shared_ptr<Creature>>& drawable_creatures, Field* field, Player* player,
+void Enemy::action(float time, Field* field, Player* player,
                    bool difficulty) {
     update_stuck_frame(time);
     health_bar.update(health, max_health, hit_box);
     if (dying) {
         Action::dying(this, time);
     } else {
-        drawable_creatures;
         if (difficulty) {
             AI::takeAction(field, this, player, time);
         }

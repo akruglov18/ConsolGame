@@ -22,8 +22,6 @@ public:
         return cost;
     }
 
-    SkillButton node_button;
-
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;
 
@@ -33,4 +31,7 @@ private:
     int barrier;
     int cost;
     bool opened;
+
+public:
+    SkillButton node_button;
 };

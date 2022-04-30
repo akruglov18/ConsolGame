@@ -11,8 +11,9 @@ SettingsMenu::SettingsMenu(GameSettings& _settings)
     sliders.push_back(&s_difficulty);
 }
 
-View_mode SettingsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    sf::Event event{sf::Event::EventType::GainedFocus};
+View_mode SettingsMenu::Run(sf::RenderWindow& window) {
+    sf::Event event;
+    window.waitEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

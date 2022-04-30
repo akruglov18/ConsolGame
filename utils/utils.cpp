@@ -2,7 +2,7 @@
 
 void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) {
     std::size_t to_resize = enemies.size();
-    for (int i = 0; i < to_resize; ++i) {
+    for (std::size_t i = 0; i < to_resize; ++i) {
         if (enemies[i]->dead) {
             std::swap(enemies[i], enemies[--to_resize]);
             if (enemies[i]->dead) {
@@ -31,8 +31,8 @@ std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
 }
 
 void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
-    for (int i = 0; i < drawable_creatures.size(); ++i) {
-        for (int j = 0; j < drawable_creatures.size() - i - 1; ++j) {
+    for (std::size_t i = 0; i < drawable_creatures.size(); ++i) {
+        for (std::size_t j = 0; j < drawable_creatures.size() - i - 1; ++j) {
             if (static_cast<int>(drawable_creatures[j]->get_pos().y / 32) ==
                 static_cast<int>(drawable_creatures[j + 1]->get_pos().y / 32)) {
                 if (static_cast<int>(drawable_creatures[j]->get_pos().x / 32) >
@@ -50,9 +50,9 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
 }
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
-    for (int i = 0; i < drawable_creatures.size(); ++i) {
+    for (std::size_t i = 0; i < drawable_creatures.size(); ++i) {
         bool somebody_near = false;
-        for (int j = 0; j < drawable_creatures.size(); ++j) {
+        for (std::size_t j = 0; j < drawable_creatures.size(); ++j) {
             if (drawable_creatures[j]->get_pos().y > drawable_creatures[i]->get_pos().y + 48.f)
                 break;
             if (i == j || drawable_creatures[j]->get_pos().y < drawable_creatures[i]->get_pos().y - 48.f ||
@@ -95,23 +95,23 @@ std::vector<int> Utils::get_rendering_borders(int window_width, int window_heigh
     int tile_size = 32;  // immutable parameter
 
     // borders of rendering ///////////////////////////////////////////////////////////////////////////////////
-    if (player_pos.x < window_width / 2)
+    if (player_pos.x < window_width / 2.f)
         right_border = window_width / tile_size + 2;
     else
-        right_border = std::min(field_width, static_cast<int>(((player_pos.x + window_width / 2) / tile_size) + 1));
-    if (player_pos.x > field_width * tile_size - window_width / 2)
+        right_border = std::min(field_width, static_cast<int>(((player_pos.x + window_width / 2.f) / tile_size) + 1));
+    if (player_pos.x > field_width * tile_size - window_width / 2.f)
         left_border = field_width - window_width / tile_size - 2;
     else
-        left_border = std::max(0, static_cast<int>(((player_pos.x - window_width / 2) / tile_size)));
-    if (player_pos.y < window_height / 2)
+        left_border = std::max(0, static_cast<int>(((player_pos.x - window_width / 2.f) / tile_size)));
+    if (player_pos.y < window_height / 2.f)
         btm_border = window_height / tile_size + 2;
     else
         btm_border = std::min(static_cast<int>(field_height),
-                              static_cast<int>(((player_pos.y + window_height / 2) / tile_size) + 1));
-    if (player_pos.y > field_height * tile_size - window_height / 2)
+                              static_cast<int>(((player_pos.y + window_height / 2.f) / tile_size) + 1));
+    if (player_pos.y > field_height * tile_size - window_height / 2.f)
         top_border = field_height - window_height / tile_size - 2;
     else
-        top_border = std::max(0, static_cast<int>(((player_pos.y - window_height / 2) / tile_size)));
+        top_border = std::max(0, static_cast<int>(((player_pos.y - window_height / 2.f) / tile_size)));
 
     return {top_border, btm_border, left_border, right_border};
 }

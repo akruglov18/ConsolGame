@@ -11,7 +11,7 @@ void SkillsMenu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<st
     if (_event.type == sf::Event::MouseButtonReleased && SkillButton::clicked) {
         SkillButton::clicked = false;
     }
-    for (auto node : _skills) {
+    for (auto& node : _skills) {
         if (mouse_pos.x > node->node_button.coord.left && mouse_pos.x < node->node_button.coord.left + 96 &&
             mouse_pos.y > node->node_button.coord.top && mouse_pos.y < node->node_button.coord.top + 63) {
             if (_event.type == sf::Event::MouseButtonPressed) {
@@ -28,8 +28,9 @@ void SkillsMenu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<st
     }
 }
 
-View_mode SkillsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    sf::Event event{sf::Event::EventType::GainedFocus};
+View_mode SkillsMenu::Run(sf::RenderWindow& window, Player* player) {
+    sf::Event event;
+    window.waitEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {
@@ -50,7 +51,7 @@ View_mode SkillsMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> play
 
         window.clear(color);
         b_exit.print_button(window);
-        for (int i = 0; i < graph.size(); ++i) {
+        for (std::size_t i = 0; i < graph.size(); ++i) {
             graph[i]->node_button.print_button(window);
         }
         window.display();

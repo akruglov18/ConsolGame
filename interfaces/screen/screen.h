@@ -7,7 +7,12 @@
 class Screen {
 public:
     Screen();
-    virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> p = nullptr) = 0;
+    virtual View_mode Run(sf::RenderWindow&, Player*) {
+        throw std::invalid_argument("Wrong screen");
+    }
+    virtual View_mode Run(sf::RenderWindow&) {
+        throw std::invalid_argument("Wrong screen");
+    }
     static inline sf::Music menu_music;
     static void play_music();
 

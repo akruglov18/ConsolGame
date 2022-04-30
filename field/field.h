@@ -14,13 +14,13 @@ public:
     // constructors~destructor
     Field();
     Field(int w, int h);
-    Field(Field&&);
+    Field(Field&&) noexcept;
     Field(const Field&) = delete;
     ~Field() {
     }
 
     // operators
-    Field& operator=(Field&&);
+    Field& operator=(Field&&) noexcept;
     std::shared_ptr<Tile> operator()(int i, int j) const;
     Field& operator=(const Field&) = delete;
 

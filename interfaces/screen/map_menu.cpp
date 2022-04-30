@@ -4,8 +4,9 @@ MapMenu::MapMenu() {
     color = sf::Color(255, 0, 0);
 }
 
-View_mode MapMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
-    sf::Event event{sf::Event::EventType::GainedFocus};
+View_mode MapMenu::Run(sf::RenderWindow& window) {
+    sf::Event event;
+    window.waitEvent(event);
     window.setView(window.getDefaultView());
     while (true) {
         window.pollEvent(event);

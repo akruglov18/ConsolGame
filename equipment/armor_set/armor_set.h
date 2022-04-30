@@ -9,7 +9,7 @@ public:
     ArmorSet(const ArmorSet& other);
 
     std::shared_ptr<BaseArmor>& operator[](ArmorType index);
-    std::shared_ptr<BaseArmor>& operator[](const int index);
+    std::shared_ptr<BaseArmor>& operator[](const std::size_t index);
     std::size_t size() const {
         return armor_set.size();
     }

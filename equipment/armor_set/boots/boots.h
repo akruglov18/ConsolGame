@@ -8,6 +8,7 @@ enum class BootsType { Boots_plate, Boots_brown };
 class Boots : public BaseArmor {
 public:
     Boots(const std::string& name, BootsType type);
+    ~Boots() override {}
     static std::shared_ptr<Boots> make_boots(BootsType type);
     static std::shared_ptr<Boots> make_boots_from_json(const json& json_obj);
 };

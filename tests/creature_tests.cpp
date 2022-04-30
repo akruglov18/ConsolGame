@@ -29,8 +29,8 @@ void test_stuck() {
     field->generate_desert();
     CreatureManager man;
     CreatureManager skeleton;
-    std::shared_ptr<Player> player = std::make_shared<Player>(Player(man, 100, {256.f, 236.f}));
-
+    std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, {256.f, 236.f}));
+    
     player->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_leather));
     player->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
     player->set_armor(Pants::make_pants(PantsType::Pants_green));
@@ -39,9 +39,12 @@ void test_stuck() {
 
     std::vector<std::shared_ptr<Creature>> enemies;
     enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, skeleton, 100, {256.f, 256.f}));
-    sf::Event event{sf::Event::EventType::GainedFocus};
+    sf::RenderWindow window{sf::VideoMode(1280, 720), "TEST"};
+    sf::Event event;
+    window.pollEvent(event);
     event.type = sf::Event::KeyPressed;
     event.key.code = sf::Keyboard::LShift;
+    window.close();
     sf::Clock clock;
     for (int i = 0; i < 100; i++) {
         player->action(event, 0.05f, field.get(), enemies);
