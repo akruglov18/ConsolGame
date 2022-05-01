@@ -151,6 +151,110 @@ void Action::move_right_down(Creature* creature, float time, Field* game_field) 
     }    
 }
 
+void Action::move_left_up(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->can_move) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+    }
+    else {
+        Animation::stop_animation(creature);
+        creature->direction = Dirs::LEFT;
+        return;
+    }
+    pos.x -= offset;
+    pos.y -= offset;
+    creature->hit_box.left -= offset;
+    creature->hit_box.top -= offset;
+    creature->collision_box.left -= offset;
+    creature->collision_box.top -= offset;
+    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
+    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
+    Animation::move_animation(creature, Dirs::LEFT);
+}
+
+void Action::move_left_down(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->can_move) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+    }
+    else {
+        Animation::stop_animation(creature);
+        creature->direction = Dirs::LEFT;
+        return;
+    }
+    pos.x -= offset;
+    pos.y += offset;
+    creature->hit_box.left -= offset;
+    creature->hit_box.top += offset;
+    creature->collision_box.left -= offset;
+    creature->collision_box.top += offset;
+    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
+    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
+    Animation::move_animation(creature, Dirs::LEFT);
+}
+
+void Action::move_right_up(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->can_move) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+    }
+    else {
+        Animation::stop_animation(creature);
+        creature->direction = Dirs::RIGHT;
+        return;
+    }
+    pos.x += offset;
+    pos.y -= offset;
+    creature->hit_box.left += offset;
+    creature->hit_box.top -= offset;
+    creature->collision_box.left += offset;
+    creature->collision_box.top -= offset;
+    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
+    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
+    Animation::move_animation(creature, Dirs::RIGHT);
+}
+
+void Action::move_right_down(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->can_move) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+    }
+    else {
+        Animation::stop_animation(creature);
+        creature->direction = Dirs::RIGHT;
+        return;
+    }
+    pos.x += offset;
+    pos.y += offset;
+    creature->hit_box.left += offset;
+    creature->hit_box.top += offset;
+    creature->collision_box.left += offset;
+    creature->collision_box.top += offset;
+    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
+    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
+    Animation::move_animation(creature, Dirs::RIGHT);
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////ANOTHER ACTIONS///////////////////////////////////////////////////
 
