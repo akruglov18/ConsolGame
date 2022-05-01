@@ -129,6 +129,7 @@ View_mode Game::game_loop() {
 
         game_UI.update_UI(*player);
         render(time);
+        Cursor::move(*window);
         window->display();
         Screen::play_music();
     }

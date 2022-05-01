@@ -30,6 +30,7 @@ View_mode MainMenu::Run(sf::RenderWindow& window) {
         b_play.print_button(window);
         b_settings.print_button(window);
         b_exit.print_button(window);
+        Cursor::move(window);
         window.display();
         play_music();
     }

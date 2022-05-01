@@ -7,9 +7,11 @@
 #include "skills_menu.h"
 #include "map_menu.h"
 #include "inventory_menu.h"
+#include "cursor.h"
 
 int main() {
     std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{sf::VideoMode(1280, 720), "Application"});
+    window->setMouseCursorVisible(false);
 
     /////////////////////////////////////////////////////////////TIME_CHECK///////////////////////////////////////////////////////////
     auto start = std::chrono::high_resolution_clock::now();
@@ -19,6 +21,8 @@ int main() {
     std::chrono::duration<double> diff = end - start;
     std::cout << "Resources loading: " << std::setw(9) << diff.count() << " s\n";
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Cursor::init();
 
     std::map<View_mode, Screen*> screens;
     View_mode screen = View_mode::MAIN_MENU;

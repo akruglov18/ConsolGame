@@ -3,6 +3,7 @@
 #include "button.h"
 #include "utils.h"
 #include "ResourceHolder.h"
+#include "cursor.h"
 
 class Screen {
 public:
