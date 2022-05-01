@@ -14,6 +14,11 @@ public:
     static void move_up(Creature* creature, float time, Field* game_field);
     static void move_down(Creature* creature, float time, Field* game_field);
 
+    static void move_left_up(Creature* creature, float time, Field* game_field);
+    static void move_left_down(Creature* creature, float time, Field* game_field);
+    static void move_right_up(Creature* creature, float time, Field* game_field);
+    static void move_right_down(Creature* creature, float time, Field* game_field);
+
     // another actions such as take, cut, hit, trade, use magic and so on
     static void hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
                     Modes mode);

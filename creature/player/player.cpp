@@ -40,16 +40,36 @@ void Player::action(sf::Event& event, float time, Field* game_field,
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
         case (sf::Keyboard::Left):
-            Action::move_left(this, time, game_field);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                Action::move_left_up(this, time, game_field);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                Action::move_left_down(this, time, game_field);
+            else
+                Action::move_left(this, time, game_field);
             break;
         case (sf::Keyboard::Right):
-            Action::move_right(this, time, game_field);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                Action::move_right_up(this, time, game_field);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+                Action::move_right_down(this, time, game_field);
+            else
+                Action::move_right(this, time, game_field);
             break;
         case (sf::Keyboard::Up):
-            Action::move_up(this, time, game_field);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                Action::move_left_up(this, time, game_field);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                Action::move_right_up(this, time, game_field);
+            else
+                Action::move_up(this, time, game_field);
             break;
         case (sf::Keyboard::Down):
-            Action::move_down(this, time, game_field);
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                Action::move_left_down(this, time, game_field);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                Action::move_right_down(this, time, game_field);
+            else
+                Action::move_down(this, time, game_field);
             break;
         case (sf::Keyboard::LShift):
             if (weapon->can_slash)
