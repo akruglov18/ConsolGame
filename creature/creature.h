@@ -113,6 +113,7 @@ protected:
     sf::Vector2f pos;
 
 public:
+    void move(float offset_x, float offset_y);
     sf::FloatRect hit_box;
     sf::FloatRect collision_box;
     sf::Vector2f centre_offset;
