@@ -168,6 +168,7 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window) {
         window.draw(inventory_screen);
         b_exit.print_button(window);
         show_inventory(window);
+        Cursor::move(window);
         window.display();
         play_music();
     }

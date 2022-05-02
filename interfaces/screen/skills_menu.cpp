@@ -54,6 +54,7 @@ View_mode SkillsMenu::Run(sf::RenderWindow& window, Player* player) {
         for (std::size_t i = 0; i < graph.size(); ++i) {
             graph[i]->node_button.print_button(window);
         }
+        Cursor::move(window);
         window.display();
         play_music();
     }

@@ -17,6 +17,7 @@ View_mode MapMenu::Run(sf::RenderWindow& window) {
             return View_mode::GAME;
 
         window.clear(color);
+        Cursor::move(window);
         window.display();
         play_music();
     }

@@ -47,6 +47,7 @@ View_mode GameoverMenu::Run(sf::RenderWindow& window) {
         b_main_menu.print_button(window);
         b_restart.print_button(window);
         window.draw(gameover_text);
+        Cursor::move(window);
         window.display();
         play_music();
     }

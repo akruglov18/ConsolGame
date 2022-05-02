@@ -58,6 +58,26 @@ public:
     void check_settings(sf::Vector2i mouse_pos);
 };
 
+class MiniMap {
+public:
+    MiniMap();
+    void show_minimap(sf::RenderWindow& window);
+    void check_buttons(sf::Vector2i mouse_pos);
+
+private:
+    float map_x;
+    float map_y;
+    bool help_hovered = false;
+    bool battles_hovered = false;
+    sf::Sprite map_sprite;
+    sf::Sprite linker1;
+    sf::Sprite linker2;
+    sf::Sprite open_help_button;
+    sf::Sprite show_battles_button;
+    sf::Sprite open_help_inner;
+    sf::Sprite show_battles_inner;
+};
+
 class GameUI {
 public:
     GameUI();
@@ -92,9 +112,7 @@ public:
     std::vector<std::shared_ptr<GraphicSlot>> gr_items_array;
 
     // MAP ////////////////////////////////////////////////////////////////////////////////////////
-    float map_x;
-    float map_y;
-    sf::Sprite map_sprite;
+    MiniMap minimap;
 
     // METHODS ////////////////////////////////////////////////////////////////////////////////////
     void update_UI(Player& p);

@@ -43,6 +43,7 @@ View_mode SettingsMenu::Run(sf::RenderWindow& window) {
         b_main_menu.print_button(window);
         s_sound.print_button(window);
         s_difficulty.print_button(window);
+        Cursor::move(window);
         window.display();
         menu_music.setVolume(static_cast<float>(s_sound.slide_value));
         play_music();

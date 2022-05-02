@@ -1,5 +1,6 @@
 #include "game_ui.h"
 
+// SETTINGS ///////////////////////////////////////////////////////////////////////////////////////
 SettingsInGame::SettingsInGame() {
     settings.push_back(std::make_shared<CheckBox>(CheckBox("music", {10.f, 620.f}, SettingsType::MUSIC)));
 }
@@ -26,6 +27,80 @@ void SettingsInGame::check_settings(sf::Vector2i mouse_pos) {
         }
     }
 }
+
+// MAP ////////////////////////////////////////////////////////////////////////////////////////
+MiniMap::MiniMap() {
+    map_x = 1205.f;
+    map_y = 645.f;
+
+    map_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    map_sprite.setTextureRect({{847, 290}, {-128, 128}});
+    map_sprite.setOrigin({64.f, 64.f});
+    map_sprite.setRotation(sf::degrees(180.f));
+    map_sprite.setPosition({map_x, map_y});
+
+    linker1.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    linker1.setTextureRect({{815, 417}, {20, 6}});
+    linker1.setPosition({map_x + 32.f, map_y - 70});
+    linker2.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    linker2.setTextureRect({{815, 417}, {20, 6}});
+    linker2.setPosition({map_x + 32.f, map_y - 120.f});
+
+    show_battles_button.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    show_battles_button.setTextureRect({{802, 431}, {44, 44}});
+    show_battles_button.setPosition({map_x + 20.f, map_y - 114.f});
+
+    open_help_button.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    open_help_button.setTextureRect({{802, 431}, {44, 44}});
+    open_help_button.setPosition({map_x + 20.f, map_y - 164.f});
+
+    show_battles_inner.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    show_battles_inner.setTextureRect({{722, 486}, {27, 24}});
+    show_battles_inner.setPosition({map_x + 29.f, map_y - 104.f});
+
+    open_help_inner.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+    open_help_inner.setTextureRect({{758, 505}, {26, 18}});
+    open_help_inner.setPosition({map_x + 29.f, map_y - 152.f});
+}
+
+void MiniMap::show_minimap(sf::RenderWindow& window) {
+    window.draw(map_sprite);
+    window.draw(show_battles_button);
+    window.draw(open_help_button);
+    window.draw(show_battles_inner);
+    window.draw(open_help_inner);
+    window.draw(linker1);
+    window.draw(linker2);
+}
+
+void MiniMap::check_buttons(sf::Vector2i mouse_pos) {
+    if (mouse_pos.x > open_help_button.getPosition().x && mouse_pos.x < open_help_button.getPosition().x + 44.f &&
+        mouse_pos.y > open_help_button.getPosition().y && mouse_pos.y < open_help_button.getPosition().y + 44.f) {
+        if (!help_hovered) {
+            open_help_button.setTextureRect({{802, 481}, {44, 44}});
+            help_hovered = true;
+        }
+    } 
+    else {
+        if (help_hovered) {
+            open_help_button.setTextureRect({{802, 431}, {44, 44}});
+            help_hovered = false;
+        }
+    }
+    if (mouse_pos.x > show_battles_button.getPosition().x && mouse_pos.x < show_battles_button.getPosition().x + 44.f &&
+        mouse_pos.y > show_battles_button.getPosition().y && mouse_pos.y < show_battles_button.getPosition().y + 44.f) {
+        if (!battles_hovered) {
+            show_battles_button.setTextureRect({{802, 481}, {44, 44}});
+            battles_hovered = true;
+        }
+    } else {
+        if (battles_hovered) {
+            show_battles_button.setTextureRect({{802, 431}, {44, 44}});
+            battles_hovered = false;
+        }
+    }
+}
+
 
 GameUI::GameUI() {
     font = *Resources::FontsHolder::getResource("basic_font");    
@@ -107,15 +182,6 @@ GameUI::GameUI() {
         gr_items_array[i]->slot_sprite.setScale({1.5f, 1.5f});
         gr_items_array[i]->slot = std::make_shared<Slot>(Slot());
     }
-
-    // MAP ////////////////////////////////////////////////////////////////////////////////////////
-    map_x = 1205.f;
-    map_y = 645.f;
-    map_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
-    map_sprite.setTextureRect({{847, 290}, {-128, 128}});
-    map_sprite.setOrigin({64.f, 64.f});
-    map_sprite.setRotation(sf::degrees(180.f));
-    map_sprite.setPosition({map_x, map_y});
 }
 
 void GameUI::update_UI(Player& p) {
@@ -167,7 +233,8 @@ void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanic
     for (auto& el : gr_items_array)
         el->show_slot(window);
 
-    window.draw(map_sprite);
+    minimap.check_buttons(sf::Mouse::getPosition(window));
+    minimap.show_minimap(window);
 }
 
 void GameUI::check_settings_cogwheel(sf::Vector2i mouse_pos) {
