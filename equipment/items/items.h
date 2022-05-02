@@ -13,6 +13,7 @@ enum class ItemType { NONE, WEAPON, ARMOR, COINS, COMMON_THING };
 
 class Items {
 public:
+    virtual ~Items() {}
     ItemType get_type() const;
     std::string get_type_str() const;
     static const std::vector<std::string> suffixes;

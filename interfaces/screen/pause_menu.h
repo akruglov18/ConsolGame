@@ -10,10 +10,10 @@ public:
     sf::Texture pause_screenIMG;
     sf::Sprite pause_screen;
 
-    MenuButton b_to_game;
     MenuButton b_main_menu;
+    MenuButton b_to_game;
 
     std::vector<MenuButton*> buttons;
 
-    virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
+    virtual View_mode Run(sf::RenderWindow& window) override;
 };

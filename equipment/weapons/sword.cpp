@@ -33,8 +33,33 @@ std::shared_ptr<Sword> Sword::make_sword_from_json(const json& json_obj) {
 }
 
 void Sword::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
-    // there will be something
-    mode;
-    pos;
-    dir;
+    if (mode == Modes::SLASH) {
+        if (dir == 0 || dir == 1) {
+            if (dir == 0)
+                damage_box.left = pos.x - 12.f;
+            else
+                damage_box.left = pos.x + 28.f;
+
+            damage_box.top = pos.y - 12.f;
+            damage_box.height = damage_box_horisontal.y;
+            damage_box.width = damage_box_horisontal.x;
+            rect_damage_box.setSize(damage_box.getSize());
+
+        } else {
+            damage_box.left = pos.x + 16.f;
+            damage_box.height = damage_box_vertical.y;
+            damage_box.width = damage_box_vertical.x;
+
+            if (dir == 2) {
+                damage_box.top = pos.y - 20.f;
+                rect_damage_box.setSize({damage_box.getSize().x, damage_box.getSize().y + 8.f});
+            } else {
+                damage_box.top = pos.y + 20.f;
+                rect_damage_box.setSize(damage_box.getSize());
+            }
+        }
+        rect_damage_box.setPosition(damage_box.getPosition());
+    } else {
+        throw std::invalid_argument("Wrong mode");
+    }
 }

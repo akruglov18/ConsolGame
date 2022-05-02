@@ -44,11 +44,25 @@ int main() {
             Game game(window.get(), settings);
             while (screen != View_mode::MAIN_MENU && screen != View_mode::EXIT) {
                 screen = game.game_loop();
-                if (screen == View_mode::EXIT) {
-                    break;
-                }
 
-                screen = screens[screen]->Run(*window, game.get_player());
+                if (screen == View_mode::EXIT)
+                    break;
+
+                switch (screen) { 
+                case View_mode::SKILLS_MENU:
+                    screen = screens[screen]->Run(*window, game.get_player().get());
+                    break;
+                case View_mode::GAMEOVER_MENU:
+                case View_mode::INVENTORY_MENU:
+                case View_mode::MAP_MENU:
+                case View_mode::PAUSE_MENU:
+                    screen = screens[screen]->Run(*window);
+                    break;
+                default:
+                    throw std::invalid_argument("Wrong screen");
+                    break;
+                }    
+
                 if (game.get_player()->dead && screen == View_mode::GAME)
                     break;
             }

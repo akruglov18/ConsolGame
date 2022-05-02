@@ -4,7 +4,7 @@
 #include "coins.h"
 #include "enemies/enemy.h"
 
-#define STUCK_TIME 3.f
+constexpr auto STUCK_TIME = 3.f;
 
 Health_bar::Health_bar(sf::FloatRect hit_box) {
     health_bar_outline.setOutlineThickness(1.f);

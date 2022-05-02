@@ -14,6 +14,7 @@ enum class BodyArmorType {
 class BodyArmor : public BaseArmor {
 public:
     BodyArmor(const std::string& name, BodyArmorType type);
+    ~BodyArmor() override {}
     static std::shared_ptr<BodyArmor> make_body(BodyArmorType type);
     static std::shared_ptr<BodyArmor> make_body_from_json(const json& json_obj);
 };

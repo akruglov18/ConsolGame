@@ -8,16 +8,16 @@ class SettingsMenu : public Screen {
 public:
     SettingsMenu(GameSettings& _settings);
     sf::Color color;
-    GameSettings& settings;
 
     MenuButton b_main_menu;
     Slider s_sound;
     Slider s_difficulty;
+    GameSettings& settings;
 
     std::vector<MenuButton*> buttons;
     std::vector<Slider*> sliders;
 
-    virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
+    virtual View_mode Run(sf::RenderWindow& window) override;
 
 private:
     void set();

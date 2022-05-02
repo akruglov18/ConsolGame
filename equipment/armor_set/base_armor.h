@@ -10,6 +10,7 @@ enum class ArmorType { TORSO = 0, HELMET, PANTS, BOOTS, GAUNTLETS, SET_SIZE };
 class BaseArmor : public Items {
 public:
     BaseArmor(const std::string& name);
+    virtual ~BaseArmor() {}
 
     static void change_mode(Modes mode, std::shared_ptr<BaseArmor>);
 

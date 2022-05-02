@@ -36,6 +36,12 @@ public:
     }
 };
 
+template<>
+inline Resources::ResourceHolder<std::string, sf::Texture>::MapType Resources::ResourceHolder<std::string, sf::Texture>::mResources{};
+
+template<>
+inline Resources::ResourceHolder<std::string, sf::Font>::MapType Resources::ResourceHolder<std::string, sf::Font>::mResources{};
+
 class TexturesHolder : public ResourceHolder<std::string, sf::Texture> {
 public:
     static void load() {

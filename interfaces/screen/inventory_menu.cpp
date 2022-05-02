@@ -22,17 +22,17 @@ void InventoryMenu::build_inventory(const std::vector<std::shared_ptr<Slot>>& it
 
     gr_items_array.resize(0);
     gr_items_array.reserve(items.size());
-    for (int i = 0; i < items.size(); ++i) {
+    for (std::size_t i = 0; i < items.size(); ++i) {
         gr_items_array.push_back(std::make_shared<GraphicSlot>(GraphicSlot()));
     }
 
     float pos_x = 500.f;
     float pos_y = 200.f;
 
-    size_t width = static_cast<size_t>(std::sqrt(items.size()));
-    size_t height = static_cast<size_t>(std::sqrt(items.size()));
-    for (size_t i = 0; i < height; ++i) {
-        for (size_t j = 0; j < width; ++j) {
+    std::size_t width = static_cast<std::size_t>(std::sqrt(items.size()));
+    std::size_t height = static_cast<std::size_t>(std::sqrt(items.size()));
+    for (std::size_t i = 0; i < height; ++i) {
+        for (std::size_t j = 0; j < width; ++j) {
 
             int x = 0;
             int y = 0;
@@ -112,7 +112,7 @@ void InventoryMenu::build_inventory(const std::vector<std::shared_ptr<Slot>>& it
 }
 
 void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, int _money) {
-    for (int i = 0; i < items_array.size(); i++) {
+    for (std::size_t i = 0; i < items_array.size(); i++) {
         gr_items_array[i]->slot = items_array[i];
         if (gr_items_array[i]->slot->get_item() != nullptr) {
             float x = gr_items_array[i]->slot_sprite.getPosition().x + 16.f;
@@ -137,12 +137,13 @@ void InventoryMenu::show_inventory(sf::RenderWindow& window) {
     window.draw(gr_money);
 }
 
-View_mode InventoryMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
+View_mode InventoryMenu::Run(sf::RenderWindow& window) {
     inventory_screenIMG.loadFromFile("../../images/tmp_inventory.jpg");
     inventory_screen.setTexture(inventory_screenIMG);
     inventory_screen.setColor(sf::Color(210, 164, 120, 130));
 
-    sf::Event event{sf::Event::EventType::GainedFocus};
+    sf::Event event;
+    window.waitEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

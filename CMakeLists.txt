@@ -12,6 +12,8 @@ include_directories("${CMAKE_SOURCE_DIR}/3rdparty/sfml/include")
 
 include_directories("${CMAKE_SOURCE_DIR}/3rdparty/")
 
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Compiler.cmake")
+
 add_subdirectory(resource_holder)
 add_subdirectory(inventory)
 add_subdirectory(skills_graph)

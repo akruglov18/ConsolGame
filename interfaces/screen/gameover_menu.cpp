@@ -16,12 +16,13 @@ GameoverMenu::GameoverMenu()
     gameover_text.setPosition(sf::Vector2f(480.f, 120.f));
 }
 
-View_mode GameoverMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
+View_mode GameoverMenu::Run(sf::RenderWindow& window) {
     gameover_screenIMG.loadFromFile("../../images/tmp_gameover.jpg");
     gameover_screen.setTexture(gameover_screenIMG);
     gameover_screen.setColor(sf::Color(255, 0, 0, 70));
 
-    sf::Event event{sf::Event::EventType::GainedFocus};
+    sf::Event event;
+    window.waitEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

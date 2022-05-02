@@ -15,5 +15,6 @@ public:
     static void node_click_checker(sf::Vector2i mouse_pos, const std::vector<std::shared_ptr<Node>>& _skills,
                                    const sf::Event& _event, Player& player);
 
-    virtual View_mode Run(sf::RenderWindow& window, std::shared_ptr<Player> player = nullptr) override;
+    virtual View_mode Run(sf::RenderWindow& window, Player* player) override;
+
 };

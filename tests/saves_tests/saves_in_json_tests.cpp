@@ -78,7 +78,7 @@ bool SaveArmorTests::is_equal_armor_sets(const ArmorSet& armor_set1, const Armor
     auto& set1 = armor_set1.armor_set;
     auto& set2 = armor_set2.armor_set;
     for (std::size_t i = 0; i < sz; ++i) {
-        if (set1[i] == nullptr && set2[i] != nullptr || set1[i] != nullptr && set2[i] == nullptr) {
+        if ((set1[i] == nullptr && set2[i] != nullptr) || (set1[i] != nullptr && set2[i] == nullptr)) {
             return false;
         }
         if (set1[i]->armor != set2[i]->armor)
@@ -109,7 +109,7 @@ bool SaveArmorTests::is_equal_players(Player* p1, Player* p2) {
 bool SaveArmorTests::is_equal_weapons(BaseWeapon* w1, BaseWeapon* w2) {
     if (w1 == nullptr && w2 == nullptr)
         return true;
-    if (w1 == nullptr && w2 != nullptr || w1 != nullptr && w2 == nullptr) {
+    if ((w1 == nullptr && w2 != nullptr) || (w1 != nullptr && w2 == nullptr)) {
         return false;
     }
     if (w1->can_slash != w2->can_slash)

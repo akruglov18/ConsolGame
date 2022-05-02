@@ -108,6 +108,11 @@ public:
         return Drop();
     }
 
+protected:
+    CreatureManager& manager;
+    sf::Vector2f pos;
+
+public:
     sf::FloatRect hit_box;
     sf::FloatRect collision_box;
     sf::Vector2f centre_offset;
@@ -136,10 +141,8 @@ protected:
     float max_health;
     int experience;
     float current_frame;
-    sf::Vector2f pos;
     std::vector<std::shared_ptr<sf::Texture>> body_textures;
     sf::Sprite sprite;
-    CreatureManager& manager;
 
     CreatureType creature_type = CreatureType::NONE;
     CreatureAnim creature_anim = CreatureAnim::NONE;

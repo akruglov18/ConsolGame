@@ -16,12 +16,13 @@ PauseMenu::PauseMenu()
     pause_text.setPosition(sf::Vector2f(520.f, 120.f));
 }
 
-View_mode PauseMenu::Run(sf::RenderWindow& window, std::shared_ptr<Player> player) {
+View_mode PauseMenu::Run(sf::RenderWindow& window) {
     pause_screenIMG.loadFromFile("../../images/tmp_pause.jpg");
     pause_screen.setTexture(pause_screenIMG);
     pause_screen.setColor(sf::Color(255, 255, 255, 180));
 
-    sf::Event event{sf::Event::EventType::GainedFocus};
+    sf::Event event;
+    window.waitEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

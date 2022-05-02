@@ -13,6 +13,8 @@ void Animation::choose_animation_duration(Creature* creature) {
     case (CreatureAnim::SPIDER):
         creature->action_animation_duration = anim_dur_spider[static_cast<int>(creature->mode)];
         break;
+    case (CreatureAnim::NONE):
+        throw std::invalid_argument("Wrong Creature Animation!");
     }
 }
 
@@ -24,6 +26,8 @@ void Animation::move_animation(Creature* creature, Dirs dir) {
     case (CreatureAnim::SPIDER):
         move_spider(creature, dir);
         break;
+    case (CreatureAnim::NONE):
+        throw std::invalid_argument("Wrong mode");
     }
 }
 
@@ -35,6 +39,8 @@ void Animation::stop_animation(Creature* creature) {
     case (CreatureAnim::SPIDER):
         stop_spider(creature);
         break;
+    case (CreatureAnim::NONE):
+        throw std::invalid_argument("Wrong mode");
     }
 }
 
@@ -46,6 +52,8 @@ void Animation::hit_animation(Creature* creature) {
     case (CreatureAnim::SPIDER):
         hit_spider(creature);
         break;
+    case (CreatureAnim::NONE):
+        throw std::invalid_argument("Wrong mode");
     }
 }
 
@@ -57,6 +65,8 @@ void Animation::die_animation(Creature* creature) {
     case (CreatureAnim::SPIDER):
         die_spider(creature);
         break;
+    case (CreatureAnim::NONE):
+        throw std::invalid_argument("Wrong mode");
     }
 }
 
@@ -90,7 +100,7 @@ void Animation::move_hum(Creature* creature, Dirs dir) {
     creature->get_sprite().setTextureRect(
             sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
 
-    for (int i = 0; i < armor_set.size(); ++i) {
+    for (std::size_t i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
             armor_set[i]->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
             armor_set[i]->get_sprite().setTextureRect(
@@ -115,7 +125,7 @@ void Animation::stop_hum(Creature* creature) {
 
     creature->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
 
-    for (int i = 0; i < armor_set.size(); ++i) {
+    for (std::size_t i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
             armor_set[i]->get_sprite().setTextureRect(sf::IntRect({0, y_texture}, {64, 64}));
         }
@@ -136,7 +146,7 @@ void Animation::hit_hum(Creature* creature) {
     creature->get_sprite().setTextureRect(
             sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
 
-    for (int i = 0; i < armor_set.size(); ++i) {
+    for (std::size_t i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
             armor_set[i]->get_sprite().setTextureRect(
                     sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, y_texture}, {64, 64}));
@@ -157,7 +167,7 @@ void Animation::die_hum(Creature* creature) {
 
     creature->get_sprite().setTextureRect(sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));
 
-    for (int i = 0; i < armor_set.size(); ++i) {
+    for (std::size_t i = 0; i < armor_set.size(); ++i) {
         if (armor_set[i] != nullptr) {
             armor_set[i]->get_sprite().setTextureRect(
                     sf::IntRect({(static_cast<int>(current_frame) + 1) * 64, 0}, {64, 64}));

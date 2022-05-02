@@ -47,9 +47,9 @@ void Inventory::take(std::vector<std::shared_ptr<Items>>& items) {
         if (dropped->get_type() == ItemType::COINS) {
             money += dropped->value;
         } else {
-            std::vector<int> empty_slots;
+            std::vector<std::size_t> empty_slots;
             auto& extra = dropped->value;
-            for (int i = 0; i < items_array.size(); ++i) {
+            for (std::size_t i = 0; i < items_array.size(); ++i) {
                 if (items_array[i]->get_item() == nullptr && size < capacity) {
                     empty_slots.push_back(i);                
                 } else {
@@ -63,7 +63,7 @@ void Inventory::take(std::vector<std::shared_ptr<Items>>& items) {
 
             if (extra != 0) {
                 if (empty_slots.size() != 0) {
-                    for (int i = 0; i < empty_slots.size(); ++i) {
+                    for (std::size_t i = 0; i < empty_slots.size(); ++i) {
                         items_array[empty_slots[i]]->place_item_in_new_slot(dropped);
                         size++;
                         if (extra == 0)
