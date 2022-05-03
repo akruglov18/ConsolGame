@@ -51,7 +51,7 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     for (std::size_t i = 0; i < drawable_creatures.size(); ++i) {
-        bool somebody_near = false;
+        bool alone = true;
         for (std::size_t j = 0; j < drawable_creatures.size(); ++j) {
             if (drawable_creatures[j]->get_pos().y > drawable_creatures[i]->get_pos().y + 48.f)
                 break;
@@ -60,11 +60,11 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
                 drawable_creatures[j]->get_pos().x > drawable_creatures[i]->get_pos().x + 48.f)
                 continue;
 
-            somebody_near = true;
+            alone = false;
 
             check_collision(drawable_creatures[i].get(), drawable_creatures[j].get());
         }
-        if (!somebody_near) {
+        if (alone) {
             drawable_creatures[i]->can_moveL = true;
             drawable_creatures[i]->can_moveR = true;
             drawable_creatures[i]->can_moveU = true;

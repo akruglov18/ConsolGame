@@ -40,6 +40,8 @@ void Enemy::action(float time, Field* field, Player* player,
     } else {
         if (difficulty) {
             AI::takeAction(field, this, player, time);
+        } else {
+            Action::move_right(this, time, field);
         }
     }
 }
