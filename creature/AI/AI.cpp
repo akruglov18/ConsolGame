@@ -15,27 +15,15 @@ void AI::takeAction(Field* field, Enemy* enemy, Player* player, float time) {
     }
     else if (diff > 10.f) {
         if (diff_x > 0.f) {
-            if (enemy->can_moveL)
-                Action::move_left(enemy, time, field);
-            else
-                Animation::stop_animation(enemy);
+            Action::move_left(enemy, time, field);
         } else {
-            if (enemy->can_moveR)
-                Action::move_right(enemy, time, field);
-            else
-                Animation::stop_animation(enemy);
+            Action::move_right(enemy, time, field);
         }
     } else if (diff < -10.f) {
         if (diff_y > 0.f) {
-            if (enemy->can_moveU)
-                Action::move_up(enemy, time, field);
-            else
-                Animation::stop_animation(enemy);
+            Action::move_up(enemy, time, field);
         } else {
-            if (enemy->can_moveD)
-                Action::move_down(enemy, time, field);
-            else
-                Animation::stop_animation(enemy);
+            Action::move_down(enemy, time, field);
         }
     } else {
         if (diff_y > 0.f) {
