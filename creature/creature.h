@@ -121,7 +121,11 @@ public:
     sf::RectangleShape rect_collision_box;
     Health_bar health_bar;
 
-    bool can_move = true;
+    bool can_moveL = true;
+    bool can_moveR = true;
+    bool can_moveU = true;
+    bool can_moveD = true;
+
     bool stuck = false;
     bool dying = false;
     bool dead = false;
@@ -151,12 +155,12 @@ protected:
 
 class CreatureManager {
 public:
-    CreatureManager(){};
+    CreatureManager() {}
     void setPlayer(Player* _player);
     void setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies);
     void setField(Field* _field);
     void creatureDied(Creature* creature);
-    ~CreatureManager(){};
+    ~CreatureManager() {}
 
 private:
     Player* player;

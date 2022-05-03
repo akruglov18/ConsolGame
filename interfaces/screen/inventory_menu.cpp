@@ -143,7 +143,7 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window) {
     inventory_screen.setColor(sf::Color(210, 164, 120, 130));
 
     sf::Event event;
-    window.waitEvent(event);
+    window.pollEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

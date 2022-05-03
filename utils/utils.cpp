@@ -62,31 +62,49 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
 
             somebody_near = true;
 
-            if (check_collision(drawable_creatures[i]->collision_box, drawable_creatures[j]->collision_box,
-                                drawable_creatures[i]->direction)) {
-                drawable_creatures[i]->can_move = false;
-                break;
-            } else {
-                drawable_creatures[i]->can_move = true;
-            }
+            check_collision(drawable_creatures[i].get(), drawable_creatures[j].get());
         }
-        if (!somebody_near)
-            drawable_creatures[i]->can_move = true;
+        if (!somebody_near) {
+            drawable_creatures[i]->can_moveL = true;
+            drawable_creatures[i]->can_moveR = true;
+            drawable_creatures[i]->can_moveU = true;
+            drawable_creatures[i]->can_moveD = true;
+        }
     }
 }
 
-bool Utils::check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Dirs dir) {
-    if (box1.findIntersection(box2).has_value()) {
-        if (dir == Dirs::LEFT && box1.left > box2.left && box2.left + box2.width - box1.left < 5.f)
-            return true;
-        if (dir == Dirs::RIGHT && box1.left < box2.left && box1.left + box1.width - box2.left < 5.f)
-            return true;
-        if (dir == Dirs::UP && box1.top > box2.top && box2.top + box2.height - box1.top < 5.f)
-            return true;
-        if (dir == Dirs::DOWN && box1.top < box2.top && box1.top + box1.height - box2.top < 5.f)
-            return true;
+void Utils::check_collision(Creature* creature1, Creature* creature2) {
+
+    auto& box1 = creature1->collision_box;
+    auto& box2 = creature2->collision_box;
+
+    if (box1.top + box1.height >= box2.top && box1.top <= box2.top + box2.height) {
+        if (std::fabsf(box1.left - (box2.left + box2.width)) < 2.f)
+            creature1->can_moveL = false;
+        else
+            creature1->can_moveL = true;
+        if (std::fabsf(box2.left - (box1.left + box1.width)) < 2.f)
+            creature1->can_moveR = false;
+        else
+            creature1->can_moveR = true;
+    } else {
+        creature1->can_moveL = true;
+        creature1->can_moveR = true;
     }
-    return false;
+
+    if (box1.left + box1.width >= box2.left && box1.left <= box2.left + box2.width) {
+        if (std::fabsf(box1.top - (box2.top + box2.height)) < 2.f)
+            creature1->can_moveU = false;
+        else
+            creature1->can_moveU = true;
+        if (std::fabsf(box2.top - (box1.top + box1.height)) < 2.f)
+            creature1->can_moveD = false;
+        else
+            creature1->can_moveD = true;   
+    } else {
+        creature1->can_moveU = true;
+        creature1->can_moveD = true;
+    }
 }
 
 std::vector<int> Utils::get_rendering_borders(int window_width, int window_height, int field_width, int field_height,

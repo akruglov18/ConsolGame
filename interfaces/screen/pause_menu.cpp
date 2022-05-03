@@ -22,7 +22,7 @@ View_mode PauseMenu::Run(sf::RenderWindow& window) {
     pause_screen.setColor(sf::Color(255, 255, 255, 180));
 
     sf::Event event;
-    window.waitEvent(event);
+    window.pollEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

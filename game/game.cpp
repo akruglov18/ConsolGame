@@ -68,8 +68,8 @@ View_mode Game::game_loop() {
     sf::Clock clock;
     sf::Event last_event;
     sf::Event event;
-    window->waitEvent(event);
-    window->waitEvent(last_event);
+    window->pollEvent(event);
+    window->pollEvent(last_event);
 
     while (window->isOpen()) {
         // The regulator of game speed

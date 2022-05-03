@@ -13,7 +13,7 @@ MainMenu::MainMenu()
 
 View_mode MainMenu::Run(sf::RenderWindow& window) {
     sf::Event event;
-    window.waitEvent(event);
+    window.pollEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {
