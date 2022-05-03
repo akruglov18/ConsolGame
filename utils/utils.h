@@ -20,5 +20,5 @@ public:
     }
 
 private:
-    static void check_collision(Creature* creature1, Creature* creature2);
+    static void check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Collisions& mask);
 };

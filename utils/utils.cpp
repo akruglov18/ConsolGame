@@ -51,7 +51,7 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     for (std::size_t i = 0; i < drawable_creatures.size(); ++i) {
-        bool alone = true;
+        Collisions mask;
         for (std::size_t j = 0; j < drawable_creatures.size(); ++j) {
             if (drawable_creatures[j]->get_pos().y > drawable_creatures[i]->get_pos().y + 48.f)
                 break;
@@ -60,50 +60,30 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
                 drawable_creatures[j]->get_pos().x > drawable_creatures[i]->get_pos().x + 48.f)
                 continue;
 
-            alone = false;
-
-            check_collision(drawable_creatures[i].get(), drawable_creatures[j].get());
+            check_collision(drawable_creatures[i]->collision_box, drawable_creatures[j]->collision_box, mask);
         }
-        if (alone) {
-            drawable_creatures[i]->can_moveL = true;
-            drawable_creatures[i]->can_moveR = true;
-            drawable_creatures[i]->can_moveU = true;
-            drawable_creatures[i]->can_moveD = true;
-        }
+        drawable_creatures[i]->collisions = mask;
     }
 }
 
-void Utils::check_collision(Creature* creature1, Creature* creature2) {
-
-    auto& box1 = creature1->collision_box;
-    auto& box2 = creature2->collision_box;
+void Utils::check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Collisions& mask) {
 
     if (box1.top + box1.height >= box2.top && box1.top <= box2.top + box2.height) {
-        if (std::fabsf(box1.left - (box2.left + box2.width)) < 2.f)
-            creature1->can_moveL = false;
-        else
-            creature1->can_moveL = true;
-        if (std::fabsf(box2.left - (box1.left + box1.width)) < 2.f)
-            creature1->can_moveR = false;
-        else
-            creature1->can_moveR = true;
-    } else {
-        creature1->can_moveL = true;
-        creature1->can_moveR = true;
+        if (fabsf(box1.left - (box2.left + box2.width)) < 2.f) {
+            mask.can_moveL &= false;
+        }
+        if (fabsf(box2.left - (box1.left + box1.width)) < 2.f) {
+            mask.can_moveR &= false;
+        }
     }
 
     if (box1.left + box1.width >= box2.left && box1.left <= box2.left + box2.width) {
-        if (std::fabsf(box1.top - (box2.top + box2.height)) < 2.f)
-            creature1->can_moveU = false;
-        else
-            creature1->can_moveU = true;
-        if (std::fabsf(box2.top - (box1.top + box1.height)) < 2.f)
-            creature1->can_moveD = false;
-        else
-            creature1->can_moveD = true;   
-    } else {
-        creature1->can_moveU = true;
-        creature1->can_moveD = true;
+        if (fabsf(box1.top - (box2.top + box2.height)) < 2.f) {
+            mask.can_moveU &= false;
+        }
+        if (fabsf(box2.top - (box1.top + box1.height)) < 2.f) {
+            mask.can_moveD &= false;
+        }
     }
 }
 

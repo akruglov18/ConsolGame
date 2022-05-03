@@ -16,6 +16,13 @@ enum class CreatureAnim { NONE, HUMANOID, SPIDER };
 
 enum class Dirs { LEFT, RIGHT, UP, DOWN };
 
+struct Collisions {
+    bool can_moveL = true;
+    bool can_moveR = true;
+    bool can_moveU = true;
+    bool can_moveD = true;
+};
+
 class CreatureManager;
 class Player;
 class Enemy;
@@ -121,10 +128,7 @@ public:
     sf::RectangleShape rect_collision_box;
     Health_bar health_bar;
 
-    bool can_moveL = true;
-    bool can_moveR = true;
-    bool can_moveU = true;
-    bool can_moveD = true;
+    Collisions collisions;
 
     bool stuck = false;
     bool dying = false;
