@@ -115,6 +115,7 @@ public:
     virtual Drop drop() const {
         return Drop();
     }
+    virtual void show_request(sf::RenderWindow&) {}
 
 protected:
     CreatureManager& manager;

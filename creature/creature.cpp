@@ -179,6 +179,8 @@ void Creature::show_creature(sf::RenderWindow& window) {
 
     if (!dying && creature_type != CreatureType::TRADER)
         health_bar.show_bar(window);
+
+    show_request(window);
 }
 
 void Creature::show_box(sf::RenderWindow& window) {
