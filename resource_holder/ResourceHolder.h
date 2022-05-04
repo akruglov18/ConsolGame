@@ -46,9 +46,9 @@ class TexturesHolder : public ResourceHolder<std::string, sf::Texture> {
 public:
     static void load() {
         // MAIN THEME PLAYER (MAIN PACK) + ADDITIONAL
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // bodies//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // bodies /////////////////////////////////////////////////////////////////////////////////////////////////////
         loadFromFile("../../images/creature/man_body/BODY_BOW.png", "man_bow");
         loadFromFile("../../images/creature/man_body/BODY_HURT.png", "man_hurt");
         loadFromFile("../../images/creature/man_body/BODY_SLASH.png", "man_slash");
@@ -431,7 +431,7 @@ public:
         loadFromFile("../../images/items/weapons/Halberd/Hurt.png", "HALBERD_hurt");
 
         // TERRAIN AND FEATURES
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         loadFromFile("../../images/terrain/128px/grass1.png", "grass1");
         loadFromFile("../../images/terrain/128px/water1.png", "water1");
@@ -449,15 +449,60 @@ public:
         loadFromFile("../../images/terrain/features/desert_trees.png", "desert_trees");
 
         // UI ELEMENTS
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         loadFromFile("../../images/icons/ui_big_pieces.png", "main_ui");
 
         // LOOT
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        loadFromFile("../../images/items/coins/gold.png", "gold");
-        loadFromFile("../../images/items/loot/Ac_Necklace03.png", "necklace03");
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        loadFromFile("../../images/items/loot/Ac_Medal03.png", "bronze_medal");
+        loadFromFile("../../images/items/loot/Ac_Medal02.png", "silver_medal");
+        loadFromFile("../../images/items/loot/Ac_Medal01.png", "gold_medal");
+        loadFromFile("../../images/items/loot/Ac_Medal04.png", "gold_sapphire_medal");
+        loadFromFile("../../images/items/loot/Ac_Necklace03.png", "silver_necklace");
+        loadFromFile("../../images/items/loot/Ac_Necklace02.png", "sapphire_necklace");
+        loadFromFile("../../images/items/loot/Ac_Necklace08.png", "gold_necklace");
+        loadFromFile("../../images/items/loot/Ac_Necklace01.png", "ruby_necklace");
+        loadFromFile("../../images/items/loot/Ac_Ring01.png", "silver_ring");
+        loadFromFile("../../images/items/loot/I_Agate.png", "agate");
+        loadFromFile("../../images/items/loot/I_Amethist.png", "amethist");
+        loadFromFile("../../images/items/loot/I_BronzeBar.png", "bronze_bar");
+        loadFromFile("../../images/items/loot/I_BronzeCoin.png", "bronze_coin");
+        loadFromFile("../../images/items/loot/I_Coal.png", "coal");
+        loadFromFile("../../images/items/loot/I_Diamond.png", "diamond");
+        loadFromFile("../../images/items/loot/I_Eye.png", "eye");
+        loadFromFile("../../images/items/loot/I_Feather01.png", "common_feather");
+        loadFromFile("../../images/items/loot/I_Feather02.png", "rare_feather");
+        loadFromFile("../../images/items/loot/I_FoxTail.png", "fox_tail");
+        loadFromFile("../../images/items/loot/I_FrogLeg.png", "frog_leg");
+        loadFromFile("../../images/items/loot/I_GoldBar.png", "gold_bar");
+        loadFromFile("../../images/items/loot/I_GoldCoin.png", "gold_coin");
+        loadFromFile("../../images/items/loot/I_Jade.png", "jade");
+        loadFromFile("../../images/items/loot/I_Opal.png", "opal");
+        loadFromFile("../../images/items/loot/I_RabbitPaw.png", "rabbit_paw");
+        loadFromFile("../../images/items/loot/I_Ruby.png", "ruby");
+        loadFromFile("../../images/items/loot/I_Sapphire.png", "sapphire");
+        loadFromFile("../../images/items/loot/I_ScorpionClaw.png", "scorpion_claw");
+        loadFromFile("../../images/items/loot/I_Scroll.png", "scroll_1");
+        loadFromFile("../../images/items/loot/I_Scroll02.png", "scroll_2");
+        loadFromFile("../../images/items/loot/I_SilverBar.png", "silver_bar");
+        loadFromFile("../../images/items/loot/I_SilverCoin.png", "silver_coin");
+        loadFromFile("../../images/items/loot/I_WolfFur.png", "wolf_fur");
         loadFromFile("../../images/items/loot/I_Antidote.png", "antidote");
         loadFromFile("../../images/items/loot/I_Bone.png", "bone");
+
+        // FOOD ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        loadFromFile("../../images/items/food/I_C_Banana.png", "banana");
+        loadFromFile("../../images/items/food/I_C_Bread.png", "bread");
+        loadFromFile("../../images/items/food/I_C_Cheese.png", "cheese");
+        loadFromFile("../../images/items/food/I_C_Fish.png", "fish");
+        loadFromFile("../../images/items/food/I_C_Grapes.png", "grapes");
+        loadFromFile("../../images/items/food/I_C_Meat.png", "meat");
+        loadFromFile("../../images/items/food/I_C_Pie.png", "pie");
+        loadFromFile("../../images/items/food/I_C_Pineapple.png", "pineapple");
+        loadFromFile("../../images/items/food/I_C_Watermellon.png", "watermelon");
+
+        // COINS //////////////////////////////////////////////////////////////////////////////////////////////////////
+        loadFromFile("../../images/items/coins/gold.png", "gold");
 
         return;
     }

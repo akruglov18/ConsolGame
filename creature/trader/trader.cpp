@@ -30,7 +30,7 @@ void TradeRequest::show(sf::RenderWindow& window, sf::Vector2f& pos) {
     window.draw(request_text);
 }
 
-Trader::Trader(CreatureManager& _manager, float _health, const sf::Vector2f& _pos)
+Trader::Trader(CreatureManager& _manager, float _health, const sf::Vector2f& _pos, std::mt19937& gen)
         : Creature("man", _manager, _health, _pos, {24.f, 44.f}, {14.f, 14.f}, {32.f, 32.f}) {
     creature_anim = CreatureAnim::HUMANOID;
     creature_type = CreatureType::TRADER;
@@ -38,6 +38,7 @@ Trader::Trader(CreatureManager& _manager, float _health, const sf::Vector2f& _po
     set_armor(Helmet::make_helmet(HelmetType::Helmet_robe));
     set_armor(Pants::make_pants(PantsType::Pants_robe_skirt));
     set_armor(Boots::make_boots(BootsType::Boots_brown));
+    fill_inventory(gen);
 }
 
 void Trader::action(float time, Player* player) {
@@ -53,8 +54,11 @@ void Trader::action(float time, Player* player) {
 
         if (std::fabs(diff_x) < 48.f && std::fabs(diff_y) < 48.f) {
             request_available = true;
+            player->can_accept_request |= true;
+            player->available_trader = this;
         } else {
             request_available = false;
+            player->can_accept_request |= false;
         }
 
         if (diff > 0.f) {
@@ -77,4 +81,18 @@ void Trader::action(float time, Player* player) {
 void Trader::show_request(sf::RenderWindow& window) {
     if (request_available)
         request.show(window, pos);
+}
+
+void Trader::fill_inventory(std::mt19937& gen) {
+    inventory.set_capacity(16);
+    inventory.set_money(gen() % 90000 + 10000);
+    int items_amount = gen() % 12 + 5;
+    std::vector<std::shared_ptr<Items>> items;
+    for (int i = 0; i < items_amount; ++i) {
+        int index = gen() % Inventory::ids.size();
+        items.push_back(std::shared_ptr<Items>(new CommonThing(Inventory::ids[index], gen() % 64 + 1, {0.f, 0.f})));
+    }
+    while (items.size()) {
+        inventory.take(items);
+    }
 }

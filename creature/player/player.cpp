@@ -14,6 +14,8 @@ void Player::action(sf::Event& event, float time, Field* game_field,
                     const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     update_stuck_frame(time);
     take_drop(game_field);
+    can_accept_request = false;
+    available_trader = nullptr;
 
     health_bar.update(health, max_health, hit_box);
     satiety = std::fmax(0.f, satiety - time * 0.003f);

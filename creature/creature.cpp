@@ -166,7 +166,7 @@ void Creature::add_experience(int exp) {
 
 void Creature::show_creature(sf::RenderWindow& window) {
     window.draw(sprite);
-    if (get_weapon() != nullptr && direction == Dirs::UP)
+    if (weapon != nullptr && direction == Dirs::UP)
         window.draw(get_weapon()->get_sprite());
 
     for (auto& el : get_armor().armor_set) {
@@ -174,7 +174,7 @@ void Creature::show_creature(sf::RenderWindow& window) {
             window.draw(el->get_sprite());
     }
 
-    if (get_weapon() != nullptr && direction != Dirs::UP)
+    if (weapon != nullptr && direction != Dirs::UP)
         window.draw(get_weapon()->get_sprite());
 
     if (!dying && creature_type != CreatureType::TRADER)

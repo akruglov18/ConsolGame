@@ -31,6 +31,11 @@ public:
     int get_money() {
         return money;
     }
+    void set_capacity(int _capacity);
+    void set_money(int _money) {
+        money = _money;
+    }
+    static std::vector<std::string> ids;
 
 private:
     int money;

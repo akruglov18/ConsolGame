@@ -18,6 +18,11 @@ void Game::make_screenshot(const std::string& name) {
 }
 
 Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settings) {
+
+    std::mt19937 gen;
+    auto now = std::chrono::high_resolution_clock::now();
+    gen.seed(static_cast<unsigned>(now.time_since_epoch().count()));
+
     window = _window;
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
@@ -28,7 +33,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
         (*game_field)(12, i * 2 + 20)->items.push_back(std::shared_ptr<Items>
                     (new CommonThing("antidote", 50, {32.f * (i * 2.f + 20.f), 32.f * 12.f})));
         (*game_field)(14, i * 2 + 20)->items.push_back(std::shared_ptr<Items>(
-                        new CommonThing("necklace03", 50, {32.f * (i * 2.f + 20.f), 32.f * 14.f})));
+                        new CommonThing("silver_necklace", 50, {32.f * (i * 2.f + 20.f), 32.f * 14.f})));
     }
     view.reset(sf::FloatRect({0, 0}, {1280, 720}));
 
@@ -58,9 +63,8 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     //     enemies.push_back(
     //             Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     // }
-
     for (int i = 0; i < 5; ++i) {
-        traders.push_back(std::shared_ptr<Trader>(new Trader(manager, 1000, {i * 300.f, 600.f})));
+        traders.push_back(std::shared_ptr<Trader>(new Trader(manager, 1000, {(i + 1) * 300.f, 600.f}, gen)));
     }
 
     game_UI.update_UI(*player);
@@ -104,6 +108,14 @@ View_mode Game::game_loop() {
                 InventoryMenu::update_graphic_inventory(player->inventory.get(), player->inventory.get_money());
                 make_screenshot("tmp_inventory");
                 return View_mode::INVENTORY_MENU;
+            case (sf::Keyboard::T):
+                if (player->can_accept_request) {
+                    InventoryMenu::update_graphic_inventory(player->available_trader->inventory.get(),
+                                                            player->available_trader->inventory.get_money());
+                    make_screenshot("tmp_inventory");
+                    return View_mode::INVENTORY_MENU;
+                }
+                break;
             default:
                 break;
             }

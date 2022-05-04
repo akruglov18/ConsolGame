@@ -4,13 +4,6 @@
 
 enum class View_mode { NONE, EXIT, GAME, MAIN_MENU, PAUSE_MENU, SETTINGS_MENU, SKILLS_MENU, MAP_MENU, GAMEOVER_MENU, INVENTORY_MENU };
 
-struct Collisions {
-    bool can_moveL = true;
-    bool can_moveR = true;
-    bool can_moveU = true;
-    bool can_moveD = true;
-};
-
 class Utils {
 public:
     static void delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies,
