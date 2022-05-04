@@ -1,6 +1,7 @@
 #include "utils.h"
 
-void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) {
+void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies,
+                                  std::vector<std::shared_ptr<Trader>>& traders) {
     std::size_t to_resize = enemies.size();
     for (std::size_t i = 0; i < to_resize; ++i) {
         if (enemies[i]->dead) {
@@ -11,18 +12,34 @@ void Utils::delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies) 
         }
     }
     enemies.resize(to_resize);
+    to_resize = traders.size();
+    for (std::size_t i = 0; i < to_resize; ++i) {
+        if (traders[i]->dead) {
+            std::swap(traders[i], traders[--to_resize]);
+            if (traders[i]->dead) {
+                --i;
+            }
+        }
+    }
+    traders.resize(to_resize);
 }
 
 std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
-        const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<int>& object_borders) {
+        const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<std::shared_ptr<Trader>>& traders,
+        const std::vector<int>& object_borders) {
     int obj_top_border = object_borders[0];
     int obj_btm_border = object_borders[1];
     int obj_left_border = object_borders[2];
     int obj_right_border = object_borders[3];
     std::vector<std::shared_ptr<Creature>> drawable_creatures;
     drawable_creatures.resize(0);
-    drawable_creatures.reserve(enemies.size());
+    drawable_creatures.reserve(enemies.size() + traders.size());
     for (const auto& x : enemies) {
+        if (x->get_pos().y > obj_top_border * 32 && x->get_pos().y < obj_btm_border * 32 &&
+            x->get_pos().x > obj_left_border * 32 + 32 && x->get_pos().x < obj_right_border * 32 - 32)
+            drawable_creatures.push_back(x);
+    }
+    for (const auto& x : traders) {
         if (x->get_pos().y > obj_top_border * 32 && x->get_pos().y < obj_btm_border * 32 &&
             x->get_pos().x > obj_left_border * 32 + 32 && x->get_pos().x < obj_right_border * 32 - 32)
             drawable_creatures.push_back(x);

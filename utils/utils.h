@@ -1,5 +1,6 @@
 #pragma once
 #include "enemies/enemy.h"
+#include "trader/trader.h"
 
 enum class View_mode { NONE, EXIT, GAME, MAIN_MENU, PAUSE_MENU, SETTINGS_MENU, SKILLS_MENU, MAP_MENU, GAMEOVER_MENU, INVENTORY_MENU };
 
@@ -12,9 +13,11 @@ struct Collisions {
 
 class Utils {
 public:
-    static void delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies);
+    static void delete_dead_creatures(std::vector<std::shared_ptr<Enemy>>& enemies,
+                                      std::vector<std::shared_ptr<Trader>>& traders);
     static std::vector<std::shared_ptr<Creature>> find_drawable_creatures(
-            const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<int>& object_borders);
+            const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<std::shared_ptr<Trader>>& traders,
+            const std::vector<int>& object_borders);
 
     static void sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures);
     static void detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures);

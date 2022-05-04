@@ -26,6 +26,7 @@ struct Collisions {
 class CreatureManager;
 class Player;
 class Enemy;
+class Trader;
 class Creature;
 
 class Health_bar {

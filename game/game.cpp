@@ -59,6 +59,10 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     //             Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     // }
 
+    for (int i = 0; i < 5; ++i) {
+        traders.push_back(std::shared_ptr<Trader>(new Trader(manager, 1000, {i * 300.f, 600.f})));
+    }
+
     game_UI.update_UI(*player);
     // There will be a method that will load inventory from json
     InventoryMenu::build_inventory(player->inventory.get());
@@ -114,6 +118,10 @@ View_mode Game::game_loop() {
             enemy->action(time, game_field.get(), player.get(), settings.difficulty);
         }
 
+        for (auto& trader : traders) {
+            trader->action(time, player.get());
+        }
+
         if (player->dead) {
             countdown_before_gameover_screen += time;
             if (countdown_before_gameover_screen > 5.f) {
@@ -122,7 +130,7 @@ View_mode Game::game_loop() {
             }
         }
 
-        Utils::delete_dead_creatures(enemies);  // this method will get several vectors (traders, enemies, animals...)
+        Utils::delete_dead_creatures(enemies, traders);
         Utils::detect_collisions(drawable_creatures);
 
         last_event = std::move(event);
@@ -143,7 +151,7 @@ void Game::render(float time) {
     auto borders = Utils::get_rendering_borders(window->getSize().x, window->getSize().y, game_field->get_width(),
                                                 game_field->get_height(), player->get_pos());
     auto object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
-    drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
+    drawable_creatures = Utils::find_drawable_creatures(enemies, traders, object_borders);
     if (!player->dead)
         drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
