@@ -240,7 +240,7 @@ void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanic
 void GameUI::check_settings_cogwheel(sf::Vector2i mouse_pos) {
     if (mouse_pos.x > stats_bar_x + 18.f && mouse_pos.x < stats_bar_x + 46.f &&
         mouse_pos.y > stats_bar_y + 18.f && mouse_pos.y < stats_bar_y + 46.f) {  
-        cogwheel_sprite.rotate(sf::degrees(1.f));
+        cogwheel_sprite.rotate(sf::degrees(0.5f));
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !cogwheel_pressed) {
             show_settings = !show_settings;
             cogwheel_pressed = true;

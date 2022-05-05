@@ -144,6 +144,7 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window) {
 
     sf::Event event;
     window.pollEvent(event);
+    event.type = sf::Event::GainedFocus;
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

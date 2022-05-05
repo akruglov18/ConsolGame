@@ -264,6 +264,10 @@ void CreatureManager::setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies) 
     enemies = _enemies;
 }
 
+void CreatureManager::setTraders(std::vector<std::shared_ptr<Trader>>* _traders) {
+    traders = _traders;
+}
+
 void CreatureManager::setField(Field* _field) {
     field = _field;
 }
