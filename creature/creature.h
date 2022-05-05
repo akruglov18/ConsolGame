@@ -16,6 +16,13 @@ enum class CreatureAnim { NONE, HUMANOID, SPIDER };
 
 enum class Dirs { LEFT, RIGHT, UP, DOWN };
 
+struct Collisions {
+    bool can_moveL = true;
+    bool can_moveR = true;
+    bool can_moveU = true;
+    bool can_moveD = true;
+};
+
 class CreatureManager;
 class Player;
 class Enemy;
@@ -113,6 +120,7 @@ protected:
     sf::Vector2f pos;
 
 public:
+    void move(float offset_x, float offset_y);
     sf::FloatRect hit_box;
     sf::FloatRect collision_box;
     sf::Vector2f centre_offset;
@@ -120,7 +128,8 @@ public:
     sf::RectangleShape rect_collision_box;
     Health_bar health_bar;
 
-    bool can_move = true;
+    Collisions collisions;
+
     bool stuck = false;
     bool dying = false;
     bool dead = false;
@@ -150,12 +159,12 @@ protected:
 
 class CreatureManager {
 public:
-    CreatureManager(){};
+    CreatureManager() {}
     void setPlayer(Player* _player);
     void setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies);
     void setField(Field* _field);
     void creatureDied(Creature* creature);
-    ~CreatureManager(){};
+    ~CreatureManager() {}
 
 private:
     Player* player;

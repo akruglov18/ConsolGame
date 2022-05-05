@@ -125,6 +125,17 @@ void Creature::become_normal() {
     }
 }
 
+void Creature::move(float offset_x, float offset_y) {
+    pos.x += offset_x;
+    pos.y += offset_y;
+    hit_box.left += offset_x;
+    hit_box.top += offset_y;
+    collision_box.left += offset_x;
+    collision_box.top += offset_y;
+    rect_hit_box.setPosition(hit_box.getPosition());
+    rect_collision_box.setPosition(collision_box.getPosition());
+}
+
 void Creature::reduce_health(float value) {
     health -= value;
     // std::cout << "health = " << health << '\n';

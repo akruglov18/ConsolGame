@@ -1,5 +1,7 @@
 #include "action.h"
 
+constexpr float root2 = 1.414213f;
+
 void Action::update_frame(Creature* creature, float time) {
     creature->get_frame() += 0.15f * time;
     if (creature->get_frame() > creature->action_animation_duration)
@@ -15,14 +17,15 @@ void Action::move_left(Creature* creature, float time, Field* game_field) {
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
     float offset = 0.f;
-    if (creature->can_move)
+    if (creature->collisions.can_moveL) {
         offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    pos.x -= offset;
-    creature->hit_box.left -= offset;
-    creature->collision_box.left -= offset;
-    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
-    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
-    Animation::move_animation(creature, Dirs::LEFT);
+        creature->move(-offset, 0.f);
+        Animation::move_animation(creature, Dirs::LEFT);
+    }
+    else {
+        creature->direction = Dirs::LEFT;
+        Animation::stop_animation(creature);
+    }    
 }
 
 void Action::move_right(Creature* creature, float time, Field* game_field) {
@@ -31,14 +34,15 @@ void Action::move_right(Creature* creature, float time, Field* game_field) {
     auto y = static_cast<int>(pos.y / 32.f + 1.f);
     auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
     float offset = 0.f;
-    if (creature->can_move)
+    if (creature->collisions.can_moveR) {
         offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    pos.x += offset;
-    creature->hit_box.left += offset;
-    creature->collision_box.left += offset;
-    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
-    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
-    Animation::move_animation(creature, Dirs::RIGHT);
+        creature->move(offset, 0.f);
+        Animation::move_animation(creature, Dirs::RIGHT);
+    }
+    else {
+        creature->direction = Dirs::RIGHT;
+        Animation::stop_animation(creature);
+    }    
 }
 
 void Action::move_up(Creature* creature, float time, Field* game_field) {
@@ -47,14 +51,15 @@ void Action::move_up(Creature* creature, float time, Field* game_field) {
     auto y = static_cast<int>((pos.y - time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1.f);
     float offset = 0.f;
-    if (creature->can_move)
+    if (creature->collisions.can_moveU) {
         offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    pos.y -= offset;
-    creature->hit_box.top -= offset;
-    creature->collision_box.top -= offset;
-    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
-    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
-    Animation::move_animation(creature, Dirs::UP);
+        creature->move(0.f, -offset);
+        Animation::move_animation(creature, Dirs::UP);
+    }
+    else {
+        creature->direction = Dirs::UP;
+        Animation::stop_animation(creature);
+    }    
 }
 
 void Action::move_down(Creature* creature, float time, Field* game_field) {
@@ -63,14 +68,87 @@ void Action::move_down(Creature* creature, float time, Field* game_field) {
     auto y = static_cast<int>((pos.y + time) / 32.f + 1.f);
     auto x = static_cast<int>(pos.x / 32.f + 1);
     float offset = 0.f;
-    if (creature->can_move)
+    if (creature->collisions.can_moveD) {
         offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f);
-    pos.y += offset;
-    creature->hit_box.top += offset;
-    creature->collision_box.top += offset;
-    creature->rect_hit_box.setPosition(creature->hit_box.getPosition());
-    creature->rect_collision_box.setPosition(creature->collision_box.getPosition());
-    Animation::move_animation(creature, Dirs::DOWN);
+        creature->move(0.f, offset);
+        Animation::move_animation(creature, Dirs::DOWN);
+    }
+    else {
+        creature->direction = Dirs::DOWN;
+        Animation::stop_animation(creature);
+    }    
+}
+
+void Action::move_left_up(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->collisions.can_moveL && creature->collisions.can_moveU) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+        creature->move(-offset, -offset);
+        Animation::move_animation(creature, Dirs::LEFT);
+    }
+    else {
+        creature->direction = Dirs::LEFT;
+        Animation::stop_animation(creature);
+    }
+}
+
+void Action::move_left_down(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x - time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->collisions.can_moveL && creature->collisions.can_moveD) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+        creature->move(-offset, offset);
+        Animation::move_animation(creature, Dirs::LEFT);
+    }
+    else {
+        creature->direction = Dirs::LEFT;
+        Animation::stop_animation(creature);
+    }    
+}
+
+void Action::move_right_up(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->collisions.can_moveR && creature->collisions.can_moveU) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+        creature->move(offset, -offset);
+        Animation::move_animation(creature, Dirs::RIGHT);
+    }
+    else {
+        creature->direction = Dirs::RIGHT;
+        Animation::stop_animation(creature);
+    }    
+}
+
+void Action::move_right_down(Creature* creature, float time, Field* game_field) {
+    update_frame(creature, time);
+    auto& pos = creature->get_pos();
+    auto y = static_cast<int>(pos.y / 32.f + 1.f);
+    auto x = static_cast<int>((pos.x + time) / 32.f + 1.f);
+    float offset = 0.f;
+    if (creature->collisions.can_moveR && creature->collisions.can_moveD) {
+        offset = creature->speed * time * static_cast<float>(game_field->operator()(y, x)->get_passability() / 2.f) /
+                 root2;
+        creature->move(offset, offset);
+        Animation::move_animation(creature, Dirs::RIGHT);
+    }
+    else {
+        creature->direction = Dirs::RIGHT;
+        Animation::stop_animation(creature);
+    }    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -22,7 +22,7 @@ View_mode GameoverMenu::Run(sf::RenderWindow& window) {
     gameover_screen.setColor(sf::Color(255, 0, 0, 70));
 
     sf::Event event;
-    window.waitEvent(event);
+    window.pollEvent(event);
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

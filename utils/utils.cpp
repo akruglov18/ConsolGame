@@ -51,7 +51,7 @@ void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& draw
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
     for (std::size_t i = 0; i < drawable_creatures.size(); ++i) {
-        bool somebody_near = false;
+        Collisions mask;
         for (std::size_t j = 0; j < drawable_creatures.size(); ++j) {
             if (drawable_creatures[j]->get_pos().y > drawable_creatures[i]->get_pos().y + 48.f)
                 break;
@@ -60,33 +60,31 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
                 drawable_creatures[j]->get_pos().x > drawable_creatures[i]->get_pos().x + 48.f)
                 continue;
 
-            somebody_near = true;
-
-            if (check_collision(drawable_creatures[i]->collision_box, drawable_creatures[j]->collision_box,
-                                drawable_creatures[i]->direction)) {
-                drawable_creatures[i]->can_move = false;
-                break;
-            } else {
-                drawable_creatures[i]->can_move = true;
-            }
+            check_collision(drawable_creatures[i]->collision_box, drawable_creatures[j]->collision_box, mask);
         }
-        if (!somebody_near)
-            drawable_creatures[i]->can_move = true;
+        drawable_creatures[i]->collisions = mask;
     }
 }
 
-bool Utils::check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Dirs dir) {
-    if (box1.findIntersection(box2).has_value()) {
-        if (dir == Dirs::LEFT && box1.left > box2.left && box2.left + box2.width - box1.left < 5.f)
-            return true;
-        if (dir == Dirs::RIGHT && box1.left < box2.left && box1.left + box1.width - box2.left < 5.f)
-            return true;
-        if (dir == Dirs::UP && box1.top > box2.top && box2.top + box2.height - box1.top < 5.f)
-            return true;
-        if (dir == Dirs::DOWN && box1.top < box2.top && box1.top + box1.height - box2.top < 5.f)
-            return true;
+void Utils::check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Collisions& mask) {
+
+    if (box1.top + box1.height >= box2.top && box1.top <= box2.top + box2.height) {
+        if (fabsf(box1.left - (box2.left + box2.width)) < 2.f) {
+            mask.can_moveL &= false;
+        }
+        if (fabsf(box2.left - (box1.left + box1.width)) < 2.f) {
+            mask.can_moveR &= false;
+        }
     }
-    return false;
+
+    if (box1.left + box1.width >= box2.left && box1.left <= box2.left + box2.width) {
+        if (fabsf(box1.top - (box2.top + box2.height)) < 2.f) {
+            mask.can_moveU &= false;
+        }
+        if (fabsf(box2.top - (box1.top + box1.height)) < 2.f) {
+            mask.can_moveD &= false;
+        }
+    }
 }
 
 std::vector<int> Utils::get_rendering_borders(int window_width, int window_height, int field_width, int field_height,
