@@ -72,11 +72,12 @@ void test_show_field() {
         CreatureManager manager;
         player = std::make_shared<Player>(Player(manager, 100, {366.f, 366.f}));
         std::vector<std::shared_ptr<Enemy>> enemies;
+        std::vector<std::shared_ptr<Trader>> traders;
         enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {400.f, 656.f}));
         auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y, field->get_width(),
                                                     field->get_height(), player->get_pos());
         auto object_borders = Utils::get_object_borders(borders, field->get_width(), field->get_height());
-        auto drawable_creatures = Utils::find_drawable_creatures(enemies, object_borders);
+        auto drawable_creatures = Utils::find_drawable_creatures(enemies, traders, object_borders);
         drawable_creatures.push_back(player);
         Utils::sort_drawable_creatures(drawable_creatures);
         Drawer::show_everything(window, field, borders, object_borders, drawable_creatures, true);

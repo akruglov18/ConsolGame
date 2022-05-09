@@ -26,6 +26,7 @@ struct Collisions {
 class CreatureManager;
 class Player;
 class Enemy;
+class Trader;
 class Creature;
 
 class Health_bar {
@@ -114,6 +115,7 @@ public:
     virtual Drop drop() const {
         return Drop();
     }
+    virtual void show_request(sf::RenderWindow&) {}
 
 protected:
     CreatureManager& manager;

@@ -4,6 +4,7 @@
 #include "armors.h"
 #include "creature.h"
 #include "enemies/enemy.h"
+#include "trader/trader.h"
 #include "utils.h"
 #include "weapons.h"
 
@@ -85,6 +86,7 @@ TEST(CreatureTests, creature_death) {
     CreatureManager manager;
     auto player = std::make_shared<Player>(Player(manager));
     std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<std::shared_ptr<Trader>> traders;
     std::shared_ptr<Field> field = std::make_shared<Field>(Field(128, 128));
     field->generate_desert();
     manager.setEnemies(&enemies);
@@ -100,7 +102,7 @@ TEST(CreatureTests, creature_death) {
     enemies[2]->die();
     enemies[1]->die();
 
-    Utils::delete_dead_creatures(enemies);
+    Utils::delete_dead_creatures(enemies, traders);
     ASSERT_EQ(size, enemies.size() + 2);
 }
 

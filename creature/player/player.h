@@ -17,6 +17,8 @@ public:
     float get_max_satiety() {
         return max_satiety;
     }
+    bool can_accept_request = false;
+    Trader* available_trader = nullptr;
 
 private:
     float satiety;
