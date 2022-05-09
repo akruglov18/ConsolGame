@@ -31,6 +31,7 @@ void SkillsMenu::node_click_checker(sf::Vector2i mouse_pos, const std::vector<st
 View_mode SkillsMenu::Run(sf::RenderWindow& window, Player* player) {
     sf::Event event;
     window.pollEvent(event);
+    event.type = sf::Event::GainedFocus;
     View_mode to_return{View_mode::NONE};
     window.setView(window.getDefaultView());
     while (true) {

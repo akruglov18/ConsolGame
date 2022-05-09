@@ -161,9 +161,16 @@ protected:
 
 class CreatureManager {
 public:
-    CreatureManager() {}
+    CreatureManager() {
+        player = nullptr;
+        enemies = nullptr;
+        traders = nullptr;
+        field = nullptr;
+    }
+
     void setPlayer(Player* _player);
     void setEnemies(std::vector<std::shared_ptr<Enemy>>* _enemies);
+    void setTraders(std::vector<std::shared_ptr<Trader>>* _traders);
     void setField(Field* _field);
     void creatureDied(Creature* creature);
     ~CreatureManager() {}
@@ -171,5 +178,6 @@ public:
 private:
     Player* player;
     std::vector<std::shared_ptr<Enemy>>* enemies;
+    std::vector<std::shared_ptr<Trader>>* traders;
     Field* field;
 };

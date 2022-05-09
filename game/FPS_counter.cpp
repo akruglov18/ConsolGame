@@ -3,31 +3,13 @@
 
 FPS_counter::FPS_counter() {
     on = true;
-    font = *Resources::FontsHolder::getResource("basic_font");
-    text_aver_fps.setFont(font);
-    text_aver_fps.setCharacterSize(16);
-    text_aver_fps.setStyle(sf::Text::Bold);
-    text_aver_fps.setFillColor(sf::Color(0, 240, 24));
-    text_aver_fps.setPosition(sf::Vector2f(10.f, 5.f));
 
-    text_max_fps.setFont(font);
-    text_max_fps.setCharacterSize(16);
-    text_max_fps.setStyle(sf::Text::Bold);
-    text_max_fps.setFillColor(sf::Color(0, 240, 24));
-    text_max_fps.setPosition(sf::Vector2f(10.f, 25.f));
-
-    text_min_fps.setFont(font);
-    text_min_fps.setCharacterSize(16);
-    text_min_fps.setStyle(sf::Text::Bold);
-    text_min_fps.setFillColor(sf::Color(0, 240, 24));
-    text_min_fps.setPosition(sf::Vector2f(10.f, 45.f));
-
-    text_aver_fps.setString("0");
-    text_max_fps.setString("0");
-    text_min_fps.setString("0");
+    init_text(text_aver_fps, 5);
+    init_text(text_max_fps, 25);
+    init_text(text_min_fps, 45);
 }
 
-void FPS_counter::add_time(float time, sf::RenderWindow& window) {
+void FPS_counter::add_time(float time) {
     frames_count++;
     elapsed_time += time;
     if (elapsed_time > 25.f) {
@@ -40,7 +22,20 @@ void FPS_counter::add_time(float time, sf::RenderWindow& window) {
         elapsed_time = 0.f;
         frames_count = 0;
     }
+}
+
+void FPS_counter::show(sf::RenderWindow& window) {
     window.draw(text_aver_fps);
     window.draw(text_max_fps);
     window.draw(text_min_fps);
+}
+
+void FPS_counter::init_text(sf::Text& text, float y) {
+    text.setFont(*Resources::FontsHolder::getResource("basic_font"));
+    text.setCharacterSize(16);
+    text.setStyle(sf::Text::Bold);
+    text.setOutlineThickness(1);
+    text.setFillColor(sf::Color(0, 240, 24));
+    text.setPosition(sf::Vector2f(10.f, y));
+    text.setString("0");
 }
