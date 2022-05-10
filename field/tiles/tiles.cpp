@@ -18,40 +18,42 @@ bool Tile::operator!=(const Tile& tile) const {
 }
 
 void Tile::scale_tiles(sf::Sprite& sprite, int i, int j) {
-    sprite.setTextureRect(sf::IntRect({(j % 4) * 32, (i % 4) * 32}, {32, 32}));
-    sprite.setPosition(sf::Vector2f(j * 32.f, i * 32.f));
+    constexpr int mask = 3; // x & mask == x % 4 == x & 000..00011
+    sprite.setTextureRect(sf::IntRect({((j & mask) << 5), ((i & mask) << 5)}, {32, 32}));
+    sprite.setPosition(sf::Vector2f(static_cast<float>(j << 5), static_cast<float>(i << 5)));
 }
 
 void Tile::scale_borders(sf::Sprite& sprite, int i, int j, int r_b, int btm_b) {
+    constexpr int mask = 3; // x & mask == x % 4 == x & 000..00011
     if (j < 4) {
         if (i < 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32, (i % 4) * 32}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5), ((i & mask) << 5)}, {32, 32}));
         else if (i >= btm_b - 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32, (i % 4) * 32 + 256}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5), ((i & mask) << 5) + 256}, {32, 32}));
         else if (i >= 4 && i < btm_b - 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32, (i % 4) * 32 + 128}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5), ((i & mask) << 5) + 128}, {32, 32}));
     } else if (j >= r_b - 4) {
         if (i < 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32 + 256, (i % 4) * 32}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5) + 256, ((i & mask) << 5)}, {32, 32}));
         else if (i >= btm_b - 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32 + 256, (i % 4) * 32 + 256}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5) + 256, ((i & mask) << 5) + 256}, {32, 32}));
         else if (i >= 4 && i < btm_b - 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32 + 256, (i % 4) * 32 + 128}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5) + 256, ((i & mask) << 5) + 128}, {32, 32}));
     } else if (j >= 4 && j < r_b - 4) {
         if (i < 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32 + 128, (i % 4) * 32}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5) + 128, ((i & mask) << 5)}, {32, 32}));
         else if (i >= btm_b - 4)
-            sprite.setTextureRect(sf::IntRect({(j % 4) * 32 + 128, (i % 4) * 32 + 256}, {32, 32}));
+            sprite.setTextureRect(sf::IntRect({((j & mask) << 5) + 128, ((i & mask) << 5) + 256}, {32, 32}));
     }
-    sprite.setPosition(sf::Vector2f(j * 32.f, i * 32.f));
+    sprite.setPosition(sf::Vector2f(static_cast<float>(j << 5), static_cast<float>(i << 5)));
 }
 
 void Tile::scale_features(sf::Sprite& sprite, int chance, int i, int j) {
-    sprite.setTextureRect(sf::IntRect({chance * 32, 0}, {32, 32}));
-    sprite.setPosition(sf::Vector2f(j * 32.f, i * 32.f));
+    sprite.setTextureRect(sf::IntRect({chance << 5, 0}, {32, 32}));
+    sprite.setPosition(sf::Vector2f(static_cast<float>(j << 5), static_cast<float>(i << 5)));
 }
 
 void Tile::scale_trees(sf::Sprite& sprite, int chance, int i, int j) {
-    sprite.setTextureRect(sf::IntRect({chance * 128, 0}, {136, 160}));
-    sprite.setPosition(sf::Vector2f((j - 2) * 32.f, (i - 4) * 32.f));
+    sprite.setTextureRect(sf::IntRect({chance << 7, 0}, {136, 160}));
+    sprite.setPosition(sf::Vector2f(static_cast<float>((j - 2) << 5), static_cast<float>((i - 4) << 5)));
 }

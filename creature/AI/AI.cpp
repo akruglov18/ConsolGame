@@ -10,7 +10,7 @@ void AI::takeAction(Field* field, Enemy* enemy, Player* player, float time) {
     auto diff_x = enemy_pos.x - player_pos.x;
     auto diff_y = enemy_pos.y - player_pos.y;
     auto diff = std::fabs(diff_x) - std::fabs(diff_y);
-    if (std::fabs(diff_x) < 32 && std::fabs(diff_y) < 32) {
+    if (std::fabs(diff_x) < 32.f && std::fabs(diff_y) < 32.f) {
         Animation::stop_animation(enemy);
     }
     else if (diff > 10.f) {

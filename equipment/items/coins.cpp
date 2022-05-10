@@ -23,7 +23,7 @@ void Coins::chooseTexture() {
             // it's done according to existing texture
             // the texture can be converted to items line
             // and the calculating of position will be more easier
-            int width = (i % 4) << 5;
+            int width = (i & 3) << 5;
             int height = (i >> 2) << 5;
             sprite.setTextureRect(sf::IntRect({width, height}, {32, 32}));
             break;
