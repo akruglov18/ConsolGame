@@ -108,7 +108,7 @@ void Player::action(sf::Event& event, float time, Field* game_field,
 }
 
 void Player::take_drop(Field* field) {
-    auto& items = (*field)(static_cast<int>(pos.y / 32), static_cast<int>(pos.x / 32) + 1)->items;
+    auto& items = (*field)((static_cast<int>(pos.y) >> 5), (static_cast<int>(pos.x) >> 5) + 1)->items;
     if (items.size())
         inventory.take(items);
 }

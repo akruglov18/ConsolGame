@@ -79,7 +79,7 @@ void Field::generate_desert() {
             int height = gen() % 6 + 12;
             int start_x = gen() % 13 - 6 + j;
             int start_y = gen() % 13 - 6 + i;
-            int dir = -1 + 2 * gen() % 2;
+            int dir = -1 + 2 * (gen() & 1);
             while (height--) {
                 int width = gen() % 5 + 6 - height / 4;
                 if (height < 5)

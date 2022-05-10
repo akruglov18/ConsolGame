@@ -44,8 +44,8 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
 
             while (true) {  // This loop is neccessary if creatures stay on the same tile
                 if (counter < drawable_creatures.size() &&
-                    i == (static_cast<int>(drawable_creatures[counter]->get_pos().y)) / 32 + 1 &&
-                    j == (static_cast<int>(drawable_creatures[counter]->get_pos().x)) / 32 + 1) {
+                    i == ((static_cast<int>(drawable_creatures[counter]->get_pos().y)) >> 5) + 1 &&
+                    j == ((static_cast<int>(drawable_creatures[counter]->get_pos().x)) >> 5) + 1) {
                     // being stuck or not
                     if (drawable_creatures[counter]->stuck) {
                         if (drawable_creatures[counter]->stuck_time < 2)
