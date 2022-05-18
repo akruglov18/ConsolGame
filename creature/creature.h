@@ -49,7 +49,7 @@ public:
      * @param[in] pos Creature's position
      * @param[in] hit Box for hit's definition
      * @param[in] collision Box for movement's definition
-     * @param[in] centre_offset Offset for box showing (offset is caused by different textures)
+     * @param[in] centre_offset Offset for box showing (offsFDESASGAESLJLAESGJet is caused by different textures)
      * @return Output expression
      */
     Creature(const std::string& name, CreatureManager& manager, float health, const sf::Vector2f& pos,

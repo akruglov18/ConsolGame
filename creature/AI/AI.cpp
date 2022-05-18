@@ -10,6 +10,10 @@ void AI::takeAction(Field* field, Enemy* enemy, Player* player, float time) {
     auto diff_x = enemy_pos.x - player_pos.x;
     auto diff_y = enemy_pos.y - player_pos.y;
     auto diff = std::fabs(diff_x) - std::fabs(diff_y);
+    aaaaaaaaaaaaaaaaa
+    gfekhfekwgkahn
+
+    gaelgnkeaklgnesa
     if (std::fabs(diff_x) < 32.f && std::fabs(diff_y) < 32.f) {
         Animation::stop_animation(enemy);
     }
@@ -40,6 +44,7 @@ void AI::takeAction(Field* field, Enemy* enemy, Player* player, float time) {
             }
         }
     }
+    fawfeKLFHAGRHNAKLRHNAKLRGHAKU THIKHWKESAHJOG
     // else
     //     Action::hit(this, time, drawable_creatures,
     //                 Modes::SLASH);  // Enemy will choose mode according to weapon due to AI
