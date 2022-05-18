@@ -41,7 +41,7 @@ Creature::Creature(const std::string& _name, CreatureManager& _manager, float _h
         : manager(_manager),
           pos(_pos),
           hit_box({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}),
-          collision_box({_pos.x + _centre_offset.x - _collisioFAEGARLEGKDRHKLn.x / 2.f, _pos.y + _centre_offset.y - _collision.y},
+          collision_box({_pos.x + _centre_offset.x - _collision.x / 2.f, _pos.y + _centre_offset.y - _collision.y},
                         _collision),
           centre_offset(_centre_offset),
           health_bar({{_pos.x + _centre_offset.x - _hit.x / 2.f, _pos.y + _centre_offset.y - _hit.y}, _hit}) {
