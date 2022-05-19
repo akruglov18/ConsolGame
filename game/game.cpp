@@ -1,11 +1,4 @@
 #include "game.h"
-#include <fstream>
-#include <thread>
-#include "armors.h"
-#include "weapons.h"
-#include "inventory_menu.h"
-#include "items.h"
-#include "common_thing.h"
 
 Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settings) {
 
@@ -55,14 +48,15 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     //     enemies.push_back(
     //             Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     // }
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 1; ++i) {
         traders.push_back(
-                std::shared_ptr<Trader>(new Trader(manager, 1000, {(i + 1) * 300.f, 600.f}, random_for_init)));
+                std::shared_ptr<Trader>(new Trader(manager, 1000, {(i + 1) * 600.f, 300.f}, random_for_init)));
     }
 
     game_UI.update_UI(*player);
     // There will be a method that will load inventory from json
     InventoryMenu::build_inventory(player->inventory.get());
+    TradeMenu::bind(InventoryMenu::gr_items_array, InventoryMenu::gr_money);
 }
 
 View_mode Game::check_event(sf::Event& event, float time) {
@@ -101,10 +95,14 @@ View_mode Game::check_event(sf::Event& event, float time) {
             make_screenshot("tmp_inventory");
             return View_mode::INVENTORY_MENU;
         case (sf::Keyboard::T):
-            InventoryMenu::update_graphic_inventory(player->available_trader->inventory.get(),
-                                                    player->available_trader->inventory.get_money());
-            make_screenshot("tmp_inventory");
-            return View_mode::INVENTORY_MENU;
+            if (player->available_trader != nullptr) {
+                TradeMenu::update_graphic_inventories(player->inventory.get(), player->available_trader->inventory.get(),
+                                                      player->inventory.get_money(),
+                                                      player->available_trader->inventory.get_money());
+                make_screenshot("tmp_inventory");
+                return View_mode::TRADE_MENU;            
+            }
+            break;
         default:
             break;
         }

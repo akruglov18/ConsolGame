@@ -2,7 +2,19 @@
 #include "enemies/enemy.h"
 #include "trader/trader.h"
 
-enum class View_mode { NONE, EXIT, GAME, MAIN_MENU, PAUSE_MENU, SETTINGS_MENU, SKILLS_MENU, MAP_MENU, GAMEOVER_MENU, INVENTORY_MENU };
+enum class View_mode {
+    NONE,
+    EXIT,
+    GAME,
+    MAIN_MENU,
+    PAUSE_MENU,
+    SETTINGS_MENU,
+    SKILLS_MENU,
+    MAP_MENU,
+    GAMEOVER_MENU,
+    INVENTORY_MENU,
+    TRADE_MENU
+};
 
 class Utils {
 public:
