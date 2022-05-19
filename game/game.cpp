@@ -55,8 +55,9 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
 
     game_UI.update_UI(*player);
     // There will be a method that will load inventory from json
-    InventoryMenu::build_inventory(player->inventory.get());
-    TradeMenu::bind(InventoryMenu::gr_items_array, InventoryMenu::gr_money);
+    InventoryMenu::gr_inventory.build_inventory(player->inventory.get(), 500.f, 200.f);
+    TradeMenu::gr_inventory_trader.build_inventory(std::vector<std::shared_ptr<Slot>>(16), 700.f, 200.f);
+    TradeMenu::bind(InventoryMenu::gr_inventory, InventoryMenu::gr_money);
 }
 
 View_mode Game::check_event(sf::Event& event, float time) {

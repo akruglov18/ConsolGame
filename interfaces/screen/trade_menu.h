@@ -13,17 +13,15 @@ public:
 
     MenuButton b_exit;
     std::vector<MenuButton*> buttons;
-    static inline std::vector<std::shared_ptr<GraphicSlot>>& gr_items_array_player =
-            std::vector<std::shared_ptr<GraphicSlot>>();
-    static inline std::vector<std::shared_ptr<GraphicSlot>> gr_items_array_trader;
-    static inline sf::Text& gr_money_player = sf::Text();
+    static inline GraphicInventory gr_inventory_trader;
     static inline sf::Text gr_money_trader;
+    static inline GraphicInventory& gr_inventory_player = GraphicInventory();
+    static inline sf::Text& gr_money_player = sf::Text();
 
     virtual View_mode Run(sf::RenderWindow& window) override;
-    static void build_trader_inventory();
-    static void bind(const std::vector<std::shared_ptr<GraphicSlot>>& _items_array_player, const sf::Text& _gr_money_player);
-    static void update_graphic_inventories(const std::vector<std::shared_ptr<Slot>>& items_array_player,
-                                         const std::vector<std::shared_ptr<Slot>>& items_array_trader, 
+    static void bind(const GraphicInventory& gr_inventory_player, const sf::Text& _gr_money_player);
+    static void update_graphic_inventories(const std::vector<std::shared_ptr<Slot>>& _gr_inventory_player,
+                                           const std::vector<std::shared_ptr<Slot>>& _gr_inventory_trader, 
                                          int _money_player, int _money_trader);
 
 private:
