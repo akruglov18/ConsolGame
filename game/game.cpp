@@ -36,7 +36,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     // player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 0; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 10 + 4) * 40.f, (i / 10 + 4) * 40.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
@@ -48,14 +48,14 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     //     enemies.push_back(
     //             Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     // }
-    for (int i = 0; i < 1; ++i) {
+    for (int i = 0; i < 5; ++i) {
         traders.push_back(
-                std::shared_ptr<Trader>(new Trader(manager, 1000, {(i + 1) * 600.f, 300.f}, random_for_init)));
+                std::shared_ptr<Trader>(new Trader(manager, 1000, {(i + 1) * 200.f, 300.f}, random_for_init)));
     }
 
     game_UI.update_UI(*player);
     // There will be a method that will load inventory from json
-    InventoryMenu::gr_inventory.build_inventory(player->inventory.get(), 500.f, 200.f);
+    InventoryMenu::gr_inventory->build_inventory(player->inventory.get(), 500.f, 200.f);
     TradeMenu::gr_inventory_trader.build_inventory(std::vector<std::shared_ptr<Slot>>(16), 700.f, 200.f);
     TradeMenu::bind(InventoryMenu::gr_inventory, InventoryMenu::gr_money);
 }

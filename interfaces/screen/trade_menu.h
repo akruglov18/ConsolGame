@@ -15,11 +15,11 @@ public:
     std::vector<MenuButton*> buttons;
     static inline GraphicInventory gr_inventory_trader;
     static inline sf::Text gr_money_trader;
-    static inline GraphicInventory& gr_inventory_player = GraphicInventory();
-    static inline sf::Text& gr_money_player = sf::Text();
+    static inline std::shared_ptr<GraphicInventory> gr_inventory_player;
+    static inline std::shared_ptr<sf::Text> gr_money_player;
 
     virtual View_mode Run(sf::RenderWindow& window) override;
-    static void bind(const GraphicInventory& gr_inventory_player, const sf::Text& _gr_money_player);
+    static void bind(std::shared_ptr<GraphicInventory> _gr_inventory_player, std::shared_ptr<sf::Text> _gr_money_player);
     static void update_graphic_inventories(const std::vector<std::shared_ptr<Slot>>& _gr_inventory_player,
                                            const std::vector<std::shared_ptr<Slot>>& _gr_inventory_trader, 
                                          int _money_player, int _money_trader);
