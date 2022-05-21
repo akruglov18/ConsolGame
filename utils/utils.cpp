@@ -46,24 +46,20 @@ std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
     }
     return drawable_creatures;
 }
+ 
+bool Utils::drawable_creatures_sorter(const std::shared_ptr < Creature > & a,
+                                      const std::shared_ptr < Creature > & b) {
+    if ((static_cast<int>(a->get_pos().y) >> 5) ==
+        (static_cast<int>(b->get_pos().y) >> 5)) {
+        return (static_cast<int>(a->get_pos().x) >> 5) <
+               (static_cast<int>(b->get_pos().x) >> 5);
+    }
+    return (static_cast<int>(a->get_pos().y) >> 5) <
+           (static_cast<int>(b->get_pos().y) >> 5);
+}
 
 void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
-    for (std::size_t i = 0; i < drawable_creatures.size(); ++i) {
-        for (std::size_t j = 0; j < drawable_creatures.size() - i - 1; ++j) {
-            if ((static_cast<int>(drawable_creatures[j]->get_pos().y) >> 5) ==
-                (static_cast<int>(drawable_creatures[j + 1]->get_pos().y) >> 5)) {
-                if ((static_cast<int>(drawable_creatures[j]->get_pos().x) >> 5) >
-                    (static_cast<int>(drawable_creatures[j + 1]->get_pos().x) >> 5)) {
-                    std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
-                }
-            } else {
-                if ((static_cast<int>(drawable_creatures[j]->get_pos().y) >> 5) >
-                    (static_cast<int>(drawable_creatures[j + 1]->get_pos().y) >> 5)) {
-                    std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
-                }
-            }
-        }
-    }
+    std::sort(drawable_creatures.begin(), drawable_creatures.end(), Utils::drawable_creatures_sorter);
 }
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
