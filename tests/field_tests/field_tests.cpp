@@ -63,29 +63,29 @@ TEST(Field, equal_after_move_assignement) {
 }
 
 void test_show_field() {
-    for (int i = 64; i <= 512; i *= 2) {
-        sf::RenderWindow window{sf::VideoMode(1280, 720), "TEST"};
-        std::shared_ptr<Field> field;
-        field = std::shared_ptr<Field>(new Field(i, i));
-        field->generate_field();
-        std::shared_ptr<Player> player;
-        CreatureManager manager;
-        player = std::make_shared<Player>(Player(manager, 100, {366.f, 366.f}));
-        std::vector<std::shared_ptr<Enemy>> enemies;
-        std::vector<std::shared_ptr<Trader>> traders;
-        enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {400.f, 656.f}));
-        auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y, field->get_width(),
-                                                    field->get_height(), player->get_pos());
-        auto object_borders = Utils::get_object_borders(borders, field->get_width(), field->get_height());
-        auto drawable_creatures = Utils::find_drawable_creatures(enemies, traders, object_borders);
-        drawable_creatures.push_back(player);
-        Utils::sort_drawable_creatures(drawable_creatures);
-        Drawer::show_everything(window, field, borders, object_borders, drawable_creatures, true);
-        for (int j = 4; j <= i - 4; j++) {
-            Drawer::show_everything(window, field, borders, object_borders, drawable_creatures, true);
-        }
-        window.close();
+    sf::RenderWindow window{sf::VideoMode(1280, 720), "TEST"};
+    std::shared_ptr<Field> field;
+    field = std::shared_ptr<Field>(new Field(1024, 1024));
+    field->generate_field();
+    std::shared_ptr<Player> player;
+    CreatureManager manager;
+    player = std::make_shared<Player>(Player(manager, 100, {366.f, 366.f}));
+    std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<std::shared_ptr<Trader>> traders;
+    enemies.push_back(Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100, {400.f, 656.f}));
+    auto borders = Utils::get_rendering_borders(window.getSize().x, window.getSize().y, field->get_width(),
+                                                field->get_height(), player->get_pos());
+    auto object_borders = Utils::get_object_borders(borders, field->get_width(), field->get_height());
+    auto drawable_creatures = Utils::find_drawable_creatures(enemies, traders, object_borders);
+    drawable_creatures.push_back(player);
+    Utils::sort_drawable_creatures(drawable_creatures);
+        
+    for (int i = 0; i < 100; i++) {
+        Drawer::show_ground(window, field, borders);
+        Drawer::show_objects(window, field, object_borders, drawable_creatures, true);
     }
+
+    window.close();
 }
 
 TEST(Field, show_field) {

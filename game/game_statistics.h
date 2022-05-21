@@ -21,7 +21,10 @@ private:
 
     sf::Text creatures_actions;
     sf::Text creatures_processing;
-    sf::Text render;
+    sf::Text ground_render;
+    sf::Text objects_render;
+    sf::Text gui_render;
+    sf::Text display;
 
     void init_text(sf::Text& text, float y);
 
@@ -30,11 +33,17 @@ private:
 
     int act_count;
     int proc_count;
-    int rend_count;
+    int gr_rend_count;
+    int obj_rend_count;
+    int gui_rend_count;
+    int display_count;
 
     double act_time;
     double proc_time;
-    double rend_time;
+    double gr_rend_time;
+    double obj_rend_time;
+    double gui_rend_time;
+    double display_time;
 
     float elapsed_time;
 };

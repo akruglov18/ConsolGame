@@ -20,7 +20,10 @@
 
 #define ACTIONS_STAT 1
 #define PROCESSING_STAT 2
-#define RENDER_STAT 3
+#define GROUND_RENDER_STAT 3
+#define OBJECTS_RENDER_STAT 4
+#define GUI_RENDER_STAT 5
+#define DISPLAY_STAT 6
 
 class Game {
 public:
@@ -63,7 +66,7 @@ private:
     // Game methods
     void frame_calculation(float time, sf::Event& event, sf::Event& last_event);
     void render();
-    sf::View get_player_pos_for_view(const sf::Vector2f&);
+    void set_player_pos_for_view(const sf::Vector2f&);
     void make_screenshot(const std::string& name);
     View_mode check_event(sf::Event& event, float time);
 };
