@@ -9,6 +9,14 @@
 #include "game_ui.h"
 #include "player/player.h"
 #include "trader/trader.h"
+#include <fstream>
+#include <thread>
+#include "armors.h"
+#include "weapons.h"
+#include "inventory_menu.h"
+#include "trade_menu.h"
+#include "items.h"
+#include "common_thing.h"
 
 #define ACTIONS_STAT 1
 #define PROCESSING_STAT 2

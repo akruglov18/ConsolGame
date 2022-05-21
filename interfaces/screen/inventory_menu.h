@@ -2,16 +2,7 @@
 #include "menu_button.h"
 #include "screen.h"
 #include "inventory.h"
-
-class GraphicSlot {
-public:
-    std::shared_ptr<Slot> slot;
-    sf::Text gr_amount;
-    sf::Sprite slot_sprite;
-
-    bool gr_amount_offset = false;
-    void show_slot(sf::RenderWindow& window);
-};
+#include "graphic_inventory.h"
 
 class InventoryMenu : public Screen {
 public:
@@ -22,11 +13,10 @@ public:
 
     MenuButton b_exit;
     std::vector<MenuButton*> buttons;
-    static inline std::vector<std::shared_ptr<GraphicSlot>> gr_items_array;
-    static inline sf::Text gr_money;
+    static inline std::shared_ptr<GraphicInventory> gr_inventory;
+    static inline std::shared_ptr<sf::Text> gr_money;
 
     virtual View_mode Run(sf::RenderWindow& window) override;
-    static void build_inventory(const std::vector<std::shared_ptr<Slot>>& items);
     static void update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, int _money);
 
 private:

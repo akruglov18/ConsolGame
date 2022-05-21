@@ -7,6 +7,7 @@
 #include "skills_menu.h"
 #include "map_menu.h"
 #include "inventory_menu.h"
+#include "trade_menu.h"
 #include "cursor.h"
 
 int main() {
@@ -26,21 +27,23 @@ int main() {
 
     std::map<View_mode, Screen*> screens;
     View_mode screen = View_mode::MAIN_MENU;
-    MainMenu m_menu;
-    PauseMenu p_menu;
-    SkillsMenu sk_menu;
+    MainMenu main_menu;
+    PauseMenu pause_menu;
+    SkillsMenu skills_menu;
     GameSettings settings;
-    SettingsMenu st_menu(settings);
-    GameoverMenu gg_menu;
+    SettingsMenu stettings_menu(settings);
+    GameoverMenu gameover_menu;
     MapMenu map_menu;
-    InventoryMenu inv_menu;
-    screens[View_mode::MAIN_MENU] = &m_menu;
-    screens[View_mode::PAUSE_MENU] = &p_menu;
-    screens[View_mode::SKILLS_MENU] = &sk_menu;
-    screens[View_mode::SETTINGS_MENU] = &st_menu;
-    screens[View_mode::GAMEOVER_MENU] = &gg_menu;
+    InventoryMenu inventory_menu;
+    TradeMenu trade_menu;
+    screens[View_mode::MAIN_MENU] = &main_menu;
+    screens[View_mode::PAUSE_MENU] = &pause_menu;
+    screens[View_mode::SKILLS_MENU] = &skills_menu;
+    screens[View_mode::SETTINGS_MENU] = &stettings_menu;
+    screens[View_mode::GAMEOVER_MENU] = &gameover_menu;
     screens[View_mode::MAP_MENU] = &map_menu;
-    screens[View_mode::INVENTORY_MENU] = &inv_menu;
+    screens[View_mode::INVENTORY_MENU] = &inventory_menu;
+    screens[View_mode::TRADE_MENU] = &trade_menu;
     while (screen != View_mode::EXIT) {
         if (screen != View_mode::GAME)
             screen = screens[screen]->Run(*window);
@@ -60,6 +63,7 @@ int main() {
                 case View_mode::INVENTORY_MENU:
                 case View_mode::MAP_MENU:
                 case View_mode::PAUSE_MENU:
+                case View_mode::TRADE_MENU:
                     screen = screens[screen]->Run(*window);
                     break;
                 default:
