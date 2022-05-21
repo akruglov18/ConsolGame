@@ -86,6 +86,21 @@ Creature::Creature(const Creature& other): manager(other.manager), pos(other.pos
 void Creature::set_pos(float x, float y) {
     pos.x = x;
     pos.y = y;
+    hit_box.left = pos.x + centre_offset.x - hit_box.width / 2.f;
+    hit_box.top = pos.y + centre_offset.y - hit_box.height;
+    collision_box.left = pos.x + centre_offset.x - collision_box.width / 2.f;
+    collision_box.top = pos.y + centre_offset.y - collision_box.height;
+    rect_hit_box.setPosition(hit_box.getPosition());
+    rect_collision_box.setPosition(collision_box.getPosition());
+    sprite.setPosition({pos.x, pos.y - 32});
+    for (std::size_t i = 0; i < armor_set.size(); ++i) {
+        if (armor_set[i] != nullptr) {
+            armor_set[i]->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+        }
+    }
+    if (weapon != nullptr) {
+        weapon->get_sprite().setPosition(sf::Vector2f(pos.x, pos.y - 32));
+    }
 }
 
 void Creature::set_armor(std::shared_ptr<BaseArmor> armor) {
