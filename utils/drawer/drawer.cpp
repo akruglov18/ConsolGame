@@ -4,16 +4,14 @@
 std::vector<int> Drawer::old_borders{};
 std::vector<sf::Sprite> Drawer::old_sprites{};
 
-void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
-                             const std::vector<int>& borders, const std::vector<int>& object_borders,
-                             const std::vector<std::shared_ptr<Creature>>& drawable_creatures, bool show_boxes) {
+void Drawer::show_ground(sf::RenderWindow& window, const std::shared_ptr<Field>& field, const std::vector<int>& borders) {
     if (old_borders != borders) {
         old_borders = borders;
         int top_border = borders[0];
         int btm_border = borders[1];
         int left_border = borders[2];
         int right_border = borders[3];
-        old_sprites.resize((btm_border - top_border) * (right_border - left_border));
+        old_sprites.resize(static_cast<std::size_t>((btm_border - top_border) * (right_border - left_border)));
         std::size_t count = 0;
 
         for (int i = top_border; i < btm_border; ++i) {
@@ -33,6 +31,11 @@ void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Fie
             window.draw(old_sprites[i]);
         }
     }
+}
+
+void Drawer::show_objets(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
+                         const std::vector<int>& object_borders,
+                         const std::vector<std::shared_ptr<Creature>>& drawable_creatures, bool show_boxes) {
 
     int obj_top_border = object_borders[0];
     int obj_btm_border = object_borders[1];

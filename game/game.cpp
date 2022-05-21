@@ -22,7 +22,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     view.reset(sf::FloatRect({0, 0}, {1280, 720}));
 
     player = std::shared_ptr<Player>(new Player(manager, 100.f, {666.f, 260.f}));
-    get_player_pos_for_view(player->get_pos());
+    set_player_pos_for_view(player->get_pos());
     manager.setPlayer(player.get());
     manager.setEnemies(&enemies);
     manager.setTraders(&traders);
@@ -186,15 +186,22 @@ void Game::frame_calculation(float time, sf::Event& event, sf::Event& last_event
 }
 
 void Game::render() {
-    statistics.start();
     window->clear(sf::Color(0, 0, 0));
 
     // RENDERING DYNAMIC OBJECTS
-    get_player_pos_for_view(player->get_pos());
+    set_player_pos_for_view(player->get_pos());
     window->setView(view);
-    Drawer::show_everything(*window, game_field, borders, object_borders, drawable_creatures, show_boxes);
+
+    statistics.start();
+    Drawer::show_ground(*window, game_field, borders);
+    statistics.stop(GROUND_RENDER_STAT);
+
+    statistics.start();
+    Drawer::show_objets(*window, game_field, object_borders, drawable_creatures, show_boxes);
+    statistics.stop(OBJECTS_RENDER_STAT);
 
     // RENDERING STATIC UI ELEMENTS
+    statistics.start();
     window->setView(window->getDefaultView());
     game_UI.show_UI(*window);
     if (fps.on) {
@@ -203,13 +210,15 @@ void Game::render() {
     if (statistics.on) {
         statistics.show(*window);
     }
-
     Cursor::move(*window);
+    statistics.stop(GUI_RENDER_STAT);
+
+    statistics.start();
     window->display();
-    statistics.stop(RENDER_STAT);
+    statistics.stop(DISPLAY_STAT);
 }
 
-sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
+void Game::set_player_pos_for_view(const sf::Vector2f& pos) {
     // sets camera center as player's coordinates
     auto temp_x = pos.x;
     auto temp_y = pos.y;
@@ -223,7 +232,6 @@ sf::View Game::get_player_pos_for_view(const sf::Vector2f& pos) {
         temp_y = static_cast<float>(game_region_height - window->getSize().y / 2.f);
 
     view.setCenter(sf::Vector2f(temp_x, temp_y));
-    return view;
 }
 
 void Game::make_screenshot(const std::string& name) {

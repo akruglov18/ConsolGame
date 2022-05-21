@@ -3,15 +3,18 @@
 GameStatistics::GameStatistics() {
     on = false;
     elapsed_time = 0.f;
-    act_count = proc_count = rend_count = 0;
-    act_time = proc_time = rend_time = 0.0;
+    act_count = proc_count = gr_rend_count = obj_rend_count = gui_rend_count = display_count = 0;
+    act_time = proc_time = gr_rend_time = obj_rend_time = gui_rend_time = display_time = 0.0;
 
     init_text(all_creatures_amount, 80.f);
     init_text(drawable_creatures_amount, 100.f);
 
     init_text(creatures_actions, 135.f);
     init_text(creatures_processing, 155.f);
-    init_text(render, 175.f);
+    init_text(ground_render, 175.f);
+    init_text(objects_render, 195.f);
+    init_text(gui_render, 215.f);
+    init_text(display, 235.f);
 }
 
 void GameStatistics::update(float time, int aver, size_t enemies_size,
@@ -27,12 +30,18 @@ void GameStatistics::update(float time, int aver, size_t enemies_size,
                                     std::to_string((act_time / act_count) / frame * 100.0) + "%)");
         creatures_processing.setString("Processing: " + std::to_string(proc_time / proc_count) + " s, (" +
                                        std::to_string((proc_time / proc_count) / frame * 100.0) + "%)");
-        render.setString("Render: " + std::to_string(rend_time / rend_count) + " s, (" +
-                         std::to_string((rend_time / rend_count) / frame * 100.0) + "%)");
+        ground_render.setString("Ground render: " + std::to_string(gr_rend_time / gr_rend_count) + " s, (" +
+                         std::to_string((gr_rend_time / gr_rend_count) / frame * 100.0) + "%)");
+        objects_render.setString("Objects render: " + std::to_string(obj_rend_time / obj_rend_count) + " s, (" +
+                                std::to_string((obj_rend_time / obj_rend_count) / frame * 100.0) + "%)");
+        gui_render.setString("Gui render: " + std::to_string(gui_rend_time / gui_rend_count) + " s, (" +
+                                std::to_string((gui_rend_time / gui_rend_count) / frame * 100.0) + "%)");
+        display.setString("Display: " + std::to_string(display_time / display_count) + " s, (" +
+                                std::to_string((display_time / display_count) / frame * 100.0) + "%)");
         
         elapsed_time = 0.f;
-        act_count = proc_count = rend_count = 0;
-        act_time = proc_time = rend_time = 0.0;
+        act_count = proc_count = gr_rend_count = obj_rend_count = gui_rend_count = display_count = 0;
+        act_time = proc_time = gr_rend_time = obj_rend_time = gui_rend_time = display_time = 0.0;
     }
 }
 
@@ -41,7 +50,10 @@ void GameStatistics::show(sf::RenderWindow& window) {
     window.draw(drawable_creatures_amount);
     window.draw(creatures_actions);
     window.draw(creatures_processing);
-    window.draw(render);
+    window.draw(ground_render);
+    window.draw(objects_render);
+    window.draw(gui_render);
+    window.draw(display);
 }
 
 void GameStatistics::start() {
@@ -64,8 +76,20 @@ void GameStatistics::stop(int counter) {
             proc_count++;
             break;
         case 3:
-            rend_time += diff.count();
-            rend_count++;
+            gr_rend_time += diff.count();
+            gr_rend_count++;
+            break;
+        case 4:
+            obj_rend_time += diff.count();
+            obj_rend_count++;
+            break;
+        case 5:
+            gui_rend_time += diff.count();
+            gui_rend_count++;
+            break;
+        case 6:
+            display_time += diff.count();
+            display_count++;
             break;
         default:
             break;
