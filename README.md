@@ -1,6 +1,6 @@
-# Consol_Game
+# Game
 
-## Build
+## BuildCancel changes
       git submodule update --init --recursive
       mkdir build
       cd build
