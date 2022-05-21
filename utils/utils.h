@@ -24,8 +24,6 @@ public:
             const std::vector<std::shared_ptr<Enemy>>& enemies, const std::vector<std::shared_ptr<Trader>>& traders,
             const std::vector<int>& object_borders);
 
-    static bool drawable_creatures_sorter(const std::shared_ptr < Creature > & a,
-                                          const std::shared_ptr < Creature > & b);
     static void sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures);
     static void detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures);
     static std::vector<int> get_rendering_borders(int window_width, int window_height, int field_width,
