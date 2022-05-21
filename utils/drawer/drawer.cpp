@@ -1,23 +1,36 @@
 #include "drawer.h"
 #include <algorithm>
 
+std::vector<int> Drawer::old_borders{};
+std::vector<sf::Sprite> Drawer::old_sprites{};
+
 void Drawer::show_everything(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
                              const std::vector<int>& borders, const std::vector<int>& object_borders,
                              const std::vector<std::shared_ptr<Creature>>& drawable_creatures, bool show_boxes) {
-    int top_border = borders[0];
-    int btm_border = borders[1];
-    int left_border = borders[2];
-    int right_border = borders[3];
+    if (old_borders != borders) {
+        old_borders = borders;
+        int top_border = borders[0];
+        int btm_border = borders[1];
+        int left_border = borders[2];
+        int right_border = borders[3];
+        old_sprites.resize((btm_border - top_border) * (right_border - left_border));
+        std::size_t count = 0;
 
-    for (int i = top_border; i < btm_border; ++i) {
-        for (int j = left_border; j < right_border; ++j) {
-            auto cur_tile = (*field)(i, j);
-            if (cur_tile->border) {
-                Tile::scale_borders(cur_tile->tile_sprite, i, j, field->get_width(), field->get_height());
-            } else {
-                Tile::scale_tiles(cur_tile->tile_sprite, i, j);
+        for (int i = top_border; i < btm_border; ++i) {
+            for (int j = left_border; j < right_border; ++j) {
+                auto cur_tile = (*field)(i, j);
+                if (cur_tile->border) {
+                    Tile::scale_borders(cur_tile->tile_sprite, i, j, field->get_width(), field->get_height());
+                } else {
+                    Tile::scale_tiles(cur_tile->tile_sprite, i, j);
+                }
+                window.draw(cur_tile->tile_sprite);
+                old_sprites[count++] = cur_tile->tile_sprite;
             }
-            window.draw(cur_tile->tile_sprite);
+        }
+    } else {
+        for (std::size_t i = 0; i < old_sprites.size(); i++) {
+            window.draw(old_sprites[i]);
         }
     }
 
