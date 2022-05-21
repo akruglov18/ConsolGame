@@ -5,6 +5,7 @@ std::vector<int> Drawer::old_borders{};
 std::vector<sf::Sprite> Drawer::old_sprites{};
 
 void Drawer::show_ground(sf::RenderWindow& window, const std::shared_ptr<Field>& field, const std::vector<int>& borders) {
+
     if (old_borders != borders) {
         old_borders = borders;
         int top_border = borders[0];
@@ -33,7 +34,7 @@ void Drawer::show_ground(sf::RenderWindow& window, const std::shared_ptr<Field>&
     }
 }
 
-void Drawer::show_objets(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
+void Drawer::show_objects(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
                          const std::vector<int>& object_borders,
                          const std::vector<std::shared_ptr<Creature>>& drawable_creatures, bool show_boxes) {
 

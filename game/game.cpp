@@ -36,7 +36,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     // player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
-    for (int i = 0; i < 0; ++i) {
+    for (int i = 0; i < 1; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 10 + 4) * 40.f, (i / 10 + 4) * 40.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
@@ -48,7 +48,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     //     enemies.push_back(
     //             Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     // }
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 1; ++i) {
         traders.push_back(
                 std::shared_ptr<Trader>(new Trader(manager, 1000, {(i + 1) * 200.f, 300.f}, random_for_init)));
     }
@@ -197,7 +197,7 @@ void Game::render() {
     statistics.stop(GROUND_RENDER_STAT);
 
     statistics.start();
-    Drawer::show_objets(*window, game_field, object_borders, drawable_creatures, show_boxes);
+    Drawer::show_objects(*window, game_field, object_borders, drawable_creatures, show_boxes);
     statistics.stop(OBJECTS_RENDER_STAT);
 
     // RENDERING STATIC UI ELEMENTS
