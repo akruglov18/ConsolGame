@@ -49,7 +49,7 @@ View_mode SettingsMenu::Run(sf::RenderWindow& window) {
         menu_music.setVolume(static_cast<float>(s_sound.slide_value));
         play_music();
     }
-    
+
     set();
 
     return to_return;

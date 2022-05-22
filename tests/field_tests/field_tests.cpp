@@ -79,7 +79,7 @@ void test_show_field() {
     auto drawable_creatures = Utils::find_drawable_creatures(enemies, traders, object_borders);
     drawable_creatures.push_back(player);
     Utils::sort_drawable_creatures(drawable_creatures);
-        
+
     for (int i = 0; i < 100; i++) {
         Drawer::show_ground(window, field, borders);
         Drawer::show_objects(window, field, object_borders, drawable_creatures, true);

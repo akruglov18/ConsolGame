@@ -1,7 +1,7 @@
 #pragma once
-#include "player/player.h"
 #include "SFML/Graphics.hpp"
 #include "inventory_menu.h"
+#include "player/player.h"
 
 enum class SettingsType { MUSIC };
 

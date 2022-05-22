@@ -1,6 +1,6 @@
 #include "trade_menu.h"
 
-TradeMenu::TradeMenu() : b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.f, 52.f}), View_mode::GAME) {
+TradeMenu::TradeMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.f, 52.f}), View_mode::GAME) {
     color = sf::Color(240, 164, 99);
     buttons.push_back(&b_exit);
 
@@ -51,15 +51,13 @@ View_mode TradeMenu::Run(sf::RenderWindow& window) {
 
 void TradeMenu::bind(std::shared_ptr<GraphicInventory> _gr_inventory_player,
                      std::shared_ptr<sf::Text> _gr_money_player) {
-
     gr_inventory_player = std::shared_ptr<GraphicInventory>(_gr_inventory_player);
     gr_money_player = std::shared_ptr<sf::Text>(_gr_money_player);
 }
 
 void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slot>>& items_array_player,
-                                         const std::vector<std::shared_ptr<Slot>>& items_array_trader,
-                                         int _money_player, int _money_trader) {
-
+                                           const std::vector<std::shared_ptr<Slot>>& items_array_trader,
+                                           int _money_player, int _money_trader) {
     gr_inventory_player->set_pos(300.f, 200.f);
     gr_money_player->setPosition({300.f, 130.f});
 

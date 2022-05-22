@@ -1,8 +1,8 @@
 #pragma once
+#include "graphic_inventory.h"
+#include "inventory.h"
 #include "menu_button.h"
 #include "screen.h"
-#include "inventory.h"
-#include "graphic_inventory.h"
 
 class InventoryMenu : public Screen {
 public:

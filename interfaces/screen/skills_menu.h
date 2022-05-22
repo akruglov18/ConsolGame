@@ -16,5 +16,4 @@ public:
                                    const sf::Event& _event, Player& player);
 
     virtual View_mode Run(sf::RenderWindow& window, Player* player) override;
-
 };

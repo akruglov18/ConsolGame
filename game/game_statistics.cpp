@@ -17,8 +17,8 @@ GameStatistics::GameStatistics() {
     init_text(display, 235.f);
 }
 
-void GameStatistics::update(float time, int aver, size_t enemies_size,
-                                       size_t traders_size, size_t drawable_creatures_size) {
+void GameStatistics::update(float time, int aver, size_t enemies_size, size_t traders_size,
+                            size_t drawable_creatures_size) {
     elapsed_time += time;
     double frame = 1.0 / aver;
     if (elapsed_time > 100.f) {
@@ -31,14 +31,14 @@ void GameStatistics::update(float time, int aver, size_t enemies_size,
         creatures_processing.setString("Processing: " + std::to_string(proc_time / proc_count) + " s, (" +
                                        std::to_string((proc_time / proc_count) / frame * 100.0) + "%)");
         ground_render.setString("Ground render: " + std::to_string(gr_rend_time / gr_rend_count) + " s, (" +
-                         std::to_string((gr_rend_time / gr_rend_count) / frame * 100.0) + "%)");
+                                std::to_string((gr_rend_time / gr_rend_count) / frame * 100.0) + "%)");
         objects_render.setString("Objects render: " + std::to_string(obj_rend_time / obj_rend_count) + " s, (" +
-                                std::to_string((obj_rend_time / obj_rend_count) / frame * 100.0) + "%)");
+                                 std::to_string((obj_rend_time / obj_rend_count) / frame * 100.0) + "%)");
         gui_render.setString("Gui render: " + std::to_string(gui_rend_time / gui_rend_count) + " s, (" +
-                                std::to_string((gui_rend_time / gui_rend_count) / frame * 100.0) + "%)");
+                             std::to_string((gui_rend_time / gui_rend_count) / frame * 100.0) + "%)");
         display.setString("Display: " + std::to_string(display_time / display_count) + " s, (" +
-                                std::to_string((display_time / display_count) / frame * 100.0) + "%)");
-        
+                          std::to_string((display_time / display_count) / frame * 100.0) + "%)");
+
         elapsed_time = 0.f;
         act_count = proc_count = gr_rend_count = obj_rend_count = gui_rend_count = display_count = 0;
         act_time = proc_time = gr_rend_time = obj_rend_time = gui_rend_time = display_time = 0.0;
