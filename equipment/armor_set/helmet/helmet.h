@@ -8,7 +8,8 @@ enum HelmetType { Helmet_chain_helmet, Helmet_chain_hood, Helmet_leather_hat, He
 class Helmet : public BaseArmor {
 public:
     Helmet(const std::string& name, HelmetType type);
-    ~Helmet() override {}
+    ~Helmet() override {
+    }
     static std::shared_ptr<Helmet> make_helmet(HelmetType type);
     static std::shared_ptr<Helmet> make_helmet_from_json(const json& json_obj);
 };

@@ -8,4 +8,3 @@ CommonThing::CommonThing(const std::string& name, int _value, const sf::Vector2f
     id = name;
     item_type = ItemType::COMMON_THING;
 }
-

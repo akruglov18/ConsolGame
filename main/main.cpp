@@ -1,14 +1,14 @@
+#include "cursor.h"
 #include "game.h"
 #include "gameover_menu.h"
+#include "inventory_menu.h"
 #include "main_menu.h"
+#include "map_menu.h"
 #include "pause_menu.h"
 #include "screen.h"
 #include "settings_menu.h"
 #include "skills_menu.h"
-#include "map_menu.h"
-#include "inventory_menu.h"
 #include "trade_menu.h"
-#include "cursor.h"
 
 int main() {
     std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow{sf::VideoMode(1280, 720), "Application"});
@@ -55,7 +55,7 @@ int main() {
                 if (screen == View_mode::EXIT)
                     break;
 
-                switch (screen) { 
+                switch (screen) {
                 case View_mode::SKILLS_MENU:
                     screen = screens[screen]->Run(*window, game.get_player().get());
                     break;
@@ -69,7 +69,7 @@ int main() {
                 default:
                     throw std::invalid_argument("Wrong screen");
                     break;
-                }    
+                }
 
                 if (game.get_player()->dead && screen == View_mode::GAME)
                     break;

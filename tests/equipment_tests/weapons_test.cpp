@@ -1,11 +1,11 @@
 #include "weapons.h"
 #include <gtest/gtest.h>
 
-#include "player/player.h"
 #include "ResourceHolder.h"
 #include "creature.h"
 #include "enemies/enemy.h"
 #include "items.h"
+#include "player/player.h"
 
 namespace {
 

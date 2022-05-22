@@ -34,7 +34,7 @@ std::shared_ptr<Spear> Spear::make_spear_from_json(const json& json_obj) {
 }
 
 void Spear::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
-    if (mode == Modes::THRUST){
+    if (mode == Modes::THRUST) {
         if (dir == 0 || dir == 1) {
             if (dir == 0)
                 damage_box.left = pos.x - 8.f;
@@ -60,8 +60,7 @@ void Spear::calculate_damage_box(sf::Vector2f& pos, int dir, Modes mode) {
             rect_damage_box.setSize(damage_box.getSize());
         }
         rect_damage_box.setPosition(damage_box.getPosition());
-    }
-    else {
+    } else {
         throw std::invalid_argument("Wrong mode");
     }
 }

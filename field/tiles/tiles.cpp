@@ -18,13 +18,13 @@ bool Tile::operator!=(const Tile& tile) const {
 }
 
 void Tile::scale_tiles(sf::Sprite& sprite, int i, int j) {
-    constexpr int mask = 3; // x & mask == x % 4 == x & 000..00011
+    constexpr int mask = 3;  // x & mask == x % 4 == x & 000..00011
     sprite.setTextureRect(sf::IntRect({((j & mask) << 5), ((i & mask) << 5)}, {32, 32}));
     sprite.setPosition(sf::Vector2f(static_cast<float>(j << 5), static_cast<float>(i << 5)));
 }
 
 void Tile::scale_borders(sf::Sprite& sprite, int i, int j, int r_b, int btm_b) {
-    constexpr int mask = 3; // x & mask == x % 4 == x & 000..00011
+    constexpr int mask = 3;  // x & mask == x % 4 == x & 000..00011
     if (j < 4) {
         if (i < 4)
             sprite.setTextureRect(sf::IntRect({((j & mask) << 5), ((i & mask) << 5)}, {32, 32}));

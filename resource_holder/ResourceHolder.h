@@ -2,8 +2,8 @@
 #include <map>
 #include <memory>
 #include <string>
-#include "SFML/Graphics.hpp"
 #include "SFML/Audio/Music.hpp"
+#include "SFML/Graphics.hpp"
 
 namespace Resources {
 
@@ -36,11 +36,13 @@ public:
     }
 };
 
-template<>
-inline Resources::ResourceHolder<std::string, sf::Texture>::MapType Resources::ResourceHolder<std::string, sf::Texture>::mResources{};
+template <>
+inline Resources::ResourceHolder<std::string, sf::Texture>::MapType
+        Resources::ResourceHolder<std::string, sf::Texture>::mResources{};
 
-template<>
-inline Resources::ResourceHolder<std::string, sf::Font>::MapType Resources::ResourceHolder<std::string, sf::Font>::mResources{};
+template <>
+inline Resources::ResourceHolder<std::string, sf::Font>::MapType
+        Resources::ResourceHolder<std::string, sf::Font>::mResources{};
 
 class TexturesHolder : public ResourceHolder<std::string, sf::Texture> {
 public:

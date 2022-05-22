@@ -1,8 +1,8 @@
 #include "creature.h"
-#include "player/player.h"
 #include "ResourceHolder.h"
 #include "coins.h"
 #include "enemies/enemy.h"
+#include "player/player.h"
 
 constexpr auto STUCK_TIME = 3.f;
 
