@@ -48,22 +48,13 @@ std::vector<std::shared_ptr<Creature>> Utils::find_drawable_creatures(
 }
 
 void Utils::sort_drawable_creatures(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
-    for (std::size_t i = 0; i < drawable_creatures.size(); ++i) {
-        for (std::size_t j = 0; j < drawable_creatures.size() - i - 1; ++j) {
-            if ((static_cast<int>(drawable_creatures[j]->get_pos().y) >> 5) ==
-                (static_cast<int>(drawable_creatures[j + 1]->get_pos().y) >> 5)) {
-                if ((static_cast<int>(drawable_creatures[j]->get_pos().x) >> 5) >
-                    (static_cast<int>(drawable_creatures[j + 1]->get_pos().x) >> 5)) {
-                    std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
-                }
-            } else {
-                if ((static_cast<int>(drawable_creatures[j]->get_pos().y) >> 5) >
-                    (static_cast<int>(drawable_creatures[j + 1]->get_pos().y) >> 5)) {
-                    std::swap(drawable_creatures[j], drawable_creatures[j + 1]);
-                }
-            }
+    auto comparator = [](const std::shared_ptr<Creature>& a, const std::shared_ptr<Creature>& b) {
+        if ((static_cast<int>(a->get_pos().y) >> 5) == (static_cast<int>(b->get_pos().y) >> 5)) {
+            return (static_cast<int>(a->get_pos().x) >> 5) < (static_cast<int>(b->get_pos().x) >> 5);
         }
-    }
+        return (static_cast<int>(a->get_pos().y) >> 5) < (static_cast<int>(b->get_pos().y) >> 5);
+    };
+    std::sort(drawable_creatures.begin(), drawable_creatures.end(), comparator);
 }
 
 void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
@@ -84,7 +75,6 @@ void Utils::detect_collisions(std::vector<std::shared_ptr<Creature>>& drawable_c
 }
 
 void Utils::check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Collisions& mask) {
-
     if (box1.top + box1.height >= box2.top && box1.top <= box2.top + box2.height) {
         if (fabsf(box1.left - (box2.left + box2.width)) < 2.f) {
             mask.can_moveL &= false;
@@ -122,7 +112,7 @@ std::vector<int> Utils::get_rendering_borders(int window_width, int window_heigh
         btm_border = (window_height >> tile_size) + 2;
     else
         btm_border = std::min(static_cast<int>(field_height),
-                             (static_cast<int>(player_pos.y + window_height / 2.f) >> tile_size) + 1);
+                              (static_cast<int>(player_pos.y + window_height / 2.f) >> tile_size) + 1);
     if (player_pos.y > field_height * tile_size - window_height / 2.f)
         top_border = field_height - (window_height >> tile_size) - 2;
     else
