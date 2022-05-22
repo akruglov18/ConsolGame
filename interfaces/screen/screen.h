@@ -1,9 +1,9 @@
 #pragma once
 #include <map>
-#include "button.h"
-#include "utils.h"
 #include "ResourceHolder.h"
+#include "button.h"
 #include "cursor.h"
+#include "utils.h"
 
 class Screen {
 public:

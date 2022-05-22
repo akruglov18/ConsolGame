@@ -12,8 +12,8 @@ void SettingsInGame::show_settings(sf::RenderWindow& window) {
 
 void SettingsInGame::check_settings(sf::Vector2i mouse_pos) {
     for (auto& el : settings) {
-        if (mouse_pos.x > el->box.left && mouse_pos.x < el->box.left + el->box.width && 
-            mouse_pos.y > el->box.top && mouse_pos.y < el->box.top + el->box.height) {
+        if (mouse_pos.x > el->box.left && mouse_pos.x < el->box.left + el->box.width && mouse_pos.y > el->box.top &&
+            mouse_pos.y < el->box.top + el->box.height) {
             el->text.setFillColor(sf::Color(255, 255, 0));
             if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !el->box_pressed) {
                 el->switch_mode();
@@ -80,8 +80,7 @@ void MiniMap::check_buttons(sf::Vector2i mouse_pos) {
             open_help_button.setTextureRect({{802, 481}, {44, 44}});
             help_hovered = true;
         }
-    } 
-    else {
+    } else {
         if (help_hovered) {
             open_help_button.setTextureRect({{802, 431}, {44, 44}});
             help_hovered = false;
@@ -101,9 +100,8 @@ void MiniMap::check_buttons(sf::Vector2i mouse_pos) {
     }
 }
 
-
 GameUI::GameUI() {
-    font = *Resources::FontsHolder::getResource("basic_font");    
+    font = *Resources::FontsHolder::getResource("basic_font");
 
     // BARS AND SETTINGS //////////////////////////////////////////////////////////////////////////
     stats_bar_x = 10.f;
@@ -197,7 +195,6 @@ void GameUI::update_UI(Player& p) {
 }
 
 void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanics) {
-
     check_settings_cogwheel(sf::Mouse::getPosition(window));
 
     if (opened_mechanics[0]) {
@@ -238,8 +235,8 @@ void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanic
 }
 
 void GameUI::check_settings_cogwheel(sf::Vector2i mouse_pos) {
-    if (mouse_pos.x > stats_bar_x + 18.f && mouse_pos.x < stats_bar_x + 46.f &&
-        mouse_pos.y > stats_bar_y + 18.f && mouse_pos.y < stats_bar_y + 46.f) {  
+    if (mouse_pos.x > stats_bar_x + 18.f && mouse_pos.x < stats_bar_x + 46.f && mouse_pos.y > stats_bar_y + 18.f &&
+        mouse_pos.y < stats_bar_y + 46.f) {
         cogwheel_sprite.rotate(sf::degrees(0.5f));
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !cogwheel_pressed) {
             show_settings = !show_settings;

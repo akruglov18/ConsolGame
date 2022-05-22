@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
+#include "FPS_counter.h"
 #include "ResourceHolder.h"
 #include "SFML/Graphics.hpp"
-#include "FPS_counter.h"
 #include "enemies/enemy.h"
 
 class GameStatistics {

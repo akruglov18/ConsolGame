@@ -1,8 +1,8 @@
 #pragma once
 #include <functional>
-#include "player/player.h"
 #include "creature.h"
 #include "field.h"
+#include "player/player.h"
 
 class Skill {
 public:

@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "player/player.h"
 #include "creature.h"
 #include "enemies/enemy.h"
+#include "player/player.h"
 #include "skills_graph.h"
 
 namespace {

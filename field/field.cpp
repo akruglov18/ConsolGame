@@ -69,7 +69,8 @@ void Field::generate_desert() {
             _field[static_cast<std::size_t>(i + _height - 4)][j] =
                     std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
             _field[j][i] = std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
-            _field[j][static_cast<std::size_t>(i + _width - 4)] = std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
+            _field[j][static_cast<std::size_t>(i + _width - 4)] =
+                    std::shared_ptr<Desert_borders>(new Desert_borders(sand1_borders_sprite));
         }
     }
 
@@ -86,9 +87,9 @@ void Field::generate_desert() {
                     width -= gen() % 3 + 3;
                 for (int k = start_x; k < start_x + width; ++k) {
                     _field[start_y][k] = std::shared_ptr<Desert_cracks>(new Desert_cracks(dry1_sprite));
-                    if (_field[static_cast<std::size_t>(start_y - 1)][k] != 
-                        nullptr && _field[start_y][static_cast<std::size_t>(k - 1)] != nullptr && gen() % 8 == 0) {
-                        if (!_field[static_cast<std::size_t>(start_y - 1)][k]->tree && 
+                    if (_field[static_cast<std::size_t>(start_y - 1)][k] != nullptr &&
+                        _field[start_y][static_cast<std::size_t>(k - 1)] != nullptr && gen() % 8 == 0) {
+                        if (!_field[static_cast<std::size_t>(start_y - 1)][k]->tree &&
                             !_field[start_y][static_cast<std::size_t>(k - 1)]->tree) {
                             _field[start_y][k]->tree = gen() % 6 + 1;
                             _field[start_y][k]->get_passability() = 0;

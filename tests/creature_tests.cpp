@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include "player/player.h"
 #include "ResourceHolder.h"
 #include "armors.h"
 #include "creature.h"
 #include "enemies/enemy.h"
+#include "player/player.h"
 #include "trader/trader.h"
 #include "utils.h"
 #include "weapons.h"
@@ -31,7 +31,7 @@ void test_stuck() {
     CreatureManager man;
     CreatureManager skeleton;
     std::shared_ptr<Player> player = std::shared_ptr<Player>(new Player(man, 100, {256.f, 236.f}));
-    
+
     player->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_leather));
     player->set_armor(Helmet::make_helmet(HelmetType::Helmet_chain_helmet));
     player->set_armor(Pants::make_pants(PantsType::Pants_green));

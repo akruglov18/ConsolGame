@@ -12,8 +12,7 @@ void AI::takeAction(Field* field, Enemy* enemy, Player* player, float time) {
     auto diff = std::fabs(diff_x) - std::fabs(diff_y);
     if (std::fabs(diff_x) < 32.f && std::fabs(diff_y) < 32.f) {
         Animation::stop_animation(enemy);
-    }
-    else if (diff > 10.f) {
+    } else if (diff > 10.f) {
         if (diff_x > 0.f) {
             Action::move_left(enemy, time, field);
         } else {

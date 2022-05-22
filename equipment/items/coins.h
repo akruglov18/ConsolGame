@@ -6,7 +6,8 @@ public:
     Coins(int value, const sf::Vector2f& position);
     Coins(const Coins&) = default;
     Coins& operator=(const Coins& other) = default;
-    ~Coins() override {}
+    ~Coins() override {
+    }
 
     int getValue() const {
         return value;

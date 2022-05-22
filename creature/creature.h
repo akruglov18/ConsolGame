@@ -3,11 +3,11 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "SFML/Graphics.hpp"
 #include "armor_set.h"
 #include "base_weapon.h"
 #include "field.h"
 #include "nlohmann_json/json.hpp"
-#include "SFML/Graphics.hpp"
 
 using json = nlohmann::json;
 
@@ -115,7 +115,8 @@ public:
     virtual Drop drop() const {
         return Drop();
     }
-    virtual void show_request(sf::RenderWindow&) {}
+    virtual void show_request(sf::RenderWindow&) {
+    }
 
 protected:
     CreatureManager& manager;
@@ -173,7 +174,8 @@ public:
     void setTraders(std::vector<std::shared_ptr<Trader>>* _traders);
     void setField(Field* _field);
     void creatureDied(Creature* creature);
-    ~CreatureManager() {}
+    ~CreatureManager() {
+    }
 
 private:
     Player* player;

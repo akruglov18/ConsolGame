@@ -1,9 +1,9 @@
 #pragma once
-#include "creature.h"
 #include "../player/player.h"
 #include "action.h"
-#include "items.h"
 #include "common_thing.h"
+#include "creature.h"
+#include "items.h"
 
 class TradeRequest {
 public:

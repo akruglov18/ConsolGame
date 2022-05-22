@@ -6,7 +6,8 @@ public:
     CommonThing(const std::string& name, int _value, const sf::Vector2f& position);
     CommonThing(const CommonThing&) = default;
     CommonThing& operator=(const CommonThing& other) = default;
-    ~CommonThing() override {}
+    ~CommonThing() override {
+    }
 
     int getValue() const {
         return value;

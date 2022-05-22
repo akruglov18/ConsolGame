@@ -14,7 +14,6 @@ InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.
 }
 
 void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, int _money) {
-
     gr_inventory->set_pos(500.f, 200.f);
     gr_money->setPosition({500.f, 130.f});
 

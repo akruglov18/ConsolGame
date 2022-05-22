@@ -2,8 +2,8 @@
 
 #include <string>
 #include "ResourceHolder.h"
-#include "nlohmann_json/json.hpp"
 #include "SFML/Graphics.hpp"
+#include "nlohmann_json/json.hpp"
 
 using json = nlohmann::json;
 
@@ -13,7 +13,8 @@ enum class ItemType { NONE, WEAPON, ARMOR, COINS, COMMON_THING };
 
 class Items {
 public:
-    virtual ~Items() {}
+    virtual ~Items() {
+    }
     ItemType get_type() const;
     std::string get_type_str() const;
     static const std::vector<std::string> suffixes;

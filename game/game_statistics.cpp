@@ -14,8 +14,8 @@ GameStatistics::GameStatistics() {
     init_text(render, 175.f);
 }
 
-void GameStatistics::update(float time, int aver, size_t enemies_size,
-                                       size_t traders_size, size_t drawable_creatures_size) {
+void GameStatistics::update(float time, int aver, size_t enemies_size, size_t traders_size,
+                            size_t drawable_creatures_size) {
     elapsed_time += time;
     double frame = 1.0 / aver;
     if (elapsed_time > 100.f) {
@@ -29,7 +29,7 @@ void GameStatistics::update(float time, int aver, size_t enemies_size,
                                        std::to_string((proc_time / proc_count) / frame * 100.0) + "%)");
         render.setString("Render: " + std::to_string(rend_time / rend_count) + " s, (" +
                          std::to_string((rend_time / rend_count) / frame * 100.0) + "%)");
-        
+
         elapsed_time = 0.f;
         act_count = proc_count = rend_count = 0;
         act_time = proc_time = rend_time = 0.0;

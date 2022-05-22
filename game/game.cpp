@@ -1,7 +1,6 @@
 #include "game.h"
 
 Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settings) {
-
     std::mt19937 random_for_init;
     auto now = std::chrono::high_resolution_clock::now();
     random_for_init.seed(static_cast<unsigned>(now.time_since_epoch().count()));
@@ -12,11 +11,14 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     game_field = std::shared_ptr<Field>(new Field(size, size));
     game_field->generate_field();
     for (int i = 1; i <= 1; i++) {
-        (*game_field)(10, i * 2 + 20)->items.push_back(std::shared_ptr<Items>
-                    (new CommonThing("bone", 1, {32.f * (i * 2.f + 20.f), 32.f * 10.f})));
-        (*game_field)(12, i * 2 + 20)->items.push_back(std::shared_ptr<Items>
-                    (new CommonThing("antidote", 1, {32.f * (i * 2.f + 20.f), 32.f * 12.f})));
-        (*game_field)(14, i * 2 + 20)->items.push_back(std::shared_ptr<Items>(
+        (*game_field)(10, i * 2 + 20)
+                ->items.push_back(
+                        std::shared_ptr<Items>(new CommonThing("bone", 1, {32.f * (i * 2.f + 20.f), 32.f * 10.f})));
+        (*game_field)(12, i * 2 + 20)
+                ->items.push_back(
+                        std::shared_ptr<Items>(new CommonThing("antidote", 1, {32.f * (i * 2.f + 20.f), 32.f * 12.f})));
+        (*game_field)(14, i * 2 + 20)
+                ->items.push_back(std::shared_ptr<Items>(
                         new CommonThing("silver_necklace", 1, {32.f * (i * 2.f + 20.f), 32.f * 14.f})));
     }
     view.reset(sf::FloatRect({0, 0}, {1280, 720}));
@@ -97,11 +99,11 @@ View_mode Game::check_event(sf::Event& event, float time) {
             return View_mode::INVENTORY_MENU;
         case (sf::Keyboard::T):
             if (player->available_trader != nullptr) {
-                TradeMenu::update_graphic_inventories(player->inventory.get(), player->available_trader->inventory.get(),
-                                                      player->inventory.get_money(),
-                                                      player->available_trader->inventory.get_money());
+                TradeMenu::update_graphic_inventories(
+                        player->inventory.get(), player->available_trader->inventory.get(),
+                        player->inventory.get_money(), player->available_trader->inventory.get_money());
                 make_screenshot("tmp_inventory");
-                return View_mode::TRADE_MENU;            
+                return View_mode::TRADE_MENU;
             }
             break;
         default:
@@ -129,8 +131,7 @@ View_mode Game::game_loop() {
             fps.add_time(time * multiplicator);
         }
         if (statistics.on) {
-            statistics.update(time, fps.get_aver(), enemies.size(), traders.size(),
-                                             drawable_creatures.size());
+            statistics.update(time, fps.get_aver(), enemies.size(), traders.size(), drawable_creatures.size());
         }
 
         window->pollEvent(event);
@@ -140,7 +141,7 @@ View_mode Game::game_loop() {
         Utils::clear_event(event, last_event, player);
 
         frame_calculation(time, event, last_event);
-        
+
         render();
 
         Screen::play_music();
@@ -164,7 +165,7 @@ void Game::frame_calculation(float time, sf::Event& event, sf::Event& last_event
     // UTILS SECTION ////////////////////////////////////////////////
     statistics.start();
     borders = Utils::get_rendering_borders(window->getSize().x, window->getSize().y, game_field->get_width(),
-                                                game_field->get_height(), player->get_pos());
+                                           game_field->get_height(), player->get_pos());
     object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
 
     Utils::delete_dead_creatures(enemies, traders);
