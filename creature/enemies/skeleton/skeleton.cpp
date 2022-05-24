@@ -11,5 +11,6 @@ Drop Skeleton::drop() const {
     std::mt19937 gen(device());
     int coins = gen() % 7500;
     int experience = 20;
-    return Drop{coins, experience};
+    
+    return Drop{coins, experience, loot};
 }
