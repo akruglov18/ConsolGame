@@ -5,6 +5,7 @@
 #include "creature.h"
 #include "field.h"
 #include "utils.h"
+#include "animated_text.h"
 
 class Action {
 public:
