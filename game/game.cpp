@@ -27,7 +27,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     // player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 10; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 10 + 4) * 40.f, (i / 10 + 4) * 40.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
@@ -148,6 +148,9 @@ void Game::frame_calculation(float time, sf::Event& event, sf::Event& last_event
     for (auto& trader : traders) {
         trader->action(time, player.get());
     }
+    for (auto& sprite : BaseAnimatedSprite::sprites) {
+        sprite->move(time);
+    }
     statistics.stop(ACTIONS_STAT);
     /////////////////////////////////////////////////////////////////
 
@@ -188,6 +191,7 @@ void Game::render() {
 
     statistics.start();
     Drawer::show_objects(*window, game_field, object_borders, drawable_creatures, show_boxes);
+    Drawer::show_animated_sprites(*window);
     statistics.stop(OBJECTS_RENDER_STAT);
 
     // RENDERING STATIC UI ELEMENTS

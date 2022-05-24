@@ -85,3 +85,10 @@ void Drawer::show_objects(sf::RenderWindow& window, const std::shared_ptr<Field>
         }
     }
 }
+
+void Drawer::show_animated_sprites(sf::RenderWindow& window) {
+    for (auto& sprite : BaseAnimatedSprite::sprites) {
+        if (!sprite->disappeared)
+            sprite->show(window);
+    }
+}

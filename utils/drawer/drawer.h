@@ -16,4 +16,6 @@ public:
     static void show_objects(sf::RenderWindow& window, const std::shared_ptr<Field>& field,
                              const std::vector<int>& object_borders,
                              const std::vector<std::shared_ptr<Creature>>& drawable_creatures, bool show_boxes);
+
+    static void show_animated_sprites(sf::RenderWindow& window);
 };

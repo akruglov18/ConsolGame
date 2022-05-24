@@ -3,10 +3,15 @@
 
 class AnimatedText : public BaseAnimatedSprite {
 public:
-    AnimatedText(const std::string& value);
-    sf::Text text;
+    AnimatedText(const std::string& value, sf::Vector2f& pos, int _dir);
+    ~AnimatedText() override {}
 
     void move(float time) override;
-    void scale(std::shared_ptr<sf::Transformable> object) override;
-    void melt_away(std::shared_ptr<sf::Drawable> object) override;
+    void show(sf::RenderWindow& window) override;
+
+private:
+    void scale() override;
+    void melt_away() override;
+    sf::Text text;
+    int dir;
 };

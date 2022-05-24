@@ -7,6 +7,7 @@
 #include "trader/trader.h"
 #include "utils.h"
 #include "weapons.h"
+#include "animated_text.h"
 
 namespace {
 
