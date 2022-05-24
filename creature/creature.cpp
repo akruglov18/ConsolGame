@@ -118,12 +118,6 @@ void Creature::set_health(float _health) {
     health = _health;
 }
 
-int Creature::get_damage() const {
-    if (weapon == nullptr)
-        return 0;
-    return static_cast<int>(weapon->get_total_damage(mode));
-}
-
 void Creature::become_red() {
     sprite.setColor(sf::Color(250, 0, 0, 240));
     for (auto& el : armor_set.armor_set) {
@@ -151,9 +145,9 @@ void Creature::move(float offset_x, float offset_y) {
     rect_collision_box.setPosition(collision_box.getPosition());
 }
 
-void Creature::reduce_health(float value) {
-    health -= value;
-    // std::cout << "health = " << health << '\n';
+void Creature::reduce_health(ReceivedDamage damage) {
+    health -= damage.physical_damage_slash;
+    health -= damage.physical_damage_thrust;
     stuck = true;
     stuck_time = STUCK_TIME;
     if (health <= 0) {

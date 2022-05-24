@@ -116,13 +116,13 @@ bool SaveArmorTests::is_equal_weapons(BaseWeapon* w1, BaseWeapon* w2) {
         return false;
     if (w1->can_thrust != w2->can_thrust)
         return false;
-    if (w1->damage_slash != w2->damage_slash)
+    if (w1->damage.physical_damage_slash != w2->damage.physical_damage_slash)
         return false;
-    if (w1->damage_thrust != w2->damage_thrust)
+    if (w1->damage.physical_damage_thrust != w2->damage.physical_damage_thrust)
         return false;
-    if (w1->critical_chance != w2->critical_chance)
+    if (w1->damage.critical_chance != w2->damage.critical_chance)
         return false;
-    if (w1->critical_multiplier != w2->critical_multiplier)
+    if (w1->damage.critical_multiplier != w2->damage.critical_multiplier)
         return false;
     if (w1->get_weapon_type() != w2->get_weapon_type())
         return false;

@@ -11,9 +11,9 @@ std::shared_ptr<Sword> Sword::make_sword(SwordType type) {
     case SwordType::Long_sword_basic: {
         auto res = std::shared_ptr<Sword>(new Sword("NONE", type));
         res->can_slash = true;
-        res->damage_slash = 50.0;
-        res->critical_chance = 40;
-        res->critical_multiplier = 1.1;
+        res->damage.physical_damage_slash = 50.0f;
+        res->damage.critical_chance = 40;
+        res->damage.critical_multiplier = 1.1f;
         return res;
     }
     default:
@@ -25,10 +25,10 @@ std::shared_ptr<Sword> Sword::make_sword_from_json(const json& json_obj) {
     auto res = make_sword(json_obj["id"]);
     res->can_slash = json_obj["can_slash"];
     res->can_thrust = json_obj["can_thrust"];
-    res->damage_slash = json_obj["damage_slash"];
-    res->damage_thrust = json_obj["damage_thrust"];
-    res->critical_chance = json_obj["critical_chance"];
-    res->critical_multiplier = json_obj["critical_multiplier"];
+    res->damage.physical_damage_slash = json_obj["physical_damage_slash"];
+    res->damage.physical_damage_thrust = json_obj["physical_damage_thrust"];
+    res->damage.critical_chance = json_obj["critical_chance"];
+    res->damage.critical_multiplier = json_obj["critical_multiplier"];
     return res;
 }
 
