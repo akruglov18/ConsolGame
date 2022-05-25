@@ -88,30 +88,6 @@ std::string Items::get_type_str() const {
     }
 }
 
-std::shared_ptr<Items> Items::get_random_loot(std::mt19937& gen) const {
-    int amount = gen() % 3 + 1;
-    std::vector<std::shared_ptr<Items>> loot;
-    for (int i = 0; i < amount; ++i) {
-        int chance = gen() % 1000;
-        std::string id;
-        int count;
-        if (chance > 200) {
-            id = Items::thing_ids.common_ids[gen() % Items::thing_ids.common_ids.size()];
-            count = gen() % 8 + 1;
-        } else if (chance > 50) {
-            id = Items::thing_ids.uncommon_ids[gen() % Items::thing_ids.uncommon_ids.size()];
-            count = gen() % 4 + 1;
-        } else if (chance > 10) {
-            id = Items::thing_ids.rare_ids[gen() % Items::thing_ids.rare_ids.size()];
-            count = gen() % 2 + 1;
-        } else {
-            id = Items::thing_ids.glorious_ids[gen() % Items::thing_ids.glorious_ids.size()];
-            count = 1;
-        }
-        std::shared_ptr<Items> loot = std::shared_ptr<CommonThing>(new CommonThing(id, count, pos));
-    }
-}
-
 void Items::set_scale(const sf::Vector2f& pos) {
     sprite.setTexture(*textures[static_cast<int>(Modes::WALK)]);
     sprite.setTextureRect(sf::IntRect({0, 128}, {64, 64}));
