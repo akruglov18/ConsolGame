@@ -17,7 +17,7 @@ PauseMenu::PauseMenu()
 }
 
 View_mode PauseMenu::Run(sf::RenderWindow& window) {
-    pause_screenIMG.loadFromFile("../../images/tmp_pause.jpg");
+    pause_screenIMG.loadFromFile("../../images/tmp.jpg");
     pause_screen.setTexture(pause_screenIMG);
     pause_screen.setColor(sf::Color(255, 255, 255, 180));
 
@@ -30,12 +30,12 @@ View_mode PauseMenu::Run(sf::RenderWindow& window) {
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed) {
-            std::remove("../../images/tmp_pause.jpg");
+            std::remove("../../images/tmp.jpg");
             return View_mode::EXIT;
         }
         to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE) {
-            std::remove("../../images/tmp_pause.jpg");
+            std::remove("../../images/tmp.jpg");
             if (to_return == View_mode::MAIN_MENU) {
                 if (menu_music.getStatus() == menu_music.Paused) {
                     menu_music.play();
@@ -44,7 +44,7 @@ View_mode PauseMenu::Run(sf::RenderWindow& window) {
             return to_return;
         }
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-            std::remove("../../images/tmp_pause.jpg");
+            std::remove("../../images/tmp.jpg");
             return View_mode::GAME;
         }
 

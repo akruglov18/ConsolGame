@@ -12,7 +12,7 @@ TradeMenu::TradeMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.f, 52.f}
 }
 
 View_mode TradeMenu::Run(sf::RenderWindow& window) {
-    inventory_screenIMG.loadFromFile("../../images/tmp_inventory.jpg");
+    inventory_screenIMG.loadFromFile("../../images/tmp.jpg");
     inventory_screen.setTexture(inventory_screenIMG);
     inventory_screen.setColor(sf::Color(210, 164, 120, 130));
 
@@ -25,12 +25,12 @@ View_mode TradeMenu::Run(sf::RenderWindow& window) {
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed) {
-            std::remove("../../images/tmp_inventory.jpg");
+            std::remove("../../images/tmp.jpg");
             return View_mode::EXIT;
         }
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::T) {
-                std::remove("../../images/tmp_inventory.jpg");
+                std::remove("../../images/tmp.jpg");
                 return View_mode::GAME;
             }
         }

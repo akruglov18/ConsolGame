@@ -9,7 +9,7 @@ Skeleton::Skeleton(CreatureManager& _manager, float _health, const sf::Vector2f&
 Drop Skeleton::drop() const {
     std::random_device device;
     std::mt19937 gen(device());
-    int coins = gen() % 7500;
+    int coins = gen() % 901 + 100;
     int experience = 20;
     int chance = gen() % 2048;
     int count;

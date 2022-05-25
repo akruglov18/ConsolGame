@@ -31,12 +31,8 @@ void Player::action(sf::Event& event, float time, Field* game_field,
         Action::dying(this, time);
         return;
     }
-    if (mode == Modes::SLASH) {
-        Action::hit(this, time, drawable_creatures, sprites, Modes::SLASH);
-        return;
-    }
-    if (mode == Modes::THRUST) {
-        Action::hit(this, time, drawable_creatures, sprites, Modes::THRUST);
+    if (mode == Modes::SLASH || mode == Modes::THRUST) {
+        Action::hit(this, time, drawable_creatures, mode);
         return;
     }
 

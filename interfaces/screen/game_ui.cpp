@@ -159,8 +159,8 @@ GameUI::GameUI() {
     magic_plate_spriteR.setScale({1.f, 1.5f});
 
     // INVENTORY //////////////////////////////////////////////////////////////////////////////////
-    gr_items_array_size = 12;
-    items_arr_x = 320.f;
+    gr_items_array_size = 6;
+    items_arr_x = 500.f;
     items_arr_y = 648.f;
 
     for (int i = 0; i < gr_items_array_size; ++i) {

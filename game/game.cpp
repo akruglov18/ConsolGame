@@ -53,13 +53,14 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
 
 View_mode Game::check_event(sf::Event& event, float time) {
     if (event.type == sf::Event::Closed) {
+        std::remove("../../images/tmp.jpg");
         return View_mode::EXIT;
     }
 
     if (player->dead) {
         countdown_before_gameover_screen += time;
         if (countdown_before_gameover_screen > 5.f) {
-            make_screenshot("tmp_gameover");
+            make_screenshot("tmp");
             return View_mode::GAMEOVER_MENU;
         }
     }
@@ -80,18 +81,18 @@ View_mode Game::check_event(sf::Event& event, float time) {
             show_boxes = !show_boxes;
             break;
         case (sf::Keyboard::Escape):
-            make_screenshot("tmp_pause");
+            make_screenshot("tmp");
             return View_mode::PAUSE_MENU;
         case (sf::Keyboard::E):
             InventoryMenu::update_graphic_inventory(player->inventory.get(), player->inventory.get_money());
-            make_screenshot("tmp_inventory");
+            make_screenshot("tmp");
             return View_mode::INVENTORY_MENU;
         case (sf::Keyboard::T):
             if (player->available_trader != nullptr) {
                 TradeMenu::update_graphic_inventories(
                         player->inventory.get(), player->available_trader->inventory.get(),
                         player->inventory.get_money(), player->available_trader->inventory.get_money());
-                make_screenshot("tmp_inventory");
+                make_screenshot("tmp");
                 return View_mode::TRADE_MENU;
             }
             break;
