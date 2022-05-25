@@ -301,6 +301,8 @@ void CreatureManager::creatureDied(Creature* creature) {
         auto y = static_cast<int>(creature->get_pos().y) >> 5;
         if (drop.coins > 0) {
             (*field)(y, x)->items.push_back(std::shared_ptr<Items>(new Coins(drop.coins, creature->get_pos())));
+            if (drop.loot != nullptr)
+                (*field)(y, x)->items.push_back(drop.loot);
         }
         player->add_experience(drop.experience);
     }

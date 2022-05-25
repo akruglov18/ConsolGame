@@ -89,8 +89,27 @@ void Trader::fill_inventory(std::mt19937& gen) {
     int items_amount = gen() % 12 + 5;
     std::vector<std::shared_ptr<Items>> items;
     for (int i = 0; i < items_amount; ++i) {
-        int index = gen() % Inventory::ids.size();
-        items.push_back(std::shared_ptr<Items>(new CommonThing(Inventory::ids[index], gen() % 64 + 1, {0.f, 0.f})));
+        int chance = gen() % 1000;
+        std::string id;
+        int count;
+        if (chance > 200) {
+            int food = gen() % 2;
+            if (food == 1)
+                id = Items::food_ids.common_ids[gen() % Items::food_ids.common_ids.size()];
+            else
+                id = Items::thing_ids.common_ids[gen() % Items::thing_ids.common_ids.size()];
+            count = gen() % 8 + 1;
+        } else if (chance > 50) {
+            id = Items::thing_ids.uncommon_ids[gen() % Items::thing_ids.uncommon_ids.size()];
+            count = gen() % 4 + 1;
+        } else if (chance > 10) {
+            id = Items::thing_ids.rare_ids[gen() % Items::thing_ids.rare_ids.size()];
+            count = gen() % 2 + 1;
+        } else {
+            id = Items::thing_ids.glorious_ids[gen() % Items::thing_ids.glorious_ids.size()];
+            count = 1;
+        }
+        items.push_back(std::shared_ptr<Items>(new CommonThing(id, count, {0.f, 0.f})));
     }
     while (items.size()) {
         inventory.take(items);

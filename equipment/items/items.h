@@ -67,7 +67,6 @@ public:
     }
     void set_scale(const sf::Vector2f& pos);
     virtual json to_json() const = 0;
-    std::shared_ptr<Items> get_random_loot(std::mt19937& gen) const;
 
     int value = 1;
 
@@ -87,5 +86,5 @@ protected:
 struct Drop {
     int coins = 0;
     int experience = 0;
-    std::vector<std::shared_ptr<Items>> loot;
+    std::shared_ptr<Items> loot;
 };
