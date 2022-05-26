@@ -20,12 +20,14 @@ void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<S
     for (std::size_t i = 0; i < items_array.size(); i++) {
         (*gr_inventory)[i]->slot = items_array[i];
         if ((*gr_inventory)[i]->slot->get_item() != nullptr) {
-            float x = (*gr_inventory)[i]->slot_sprite.getPosition().x + 16.f;
-            float y = (*gr_inventory)[i]->slot_sprite.getPosition().y + 16.f;
             if ((*gr_inventory)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
-                (*gr_inventory)[i]->slot->get_item()->get_icon().setPosition({x - 12.f, y - 12.f});
+                float x = (*gr_inventory)[i]->slot_sprite.getPosition().x;
+                float y = (*gr_inventory)[i]->slot_sprite.getPosition().y;
+                (*gr_inventory)[i]->slot->get_item()->get_icon().setPosition({x, y});
                 (*gr_inventory)[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
             } else {
+                float x = (*gr_inventory)[i]->slot_sprite.getPosition().x + 16.f;
+                float y = (*gr_inventory)[i]->slot_sprite.getPosition().y + 16.f;
                 (*gr_inventory)[i]->slot->get_item()->get_sprite().setPosition({x, y});
                 (*gr_inventory)[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
             }
