@@ -66,8 +66,13 @@ void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slo
         if ((*gr_inventory_player)[i]->slot->get_item() != nullptr) {
             float x = (*gr_inventory_player)[i]->slot_sprite.getPosition().x + 16.f;
             float y = (*gr_inventory_player)[i]->slot_sprite.getPosition().y + 16.f;
-            (*gr_inventory_player)[i]->slot->get_item()->get_sprite().setPosition({x, y});
-            (*gr_inventory_player)[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+            if ((*gr_inventory_player)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                (*gr_inventory_player)[i]->slot->get_item()->get_icon().setPosition({x - 12.f, y - 12.f});
+                (*gr_inventory_player)[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
+            } else {
+                (*gr_inventory_player)[i]->slot->get_item()->get_sprite().setPosition({x, y});
+                (*gr_inventory_player)[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+            }
             (*gr_inventory_player)[i]->gr_amount.setString(
                     std::to_string((*gr_inventory_player)[i]->slot->get_amount()));
             if ((*gr_inventory_player)[i]->slot->get_amount() >= 10 && !(*gr_inventory_player)[i]->gr_amount_offset) {
@@ -84,8 +89,13 @@ void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slo
         if (gr_inventory_trader[i]->slot->get_item() != nullptr) {
             float x = gr_inventory_trader[i]->slot_sprite.getPosition().x + 16.f;
             float y = gr_inventory_trader[i]->slot_sprite.getPosition().y + 16.f;
-            gr_inventory_trader[i]->slot->get_item()->get_sprite().setPosition({x, y});
-            gr_inventory_trader[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+            if (gr_inventory_trader[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                gr_inventory_trader[i]->slot->get_item()->get_icon().setPosition({x - 12.f, y - 12.f});
+                gr_inventory_trader[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
+            } else {
+                gr_inventory_trader[i]->slot->get_item()->get_sprite().setPosition({x, y});
+                gr_inventory_trader[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+            }
             gr_inventory_trader[i]->gr_amount.setString(std::to_string(gr_inventory_trader[i]->slot->get_amount()));
             if (gr_inventory_trader[i]->slot->get_amount() >= 10 && !gr_inventory_trader[i]->gr_amount_offset) {
                 float x = gr_inventory_trader[i]->gr_amount.getPosition().x - 6.f;

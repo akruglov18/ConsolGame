@@ -4,6 +4,9 @@ Axe::Axe(const std::string& name, AxeType type)
         : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {58.f, 20.f}}) {
     weapon_type = WeaponType::AXE;
     id = static_cast<int>(type);
+    icon.setTexture(*Resources::TexturesHolder::getResource("AXE_basic_icon"));
+    icon.setPosition({0, 0});
+    icon.setTextureRect({{0, 0}, {64, 64}});
 }
 
 std::shared_ptr<Axe> Axe::make_axe(AxeType type) {

@@ -59,6 +59,9 @@ public:
     sf::Sprite& get_sprite() {
         return sprite;
     }
+    sf::Sprite& get_icon() {
+        return icon;
+    }
     std::vector<std::shared_ptr<sf::Texture>>& get_textures() {
         return textures;
     }
@@ -80,6 +83,7 @@ protected:
     std::string id;
     std::vector<std::shared_ptr<sf::Texture>> textures;
     sf::Sprite sprite;
+    sf::Sprite icon;
     ItemType item_type = ItemType::NONE;
 };
 

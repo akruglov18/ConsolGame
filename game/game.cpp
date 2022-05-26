@@ -24,8 +24,14 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     player->set_armor(Pants::make_pants(PantsType::Pants_green));
     player->set_armor(Boots::make_boots(BootsType::Boots_brown));
     // player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
-    // player->set_weapon(Flail::make_flail());
-    player->set_weapon(Halberd::make_halberd());
+    player->set_weapon(Flail::make_flail());
+    //player->set_weapon(Halberd::make_halberd());
+    std::vector<std::shared_ptr<Items>> tmp_vec;
+    tmp_vec.push_back(player->get_weapon());
+    tmp_vec.push_back(Flail::make_flail());
+    tmp_vec.push_back(Axe::make_axe(AxeType::Axe_basic));
+    tmp_vec.push_back(Halberd::make_halberd());
+    player->inventory.take(tmp_vec);
 
     for (int i = 0; i < 1; ++i) {
         enemies.push_back(

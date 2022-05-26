@@ -22,8 +22,13 @@ void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<S
         if ((*gr_inventory)[i]->slot->get_item() != nullptr) {
             float x = (*gr_inventory)[i]->slot_sprite.getPosition().x + 16.f;
             float y = (*gr_inventory)[i]->slot_sprite.getPosition().y + 16.f;
-            (*gr_inventory)[i]->slot->get_item()->get_sprite().setPosition({x, y});
-            (*gr_inventory)[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+            if ((*gr_inventory)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                (*gr_inventory)[i]->slot->get_item()->get_icon().setPosition({x - 12.f, y - 12.f});
+                (*gr_inventory)[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
+            } else {
+                (*gr_inventory)[i]->slot->get_item()->get_sprite().setPosition({x, y});
+                (*gr_inventory)[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+            }
             (*gr_inventory)[i]->gr_amount.setString(std::to_string((*gr_inventory)[i]->slot->get_amount()));
             if ((*gr_inventory)[i]->slot->get_amount() >= 10 && !(*gr_inventory)[i]->gr_amount_offset) {
                 float x = (*gr_inventory)[i]->gr_amount.getPosition().x - 6.f;

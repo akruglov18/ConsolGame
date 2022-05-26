@@ -3,6 +3,9 @@
 Flail::Flail(const std::string& name)
         : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{32.f, 32.f}, {58.f, 32.f}}) {
     weapon_type = WeaponType::FLAIL;
+    icon.setTexture(*Resources::TexturesHolder::getResource("FLAIL_icon"));
+    icon.setPosition({0, 0});
+    icon.setTextureRect({{0, 0}, {64, 64}});
 }
 
 std::shared_ptr<Flail> Flail::make_flail() {

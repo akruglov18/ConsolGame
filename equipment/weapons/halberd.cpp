@@ -3,6 +3,9 @@
 Halberd::Halberd(const std::string& name)
         : BaseWeapon(name, std::pair<sf::Vector2f, sf::Vector2f>{{48.f, 32.f}, {80.f, 32.f}}) {
     weapon_type = WeaponType::HALBERD;
+    icon.setTexture(*Resources::TexturesHolder::getResource("HALBERD_icon"));
+    icon.setPosition({0, 0});
+    icon.setTextureRect({{0, 0}, {64, 64}});
 }
 
 std::shared_ptr<Halberd> Halberd::make_halberd() {

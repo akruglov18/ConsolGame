@@ -10,8 +10,6 @@ void Slot::place_item_in_new_slot(std::shared_ptr<Items> _item) {
     item = _item;
     switch (item->get_type()) {
     case (ItemType::WEAPON):
-        max_amount = 1;
-        break;
     case (ItemType::ARMOR):
         max_amount = 1;
         break;

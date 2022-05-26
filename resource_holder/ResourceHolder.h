@@ -422,15 +422,18 @@ public:
         loadFromFile("../../images/items/weapons/War_Axe/Walk.png", "AXE_basic_walk");
         loadFromFile("../../images/items/weapons/War_Axe/Slash.png", "AXE_basic_slash");
         loadFromFile("../../images/items/weapons/War_Axe/Hurt.png", "AXE_basic_hurt");
+        loadFromFile("../../images/items/weapons/War_Axe/single_war_axe.png", "AXE_basic_icon");
 
         loadFromFile("../../images/items/weapons/Flail/Walk.png", "FLAIL_walk");
         loadFromFile("../../images/items/weapons/Flail/Slash.png", "FLAIL_slash");
         loadFromFile("../../images/items/weapons/Flail/Hurt.png", "FLAIL_hurt");
+        loadFromFile("../../images/items/weapons/Flail/single_flail.png", "FLAIL_icon");
 
         loadFromFile("../../images/items/weapons/Halberd/Walk.png", "HALBERD_walk");
         loadFromFile("../../images/items/weapons/Halberd/Slash.png", "HALBERD_slash");
         loadFromFile("../../images/items/weapons/Halberd/Thrust.png", "HALBERD_thrust");
         loadFromFile("../../images/items/weapons/Halberd/Hurt.png", "HALBERD_hurt");
+        loadFromFile("../../images/items/weapons/Halberd/single_halberd.png", "HALBERD_icon");
 
         // TERRAIN AND FEATURES
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
