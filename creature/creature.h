@@ -6,6 +6,7 @@
 #include "SFML/Graphics.hpp"
 #include "armor_set.h"
 #include "base_weapon.h"
+#include "common_thing.h"
 #include "field.h"
 #include "nlohmann_json/json.hpp"
 

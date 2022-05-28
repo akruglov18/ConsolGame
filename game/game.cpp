@@ -10,17 +10,6 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
 
     game_field = std::shared_ptr<Field>(new Field(size, size));
     game_field->generate_field();
-    for (int i = 1; i <= 1; i++) {
-        (*game_field)(10, i * 2 + 20)
-                ->items.push_back(
-                        std::shared_ptr<Items>(new CommonThing("bone", 1, {32.f * (i * 2.f + 20.f), 32.f * 10.f})));
-        (*game_field)(12, i * 2 + 20)
-                ->items.push_back(
-                        std::shared_ptr<Items>(new CommonThing("antidote", 1, {32.f * (i * 2.f + 20.f), 32.f * 12.f})));
-        (*game_field)(14, i * 2 + 20)
-                ->items.push_back(std::shared_ptr<Items>(
-                        new CommonThing("silver_necklace", 1, {32.f * (i * 2.f + 20.f), 32.f * 14.f})));
-    }
     view.reset(sf::FloatRect({0, 0}, {1280, 720}));
 
     player = std::shared_ptr<Player>(new Player(manager, 100.f, {666.f, 260.f}));
@@ -38,7 +27,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     // player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
-    for (int i = 0; i < 1; ++i) {
+    for (int i = 0; i < 5; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 10 + 4) * 40.f, (i / 10 + 4) * 40.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
@@ -50,7 +39,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     //     enemies.push_back(
     //             Enemy::spawn_enemy(CreatureType::SPIDER, manager, 100, {(i % 7 + 1) * 200.f, (i / 7 + 2) * 200.f}));
     // }
-    for (int i = 0; i < 1; ++i) {
+    for (int i = 0; i < 10; ++i) {
         traders.push_back(
                 std::shared_ptr<Trader>(new Trader(manager, 1000, {(i + 1) * 200.f, 300.f}, random_for_init)));
     }

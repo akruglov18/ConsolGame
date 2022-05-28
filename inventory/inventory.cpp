@@ -1,52 +1,5 @@
 #include "inventory.h"
 
-std::vector<std::string> Inventory::ids = {
-    "bronze_medal",
-    "silver_medal",
-    "gold_medal",
-    "gold_sapphire_medal",
-    "silver_necklace",
-    "sapphire_necklace",
-    "gold_necklace",
-    "ruby_necklace",
-    "silver_ring",
-    "agate",
-    "amethist",
-    "bronze_bar",
-    "bronze_coin",
-    "coal",
-    "diamond",
-    "eye",
-    "common_feather",
-    "rare_feather",
-    "fox_tail",
-    "frog_leg",
-    "gold_bar",
-    "gold_coin",
-    "jade",
-    "opal",
-    "rabbit_paw",
-    "ruby",
-    "sapphire",
-    "scorpion_claw",
-    "scroll_1",
-    "scroll_2",
-    "silver_bar",
-    "silver_coin",
-    "wolf_fur",
-    "antidote",
-    "bone",
-    "banana",
-    "bread",
-    "cheese",
-    "fish",
-    "grapes",
-    "meat",
-    "pie",
-    "pineapple",
-    "watermelon"
-};
-
 Slot::Slot() {
     item = nullptr;
     amount = 0;

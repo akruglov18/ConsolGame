@@ -35,7 +35,6 @@ public:
     void set_money(int _money) {
         money = _money;
     }
-    static std::vector<std::string> ids;
 
 private:
     int money;
