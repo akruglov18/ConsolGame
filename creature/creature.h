@@ -51,7 +51,6 @@ public:
      * @param[in] hit Box for hit's definition
      * @param[in] collision Box for movement's definition
      * @param[in] centre_offset Offset for box showing (offset is caused by different textures)
-     * @return Output expression
      */
     Creature(const std::string& name, CreatureManager& manager, float health, const sf::Vector2f& pos,
              const sf::Vector2f& hit, const sf::Vector2f& collision, const sf::Vector2f& centre_offset);
@@ -66,7 +65,7 @@ public:
     CreatureAnim get_anim() const {
         return creature_anim;
     }
-    void reduce_health(float value);
+    void reduce_health(ReceivedDamage damage);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
     void show_box(sf::RenderWindow& window);
@@ -104,7 +103,6 @@ public:
         return max_health;
     }
     void set_health(float health);
-    int get_damage() const;
     float get_health() const {
         return health;
     }

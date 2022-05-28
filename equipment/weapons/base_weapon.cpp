@@ -19,26 +19,12 @@ BaseWeapon::BaseWeapon(const std::string& name, const std::pair<sf::Vector2f, sf
 BaseWeapon::BaseWeapon(const BaseWeapon& other) {
     textures = other.textures;
     sprite = other.sprite;
-    damage_slash = other.damage_slash;
-    damage_thrust = other.damage_thrust;
-    critical_chance = other.critical_chance;
-    critical_multiplier = other.critical_multiplier;
+    damage = other.damage;
     weapon_type = other.weapon_type;
 }
 
-double BaseWeapon::get_total_damage(Modes mode) const {
-    std::random_device device;
-    std::mt19937 gen(device());
-    int chance = gen() % 101;
-    double result = 0.0;
-    if (mode == Modes::SLASH)
-        result = damage_slash;
-    else
-        result = damage_thrust;
-    if (chance <= critical_chance) {
-        result *= critical_multiplier;
-    }
-    return result;
+ReceivedDamage BaseWeapon::get_total_damage(Modes mode) const {
+    return damage.damage(mode);
 }
 
 json BaseWeapon::to_json() const {
@@ -47,10 +33,10 @@ json BaseWeapon::to_json() const {
     res[name]["id"] = get_weapon_id();
     res[name]["can_slash"] = can_slash;
     res[name]["can_thrust"] = can_thrust;
-    res[name]["damage_slash"] = damage_slash;
-    res[name]["damage_thrust"] = damage_thrust;
-    res[name]["critical_chance"] = critical_chance;
-    res[name]["critical_multiplier"] = critical_multiplier;
+    res[name]["physical_damage_slash"] = damage.physical_damage_slash;
+    res[name]["physical_damage_thrust"] = damage.physical_damage_thrust;
+    res[name]["critical_chance"] = damage.critical_chance;
+    res[name]["critical_multiplier"] = damage.critical_multiplier;
     return res;
 }
 
