@@ -32,7 +32,7 @@ std::shared_ptr<Enemy> Enemy::spawn_enemy(CreatureType type, CreatureManager& ma
 }
 
 void Enemy::action(float time, Field* field, Player* player, bool difficulty) {
-    update_stuck_frame(time);
+    update_status(time);
     health_bar.update(health, max_health, hit_box);
     if (dying) {
         Action::dying(this, time);

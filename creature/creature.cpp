@@ -145,9 +145,10 @@ void Creature::move(float offset_x, float offset_y) {
     rect_collision_box.setPosition(collision_box.getPosition());
 }
 
-void Creature::reduce_health(ReceivedDamage damage) {
+void Creature::reduce_health(const ReceivedDamage& damage) {
     health -= damage.physical_damage_slash;
     health -= damage.physical_damage_thrust;
+    status.set_status(damage);
     stuck = true;
     stuck_time = STUCK_TIME;
     if (health <= 0) {
@@ -155,7 +156,8 @@ void Creature::reduce_health(ReceivedDamage damage) {
     }
 }
 
-void Creature::update_stuck_frame(float time) {
+void Creature::update_status(float time) {
+    health -= status.posion_damage(time);
     if (stuck) {
         stuck_time -= 0.15f * time;
         if (stuck_time < 0) {
