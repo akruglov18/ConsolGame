@@ -1,6 +1,8 @@
 #pragma once
 #include "screen.h"
 
+#define NONE_CHOSEN 9223372036854775807
+
 class GraphicSlot {
 public:
     std::shared_ptr<Slot> slot;

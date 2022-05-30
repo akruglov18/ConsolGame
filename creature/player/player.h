@@ -11,7 +11,7 @@ public:
                 const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
                 std::vector<std::shared_ptr<BaseAnimatedSprite>>& sprites);
 
-    Inventory inventory;
+    static inline Inventory inventory;
     float get_satiety() {
         return satiety;
     }

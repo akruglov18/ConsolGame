@@ -121,7 +121,7 @@ void TradeMenu::show_inventories(sf::RenderWindow& window) {
         el->show_slot(window);
     window.draw(*gr_money_player);
     window.draw(gr_money_trader);
-    if (GraphicInventory::chosen_one != LLONG_MAX) {
+    if (GraphicInventory::chosen_one != NONE_CHOSEN) {
         gr_inventory_player->gr_items_array[GraphicInventory::chosen_one]->show_slot(window);
     }
 }

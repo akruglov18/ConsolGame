@@ -134,7 +134,7 @@ void GraphicInventory::set_pos(float x, float y) {
 
 // THE LOGIC OF OBJECTS MOVING ////////////////////////////////////////////////////////////////////
 
-std::size_t GraphicInventory::chosen_one = LLONG_MAX; // means that none is chosen
+std::size_t GraphicInventory::chosen_one = NONE_CHOSEN;
 float GraphicInventory::click_offset_x = 0.f;
 float GraphicInventory::click_offset_y = 0.f;
 
@@ -142,7 +142,7 @@ void GraphicInventory::check_move_objects(sf::Vector2i _mouse_pos,
                                           std::vector<std::shared_ptr<GraphicSlot>>& gr_items_array) {
     sf::Vector2f mouse_pos = {static_cast<float>(_mouse_pos.x), static_cast<float>(_mouse_pos.y)};
 
-    if (chosen_one == LLONG_MAX) {
+    if (chosen_one == NONE_CHOSEN) {
         for (std::size_t i = 0; i < gr_items_array.size(); ++i) {        
             if (gr_items_array[i]->slot->get_item() != nullptr && gr_items_array[i]->pos.contains(mouse_pos)) {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
@@ -172,7 +172,8 @@ void GraphicInventory::check_move_objects(sf::Vector2i _mouse_pos,
                     released_out_of_the_box = false;
 
                     // pointers exchanging
-                    std::swap(gr_items_array[i]->slot, gr_items_array[chosen_one]->slot);
+                    gr_items_array[i]->slot.swap(gr_items_array[chosen_one]->slot);
+                    Player::inventory.get()[i].swap(Player::inventory.get()[chosen_one]);
 
                     // correct placing of chosen object which is in [i] index after swap
                     sf::Vector2f new_pos;
@@ -214,7 +215,7 @@ void GraphicInventory::check_move_objects(sf::Vector2i _mouse_pos,
                 }
             }
 
-            chosen_one = LLONG_MAX;
+            chosen_one = NONE_CHOSEN;
         }
     }
 }

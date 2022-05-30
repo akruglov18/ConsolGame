@@ -25,7 +25,7 @@ class Inventory {
 public:
     Inventory();
     void take(std::vector<std::shared_ptr<Items>>& items);
-    std::vector<std::shared_ptr<Slot>> get() {
+    std::vector<std::shared_ptr<Slot>>& get() {
         return items_array;
     }
     int get_money() {

@@ -46,7 +46,7 @@ void InventoryMenu::show_inventory(sf::RenderWindow& window) {
     for (auto& el : gr_inventory->gr_items_array)
         el->show_slot(window);
     window.draw(*gr_money);
-    if (GraphicInventory::chosen_one != LLONG_MAX) {
+    if (GraphicInventory::chosen_one != NONE_CHOSEN) {
         gr_inventory->gr_items_array[GraphicInventory::chosen_one]->show_slot(window);
     }
 }
