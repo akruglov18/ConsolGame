@@ -95,6 +95,8 @@ void GraphicInventory::build_inventory(const std::vector<std::shared_ptr<Slot>>&
             slot->gr_amount.setFillColor(sf::Color(0, 240, 24));
             slot->gr_amount.setPosition(sf::Vector2f(
                     {(j * 76.f) - offset_amount_x + pos_x + 54.f, (i * 76.f) - offset_amount_y + pos_y + 52.f}));
+
+            slot->pos = {{slot->slot_sprite.getPosition()}, {static_cast<float>(w * 2), static_cast<float>(h * 2)}};
         }
     }
 }
@@ -119,9 +121,100 @@ void GraphicInventory::set_pos(float x, float y) {
         auto& posamount = gr_items_array[i]->gr_amount.getPosition();
         gr_items_array[i]->slot_sprite.setPosition({posslot.x + diff_x, posslot.y + diff_y});
         gr_items_array[i]->gr_amount.setPosition({posamount.x + diff_x, posamount.y + diff_y});
+        gr_items_array[i]->pos.left = gr_items_array[i]->slot_sprite.getPosition().x;
+        gr_items_array[i]->pos.top = gr_items_array[i]->slot_sprite.getPosition().y;
         if (gr_items_array[i]->slot->get_item() != nullptr) {
             auto& positem = gr_items_array[i]->slot->get_item()->get_icon().getPosition();
             gr_items_array[i]->slot->get_item()->get_icon().setPosition({positem.x + diff_x, positem.y + diff_y});
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// THE LOGIC OF OBJECTS MOVING ////////////////////////////////////////////////////////////////////
+
+std::size_t GraphicInventory::chosen_one = LLONG_MAX; // means that none is chosen
+float GraphicInventory::click_offset_x = 0.f;
+float GraphicInventory::click_offset_y = 0.f;
+
+void GraphicInventory::check_move_objects(sf::Vector2i _mouse_pos,
+                                          std::vector<std::shared_ptr<GraphicSlot>>& gr_items_array) {
+    sf::Vector2f mouse_pos = {static_cast<float>(_mouse_pos.x), static_cast<float>(_mouse_pos.y)};
+
+    if (chosen_one == LLONG_MAX) {
+        for (std::size_t i = 0; i < gr_items_array.size(); ++i) {        
+            if (gr_items_array[i]->slot->get_item() != nullptr && gr_items_array[i]->pos.contains(mouse_pos)) {
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+                    chosen_one = i;
+                    if (gr_items_array[chosen_one]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                        click_offset_x = mouse_pos.x - gr_items_array[i]->pos.left;
+                        click_offset_y = mouse_pos.y - gr_items_array[i]->pos.top;
+                    } else {
+                        click_offset_x = mouse_pos.x - gr_items_array[i]->pos.left - 16.f;
+                        click_offset_y = mouse_pos.y - gr_items_array[i]->pos.top - 16.f;
+                    }
+                    break;
+                }
+            }
+        }
+    } else {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            gr_items_array[chosen_one]->slot->get_item()->get_icon().setPosition(
+                    {mouse_pos.x - click_offset_x, mouse_pos.y - click_offset_y});
+        } else { 
+            // placing item into new slot
+            bool released_out_of_the_box = true;
+            sf::Vector2f chosen_one_pos = gr_items_array[chosen_one]->slot_sprite.getPosition();
+
+            for (std::size_t i = 0; i < gr_items_array.size(); ++i) {
+                if (gr_items_array[i]->pos.contains(mouse_pos)) {
+                    released_out_of_the_box = false;
+
+                    // pointers exchanging
+                    std::swap(gr_items_array[i]->slot, gr_items_array[chosen_one]->slot);
+
+                    // correct placing of chosen object which is in [i] index after swap
+                    sf::Vector2f new_pos;
+                    if (gr_items_array[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                        new_pos = gr_items_array[i]->slot_sprite.getPosition();
+                    } else {
+                        new_pos = {gr_items_array[i]->slot_sprite.getPosition().x + 16.f,
+                                          gr_items_array[i]->slot_sprite.getPosition().y + 16.f};
+                    }
+                    gr_items_array[i]->slot->get_item()->get_icon().setPosition(new_pos);
+
+                    // placing into empty slot
+                    if (gr_items_array[chosen_one]->slot->get_item() == nullptr) {
+                        gr_items_array[i]->gr_amount.setString(std::to_string(gr_items_array[i]->slot->get_amount()));
+                        break;
+                    }
+
+                    // correct graphic amount
+                    gr_items_array[chosen_one]->gr_amount.setString(
+                            std::to_string(gr_items_array[chosen_one]->slot->get_amount()));
+                    gr_items_array[i]->gr_amount.setString(std::to_string(gr_items_array[i]->slot->get_amount()));
+
+                    // correct replacing of object which is in [chosen_one] index after swap
+                    if (gr_items_array[chosen_one]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                        gr_items_array[chosen_one]->slot->get_item()->get_icon().setPosition(chosen_one_pos);
+                    } else {
+                        gr_items_array[chosen_one]->slot->get_item()->get_icon().setPosition(
+                                {chosen_one_pos.x + 16.f, chosen_one_pos.y + 16.f});
+                    }
+                }
+            }
+
+            if (released_out_of_the_box) {
+                if (gr_items_array[chosen_one]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                    gr_items_array[chosen_one]->slot->get_item()->get_icon().setPosition(chosen_one_pos);
+                } else {
+                    gr_items_array[chosen_one]->slot->get_item()->get_icon().setPosition(
+                            {chosen_one_pos.x + 16.f, chosen_one_pos.y + 16.f});
+                }
+            }
+
+            chosen_one = LLONG_MAX;
         }
     }
 }

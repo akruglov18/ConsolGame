@@ -46,6 +46,9 @@ void InventoryMenu::show_inventory(sf::RenderWindow& window) {
     for (auto& el : gr_inventory->gr_items_array)
         el->show_slot(window);
     window.draw(*gr_money);
+    if (GraphicInventory::chosen_one != LLONG_MAX) {
+        gr_inventory->gr_items_array[GraphicInventory::chosen_one]->show_slot(window);
+    }
 }
 
 View_mode InventoryMenu::Run(sf::RenderWindow& window) {
@@ -75,6 +78,8 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window) {
         to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE)
             return to_return;
+
+        GraphicInventory::check_move_objects(sf::Mouse::getPosition(window), gr_inventory->gr_items_array);
 
         window.clear(color);
         window.draw(inventory_screen);

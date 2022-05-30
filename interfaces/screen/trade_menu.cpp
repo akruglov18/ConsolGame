@@ -39,6 +39,8 @@ View_mode TradeMenu::Run(sf::RenderWindow& window) {
         if (to_return != View_mode::NONE)
             return to_return;
 
+        GraphicInventory::check_move_objects(sf::Mouse::getPosition(window), gr_inventory_player->gr_items_array);
+
         window.clear(color);
         window.draw(inventory_screen);
         b_exit.print_button(window);
@@ -119,4 +121,7 @@ void TradeMenu::show_inventories(sf::RenderWindow& window) {
         el->show_slot(window);
     window.draw(*gr_money_player);
     window.draw(gr_money_trader);
+    if (GraphicInventory::chosen_one != LLONG_MAX) {
+        gr_inventory_player->gr_items_array[GraphicInventory::chosen_one]->show_slot(window);
+    }
 }
