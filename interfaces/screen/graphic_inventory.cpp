@@ -3,11 +3,7 @@
 void GraphicSlot::show_slot(sf::RenderWindow& window) {
     window.draw(slot_sprite);
     if (slot->get_item() != nullptr) {
-        if (slot->get_item()->get_type() == ItemType::WEAPON) {
-            window.draw(slot->get_item()->get_icon());
-        } else {
-            window.draw(slot->get_item()->get_sprite());
-        }
+        window.draw(slot->get_item()->get_icon());
         window.draw(gr_amount);
     }
 }
@@ -124,13 +120,8 @@ void GraphicInventory::set_pos(float x, float y) {
         gr_items_array[i]->slot_sprite.setPosition({posslot.x + diff_x, posslot.y + diff_y});
         gr_items_array[i]->gr_amount.setPosition({posamount.x + diff_x, posamount.y + diff_y});
         if (gr_items_array[i]->slot->get_item() != nullptr) {
-            if (gr_items_array[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
-                auto& positem = gr_items_array[i]->slot->get_item()->get_icon().getPosition();
-                gr_items_array[i]->slot->get_item()->get_icon().setPosition({positem.x + diff_x, positem.y + diff_y});
-            } else {
-                auto& positem = gr_items_array[i]->slot->get_item()->get_sprite().getPosition();
-                gr_items_array[i]->slot->get_item()->get_sprite().setPosition({positem.x + diff_x, positem.y + diff_y});
-            }
+            auto& positem = gr_items_array[i]->slot->get_item()->get_icon().getPosition();
+            gr_items_array[i]->slot->get_item()->get_icon().setPosition({positem.x + diff_x, positem.y + diff_y});
         }
     }
 }

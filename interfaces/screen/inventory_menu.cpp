@@ -20,21 +20,20 @@ void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<S
     for (std::size_t i = 0; i < items_array.size(); i++) {
         (*gr_inventory)[i]->slot = items_array[i];
         if ((*gr_inventory)[i]->slot->get_item() != nullptr) {
+            float x, y;
             if ((*gr_inventory)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
-                float x = (*gr_inventory)[i]->slot_sprite.getPosition().x;
-                float y = (*gr_inventory)[i]->slot_sprite.getPosition().y;
-                (*gr_inventory)[i]->slot->get_item()->get_icon().setPosition({x, y});
-                (*gr_inventory)[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
+                x = (*gr_inventory)[i]->slot_sprite.getPosition().x;
+                y = (*gr_inventory)[i]->slot_sprite.getPosition().y;
             } else {
-                float x = (*gr_inventory)[i]->slot_sprite.getPosition().x + 16.f;
-                float y = (*gr_inventory)[i]->slot_sprite.getPosition().y + 16.f;
-                (*gr_inventory)[i]->slot->get_item()->get_sprite().setPosition({x, y});
-                (*gr_inventory)[i]->slot->get_item()->get_sprite().setScale({1.25f, 1.25f});
+                x = (*gr_inventory)[i]->slot_sprite.getPosition().x + 16.f;
+                y = (*gr_inventory)[i]->slot_sprite.getPosition().y + 16.f;
             }
+            (*gr_inventory)[i]->slot->get_item()->get_icon().setPosition({x, y});
+            (*gr_inventory)[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
             (*gr_inventory)[i]->gr_amount.setString(std::to_string((*gr_inventory)[i]->slot->get_amount()));
             if ((*gr_inventory)[i]->slot->get_amount() >= 10 && !(*gr_inventory)[i]->gr_amount_offset) {
-                float x = (*gr_inventory)[i]->gr_amount.getPosition().x - 6.f;
-                float y = (*gr_inventory)[i]->gr_amount.getPosition().y;
+                x = (*gr_inventory)[i]->gr_amount.getPosition().x - 6.f;
+                y = (*gr_inventory)[i]->gr_amount.getPosition().y;
                 (*gr_inventory)[i]->gr_amount.setPosition(sf::Vector2f({x, y}));
                 (*gr_inventory)[i]->gr_amount_offset = true;
             }

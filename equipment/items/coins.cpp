@@ -3,10 +3,10 @@
 #include "ResourceHolder.h"
 
 Coins::Coins(int _value, const sf::Vector2f& position) {
-    sprite.setTexture(*Resources::TexturesHolder::getResource("gold"));
+    icon.setTexture(*Resources::TexturesHolder::getResource("gold"));
     value = _value;
     chooseTexture();
-    sprite.setPosition({position.x + 16.f, position.y + 8.f});
+    icon.setPosition({position.x + 16.f, position.y + 8.f});
     item_type = ItemType::COINS;
 }
 
@@ -25,7 +25,7 @@ void Coins::chooseTexture() {
             // and the calculating of position will be more easier
             int width = (i & 3) << 5;
             int height = (i >> 2) << 5;
-            sprite.setTextureRect(sf::IntRect({width, height}, {32, 32}));
+            icon.setTextureRect(sf::IntRect({width, height}, {32, 32}));
             break;
         }
     }
