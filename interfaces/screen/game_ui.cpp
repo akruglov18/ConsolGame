@@ -192,6 +192,22 @@ void GameUI::update_UI(Player& p) {
     health_bar_sprite.setScale({std::fmax(0.f, (health / max_health) * 16.f), 1.f});
     satiety_bar_sprite.setScale({std::fmax(0.f, (satiety / max_satiety) * 16.f), 1.f});
     expirience_bar_sprite.setScale({std::fmin(16.f, exp * 0.03f), 1.f});
+
+    for (std::size_t i = 0; i < gr_items_array_size; ++i) {
+        gr_items_array[i]->slot = p.inventory.get()[i];
+        if (gr_items_array[i]->slot->get_item() != nullptr) {
+            float x, y;
+            if (gr_items_array[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                x = gr_items_array[i]->slot_sprite.getPosition().x - 8.f;
+                y = gr_items_array[i]->slot_sprite.getPosition().y - 14.f;
+            } else {
+                x = gr_items_array[i]->slot_sprite.getPosition().x + 6.f;
+                y = gr_items_array[i]->slot_sprite.getPosition().y + 8.f;
+            }
+            gr_items_array[i]->slot->get_item()->get_icon().setPosition({x, y});
+            gr_items_array[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
+        }
+    }
 }
 
 void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanics) {
