@@ -1,5 +1,8 @@
 #include "graphic_inventory.h"
 
+GraphicSlot::GraphicSlot(std::shared_ptr<Slot>& other): slot(other) {
+}
+
 void GraphicSlot::show_slot(sf::RenderWindow& window) {
     window.draw(slot_sprite);
     if (slot->get_item() != nullptr) {
@@ -8,11 +11,18 @@ void GraphicSlot::show_slot(sf::RenderWindow& window) {
     }
 }
 
-void GraphicInventory::build_inventory(const std::vector<std::shared_ptr<Slot>>& items, float pos_x, float pos_y) {
+void PortativeGraphicSlot::show_slot(sf::RenderWindow& window) {
+    window.draw(slot_sprite);
+    if (slot->get_item() != nullptr) {
+        window.draw(slot->get_item()->get_icon());
+    }
+}
+
+void GraphicInventory::build_inventory(std::vector<std::shared_ptr<Slot>>& items, float pos_x, float pos_y) {
     gr_items_array.resize(0);
     gr_items_array.reserve(items.size());
     for (std::size_t i = 0; i < items.size(); ++i) {
-        gr_items_array.push_back(std::make_shared<GraphicSlot>(GraphicSlot()));
+        gr_items_array.push_back(std::make_shared<GraphicSlot>(GraphicSlot(items[i])));
     }
 
     pos.x = pos_x;
@@ -173,7 +183,6 @@ void GraphicInventory::check_move_objects(sf::Vector2i _mouse_pos,
 
                     // pointers exchanging
                     gr_items_array[i]->slot.swap(gr_items_array[chosen_one]->slot);
-                    Player::inventory.get()[i].swap(Player::inventory.get()[chosen_one]);
 
                     // correct placing of chosen object which is in [i] index after swap
                     sf::Vector2f new_pos;

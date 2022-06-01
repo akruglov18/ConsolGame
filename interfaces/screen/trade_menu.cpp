@@ -64,7 +64,6 @@ void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slo
     gr_money_player->setPosition({300.f, 130.f});
 
     for (std::size_t i = 0; i < items_array_player.size(); i++) {
-        (*gr_inventory_player)[i]->slot = items_array_player[i];
         if ((*gr_inventory_player)[i]->slot->get_item() != nullptr) {
             float x, y;
             if ((*gr_inventory_player)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
@@ -121,7 +120,7 @@ void TradeMenu::show_inventories(sf::RenderWindow& window) {
         el->show_slot(window);
     window.draw(*gr_money_player);
     window.draw(gr_money_trader);
-    if (GraphicInventory::chosen_one != NONE_CHOSEN) {
+    if (GraphicInventory::chosen_one != GraphicInventory::NONE_CHOSEN) {
         gr_inventory_player->gr_items_array[GraphicInventory::chosen_one]->show_slot(window);
     }
 }

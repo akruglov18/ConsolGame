@@ -16,9 +16,8 @@ InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.
 void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, int _money) {
     gr_inventory->set_pos(500.f, 200.f);
     gr_money->setPosition({500.f, 130.f});
-
+    items_array;
     for (std::size_t i = 0; i < items_array.size(); i++) {
-        (*gr_inventory)[i]->slot = items_array[i];
         if ((*gr_inventory)[i]->slot->get_item() != nullptr) {
             float x, y;
             if ((*gr_inventory)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
@@ -46,7 +45,7 @@ void InventoryMenu::show_inventory(sf::RenderWindow& window) {
     for (auto& el : gr_inventory->gr_items_array)
         el->show_slot(window);
     window.draw(*gr_money);
-    if (GraphicInventory::chosen_one != NONE_CHOSEN) {
+    if (GraphicInventory::chosen_one != GraphicInventory::NONE_CHOSEN) {
         gr_inventory->gr_items_array[GraphicInventory::chosen_one]->show_slot(window);
     }
 }

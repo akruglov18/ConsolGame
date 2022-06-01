@@ -164,7 +164,7 @@ GameUI::GameUI() {
     items_arr_y = 648.f;
 
     for (std::size_t i = 0; i < gr_items_array_size; ++i) {
-        gr_items_array.push_back(std::make_shared<GraphicSlot>(GraphicSlot()));
+        gr_items_array.push_back(std::make_shared<PortativeGraphicSlot>(PortativeGraphicSlot()));
         gr_items_array[i]->slot_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
         if (i == 0) {
             gr_items_array[i]->slot_sprite.setTextureRect({{574, 286}, {38, 40}});

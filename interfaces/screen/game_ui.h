@@ -109,7 +109,7 @@ public:
     float items_arr_x;
     float items_arr_y;
     std::size_t gr_items_array_size;
-    std::vector<std::shared_ptr<GraphicSlot>> gr_items_array;
+    std::vector<std::shared_ptr<PortativeGraphicSlot>> gr_items_array;
 
     // MAP ////////////////////////////////////////////////////////////////////////////////////////
     MiniMap minimap;
