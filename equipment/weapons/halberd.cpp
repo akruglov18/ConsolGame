@@ -12,6 +12,9 @@ std::shared_ptr<Halberd> Halberd::make_halberd() {
     res->can_thrust = true;
     res->damage.physical_damage_slash = 35.0f;
     res->damage.physical_damage_thrust = 30.0f;
+    res->damage.chance_of_poisoning = 100;
+    res->damage.poison_damage = 25.f;
+    res->damage.poison_duration = 10.f;
     res->damage.critical_chance = 30;
     res->damage.critical_multiplier = 1.1f;
     return res;

@@ -9,6 +9,7 @@
 #include "common_thing.h"
 #include "field.h"
 #include "nlohmann_json/json.hpp"
+#include "status.h"
 
 using json = nlohmann::json;
 
@@ -65,7 +66,7 @@ public:
     CreatureAnim get_anim() const {
         return creature_anim;
     }
-    void reduce_health(ReceivedDamage damage);
+    void reduce_health(const ReceivedDamage& damage);
     void add_experience(int exp);
     void show_creature(sf::RenderWindow& window);
     void show_box(sf::RenderWindow& window);
@@ -95,7 +96,7 @@ public:
     }
     void set_pos(float x, float y);
     std::string creature_type_str() const;
-    void update_stuck_frame(float time);
+    void update_status(float time);
     float get_health() {
         return health;
     }
@@ -148,6 +149,7 @@ protected:
     ArmorSet armor_set;
     std::shared_ptr<BaseWeapon> weapon;
 
+    Status status;
     float health;
     float max_health;
     int experience;

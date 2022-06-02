@@ -12,7 +12,7 @@ Player::Player(CreatureManager& _manager, float _health, const sf::Vector2f& _po
 
 void Player::action(sf::Event& event, float time, Field* game_field,
                     const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
-    update_stuck_frame(time);
+    update_status(time);
     take_drop(game_field);
     can_accept_request = false;
     available_trader = nullptr;

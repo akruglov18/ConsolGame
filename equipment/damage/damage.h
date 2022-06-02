@@ -22,5 +22,5 @@ public:
     std::size_t chance_of_poisoning = 0;
 
 private:
-    static constexpr float poison_multiplier = 0.15f;  
+    static constexpr float poison_multiplier = 0.2f;  
 };

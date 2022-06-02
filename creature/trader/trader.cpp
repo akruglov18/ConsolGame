@@ -42,7 +42,7 @@ Trader::Trader(CreatureManager& _manager, float _health, const sf::Vector2f& _po
 }
 
 void Trader::action(float time, Player* player) {
-    update_stuck_frame(time);
+    update_status(time);
     health_bar.update(health, max_health, hit_box);
     if (dying) {
         Action::dying(this, time);
