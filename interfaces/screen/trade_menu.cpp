@@ -39,7 +39,7 @@ View_mode TradeMenu::Run(sf::RenderWindow& window) {
         if (to_return != View_mode::NONE)
             return to_return;
 
-        GraphicInventory::check_move_objects(sf::Mouse::getPosition(window), gr_inventory_player->gr_items_array);
+        GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory_player->gr_items_array);
 
         window.clear(color);
         window.draw(inventory_screen);
@@ -51,9 +51,9 @@ View_mode TradeMenu::Run(sf::RenderWindow& window) {
     }
 }
 
-void TradeMenu::bind(std::shared_ptr<GraphicInventory> _gr_inventory_player,
+void TradeMenu::bind(std::shared_ptr<GraphicInventoryRef> _gr_inventory_player,
                      std::shared_ptr<sf::Text> _gr_money_player) {
-    gr_inventory_player = std::shared_ptr<GraphicInventory>(_gr_inventory_player);
+    gr_inventory_player = std::shared_ptr<GraphicInventoryRef>(_gr_inventory_player);
     gr_money_player = std::shared_ptr<sf::Text>(_gr_money_player);
 }
 
@@ -120,7 +120,7 @@ void TradeMenu::show_inventories(sf::RenderWindow& window) {
         el->show_slot(window);
     window.draw(*gr_money_player);
     window.draw(gr_money_trader);
-    if (GraphicInventory::chosen_one != GraphicInventory::NONE_CHOSEN) {
-        gr_inventory_player->gr_items_array[GraphicInventory::chosen_one]->show_slot(window);
+    if (BaseGraphicInventory::chosen_one != BaseGraphicInventory::NONE_CHOSEN) {
+        gr_inventory_player->gr_items_array[BaseGraphicInventory::chosen_one]->show_slot(window);
     }
 }
