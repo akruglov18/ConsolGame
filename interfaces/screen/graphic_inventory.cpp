@@ -87,7 +87,7 @@ void GraphicSlotRef::show_slot(sf::RenderWindow& window) {
 void GraphicInventoryRef::build_inventory(std::vector<std::shared_ptr<Slot>>& items, float pos_x, float pos_y) {
     gr_items_array.resize(0);
     gr_items_array.reserve(items.size());
-    for (std::size_t i = 0; i < items.size(); ++i) {
+    for (std::size_t i = Inventory::bar_size; i < items.size(); ++i) {
         gr_items_array.push_back(std::make_shared<GraphicSlotRef>(GraphicSlotRef(items[i])));
     }
 
@@ -95,8 +95,8 @@ void GraphicInventoryRef::build_inventory(std::vector<std::shared_ptr<Slot>>& it
     pos.y = pos_y;
 
     std::size_t width, height;
-    width = height = static_cast<std::size_t>(std::sqrt(items.size()));
-    if (width * height != items.size())
+    width = height = static_cast<std::size_t>(std::sqrt(items.size() - Inventory::bar_size));
+    if (width * height != items.size() - Inventory::bar_size)
         throw std::logic_error("Incorrect inventory size!\n");
     for (std::size_t i = 0; i < height; ++i) {
         for (std::size_t j = 0; j < width; ++j) {
@@ -330,7 +330,7 @@ void GraphicInventoryRef::check_move_objects(sf::Vector2i _mouse_pos,
 
 // GRAPHIC_INVENTORY_BAR_REF //////////////////////////////////////////////////////////////////////
 
-GraphicInventoryBar::GraphicInventoryBar(std::size_t size) {
+void GraphicInventoryBar::build_inventory(std::vector<std::shared_ptr<Slot>>& items, std::size_t size) {
     pos.x = 500.f;
     pos.y = 648.f;
 
@@ -349,6 +349,6 @@ GraphicInventoryBar::GraphicInventoryBar(std::size_t size) {
             offset_x = static_cast<float>(i - 1) * 4;
         gr_items_array[i]->slot_sprite.setPosition({pos.x + i * 38.f * 1.5f - offset_x, pos.y});
         gr_items_array[i]->slot_sprite.setScale({1.5f, 1.5f});
-        gr_items_array[i]->slot = std::make_shared<Slot>(Slot());
+        gr_items_array[i]->slot = items[i];
     }
 }

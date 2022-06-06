@@ -33,7 +33,7 @@ std::size_t Inventory::bar_size = 6;
 
 Inventory::Inventory() {
     money = 0;
-    capacity = 16;
+    capacity = 16 + bar_size;
     size = 0;
     for (std::size_t i = 0; i < capacity; ++i) {
         items_array.push_back(std::make_shared<Slot>(Slot()));

@@ -63,7 +63,7 @@ void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slo
     gr_inventory_player->set_pos(300.f, 200.f);
     gr_money_player->setPosition({300.f, 130.f});
 
-    for (std::size_t i = 0; i < items_array_player.size(); i++) {
+    for (std::size_t i = 0; i < items_array_player.size() - Inventory::bar_size; i++) {
         if ((*gr_inventory_player)[i]->slot->get_item() != nullptr) {
             float x, y;
             if ((*gr_inventory_player)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {

@@ -68,5 +68,5 @@ public:
 
 class GraphicInventoryBar : public GraphicInventoryCopy {
 public:
-    explicit GraphicInventoryBar(std::size_t size);
+    void build_inventory(std::vector<std::shared_ptr<Slot>>& items, std::size_t size);
 };

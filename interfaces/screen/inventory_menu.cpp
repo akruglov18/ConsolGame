@@ -5,7 +5,7 @@ InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.
     buttons.push_back(&b_exit);
 
     gr_inventory = std::shared_ptr<GraphicInventoryRef>(new GraphicInventoryRef());
-    gr_inventory_bar = std::shared_ptr<GraphicInventoryBar>(new GraphicInventoryBar(6));
+    gr_inventory_bar = std::shared_ptr<GraphicInventoryBar>(new GraphicInventoryBar());
     gr_money = std::shared_ptr<sf::Text>(new sf::Text());
     gr_money->setFont(font);
     gr_money->setCharacterSize(40);
@@ -18,8 +18,7 @@ void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<S
                                              std::size_t _money) {
     gr_inventory->set_pos(500.f, 200.f);
     gr_money->setPosition({500.f, 130.f});
-    items_array;
-    for (std::size_t i = 0; i < items_array.size(); i++) {
+    for (std::size_t i = 0; i < items_array.size() - Inventory::bar_size; i++) {
         if ((*gr_inventory)[i]->slot->get_item() != nullptr) {
             float x, y;
             if ((*gr_inventory)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
