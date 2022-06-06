@@ -59,7 +59,7 @@ void TradeMenu::bind(std::shared_ptr<GraphicInventoryRef> _gr_inventory_player,
 
 void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slot>>& items_array_player,
                                            const std::vector<std::shared_ptr<Slot>>& items_array_trader,
-                                           int _money_player, int _money_trader) {
+                                           std::size_t _money_player, std::size_t _money_trader) {
     gr_inventory_player->set_pos(300.f, 200.f);
     gr_money_player->setPosition({300.f, 130.f});
 

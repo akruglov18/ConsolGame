@@ -5,6 +5,7 @@ InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.
     buttons.push_back(&b_exit);
 
     gr_inventory = std::shared_ptr<GraphicInventoryRef>(new GraphicInventoryRef());
+    gr_inventory_bar = std::shared_ptr<GraphicInventoryBar>(new GraphicInventoryBar(6));
     gr_money = std::shared_ptr<sf::Text>(new sf::Text());
     gr_money->setFont(font);
     gr_money->setCharacterSize(40);
@@ -13,7 +14,8 @@ InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.
     gr_money->setPosition({500.f, 130.f});
 }
 
-void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, int _money) {
+void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array,
+                                             std::size_t _money) {
     gr_inventory->set_pos(500.f, 200.f);
     gr_money->setPosition({500.f, 130.f});
     items_array;
@@ -43,6 +45,8 @@ void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<S
 
 void InventoryMenu::show_inventory(sf::RenderWindow& window) {
     for (auto& el : gr_inventory->gr_items_array)
+        el->show_slot(window);
+    for (auto& el : gr_inventory_bar->gr_items_array)
         el->show_slot(window);
     window.draw(*gr_money);
     if (BaseGraphicInventory::chosen_one != BaseGraphicInventory::NONE_CHOSEN) {

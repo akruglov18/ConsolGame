@@ -94,8 +94,10 @@ void GraphicInventoryRef::build_inventory(std::vector<std::shared_ptr<Slot>>& it
     pos.x = pos_x;
     pos.y = pos_y;
 
-    std::size_t width = static_cast<std::size_t>(std::sqrt(items.size()));
-    std::size_t height = static_cast<std::size_t>(std::sqrt(items.size()));
+    std::size_t width, height;
+    width = height = static_cast<std::size_t>(std::sqrt(items.size()));
+    if (width * height != items.size())
+        throw std::logic_error("Incorrect inventory size!\n");
     for (std::size_t i = 0; i < height; ++i) {
         for (std::size_t j = 0; j < width; ++j) {
             std::pair<sf::IntRect, std::pair<sf::Vector2f, sf::Vector2f>> res = calculate_slots(i, j, width, height);
@@ -174,8 +176,10 @@ void GraphicInventoryCopy::build_inventory(std::vector<std::shared_ptr<Slot>>& i
     pos.x = pos_x;
     pos.y = pos_y;
 
-    std::size_t width = static_cast<std::size_t>(std::sqrt(items.size()));
-    std::size_t height = static_cast<std::size_t>(std::sqrt(items.size()));
+    std::size_t width, height;
+    width = height = static_cast<std::size_t>(std::sqrt(items.size()));
+    if (width * height != items.size())
+        throw std::logic_error("Incorrect inventory size!\n");
     for (std::size_t i = 0; i < height; ++i) {
         for (std::size_t j = 0; j < width; ++j) {
             std::pair<sf::IntRect, std::pair<sf::Vector2f, sf::Vector2f>> res = calculate_slots(i, j, width, height);
@@ -319,5 +323,32 @@ void GraphicInventoryRef::check_move_objects(sf::Vector2i _mouse_pos,
 
             chosen_one = NONE_CHOSEN;
         }
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// GRAPHIC_INVENTORY_BAR_REF //////////////////////////////////////////////////////////////////////
+
+GraphicInventoryBar::GraphicInventoryBar(std::size_t size) {
+    pos.x = 500.f;
+    pos.y = 648.f;
+
+    for (std::size_t i = 0; i < size; ++i) {
+        gr_items_array.push_back(std::make_shared<GraphicSlotCopy>(GraphicSlotCopy()));
+        gr_items_array[i]->slot_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+        if (i == 0) {
+            gr_items_array[i]->slot_sprite.setTextureRect({{574, 286}, {38, 40}});
+        } else if (i == size - 1) {
+            gr_items_array[i]->slot_sprite.setTextureRect({{650, 286}, {38, 40}});
+        } else {
+            gr_items_array[i]->slot_sprite.setTextureRect({{613, 286}, {36, 40}});
+        }
+        float offset_x = 0.f;
+        if (i >= 2)
+            offset_x = static_cast<float>(i - 1) * 4;
+        gr_items_array[i]->slot_sprite.setPosition({pos.x + i * 38.f * 1.5f - offset_x, pos.y});
+        gr_items_array[i]->slot_sprite.setScale({1.5f, 1.5f});
+        gr_items_array[i]->slot = std::make_shared<Slot>(Slot());
     }
 }

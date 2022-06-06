@@ -19,21 +19,23 @@ void Slot::place_item_in_new_slot(std::shared_ptr<Items> _item) {
     add_to_existing_slot(item->value);
 }
 
-void Slot::add_to_existing_slot(int& value) {
+void Slot::add_to_existing_slot(std::size_t& value) {
     if (amount + value <= max_amount) {
         amount += value;
         value = 0;
     } else {
-        value = std::max(0, amount + value - max_amount);
+        value = std::max(0ull, amount + value - max_amount);
         amount = max_amount;
     }
 }
+
+std::size_t Inventory::bar_size = 6;
 
 Inventory::Inventory() {
     money = 0;
     capacity = 16;
     size = 0;
-    for (int i = 0; i < capacity; ++i) {
+    for (std::size_t i = 0; i < capacity; ++i) {
         items_array.push_back(std::make_shared<Slot>(Slot()));
     }
 }
@@ -80,8 +82,8 @@ void Inventory::take(std::vector<std::shared_ptr<Items>>& items) {
     items = std::move(cant_pick_up);
 }
 
-void Inventory::set_capacity(int _capacity) {
-    for (int i = capacity; i < _capacity; ++i) {
+void Inventory::set_capacity(std::size_t _capacity) {
+    for (std::size_t i = capacity; i < _capacity; ++i) {
         items_array.push_back(std::make_shared<Slot>(Slot()));
     }
     items_array.resize(_capacity);

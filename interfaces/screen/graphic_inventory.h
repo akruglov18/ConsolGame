@@ -65,3 +65,8 @@ public:
     }
     void set_pos(float x, float y) override;
 };
+
+class GraphicInventoryBar : public GraphicInventoryCopy {
+public:
+    explicit GraphicInventoryBar(std::size_t size);
+};

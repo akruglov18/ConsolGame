@@ -106,10 +106,7 @@ public:
     sf::Sprite magic_plate_spriteR;
 
     // INVENTORY //////////////////////////////////////////////////////////////////////////////////
-    float items_arr_x;
-    float items_arr_y;
-    std::size_t gr_items_array_size;
-    std::vector<std::shared_ptr<GraphicSlotCopy>> gr_items_array;
+    std::shared_ptr<GraphicInventoryBar>& inventory_bar;
 
     // MAP ////////////////////////////////////////////////////////////////////////////////////////
     MiniMap minimap;

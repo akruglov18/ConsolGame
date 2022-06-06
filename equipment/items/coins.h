@@ -9,9 +9,6 @@ public:
     ~Coins() override {
     }
 
-    int getValue() const {
-        return value;
-    }
     void changeValue(int added);
     virtual json to_json() const override {
         return json();

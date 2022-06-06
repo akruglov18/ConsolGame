@@ -23,7 +23,7 @@ public:
                      std::shared_ptr<sf::Text> _gr_money_player);
     static void update_graphic_inventories(const std::vector<std::shared_ptr<Slot>>& _gr_inventory_player,
                                            const std::vector<std::shared_ptr<Slot>>& _gr_inventory_trader,
-                                           int _money_player, int _money_trader);
+                                           std::size_t _money_player, std::size_t _money_trader);
 
 private:
     void show_inventories(sf::RenderWindow& window);

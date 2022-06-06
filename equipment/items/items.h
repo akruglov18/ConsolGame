@@ -68,10 +68,13 @@ public:
     std::string get_id() {
         return id;
     }
+    std::size_t getValue() const {
+        return value;
+    }
     void set_scale(const sf::Vector2f& pos);
     virtual json to_json() const = 0;
 
-    int value = 1;
+    std::size_t value = 1;
 
     static ThingsID thing_ids;
     static FoodID food_ids;
