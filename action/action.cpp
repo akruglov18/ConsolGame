@@ -143,7 +143,7 @@ void Action::move_right_down(Creature* creature, float time, Field* game_field) 
 /////////////////////////////////////////////////////ANOTHER ACTIONS///////////////////////////////////////////////////
 
 void Action::hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
-                 Modes mode) {
+                 std::vector<std::shared_ptr<BaseAnimatedSprite>>& sprites, Modes mode) {
     auto& current_frame = creature->get_frame();
     const auto& weapon = creature->get_weapon();
     auto& pos = creature->get_pos();
@@ -162,9 +162,34 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
                 weapon->damage_box.findIntersection(x->hit_box).has_value()) {
                 auto damage = creature->get_weapon()->get_total_damage(creature->mode);
                 x->reduce_health(static_cast<float>(damage));
-                BaseAnimatedSprite::sprites.push_back(std::shared_ptr<AnimatedText>(
-                        new AnimatedText(std::to_string(static_cast<int>(damage)), x->get_pos(),
-                                         static_cast<int>(creature->direction))));
+                sf::Vector2f offset;
+                switch (creature->direction) {
+                case Dirs::LEFT:
+                    offset.x = offset.y = -30.f;
+                    break;
+                case Dirs::RIGHT:
+                    offset.x = 30.f;
+                    offset.y = -30.f;
+                    break;
+                case Dirs::UP:
+                    offset.x = 0.f;
+                    offset.y = -30.f;
+                    break;
+                case Dirs::DOWN:
+                    offset.x = 0.f;
+                    offset.y = 30.f;
+                    break;
+                default:
+                    throw std::invalid_argument("Wrong direction");
+                    break;
+                }
+                std::size_t start_char_size = 10;
+                sf::Vector2f text_pos = {x->hit_box.left + x->hit_box.width / 2,
+                                         x->hit_box.top + x->hit_box.height / 2 - start_char_size};
+                sprites.push_back(std::shared_ptr<AnimatedText>(
+                        new AnimatedText(std::to_string(static_cast<int>(damage)), sf::Color(255, 0, 0),
+                                         start_char_size, text_pos, offset, 1.f, {0.5f, 0.7f}, {2.f, 2.f})));
+                
             }
         }
     }

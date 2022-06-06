@@ -49,6 +49,7 @@ private:
     std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<std::shared_ptr<Trader>> traders;
     std::vector<std::shared_ptr<Creature>> drawable_creatures;
+    std::vector<std::shared_ptr<BaseAnimatedSprite>> animated_sprites;
     CreatureManager manager;
     GameSettings& settings;
     sf::View view;

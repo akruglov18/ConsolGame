@@ -11,7 +11,8 @@ Player::Player(CreatureManager& _manager, float _health, const sf::Vector2f& _po
 }
 
 void Player::action(sf::Event& event, float time, Field* game_field,
-                    const std::vector<std::shared_ptr<Creature>>& drawable_creatures) {
+                    const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
+                    std::vector<std::shared_ptr<BaseAnimatedSprite>>& sprites) {
     update_status(time);
     take_drop(game_field);
     can_accept_request = false;
@@ -31,11 +32,11 @@ void Player::action(sf::Event& event, float time, Field* game_field,
         return;
     }
     if (mode == Modes::SLASH) {
-        Action::hit(this, time, drawable_creatures, Modes::SLASH);
+        Action::hit(this, time, drawable_creatures, sprites, Modes::SLASH);
         return;
     }
     if (mode == Modes::THRUST) {
-        Action::hit(this, time, drawable_creatures, Modes::THRUST);
+        Action::hit(this, time, drawable_creatures, sprites, Modes::THRUST);
         return;
     }
 
@@ -75,11 +76,11 @@ void Player::action(sf::Event& event, float time, Field* game_field,
             break;
         case (sf::Keyboard::LShift):
             if (weapon->can_slash)
-                Action::hit(this, time, drawable_creatures, Modes::SLASH);
+                Action::hit(this, time, drawable_creatures, sprites, Modes::SLASH);
             break;
         case (sf::Keyboard::Space):
             if (weapon->can_thrust)
-                Action::hit(this, time, drawable_creatures, Modes::THRUST);
+                Action::hit(this, time, drawable_creatures, sprites, Modes::THRUST);
             break;
         default:
             return;

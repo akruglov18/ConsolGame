@@ -22,7 +22,7 @@ public:
 
     // another actions such as take, cut, hit, trade, use magic and so on
     static void hit(Creature* creature, float time, const std::vector<std::shared_ptr<Creature>>& drawable_creatures,
-                    Modes mode);
+                    std::vector<std::shared_ptr<BaseAnimatedSprite>>& sprites, Modes mode);
     static void dying(Creature* creature, float time);
 
     // animation
