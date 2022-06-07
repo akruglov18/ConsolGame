@@ -32,7 +32,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     tmp_vec.push_back(Halberd::make_halberd());
     player->inventory.take(tmp_vec);
 
-    for (int i = 0; i < 1; ++i) {
+    for (int i = 0; i < 50; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 10 + 4) * 40.f, (i / 10 + 4) * 40.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));

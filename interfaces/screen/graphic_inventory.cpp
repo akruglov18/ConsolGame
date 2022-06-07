@@ -331,24 +331,102 @@ void GraphicInventoryRef::check_move_objects(sf::Vector2i _mouse_pos,
 // GRAPHIC_INVENTORY_BAR_REF //////////////////////////////////////////////////////////////////////
 
 void GraphicInventoryBar::build_inventory(std::vector<std::shared_ptr<Slot>>& items, std::size_t size) {
-    pos.x = 500.f;
+    pos.x = 480.f;
     pos.y = 648.f;
 
     for (std::size_t i = 0; i < size; ++i) {
-        gr_items_array.push_back(std::make_shared<GraphicSlotCopy>(GraphicSlotCopy()));
+        float offset_x = 0.f;
+        if (i >= 2)
+            offset_x = static_cast<float>(i - 1) * 4;
+        gr_items_array.push_back(std::make_shared<GraphicSlotRef>(GraphicSlotRef(items[i])));
         gr_items_array[i]->slot_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
+        gr_items_array[i]->slot_sprite.setPosition({pos.x + i * 38.f * 1.5f - offset_x, pos.y});
+        gr_items_array[i]->slot_sprite.setScale({ 1.5f, 1.5f });
+        auto& slot = gr_items_array[i];
+        slot->gr_amount.setFont(*Resources::FontsHolder::getResource("basic_font"));
+        slot->gr_amount.setCharacterSize(16);
+        slot->gr_amount.setStyle(sf::Text::Bold);
+        slot->gr_amount.setFillColor(sf::Color(0, 240, 24));
+
+        float offset_amount_x = 0.f;
+        if (i >= 1)
+            offset_amount_x = static_cast<float>(i) * 4;
+        slot->gr_amount.setPosition({(i * 57.f) - offset_amount_x + pos.x + 60.f, 684.f});
+        slot->pos = {{slot->slot_sprite.getPosition()},
+                     {static_cast<float>(38.f * 1.5f), static_cast<float>(40.f * 1.5f)}};
         if (i == 0) {
             gr_items_array[i]->slot_sprite.setTextureRect({{574, 286}, {38, 40}});
         } else if (i == size - 1) {
             gr_items_array[i]->slot_sprite.setTextureRect({{650, 286}, {38, 40}});
         } else {
             gr_items_array[i]->slot_sprite.setTextureRect({{613, 286}, {36, 40}});
+            slot->pos.width = 36.f * 1.5f;
         }
-        float offset_x = 0.f;
-        if (i >= 2)
-            offset_x = static_cast<float>(i - 1) * 4;
-        gr_items_array[i]->slot_sprite.setPosition({pos.x + i * 38.f * 1.5f - offset_x, pos.y});
-        gr_items_array[i]->slot_sprite.setScale({1.5f, 1.5f});
-        gr_items_array[i]->slot = items[i];
+    }
+}
+
+void GraphicInventoryBar::dynamic_update(std::vector<std::shared_ptr<Slot>>& items) {
+    items;
+}
+
+void GraphicInventoryBar::inventory_menu_scale() {
+    for (std::size_t i = 0; i < gr_items_array.size(); ++i) {
+        auto& posslot = gr_items_array[i]->slot_sprite.getPosition();
+        auto& posamount = gr_items_array[i]->gr_amount.getPosition();
+        gr_items_array[i]->slot_sprite.setPosition({posslot.x + i * scale_offset, posslot.y});
+        gr_items_array[i]->slot_sprite.setScale({ 2.f, 2.f });
+        gr_items_array[i]->gr_amount.setPosition({posamount.x + i * scale_offset, posamount.y + 12.f});
+        gr_items_array[i]->pos.left = gr_items_array[i]->slot_sprite.getPosition().x;
+        gr_items_array[i]->pos.top = gr_items_array[i]->slot_sprite.getPosition().y;
+        if (gr_items_array[i]->slot->get_item() != nullptr) {
+            float x, y;
+            if (gr_items_array[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                x = gr_items_array[i]->slot_sprite.getPosition().x;
+                y = gr_items_array[i]->slot_sprite.getPosition().y;
+            } else {
+                x = gr_items_array[i]->slot_sprite.getPosition().x + 16.f;
+                y = gr_items_array[i]->slot_sprite.getPosition().y + 16.f;
+            }
+            gr_items_array[i]->slot->get_item()->get_icon().setPosition({x, y});
+            gr_items_array[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
+            gr_items_array[i]->gr_amount.setString(std::to_string(gr_items_array[i]->slot->get_amount()));
+            if (gr_items_array[i]->slot->get_amount() >= 10 && !gr_items_array[i]->gr_amount_offset) {
+                x = gr_items_array[i]->gr_amount.getPosition().x - 6.f;
+                y = gr_items_array[i]->gr_amount.getPosition().y;
+                gr_items_array[i]->gr_amount.setPosition({x, y});
+                gr_items_array[i]->gr_amount_offset = true;
+            }
+        }
+    }
+}
+
+void GraphicInventoryBar::in_game_scale() {
+    for (std::size_t i = 0; i < gr_items_array.size(); ++i) {
+        auto& posslot = gr_items_array[i]->slot_sprite.getPosition();
+        auto& posamount = gr_items_array[i]->gr_amount.getPosition();
+        gr_items_array[i]->slot_sprite.setPosition({posslot.x - i * scale_offset, posslot.y});
+        gr_items_array[i]->slot_sprite.setScale({ 1.5f, 1.5f });
+        gr_items_array[i]->gr_amount.setPosition({posamount.x - i * scale_offset, posamount.y - 12.f});
+        gr_items_array[i]->pos.left = gr_items_array[i]->slot_sprite.getPosition().x;
+        gr_items_array[i]->pos.top = gr_items_array[i]->slot_sprite.getPosition().y;
+        if (gr_items_array[i]->slot->get_item() != nullptr) {
+            float x, y;
+            if (gr_items_array[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                x = gr_items_array[i]->slot_sprite.getPosition().x;
+                y = gr_items_array[i]->slot_sprite.getPosition().y;
+            } else {
+                x = gr_items_array[i]->slot_sprite.getPosition().x + 12.f;
+                y = gr_items_array[i]->slot_sprite.getPosition().y + 12.f;
+            }
+            gr_items_array[i]->slot->get_item()->get_icon().setPosition({x, y});
+            gr_items_array[i]->slot->get_item()->get_icon().setScale({1.f, 1.f});
+            gr_items_array[i]->gr_amount.setString(std::to_string(gr_items_array[i]->slot->get_amount()));
+            if (gr_items_array[i]->slot->get_amount() >= 10 && !gr_items_array[i]->gr_amount_offset) {
+                x = gr_items_array[i]->gr_amount.getPosition().x - 6.f;
+                y = gr_items_array[i]->gr_amount.getPosition().y;
+                gr_items_array[i]->gr_amount.setPosition({x, y});
+                gr_items_array[i]->gr_amount_offset = true;
+            }
+        }
     }
 }

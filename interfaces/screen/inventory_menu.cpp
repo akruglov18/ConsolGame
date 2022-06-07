@@ -39,6 +39,9 @@ void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<S
             }
         }
     }
+
+    gr_inventory_bar->inventory_menu_scale();
+    gr_inventory_bar->set_pos(424.f, 636.f);
     gr_money->setString("$ " + std::to_string(_money));
 }
 
@@ -66,20 +69,25 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window) {
     while (true) {
         window.pollEvent(event);
 
+        to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
+
         if (event.type == sf::Event::Closed) {
             std::remove("../../images/tmp.jpg");
-            return View_mode::EXIT;
+            to_return = View_mode::EXIT;
         }
+
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::E) {
                 std::remove("../../images/tmp.jpg");
-                return View_mode::GAME;
+                to_return = View_mode::GAME;
             }
         }
 
-        to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
-        if (to_return != View_mode::NONE)
+        if (to_return != View_mode::NONE) {
+            gr_inventory_bar->in_game_scale();
+            gr_inventory_bar->set_pos(480.f, 648.f);
             return to_return;
+        }
 
         GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory->gr_items_array);
 

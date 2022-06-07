@@ -66,7 +66,13 @@ public:
     void set_pos(float x, float y) override;
 };
 
-class GraphicInventoryBar : public GraphicInventoryCopy {
+class GraphicInventoryBar : public GraphicInventoryRef {
 public:
     void build_inventory(std::vector<std::shared_ptr<Slot>>& items, std::size_t size);
+    void dynamic_update(std::vector<std::shared_ptr<Slot>>& items);
+    void inventory_menu_scale();
+    void in_game_scale();
+
+private:
+    float scale_offset = 19.f;
 };
