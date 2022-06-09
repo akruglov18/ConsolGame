@@ -170,8 +170,7 @@ void GameUI::update_UI(Player& p) {
     satiety_bar_sprite.setScale({std::fmax(0.f, (satiety / max_satiety) * 16.f), 1.f});
     expirience_bar_sprite.setScale({std::fmin(16.f, exp * 0.03f), 1.f});
 
-    /*for (std::size_t i = 0; i < inventory_bar->gr_items_array.size(); ++i) {
-        (*inventory_bar)[i]->slot = p.inventory.get()[i];
+    for (std::size_t i = 0; i < inventory_bar->gr_items_array.size(); ++i) {
         if ((*inventory_bar)[i]->slot->get_item() != nullptr) {
             float x, y;
             if ((*inventory_bar)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
@@ -184,7 +183,7 @@ void GameUI::update_UI(Player& p) {
             (*inventory_bar)[i]->slot->get_item()->get_icon().setPosition({x, y});
             (*inventory_bar)[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
         }
-    }*/
+    }
 }
 
 void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanics) {
@@ -220,8 +219,7 @@ void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanic
         settings.show_settings(window);
     }
 
-    for (auto& el : inventory_bar->gr_items_array)
-        el->show_slot(window);
+    inventory_bar->show(window);
 
     minimap.check_buttons(sf::Mouse::getPosition(window));
     minimap.show_minimap(window);

@@ -46,13 +46,11 @@ void InventoryMenu::update_graphic_inventory(const std::vector<std::shared_ptr<S
 }
 
 void InventoryMenu::show_inventory(sf::RenderWindow& window) {
-    for (auto& el : gr_inventory->gr_items_array)
-        el->show_slot(window);
-    for (auto& el : gr_inventory_bar->gr_items_array)
-        el->show_slot(window);
     window.draw(*gr_money);
+    gr_inventory->show(window);
+    gr_inventory_bar->show(window);
     if (BaseGraphicInventory::chosen_one != BaseGraphicInventory::NONE_CHOSEN) {
-        gr_inventory->gr_items_array[BaseGraphicInventory::chosen_one]->show_slot(window);
+        gr_inventory->gr_items_array[BaseGraphicInventory::chosen_one]->show_slot(window, true);
     }
 }
 
@@ -90,6 +88,7 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window) {
         }
 
         GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory->gr_items_array);
+        //GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory_bar->gr_items_array);
 
         window.clear(color);
         window.draw(inventory_screen);

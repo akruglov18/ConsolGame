@@ -24,22 +24,28 @@ View_mode TradeMenu::Run(sf::RenderWindow& window) {
     while (true) {
         window.pollEvent(event);
 
+        to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
+
         if (event.type == sf::Event::Closed) {
             std::remove("../../images/tmp.jpg");
-            return View_mode::EXIT;
+            to_return = View_mode::EXIT;
         }
+
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::T) {
                 std::remove("../../images/tmp.jpg");
-                return View_mode::GAME;
+                to_return = View_mode::GAME;
             }
         }
 
-        to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
-        if (to_return != View_mode::NONE)
+        if (to_return != View_mode::NONE) {
+            gr_inventory_player_bar->in_game_scale();
+            gr_inventory_player_bar->set_pos(480.f, 648.f);
             return to_return;
+        }
 
         GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory_player->gr_items_array);
+        //GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory_player_bar->gr_items_array);
 
         window.clear(color);
         window.draw(inventory_screen);
@@ -52,8 +58,10 @@ View_mode TradeMenu::Run(sf::RenderWindow& window) {
 }
 
 void TradeMenu::bind(std::shared_ptr<GraphicInventoryRef> _gr_inventory_player,
+                     std::shared_ptr<GraphicInventoryBar> _gr_inventory_player_bar,
                      std::shared_ptr<sf::Text> _gr_money_player) {
     gr_inventory_player = std::shared_ptr<GraphicInventoryRef>(_gr_inventory_player);
+    gr_inventory_player_bar = std::shared_ptr<GraphicInventoryBar>(_gr_inventory_player_bar);
     gr_money_player = std::shared_ptr<sf::Text>(_gr_money_player);
 }
 
@@ -86,6 +94,9 @@ void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slo
         }
     }
 
+    gr_inventory_player_bar->inventory_menu_scale();
+    gr_inventory_player_bar->set_pos(424.f, 636.f);
+
     for (std::size_t i = 0; i < items_array_trader.size(); i++) {
         gr_inventory_trader[i]->slot = items_array_trader[i];
         if (gr_inventory_trader[i]->slot->get_item() != nullptr) {
@@ -114,13 +125,12 @@ void TradeMenu::update_graphic_inventories(const std::vector<std::shared_ptr<Slo
 }
 
 void TradeMenu::show_inventories(sf::RenderWindow& window) {
-    for (auto& el : gr_inventory_player->gr_items_array)
-        el->show_slot(window);
-    for (auto& el : gr_inventory_trader.gr_items_array)
-        el->show_slot(window);
+    gr_inventory_player->show(window);
+    gr_inventory_player_bar->show(window);
+    gr_inventory_trader.show(window);
     window.draw(*gr_money_player);
     window.draw(gr_money_trader);
     if (BaseGraphicInventory::chosen_one != BaseGraphicInventory::NONE_CHOSEN) {
-        gr_inventory_player->gr_items_array[BaseGraphicInventory::chosen_one]->show_slot(window);
+        gr_inventory_player->gr_items_array[BaseGraphicInventory::chosen_one]->show_slot(window, true);
     }
 }

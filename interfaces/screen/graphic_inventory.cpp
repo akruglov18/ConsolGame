@@ -76,11 +76,12 @@ std::pair<sf::IntRect, std::pair<sf::Vector2f, sf::Vector2f>> BaseGraphicInvento
 GraphicSlotRef::GraphicSlotRef(std::shared_ptr<Slot>& other): slot(other) {
 }
 
-void GraphicSlotRef::show_slot(sf::RenderWindow& window) {
+void GraphicSlotRef::show_slot(sf::RenderWindow& window, bool show_amount) {
     window.draw(slot_sprite);
     if (slot->get_item() != nullptr) {
         window.draw(slot->get_item()->get_icon());
-        window.draw(gr_amount);
+        if (show_amount)
+            window.draw(gr_amount);
     }
 }
 
@@ -144,7 +145,8 @@ void GraphicInventoryRef::set_pos(float x, float y) {
         auto& posslot = gr_items_array[i]->slot_sprite.getPosition();
         auto& posamount = gr_items_array[i]->gr_amount.getPosition();
         gr_items_array[i]->slot_sprite.setPosition({posslot.x + diff_x, posslot.y + diff_y});
-        gr_items_array[i]->gr_amount.setPosition({posamount.x + diff_x, posamount.y + diff_y});
+        gr_items_array[i]->gr_amount.setPosition(
+                { posamount.x + diff_x, posamount.y + diff_y });
         gr_items_array[i]->pos.left = gr_items_array[i]->slot_sprite.getPosition().x;
         gr_items_array[i]->pos.top = gr_items_array[i]->slot_sprite.getPosition().y;
         if (gr_items_array[i]->slot->get_item() != nullptr) {
@@ -154,15 +156,23 @@ void GraphicInventoryRef::set_pos(float x, float y) {
     }
 }
 
+bool GraphicInventoryBar::in_game = false;
+
+void GraphicInventoryRef::show(sf::RenderWindow& window) {
+    for (auto& el : gr_items_array)
+        el->show_slot(window, true);
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // GRAPHIC_INVENTORY_COPY /////////////////////////////////////////////////////////////////////////
 
-void GraphicSlotCopy::show_slot(sf::RenderWindow& window) {
+void GraphicSlotCopy::show_slot(sf::RenderWindow& window, bool show_amount) {
     window.draw(slot_sprite);
     if (slot->get_item() != nullptr) {
         window.draw(slot->get_item()->get_icon());
-        window.draw(gr_amount);
+        if (show_amount)
+            window.draw(gr_amount);
     }
 }
 
@@ -210,6 +220,11 @@ void GraphicInventoryCopy::build_inventory(std::vector<std::shared_ptr<Slot>>& i
 
 std::shared_ptr<GraphicSlotCopy>& GraphicInventoryCopy::operator[](std::size_t index) {
     return gr_items_array[index];
+}
+
+void GraphicInventoryCopy::show(sf::RenderWindow& window) {
+    for (auto& el : gr_items_array)
+        el->show_slot(window, true);
 }
 
 void GraphicInventoryCopy::set_pos(float x, float y) {
@@ -365,10 +380,6 @@ void GraphicInventoryBar::build_inventory(std::vector<std::shared_ptr<Slot>>& it
     }
 }
 
-void GraphicInventoryBar::dynamic_update(std::vector<std::shared_ptr<Slot>>& items) {
-    items;
-}
-
 void GraphicInventoryBar::inventory_menu_scale() {
     for (std::size_t i = 0; i < gr_items_array.size(); ++i) {
         auto& posslot = gr_items_array[i]->slot_sprite.getPosition();
@@ -398,6 +409,7 @@ void GraphicInventoryBar::inventory_menu_scale() {
             }
         }
     }
+    in_game = false;
 }
 
 void GraphicInventoryBar::in_game_scale() {
@@ -405,7 +417,8 @@ void GraphicInventoryBar::in_game_scale() {
         auto& posslot = gr_items_array[i]->slot_sprite.getPosition();
         auto& posamount = gr_items_array[i]->gr_amount.getPosition();
         gr_items_array[i]->slot_sprite.setPosition({posslot.x - i * scale_offset, posslot.y});
-        gr_items_array[i]->slot_sprite.setScale({ 1.5f, 1.5f });
+        gr_items_array[i]->slot_sprite.setScale(
+                { 1.5f, 1.5f });
         gr_items_array[i]->gr_amount.setPosition({posamount.x - i * scale_offset, posamount.y - 12.f});
         gr_items_array[i]->pos.left = gr_items_array[i]->slot_sprite.getPosition().x;
         gr_items_array[i]->pos.top = gr_items_array[i]->slot_sprite.getPosition().y;
@@ -420,13 +433,12 @@ void GraphicInventoryBar::in_game_scale() {
             }
             gr_items_array[i]->slot->get_item()->get_icon().setPosition({x, y});
             gr_items_array[i]->slot->get_item()->get_icon().setScale({1.f, 1.f});
-            gr_items_array[i]->gr_amount.setString(std::to_string(gr_items_array[i]->slot->get_amount()));
-            if (gr_items_array[i]->slot->get_amount() >= 10 && !gr_items_array[i]->gr_amount_offset) {
-                x = gr_items_array[i]->gr_amount.getPosition().x - 6.f;
-                y = gr_items_array[i]->gr_amount.getPosition().y;
-                gr_items_array[i]->gr_amount.setPosition({x, y});
-                gr_items_array[i]->gr_amount_offset = true;
-            }
         }
     }
+    in_game = true;
+}
+
+void GraphicInventoryBar::show(sf::RenderWindow& window) {
+    for (auto& el : gr_items_array)
+        el->show_slot(window, !in_game);
 }

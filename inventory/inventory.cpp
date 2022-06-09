@@ -24,7 +24,7 @@ void Slot::add_to_existing_slot(std::size_t& value) {
         amount += value;
         value = 0;
     } else {
-        value = std::max(0ull, amount + value - max_amount);
+        value = std::max(static_cast<std::size_t>(0), amount + value - max_amount);
         amount = max_amount;
     }
 }
