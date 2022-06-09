@@ -160,8 +160,7 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
         for (auto& x : drawable_creatures) {
             if (weapon != nullptr && x.get() != creature &&
                 weapon->damage_box.findIntersection(x->hit_box).has_value()) {
-                auto damage = creature->get_weapon()->get_total_damage(creature->mode);
-                x->reduce_health(static_cast<float>(damage));
+                x->reduce_health(weapon->get_total_damage(creature->mode));
                 sf::Vector2f offset;
                 switch (creature->direction) {
                 case Dirs::LEFT:
@@ -183,13 +182,20 @@ void Action::hit(Creature* creature, float time, const std::vector<std::shared_p
                     throw std::invalid_argument("Wrong direction");
                     break;
                 }
-                std::size_t start_char_size = 10;
+                constexpr std::size_t start_char_size = 10;
+                std::string damage;
+                if (mode == Modes::SLASH) {
+                    damage = std::to_string(
+                            static_cast<int>(weapon->get_total_damage(creature->mode).physical_damage_slash));
+                } else {
+                    damage = std::to_string(
+                            static_cast<int>(weapon->get_total_damage(creature->mode).physical_damage_thrust));
+                }
                 sf::Vector2f text_pos = {x->hit_box.left + x->hit_box.width / 2,
                                          x->hit_box.top + x->hit_box.height / 2 - start_char_size};
-                sprites.push_back(std::shared_ptr<AnimatedText>(
-                        new AnimatedText(std::to_string(static_cast<int>(damage)), sf::Color(255, 0, 0),
-                                         start_char_size, text_pos, offset, 1.f, {0.5f, 0.7f}, {2.f, 2.f})));
-                
+                sprites.push_back(std::shared_ptr<AnimatedText>(new AnimatedText(damage, sf::Color(255, 0, 0),
+                                                                                 start_char_size, text_pos, offset, 1.f,
+                                                                                 {0.4f, 0.6f}, {2.f, 2.f})));
             }
         }
     }

@@ -18,6 +18,8 @@ AnimatedText::AnimatedText(const std::string& value, sf::Color color, std::size_
     speedX = offset.x / lifetime;
     speedY = offset.y / lifetime;
     text.setOrigin({text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2});
+    text.setOutlineThickness(0.4f);
+    text.setOutlineColor({0, 0, 0, 0});
 }
 
 AnimatedText::AnimatedText(const std::string& value, sf::Color color, std::size_t _start_char_size,
@@ -36,6 +38,9 @@ AnimatedText::AnimatedText(const std::string& value, sf::Color color, std::size_
     prev_alpha = 255;
     speedX = speedY = 0.f;
     text.setOrigin({text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2});
+    text.setOutlineThickness(0.4f);
+    text.setOutlineColor({0, 0, 0, 0});
+    
 }
 
 void AnimatedText::action(float time) {
@@ -76,15 +81,16 @@ void AnimatedText::scale() {
 }
 
 void AnimatedText::melt_away() {
-    sf::Uint8 cur_alpha;
+    sf::Uint8 cur_alpha = 255;
     if (elapsed_time >= melt_coef.y * lifetime) {
         cur_alpha = 255 - static_cast<sf::Uint8>(255.f * (elapsed_time - melt_coef.y * lifetime) /
                                                            ((1.f - melt_coef.y) * lifetime));
-    } else {
-        cur_alpha = static_cast<sf::Uint8>(255.f * (elapsed_time / (melt_coef.x * lifetime)));                         
+    } else if (melt_coef.x > 0.f) {
+        cur_alpha = static_cast<sf::Uint8>(255.f * (elapsed_time / (melt_coef.x * lifetime)));   
     }
     if (cur_alpha != prev_alpha) {
         text.setFillColor(sf::Color(text.getFillColor().r, text.getFillColor().g, text.getFillColor().b, cur_alpha));
+        text.setOutlineColor({0, 0, 0, cur_alpha});
         prev_alpha = cur_alpha;
     }
 }

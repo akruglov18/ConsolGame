@@ -3,7 +3,6 @@
 #include "trader/trader.h"
 #include "animated_text.h"
 
-
 enum class View_mode {
     NONE,
     EXIT,
