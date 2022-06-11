@@ -7,6 +7,7 @@
 #include "trader/trader.h"
 #include "utils.h"
 #include "weapons.h"
+#include "animated_text.h"
 
 namespace {
 
@@ -26,6 +27,7 @@ TEST(PlayerTests, get_type) {
 }
 
 void test_stuck() {
+    std::vector<std::shared_ptr<BaseAnimatedSprite>> sprites;
     std::shared_ptr<Field> field = std::make_shared<Field>(Field(128, 128));
     field->generate_desert();
     CreatureManager man;
@@ -48,7 +50,7 @@ void test_stuck() {
     window.close();
     sf::Clock clock;
     for (int i = 0; i < 100; i++) {
-        player->action(event, 0.05f, field.get(), enemies);
+        player->action(event, 0.05f, field.get(), enemies, sprites);
         ASSERT_TRUE(enemies[0]->stuck);
         if (enemies[0]->get_health() < 0) {
             ASSERT_TRUE(enemies[0]->dying);

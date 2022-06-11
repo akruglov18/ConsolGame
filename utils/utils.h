@@ -1,6 +1,7 @@
 #pragma once
 #include "enemies/enemy.h"
 #include "trader/trader.h"
+#include "animated_text.h"
 
 enum class View_mode {
     NONE,
@@ -33,6 +34,7 @@ public:
     static float square(float x) {
         return x * x;
     }
+    static void delete_disappeared_sprites(std::vector<std::shared_ptr<BaseAnimatedSprite>>& sprites);
 
 private:
     static void check_collision(sf::FloatRect& box1, sf::FloatRect& box2, Collisions& mask);

@@ -154,3 +154,16 @@ void Utils::clear_event(sf::Event& event, sf::Event& last_event, std::shared_ptr
         }
     }
 }
+
+void Utils::delete_disappeared_sprites(std::vector<std::shared_ptr<BaseAnimatedSprite>>& sprites) {
+    std::size_t to_resize = sprites.size();
+    for (std::size_t i = 0; i < to_resize; ++i) {
+        if (sprites[i]->disappeared) {
+            std::swap(sprites[i], sprites[--to_resize]);
+            if (sprites[i]->disappeared) {
+                --i;
+            }
+        }
+    }
+    sprites.resize(to_resize);
+}

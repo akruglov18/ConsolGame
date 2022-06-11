@@ -10,6 +10,7 @@
 #include "field.h"
 #include "nlohmann_json/json.hpp"
 #include "status.h"
+#include "animated_text.h"
 
 using json = nlohmann::json;
 

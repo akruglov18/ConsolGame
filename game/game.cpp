@@ -27,7 +27,7 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     // player->set_weapon(Flail::make_flail());
     player->set_weapon(Halberd::make_halberd());
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 1; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 10 + 4) * 40.f, (i / 10 + 4) * 40.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
@@ -141,12 +141,15 @@ View_mode Game::game_loop() {
 void Game::frame_calculation(float time, sf::Event& event, sf::Event& last_event) {
     // ACTIONS //////////////////////////////////////////////////////
     statistics.start();
-    player->action(event, time, game_field.get(), drawable_creatures);
+    player->action(event, time, game_field.get(), drawable_creatures, animated_sprites);
     for (auto& enemy : enemies) {
         enemy->action(time, game_field.get(), player.get(), settings.difficulty);
     }
     for (auto& trader : traders) {
         trader->action(time, player.get());
+    }
+    for (auto& sprite : animated_sprites) {
+        sprite->action(time);
     }
     statistics.stop(ACTIONS_STAT);
     /////////////////////////////////////////////////////////////////
@@ -158,6 +161,8 @@ void Game::frame_calculation(float time, sf::Event& event, sf::Event& last_event
     object_borders = Utils::get_object_borders(borders, game_field->get_width(), game_field->get_height());
 
     Utils::delete_dead_creatures(enemies, traders);
+
+    Utils::delete_disappeared_sprites(animated_sprites);
 
     Utils::detect_collisions(drawable_creatures);
 
@@ -188,6 +193,7 @@ void Game::render() {
 
     statistics.start();
     Drawer::show_objects(*window, game_field, object_borders, drawable_creatures, show_boxes);
+    Drawer::show_animated_sprites(*window, animated_sprites);
     statistics.stop(OBJECTS_RENDER_STAT);
 
     // RENDERING STATIC UI ELEMENTS
