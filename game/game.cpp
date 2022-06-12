@@ -58,6 +58,11 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     TradeMenu::bind(InventoryMenu::gr_inventory, InventoryMenu::gr_inventory_bar, InventoryMenu::gr_money);
 }
 
+Game::~Game() {
+    InventoryMenu::gr_inventory->gr_items_array.clear();
+    InventoryMenu::gr_inventory_bar->gr_items_array.clear();
+}
+
 View_mode Game::check_event(sf::Event& event, float time) {
     if (event.type == sf::Event::Closed) {
         std::remove("../../images/tmp.jpg");

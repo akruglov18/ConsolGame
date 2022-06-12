@@ -16,7 +16,7 @@ void Coins::changeValue(int added) {
 }
 
 void Coins::chooseTexture() {
-    std::vector<std::size_t> bounds = {1, 100, 500, 1000, 5000};
+    static constexpr std::array<std::size_t, 5> bounds = {1, 100, 500, 1000, 5000};
     auto size = static_cast<int>(bounds.size());
     for (int i = size - 1; i >= 0; i--) {
         if (value >= bounds[i]) {

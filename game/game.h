@@ -28,6 +28,7 @@
 class Game {
 public:
     Game(sf::RenderWindow* _window, GameSettings& _settings);
+    ~Game();
 
     // Main loop
     View_mode game_loop();

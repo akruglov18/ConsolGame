@@ -20,9 +20,11 @@ void Player::action(sf::Event& event, float time, Field* game_field,
 
     health_bar.update(health, max_health, hit_box);
     satiety = std::fmax(0.f, satiety - time * 0.003f);
-    if (satiety == 0.f) {
+
+    if (satiety <= 0.f) {
         health -= time * 0.003f;
     }
+
     if (health <= 0.f) {
         dying = true;
     }
@@ -31,8 +33,9 @@ void Player::action(sf::Event& event, float time, Field* game_field,
         Action::dying(this, time);
         return;
     }
+
     if (mode == Modes::SLASH || mode == Modes::THRUST) {
-        Action::hit(this, time, drawable_creatures, mode);
+        Action::hit(this, time, drawable_creatures, sprites, mode);
         return;
     }
 
