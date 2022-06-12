@@ -24,10 +24,15 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     player->set_armor(Pants::make_pants(PantsType::Pants_green));
     player->set_armor(Boots::make_boots(BootsType::Boots_brown));
     // player->set_weapon(Axe::make_axe(AxeType::Axe_basic));
-    // player->set_weapon(Flail::make_flail());
-    player->set_weapon(Halberd::make_halberd());
+    player->set_weapon(Flail::make_flail());
+    //player->set_weapon(Halberd::make_halberd());
+    std::vector<std::shared_ptr<Items>> tmp_vec;
+    tmp_vec.push_back(player->get_weapon());
+    tmp_vec.push_back(Axe::make_axe(AxeType::Axe_basic));
+    tmp_vec.push_back(Halberd::make_halberd());
+    player->inventory.take(tmp_vec);
 
-    for (int i = 0; i < 1; ++i) {
+    for (int i = 0; i < 50; ++i) {
         enemies.push_back(
                 Enemy::spawn_enemy(CreatureType::SKELETON, manager, 100.f, {(i % 10 + 4) * 40.f, (i / 10 + 4) * 40.f}));
         enemies[i]->set_armor(BodyArmor::make_body(BodyArmorType::BodyArmor_chain));
@@ -47,19 +52,27 @@ Game::Game(sf::RenderWindow* _window, GameSettings& _settings): settings(_settin
     game_UI.update_UI(*player);
     // There will be a method that will load inventory from json
     InventoryMenu::gr_inventory->build_inventory(player->inventory.get(), 500.f, 200.f);
-    TradeMenu::gr_inventory_trader.build_inventory(std::vector<std::shared_ptr<Slot>>(16), 700.f, 200.f);
-    TradeMenu::bind(InventoryMenu::gr_inventory, InventoryMenu::gr_money);
+    InventoryMenu::gr_inventory_bar->build_inventory(player->inventory.get(), Inventory::bar_size);
+    std::vector<std::shared_ptr<Slot>> mock(16);
+    TradeMenu::gr_inventory_trader.build_inventory(mock, 700.f, 200.f);
+    TradeMenu::bind(InventoryMenu::gr_inventory, InventoryMenu::gr_inventory_bar, InventoryMenu::gr_money);
+}
+
+Game::~Game() {
+    InventoryMenu::gr_inventory->gr_items_array.clear();
+    InventoryMenu::gr_inventory_bar->gr_items_array.clear();
 }
 
 View_mode Game::check_event(sf::Event& event, float time) {
     if (event.type == sf::Event::Closed) {
+        std::remove("../../images/tmp.jpg");
         return View_mode::EXIT;
     }
 
     if (player->dead) {
         countdown_before_gameover_screen += time;
         if (countdown_before_gameover_screen > 5.f) {
-            make_screenshot("tmp_gameover");
+            make_screenshot("tmp");
             return View_mode::GAMEOVER_MENU;
         }
     }
@@ -80,18 +93,18 @@ View_mode Game::check_event(sf::Event& event, float time) {
             show_boxes = !show_boxes;
             break;
         case (sf::Keyboard::Escape):
-            make_screenshot("tmp_pause");
+            make_screenshot("tmp");
             return View_mode::PAUSE_MENU;
         case (sf::Keyboard::E):
             InventoryMenu::update_graphic_inventory(player->inventory.get(), player->inventory.get_money());
-            make_screenshot("tmp_inventory");
+            make_screenshot("tmp");
             return View_mode::INVENTORY_MENU;
         case (sf::Keyboard::T):
             if (player->available_trader != nullptr) {
                 TradeMenu::update_graphic_inventories(
                         player->inventory.get(), player->available_trader->inventory.get(),
                         player->inventory.get_money(), player->available_trader->inventory.get_money());
-                make_screenshot("tmp_inventory");
+                make_screenshot("tmp");
                 return View_mode::TRADE_MENU;
             }
             break;

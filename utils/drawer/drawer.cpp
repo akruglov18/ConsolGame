@@ -51,7 +51,7 @@ void Drawer::show_objects(sf::RenderWindow& window, const std::shared_ptr<Field>
                 window.draw(field->desert_feature_sprite);
             }
             for (std::size_t i = 0; i < cur_tile->items.size(); i++) {
-                window.draw(cur_tile->items[i]->get_sprite());
+                window.draw(cur_tile->items[i]->get_icon());
             }
             if (cur_tile->tree) {
                 Tile::scale_trees(field->desert_tree_sprite, cur_tile->tree - 1, i, j);

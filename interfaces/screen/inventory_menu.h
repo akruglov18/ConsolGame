@@ -13,11 +13,12 @@ public:
 
     MenuButton b_exit;
     std::vector<MenuButton*> buttons;
-    static inline std::shared_ptr<GraphicInventory> gr_inventory;
+    static inline std::shared_ptr<GraphicInventoryRef> gr_inventory;
+    static inline std::shared_ptr<GraphicInventoryBar> gr_inventory_bar;
     static inline std::shared_ptr<sf::Text> gr_money;
 
     virtual View_mode Run(sf::RenderWindow& window) override;
-    static void update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, int _money);
+    static void update_graphic_inventory(const std::vector<std::shared_ptr<Slot>>& items_array, std::size_t _money);
 
 private:
     void show_inventory(sf::RenderWindow& window);

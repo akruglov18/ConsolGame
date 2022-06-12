@@ -17,7 +17,7 @@ GameoverMenu::GameoverMenu()
 }
 
 View_mode GameoverMenu::Run(sf::RenderWindow& window) {
-    gameover_screenIMG.loadFromFile("../../images/tmp_gameover.jpg");
+    gameover_screenIMG.loadFromFile("../../images/tmp.jpg");
     gameover_screen.setTexture(gameover_screenIMG);
     gameover_screen.setColor(sf::Color(255, 0, 0, 70));
 
@@ -30,16 +30,16 @@ View_mode GameoverMenu::Run(sf::RenderWindow& window) {
         window.pollEvent(event);
 
         if (event.type == sf::Event::Closed) {
-            std::remove("../../images/tmp_gameover.jpg");
+            std::remove("../../images/tmp.jpg");
             return View_mode::EXIT;
         }
         to_return = MenuButton::buttons_checker(sf::Mouse::getPosition(window), buttons, event);
         if (to_return != View_mode::NONE) {
-            std::remove("../../images/tmp_gameover.jpg");
+            std::remove("../../images/tmp.jpg");
             return to_return;
         }
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-            std::remove("../../images/tmp_gameover.jpg");
+            std::remove("../../images/tmp.jpg");
             return View_mode::GAME;
         }
 

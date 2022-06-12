@@ -59,16 +59,22 @@ public:
     sf::Sprite& get_sprite() {
         return sprite;
     }
+    sf::Sprite& get_icon() {
+        return icon;
+    }
     std::vector<std::shared_ptr<sf::Texture>>& get_textures() {
         return textures;
     }
     std::string get_id() {
         return id;
     }
+    std::size_t getValue() const {
+        return value;
+    }
     void set_scale(const sf::Vector2f& pos);
     virtual json to_json() const = 0;
 
-    int value = 1;
+    std::size_t value = 1;
 
     static ThingsID thing_ids;
     static FoodID food_ids;
@@ -80,6 +86,7 @@ protected:
     std::string id;
     std::vector<std::shared_ptr<sf::Texture>> textures;
     sf::Sprite sprite;
+    sf::Sprite icon;
     ItemType item_type = ItemType::NONE;
 };
 

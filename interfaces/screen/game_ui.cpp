@@ -100,7 +100,7 @@ void MiniMap::check_buttons(sf::Vector2i mouse_pos) {
     }
 }
 
-GameUI::GameUI() {
+GameUI::GameUI() : inventory_bar(InventoryMenu::gr_inventory_bar) {
     font = *Resources::FontsHolder::getResource("basic_font");
 
     // BARS AND SETTINGS //////////////////////////////////////////////////////////////////////////
@@ -157,29 +157,6 @@ GameUI::GameUI() {
     magic_plate_spriteR.setTextureRect({{154, 510}, {16, 40}});
     magic_plate_spriteR.setPosition({magic_plate_x + 80.f, magic_plate_y});
     magic_plate_spriteR.setScale({1.f, 1.5f});
-
-    // INVENTORY //////////////////////////////////////////////////////////////////////////////////
-    gr_items_array_size = 12;
-    items_arr_x = 320.f;
-    items_arr_y = 648.f;
-
-    for (int i = 0; i < gr_items_array_size; ++i) {
-        gr_items_array.push_back(std::make_shared<GraphicSlot>(GraphicSlot()));
-        gr_items_array[i]->slot_sprite.setTexture(*Resources::TexturesHolder::getResource("main_ui"));
-        if (i == 0) {
-            gr_items_array[i]->slot_sprite.setTextureRect({{574, 286}, {38, 40}});
-        } else if (i == gr_items_array_size - 1) {
-            gr_items_array[i]->slot_sprite.setTextureRect({{650, 286}, {38, 40}});
-        } else {
-            gr_items_array[i]->slot_sprite.setTextureRect({{613, 286}, {36, 40}});
-        }
-        float offset_x = 0.f;
-        if (i >= 2)
-            offset_x = static_cast<float>(i - 1) * 4;
-        gr_items_array[i]->slot_sprite.setPosition({items_arr_x + i * 38.f * 1.5f - offset_x, items_arr_y});
-        gr_items_array[i]->slot_sprite.setScale({1.5f, 1.5f});
-        gr_items_array[i]->slot = std::make_shared<Slot>(Slot());
-    }
 }
 
 void GameUI::update_UI(Player& p) {
@@ -192,6 +169,21 @@ void GameUI::update_UI(Player& p) {
     health_bar_sprite.setScale({std::fmax(0.f, (health / max_health) * 16.f), 1.f});
     satiety_bar_sprite.setScale({std::fmax(0.f, (satiety / max_satiety) * 16.f), 1.f});
     expirience_bar_sprite.setScale({std::fmin(16.f, exp * 0.03f), 1.f});
+
+    for (std::size_t i = 0; i < inventory_bar->gr_items_array.size(); ++i) {
+        if ((*inventory_bar)[i]->slot->get_item() != nullptr) {
+            float x, y;
+            if ((*inventory_bar)[i]->slot->get_item()->get_type() == ItemType::WEAPON) {
+                x = (*inventory_bar)[i]->slot_sprite.getPosition().x - 8.f;
+                y = (*inventory_bar)[i]->slot_sprite.getPosition().y - 14.f;
+            } else {
+                x = (*inventory_bar)[i]->slot_sprite.getPosition().x + 6.f;
+                y = (*inventory_bar)[i]->slot_sprite.getPosition().y + 8.f;
+            }
+            (*inventory_bar)[i]->slot->get_item()->get_icon().setPosition({x, y});
+            (*inventory_bar)[i]->slot->get_item()->get_icon().setScale({1.25f, 1.25f});
+        }
+    }
 }
 
 void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanics) {
@@ -227,8 +219,7 @@ void GameUI::show_UI(sf::RenderWindow& window, std::vector<bool> opened_mechanic
         settings.show_settings(window);
     }
 
-    for (auto& el : gr_items_array)
-        el->show_slot(window);
+    inventory_bar->show(window);
 
     minimap.check_buttons(sf::Mouse::getPosition(window));
     minimap.show_minimap(window);
