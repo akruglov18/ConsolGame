@@ -126,6 +126,15 @@ void GraphicInventoryRef::build_inventory(std::vector<std::shared_ptr<Slot>>& it
     }
 }
 
+void GraphicInventoryRef::build_inventory(GraphicInventoryRef& sq_items, GraphicInventoryBar& bar_items) {
+    for (std::size_t i = 0; i < bar_items.size(); ++i) {
+        gr_items_array.push_back(bar_items[i]);
+    }
+    for (std::size_t i = 0; i < sq_items.size(); ++i) {
+        gr_items_array.push_back(sq_items[i]);
+    }
+}
+
 std::shared_ptr<GraphicSlotRef>& GraphicInventoryRef::operator[](std::size_t index) {
     return gr_items_array[index];
 }

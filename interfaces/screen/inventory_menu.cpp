@@ -6,6 +6,7 @@ InventoryMenu::InventoryMenu(): b_exit("Back", sf::FloatRect({20.f, 20.f}, {150.
 
     gr_inventory = std::shared_ptr<GraphicInventoryRef>(new GraphicInventoryRef());
     gr_inventory_bar = std::shared_ptr<GraphicInventoryBar>(new GraphicInventoryBar());
+    gr_united_inventory = std::shared_ptr<GraphicInventoryRef>(new GraphicInventoryRef());
     gr_money = std::shared_ptr<sf::Text>(new sf::Text());
     gr_money->setFont(font);
     gr_money->setCharacterSize(40);
@@ -50,7 +51,7 @@ void InventoryMenu::show_inventory(sf::RenderWindow& window) {
     gr_inventory->show(window);
     gr_inventory_bar->show(window);
     if (BaseGraphicInventory::chosen_one != BaseGraphicInventory::NONE_CHOSEN) {
-        gr_inventory->gr_items_array[BaseGraphicInventory::chosen_one]->show_slot(window, true);
+        gr_united_inventory->gr_items_array[BaseGraphicInventory::chosen_one]->show_slot(window, true);
     }
 }
 
@@ -87,8 +88,7 @@ View_mode InventoryMenu::Run(sf::RenderWindow& window) {
             return to_return;
         }
 
-        GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory->gr_items_array);
-        //GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_inventory_bar->gr_items_array);
+        GraphicInventoryRef::check_move_objects(sf::Mouse::getPosition(window), gr_united_inventory->gr_items_array);
 
         window.clear(color);
         window.draw(inventory_screen);
