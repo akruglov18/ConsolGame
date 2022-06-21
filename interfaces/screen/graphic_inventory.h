@@ -50,11 +50,14 @@ protected:
     static float click_offset_y;
 };
 
+class GraphicInventoryBar;
+
 class GraphicInventoryRef : public BaseGraphicInventory {
 public:
     virtual ~GraphicInventoryRef() override {}
     std::vector<std::shared_ptr<GraphicSlotRef>> gr_items_array;
     void build_inventory(std::vector<std::shared_ptr<Slot>>& items, float x, float y) final override;
+    void build_inventory(GraphicInventoryRef& sq_items, GraphicInventoryBar& bar_items);
     std::shared_ptr<GraphicSlotRef>& operator[](std::size_t index);
     std::size_t size() const final override {
         return gr_items_array.size();

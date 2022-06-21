@@ -15,6 +15,7 @@ public:
     std::vector<MenuButton*> buttons;
     static inline std::shared_ptr<GraphicInventoryRef> gr_inventory;
     static inline std::shared_ptr<GraphicInventoryBar> gr_inventory_bar;
+    static inline std::shared_ptr<GraphicInventoryRef> gr_united_inventory;
     static inline std::shared_ptr<sf::Text> gr_money;
 
     virtual View_mode Run(sf::RenderWindow& window) override;

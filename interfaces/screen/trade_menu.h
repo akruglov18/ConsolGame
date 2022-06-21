@@ -17,11 +17,13 @@ public:
     static inline sf::Text gr_money_trader;
     static inline std::shared_ptr<GraphicInventoryRef> gr_inventory_player;
     static inline std::shared_ptr<GraphicInventoryBar> gr_inventory_player_bar;
+    static inline std::shared_ptr<GraphicInventoryRef> gr_united_inventory_player;
     static inline std::shared_ptr<sf::Text> gr_money_player;
 
     virtual View_mode Run(sf::RenderWindow& window) override;
     static void bind(std::shared_ptr<GraphicInventoryRef> _gr_inventory_player,
                      std::shared_ptr<GraphicInventoryBar> _gr_inventory_player_bar,
+                     std::shared_ptr<GraphicInventoryRef> _gr_united_inventory_player,
                      std::shared_ptr<sf::Text> _gr_money_player);
     static void update_graphic_inventories(const std::vector<std::shared_ptr<Slot>>& _gr_inventory_player,
                                            const std::vector<std::shared_ptr<Slot>>& _gr_inventory_trader,
