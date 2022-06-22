@@ -92,6 +92,23 @@ View_mode Game::check_event(sf::Event& event, float time) {
         case (sf::Keyboard::F1):
             statistics.on = !statistics.on;
             break;
+        case (sf::Keyboard::Num1):
+        case (sf::Keyboard::Num2):
+        case (sf::Keyboard::Num3):
+        case (sf::Keyboard::Num4):
+        case (sf::Keyboard::Num5):
+        case (sf::Keyboard::Num6):
+            if (player->inventory.get()[static_cast<std::size_t>(event.key.code - sf::Keyboard::Num1)]->get_item() !=
+                        nullptr &&
+                player->inventory.get()[static_cast<std::size_t>(event.key.code - sf::Keyboard::Num1)]
+                                ->get_item()
+                                ->get_type() == ItemType::WEAPON) {
+                player->set_weapon(std::dynamic_pointer_cast<BaseWeapon>(
+                        player->inventory.get()[static_cast<std::size_t>(event.key.code - sf::Keyboard::Num1)]
+                                ->get_item()));
+                Animation::stop_animation(player.get());
+            }
+            break;
         case (sf::Keyboard::B):
             show_boxes = !show_boxes;
             break;

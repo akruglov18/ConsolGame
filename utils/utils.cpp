@@ -134,7 +134,10 @@ void Utils::clear_event(sf::Event& event, sf::Event& last_event, std::shared_ptr
         event.type == sf::Event::MouseLeft || event.type == sf::Event::MouseEntered ||
         event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde) || sf::Keyboard::isKeyPressed(sf::Keyboard::B) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::F1) || sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
+        sf::Keyboard::isKeyPressed(sf::Keyboard::F1) || sf::Keyboard::isKeyPressed(sf::Keyboard::T) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Num5) || sf::Keyboard::isKeyPressed(sf::Keyboard::Num6)) {
         event = std::move(last_event);
     }
 
