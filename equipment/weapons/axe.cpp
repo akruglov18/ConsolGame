@@ -11,7 +11,7 @@ std::shared_ptr<Axe> Axe::make_axe(AxeType type) {
     case AxeType::Axe_basic: {
         auto res = std::shared_ptr<Axe>(new Axe("AXE_basic", type));
         res->can_slash = true;
-        res->damage.physical_damage_slash = 40.0f;
+        res->damage.physical_damage_slash = 50.0f;
         res->damage.critical_chance = 40;
         res->damage.critical_multiplier = 1.1f;
         return res;
